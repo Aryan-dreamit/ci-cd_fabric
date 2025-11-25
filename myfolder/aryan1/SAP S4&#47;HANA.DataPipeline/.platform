@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "DataPipeline",
+    "displayName": "SAP S4/HANA"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "4ff6ab50-418e-9c6a-4fd7-0e14d0f95971"
+  }
+}

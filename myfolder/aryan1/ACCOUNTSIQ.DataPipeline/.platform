@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "DataPipeline",
+    "displayName": "ACCOUNTSIQ"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "d6edbe9b-d944-8b8b-42b0-b2f1202cc6d8"
+  }
+}

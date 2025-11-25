@@ -1,0 +1,226 @@
+{
+  "name": "{{Dataset_Name}}",
+  "compatibilityLevel": 1604,
+  "model": {
+    "name": "{{Dataset_Name}}",
+    "culture": "en-US",
+    "collation": "Latin1_General_100_BIN2_UTF8",
+    "dataAccessOptions": {
+      "legacyRedirects": true,
+      "returnErrorValuesAsNull": true
+    },
+    "defaultPowerBIDataSourceVersion": "powerBI_V3",
+    "sourceQueryCulture": "en-US",
+    "tables": [
+      {
+        "name": "Orders1",
+        "sourceLineageTag": "[dbo].[Orders1]",
+        "columns": [
+          {
+            "name": "SaleID",
+            "dataType": "int64",
+            "sourceColumn": "SaleID",
+            "formatString": "0",
+            "sourceProviderType": "int",
+            "sourceLineageTag": "SaleID",
+            "summarizeBy": "sum",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "SalesRep",
+            "dataType": "string",
+            "sourceColumn": "SalesRep",
+            "sourceProviderType": "varchar",
+            "sourceLineageTag": "SalesRep",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "ProductName",
+            "dataType": "string",
+            "sourceColumn": "ProductName",
+            "sourceProviderType": "varchar",
+            "sourceLineageTag": "ProductName",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "SaleAmount",
+            "dataType": "decimal",
+            "sourceColumn": "SaleAmount",
+            "sourceProviderType": "decimal",
+            "sourceLineageTag": "SaleAmount",
+            "summarizeBy": "sum",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "SaleDate",
+            "dataType": "dateTime",
+            "sourceColumn": "SaleDate",
+            "formatString": "General Date",
+            "sourceProviderType": "date",
+            "sourceLineageTag": "SaleDate",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          }
+        ],
+        "partitions": [
+          {
+            "name": "{{Partition_Name}}",
+            "mode": "directLake",
+            "source": {
+              "type": "entity",
+              "entityName": "Orders1",
+              "expressionSource": "DatabaseQuery",
+              "schemaName": "dbo"
+            }
+          }
+        ],
+        "annotations": [
+          {
+            "name": "IsTableInBiModel",
+            "value": "False"
+          }
+        ]
+      },
+      {
+        "name": "Orders",
+        "sourceLineageTag": "[dbo].[Orders]",
+        "columns": [
+          {
+            "name": "SaleID",
+            "dataType": "int64",
+            "sourceColumn": "SaleID",
+            "formatString": "0",
+            "sourceProviderType": "int",
+            "sourceLineageTag": "SaleID",
+            "summarizeBy": "sum",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "SalesRep",
+            "dataType": "string",
+            "sourceColumn": "SalesRep",
+            "sourceProviderType": "varchar",
+            "sourceLineageTag": "SalesRep",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "ProductName",
+            "dataType": "string",
+            "sourceColumn": "ProductName",
+            "sourceProviderType": "varchar",
+            "sourceLineageTag": "ProductName",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "SaleAmount",
+            "dataType": "decimal",
+            "sourceColumn": "SaleAmount",
+            "sourceProviderType": "decimal",
+            "sourceLineageTag": "SaleAmount",
+            "summarizeBy": "sum",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "SaleDate",
+            "dataType": "dateTime",
+            "sourceColumn": "SaleDate",
+            "formatString": "General Date",
+            "sourceProviderType": "date",
+            "sourceLineageTag": "SaleDate",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          }
+        ],
+        "partitions": [
+          {
+            "name": "{{Partition_Name}}",
+            "mode": "directLake",
+            "source": {
+              "type": "entity",
+              "entityName": "Orders",
+              "expressionSource": "DatabaseQuery",
+              "schemaName": "dbo"
+            }
+          }
+        ],
+        "annotations": [
+          {
+            "name": "IsTableInBiModel",
+            "value": "False"
+          }
+        ]
+      }
+    ],
+    "expressions": [
+      {
+        "name": "DatabaseQuery",
+        "kind": "m",
+        "expression": "let\n    database = {{TDS_Endpoint}}\nin\n    database\n"
+      }
+    ],
+    "annotations": [
+      {
+        "name": "__PBI_TimeIntelligenceEnabled",
+        "value": "0"
+      },
+      {
+        "name": "SourceLineageTagType",
+        "value": "DatabaseFullyQualifiedName"
+      }
+    ]
+  }
+}

@@ -89,6 +89,10 @@ table _measures_table
 			)
 		lineageTag: 4cdc2807-21da-4be9-9a23-58242a35a15f
 
+	measure countcontractsearch = count('contract_search 2'[contract_name])
+		formatString: 0
+		lineageTag: 16e3036f-e2c1-4d24-a852-7930ee61a497
+
 	column Column
 		formatString: 0
 		lineageTag: b27936d1-d705-4398-bfc6-6b60cf65465d

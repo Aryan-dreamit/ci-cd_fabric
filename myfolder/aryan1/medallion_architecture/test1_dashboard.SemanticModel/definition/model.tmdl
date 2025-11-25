@@ -15,6 +15,8 @@ annotation __PBI_TimeIntelligenceEnabled = 1
 
 annotation PBI_QueryOrder = ["contract_search","ireland_holiday","resource_list","actuals","Revenue by Month","ContractNames","CompanyNames","billing_customer","Errors in Revenue by Month","DirectQuery to AS - gold_semantic"]
 
+annotation PBI_ProTooling = ["WebModelingEdit"]
+
 ref table DateTableTemplate_6c91ed54-8504-4ed6-b950-4de107348d3a
 ref table contract_search
 ref table LocalDateTable_6a319bcb-abcc-4502-85a2-cb7c5f373bb4

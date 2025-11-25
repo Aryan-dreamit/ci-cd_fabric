@@ -1,0 +1,96 @@
+table CustomEcomSupport
+	lineageTag: 3cd4047a-389b-47f6-9f17-0b1e8a4269ab
+
+	column Group
+		dataType: string
+		lineageTag: 347a8236-1fb9-4060-a97c-001a5f40c668
+		summarizeBy: none
+		sourceColumn: Group
+		sortByColumn: GroupSort
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column Sub-Group
+		dataType: string
+		lineageTag: d9a8b6b9-9079-4e65-9ac9-bc9d20de39f8
+		summarizeBy: none
+		sourceColumn: Sub-Group
+		sortByColumn: Sub-GroupSort
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column GroupSort
+		dataType: int64
+		formatString: 0
+		lineageTag: 8b6aa8cf-1c6e-4d6b-b32c-7316c4a35bc2
+		summarizeBy: sum
+		sourceColumn: GroupSort
+
+		annotation SummarizationSetBy = Automatic
+
+	column Sub-GroupSort
+		dataType: int64
+		formatString: 0
+		lineageTag: a72ef10c-1522-44be-9413-bd48e33e922f
+		summarizeBy: sum
+		sourceColumn: Sub-GroupSort
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Group 1' = ```
+			
+			SWITCH(
+			    'CustomEcomSupport'[Group],
+			    "1P & 2P", "GM",
+			    "PFS & SFS", "GM",
+			    "OG", "OG",
+			    "Total", "Total",
+			    BLANK()  // You might want to include a default case if none of the conditions match
+			)
+			
+			
+			```
+		lineageTag: 83049494-4e2d-4cf0-8d47-9f4d7392d1e6
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Group 2' = ```
+			
+			SWITCH(
+			    'CustomEcomSupport'[Group],
+			    "1P & 2P", "1P & 2P",
+			    "PFS & SFS", "PFS & SFS",
+			    "OG", "",
+			    "Total", "",
+			    BLANK()  // You might want to include a default case if none of the conditions match
+			)
+			
+			```
+		lineageTag: e17399c8-0bfa-4084-906c-58480111e1bb
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	partition CustomEcomSupport-2458a4d9-404f-456e-896b-3df3029f996e = m
+		mode: import
+		source =
+				let
+				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("dZBNCoMwFISv8sjahT+lByit6SY1kO5SF6IPGqqNhFjo7RsMisa6S+abzAyRkiQcHkMcp0dIOYnIDS2Ip+p7bIAyuOoO4Yyt+qD5OpyQMpJk6xPKIlgNwmqDS99d26qFoMRTnotJFbnYZnJVvyA3uptT0712d9xx+v5NVcApm7WCBvkF9anjnqF3NPs3w9nCz8rWJWOy10ZhBpdad+5yWNtPfjBbEmqqdwPTayeXPw==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Group = _t, #"Sub-Group" = _t, GroupSort = _t]),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Group", type text}, {"Sub-Group", type text}, {"GroupSort", Int64.Type}}),
+				    #"Replaced Value" = Table.ReplaceValue(#"Changed Type","",null,Replacer.ReplaceValue,{"Group"}),
+				    #"Filled Down" = Table.FillDown(#"Replaced Value",{"Group"}),
+				    #"Added Index" = Table.AddIndexColumn(#"Filled Down", "Index", 1, 1, Int64.Type),
+				    #"Renamed Columns" = Table.RenameColumns(#"Added Index",{{"Index", "Sub-GroupSort"}}),
+				    #"Cleaned Text" = Table.TransformColumns(#"Renamed Columns",{{"Group", Text.Clean, type text}}),
+				    #"Trimmed Text" = Table.TransformColumns(#"Cleaned Text",{{"Group", Text.Trim, type text}, {"Sub-Group", Text.Trim, type text}}),
+				    #"Cleaned Text1" = Table.TransformColumns(#"Trimmed Text",{{"Group", Text.Clean, type text}, {"Sub-Group", Text.Clean, type text}})
+				in
+				    #"Cleaned Text1"
+
+	annotation PBI_ResultType = Table
+

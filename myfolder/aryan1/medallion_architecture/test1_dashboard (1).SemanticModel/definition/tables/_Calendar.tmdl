@@ -1,0 +1,84 @@
+table _Calendar
+	lineageTag: fcc71dfc-20b3-4607-87c9-02e0ae81e39a
+	sourceLineageTag: eed8df62-aaa9-422a-9412-b3ca7b3b3962
+
+	column Date
+		dataType: dateTime
+		formatString: General Number
+		lineageTag: 9a0fa722-0fb5-42ec-8e17-234c46ef85af
+		sourceLineageTag: 9876cc3b-7611-4bfd-95d2-19e9062c4ed6
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: Date
+
+		annotation SummarizationSetBy = User
+
+	column Year
+		dataType: int64
+		formatString: 0
+		lineageTag: e23001a4-45a7-4045-920c-917fa9383e94
+		sourceLineageTag: de3e2068-3907-4131-bcc2-9f307dce6e53
+		dataCategory: Uncategorized
+		summarizeBy: sum
+		sourceColumn: Year
+
+		annotation SummarizationSetBy = User
+
+	column 'Month Number'
+		dataType: int64
+		formatString: 0
+		lineageTag: c7856ae6-dc81-4af5-ae18-8195d70b7efe
+		sourceLineageTag: ca8d7680-73e9-42da-a8a5-1abb76b0b706
+		dataCategory: Uncategorized
+		summarizeBy: sum
+		sourceColumn: Month Number
+
+		annotation SummarizationSetBy = User
+
+	column 'Month Name'
+		dataType: string
+		lineageTag: 772db066-55d1-439f-8f57-9c040efe3573
+		sourceLineageTag: d648cade-d03f-46c7-b6a0-38298ade5778
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: Month Name
+
+		annotation SummarizationSetBy = User
+
+	column Quarter
+		dataType: string
+		lineageTag: 4a3ae902-8602-4b2a-9efa-7c0be88c310f
+		sourceLineageTag: 359be335-ab92-4045-8d3b-3e5b2a2237a5
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: Quarter
+
+		annotation SummarizationSetBy = User
+
+	column Weekday
+		dataType: string
+		lineageTag: ae13b780-2c0d-4b67-954e-e709eb5fda98
+		sourceLineageTag: 2c49131a-d2ee-46be-8873-a67320149e6c
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: Weekday
+
+		annotation SummarizationSetBy = User
+
+	column 'Weekday Number'
+		dataType: int64
+		formatString: 0
+		lineageTag: 12fa392e-ad30-44ee-b5da-5488caee5c53
+		sourceLineageTag: 44ea83bb-cf00-432e-b9b2-704afa5dc66c
+		dataCategory: Uncategorized
+		summarizeBy: sum
+		sourceColumn: Weekday Number
+
+		annotation SummarizationSetBy = User
+
+	partition _Calendar = entity
+		mode: directQuery
+		source
+			entityName: _Calendar
+			expressionSource: 'DirectQuery to AS - gold_semantic'
+

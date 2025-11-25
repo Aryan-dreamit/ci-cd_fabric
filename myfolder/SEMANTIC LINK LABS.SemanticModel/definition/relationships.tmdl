@@ -1,0 +1,76 @@
+relationship 37e1ee8f-df39-42f8-93b8-e3d112335e63
+	crossFilteringBehavior: bothDirections
+	fromColumn: 'Date Slicer Table'.'Wmt Week Number'
+	toColumn: 'WMT Weeks'.'WMT Week'
+
+relationship cb2a6f28-7737-43f5-8459-5bcf6949f4ff
+	fromColumn: FactSuncare.'WM Week'
+	toColumn: 'WMT Weeks'.'WMT Week'
+
+relationship c70aff35-4b11-4afb-9441-b365e0ebc133
+	isActive: false
+	crossFilteringBehavior: bothDirections
+	fromColumn: UserList.Code
+	toColumn: 'Billy''Team'.Code
+
+relationship 3b591a6b-3ef7-40b7-b90a-5b4572f9c654
+	isActive: false
+	fromColumn: FactSuncare.Code
+	toColumn: 'Billy''Team'.Code
+
+relationship 8019b18b-87d3-4f35-ac41-aaa1daca0113
+	fromColumn: FactSuncare.'Store Nbr'
+	toColumn: Store.'Store Nbr'
+
+relationship ce2d51e6-e08b-4012-a8b3-9bb562a75e5c
+	toCardinality: many
+	fromColumn: FactSuncare.'Store Nbr'
+	toColumn: Competition.'Store Nbr'
+
+relationship 22f5de8c-91f6-45c3-86ab-29cee195b9c6
+	fromColumn: FactSuncare_Canada_Inventory.'Store Nbr'
+	toColumn: Store.'Store Nbr'
+
+relationship 27c13cb7-9494-4ecf-bf9b-fb06bea0cc0f
+	fromColumn: FactSuncare_Canada_Inventory.'WM Week'
+	toColumn: 'WMT Weeks'.'WMT Week'
+
+relationship f0ab8ae5-22e8-454a-adbe-963cf1994dfe
+	crossFilteringBehavior: bothDirections
+	fromCardinality: one
+	fromColumn: CustomSortOrder.Sort
+	toColumn: 'ecom Manual table'.Sort
+
+relationship 1fcf75d5-b4ba-404b-bafa-14e27031c1c5
+	isActive: false
+	crossFilteringBehavior: bothDirections
+	fromColumn: FactSuncare.'Joinkey Ecom'
+	toColumn: factsuncare_canada_Ecom.'Joinkey Ecom'
+
+relationship 46abf92e-aa45-459b-ba52-d074efd44876
+	fromColumn: factsuncare_canada_Ecom.WM_Week
+	toColumn: 'WMT Weeks'.'WMT Week'
+
+relationship 14712249-7fe8-4372-bc9f-d738c625e320
+	fromColumn: factsuncare_canada_Ecom.Vendor_Name
+	toColumn: DimVendor.'Vendor Name'
+
+relationship b615dd4a-b3e9-4cc3-b644-b52721260c94
+	fromColumn: factsuncare_canada_Ecom.Brand_Desc
+	toColumn: DimBrand.'Brand Desc'
+
+relationship 99736140-445e-4e67-9c0f-a4c46ba6421a
+	fromColumn: 'WMT Weeks'.'WMT WK Number'
+	toColumn: CanadaReportMonthWeekOrder.WeekNo
+
+relationship ad537b49-b430-46c3-9bc7-fc861b53bb84
+	fromColumn: FactSuncare.'Prime Item Nbr'
+	toColumn: Store_Items_Attributes.'Detail Item Nbr'
+
+relationship ab58a793-60b9-d8a0-21c0-c16edae06437
+	crossFilteringBehavior: bothDirections
+	securityFilteringBehavior: bothDirections
+	toCardinality: many
+	fromColumn: UserList.Code
+	toColumn: FactSuncare.Code
+

@@ -1,0 +1,294 @@
+table Store
+	lineageTag: 2ee1e4b9-3e72-4fdb-a8fc-9a20e00f4f3a
+
+	column 'Store Nbr'
+		dataType: int64
+		formatString: 0
+		lineageTag: 4e935b4d-a058-4a6d-831d-396ca92269f5
+		summarizeBy: none
+		sourceColumn: Store Nbr
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Global Location Number'
+		dataType: int64
+		formatString: 0
+		lineageTag: 79a6edb4-2b26-4c5e-a68e-30c4079fb4d7
+		summarizeBy: sum
+		sourceColumn: Global Location Number
+
+		annotation SummarizationSetBy = Automatic
+
+	column DUNS
+		dataType: int64
+		formatString: 0
+		lineageTag: de814671-84be-4733-a445-a4d852c41e54
+		summarizeBy: sum
+		sourceColumn: DUNS
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Store Name'
+		dataType: string
+		lineageTag: 8c59901d-eb29-4e80-ba30-172ffd365664
+		summarizeBy: none
+		sourceColumn: Store Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Store Type'
+		dataType: string
+		lineageTag: 0975d226-0783-4b57-8a0e-bfa847ca8747
+		summarizeBy: none
+		sourceColumn: Store Type
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Building Address'
+		dataType: string
+		lineageTag: f112f4f4-6fda-4ada-82db-2cafb0a6453b
+		summarizeBy: none
+		sourceColumn: Building Address
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Building City'
+		dataType: string
+		lineageTag: 0a3ce6b2-6d4f-47ec-9ebd-0226d8a5fbc8
+		summarizeBy: none
+		sourceColumn: Building City
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Building State/Prov'
+		dataType: string
+		lineageTag: bdee0bbd-103c-43b1-b3e4-8ff57cf09bed
+		summarizeBy: none
+		sourceColumn: Building State/Prov
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Building Postal Code'
+		dataType: string
+		lineageTag: 362e7b28-e26d-4913-9560-92075fe250b0
+		summarizeBy: none
+		sourceColumn: Building Postal Code
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Small Package / Mailing Address'
+		dataType: string
+		lineageTag: dab06de4-8e97-4474-9e0d-3cf37dda9628
+		summarizeBy: none
+		sourceColumn: Small Package / Mailing Address
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Mailing City'
+		dataType: string
+		lineageTag: 2b6f50a1-cb1a-4a07-8b91-e22cf4e83e7e
+		summarizeBy: none
+		sourceColumn: Mailing City
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Mailing State/Prov'
+		dataType: string
+		lineageTag: 6e0331ef-0567-4aec-bd0a-b27800bc93f6
+		summarizeBy: none
+		sourceColumn: Mailing State/Prov
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Mailing Postal Code'
+		dataType: string
+		lineageTag: 6352fe65-9fbe-46b5-a738-716b029095cd
+		summarizeBy: none
+		sourceColumn: Mailing Postal Code
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Phone Number'
+		dataType: string
+		lineageTag: e1cd37c3-c7c7-4b2e-8958-f956cf4a5d0a
+		summarizeBy: none
+		sourceColumn: Phone Number
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Size (Sq Ft)'
+		dataType: int64
+		formatString: 0
+		lineageTag: 66385f27-8544-466c-9968-cfd6770af312
+		summarizeBy: sum
+		sourceColumn: Size (Sq Ft)
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Open Date'
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: 4aad206e-29ae-43c4-a82a-5cd140a5b7b4
+		summarizeBy: none
+		sourceColumn: Open Date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Regional DC'
+		dataType: int64
+		formatString: 0
+		lineageTag: 37113c7f-28fa-40f2-9453-c12398d3f634
+		summarizeBy: sum
+		sourceColumn: Regional DC
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Dry Grocery DC'
+		dataType: int64
+		formatString: 0
+		lineageTag: c8039f79-11b6-4ef8-b05b-1d1410aeb958
+		summarizeBy: sum
+		sourceColumn: Dry Grocery DC
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Perishable DC'
+		dataType: int64
+		formatString: 0
+		lineageTag: 8863cde1-1bb5-4f61-9162-a405afe9e38a
+		summarizeBy: sum
+		sourceColumn: Perishable DC
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Specialty DC'
+		dataType: int64
+		formatString: 0
+		lineageTag: 586bc163-7b87-4f35-ad67-c7c3ed0863da
+		summarizeBy: sum
+		sourceColumn: Specialty DC
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Suncare Mod'
+		dataType: string
+		lineageTag: 047c252e-565e-424b-b8d3-f7b474f23c4a
+		summarizeBy: none
+		sourceColumn: Suncare Mod
+
+		annotation SummarizationSetBy = Automatic
+
+	column Latitude
+		dataType: double
+		lineageTag: 7a6f5275-f14a-4915-954c-647aabaf1d7b
+		summarizeBy: sum
+		sourceColumn: Latitude
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Longitude
+		dataType: double
+		lineageTag: 40a22f92-e8e7-45ad-a47f-045ea19dd071
+		summarizeBy: sum
+		sourceColumn: Longitude
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Suncare Mod New'
+		dataType: string
+		lineageTag: c90aa218-b661-4122-ab78-b50901e6539f
+		summarizeBy: none
+		sourceColumn: Suncare Mod New
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Population Center'
+		dataType: string
+		lineageTag: 5178083c-af23-4735-b183-362f3e33f7a6
+		summarizeBy: none
+		sourceColumn: Population Center
+
+		annotation SummarizationSetBy = Automatic
+
+	column Province
+		dataType: string
+		lineageTag: 0ad95964-9b8b-4832-957e-c2321fc18f27
+		summarizeBy: none
+		sourceColumn: Province
+
+		annotation SummarizationSetBy = Automatic
+
+	column Region
+		dataType: string
+		lineageTag: e5ddf875-5213-491c-961b-205f90e7a511
+		summarizeBy: none
+		sourceColumn: Region
+
+		annotation SummarizationSetBy = Automatic
+
+	column Subregion
+		dataType: string
+		lineageTag: b570a5bf-a103-47dd-9d3e-f24ab075a0e8
+		summarizeBy: none
+		sourceColumn: Subregion
+
+		annotation SummarizationSetBy = Automatic
+
+	column Water_Cottages_and_Resorts_Description
+		dataType: string
+		lineageTag: 724d064f-c212-4e9a-8d4a-868b3b519ab7
+		summarizeBy: none
+		sourceColumn: Water_Cottages_and_Resorts_Description
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Cottage Store'
+		dataType: string
+		lineageTag: 142f73bf-1328-434f-b75e-0919683375b2
+		summarizeBy: none
+		sourceColumn: Cottage Store
+
+		annotation SummarizationSetBy = Automatic
+
+	column Store = Store[Store Nbr] & " - " & Store[Store Name]
+		lineageTag: 7f86779c-615d-48eb-a465-88bc0f9780b5
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Store # and Store Name' = Store[Store Nbr] & " - " & Store[Store Name]
+		lineageTag: b0aeda7f-0050-4213-8e03-0d5a636022d3
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column Test = If(MAx('Parameter Geography '[Parameter Geography ])="Store", BLANK(), Store[Store # and Store Name])
+		lineageTag: 619781dd-5024-4e83-ad96-ee855829b91a
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Store-6ee6d9a9-bb6b-4b2b-badc-e59812c2121c = m
+		mode: import
+		queryGroup: Dimensions
+		source =
+				let
+				    Source = Sql.Database("45abcdnsw5ru7e2ughqdsi5nlu-ttswb43k6wtebajhba5hzpoqhu.datawarehouse.fabric.microsoft.com", "GoldLakehouse", [Query="select [$Table].[Store_Nbr] as [Store Nbr],#(lf)    [$Table].[Global_Location_Number] as [Global Location Number],#(lf)    [$Table].[DUNS] as [DUNS],#(lf)    [$Table].[Store_Name] as [Store Name],#(lf)    [$Table].[Store_Type] as [Store Type],#(lf)    [$Table].[Building_Address] as [Building Address],#(lf)    [$Table].[Building_City] as [Building City],#(lf)    [$Table].[Building_State/Prov] as [Building State/Prov],#(lf)    [$Table].[Building_Postal_Code] as [Building Postal Code],#(lf)    [$Table].[Small_Package_/_Mailing_Address] as [Small Package / Mailing Address],#(lf)    [$Table].[Mailing_City] as [Mailing City],#(lf)    [$Table].[Mailing_State/Prov] as [Mailing State/Prov],#(lf)    [$Table].[Mailing_Postal_Code] as [Mailing Postal Code],#(lf)    [$Table].[Phone_Number] as [Phone Number],#(lf)    [$Table].[Size_Sq_Ft] as [Size (Sq Ft)],#(lf)    [$Table].[Open_Date] as [Open Date],#(lf)    [$Table].[Regional_DC] as [Regional DC],#(lf)    [$Table].[Dry_Grocery_DC] as [Dry Grocery DC],#(lf)    [$Table].[Perishable_DC] as [Perishable DC],#(lf)    [$Table].[Specialty_DC] as [Specialty DC],#(lf)    [$Table].[Suncare_Mod] as [Suncare Mod],#(lf)    [$Table].[Latitude] as [Latitude],#(lf)    [$Table].[Longitude] as [Longitude],#(lf)    [$Table].[Suncare_Mod_New] as [Suncare Mod New],#(lf)    [$Table].[Population_Center] as [Population Center],#(lf)    [$Table].[Province] as [Province],#(lf)    [$Table].[Region] as [Region],#(lf)    [$Table].[Subregion] as [Subregion],#(lf)    [$Table].[Water_Cottages_and_Resorts_Description] as [Water_Cottages_and_Resorts_Description],#(lf)    [$Table].[Cottage_Store] as [Cottage Store]#(lf)from [dbo].[DimStoreCanada] as [$Table]#(lf)"]),
+				    #"Split Column by Delimiter" = Table.SplitColumn(Source, "Open Date", Splitter.SplitTextByDelimiter("/", QuoteStyle.None), {"Open Date.1", "Open Date.2", "Open Date.3"}),
+				    #"Reordered Columns" = Table.ReorderColumns(#"Split Column by Delimiter",{"Store Nbr", "Global Location Number", "DUNS", "Store Name", "Store Type", "Building Address", "Building City", "Building State/Prov", "Building Postal Code", "Small Package / Mailing Address", "Mailing City", "Mailing State/Prov", "Mailing Postal Code", "Phone Number", "Size (Sq Ft)", "Open Date.2", "Open Date.1", "Open Date.3", "Regional DC", "Dry Grocery DC", "Perishable DC", "Specialty DC", "Suncare Mod", "Latitude", "Longitude", "Suncare Mod New", "Population Center", "Province", "Region", "Subregion", "Water_Cottages_and_Resorts_Description", "Cottage Store"}),
+				    #"Merged Columns" = Table.CombineColumns(#"Reordered Columns",{"Open Date.2", "Open Date.1", "Open Date.3"},Combiner.CombineTextByDelimiter("-", QuoteStyle.None),"Open Date"),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Merged Columns",{{"Store Nbr", Int64.Type}, {"Global Location Number", Int64.Type}, {"DUNS", Int64.Type}, {"Store Name", type text}, {"Store Type", type text}, {"Building Address", type text}, {"Building City", type text},{"Open Date", type date}, {"Building State/Prov", type text}, {"Building Postal Code", type text}, {"Small Package / Mailing Address", type text}, {"Mailing City", type text}, {"Mailing State/Prov", type text}, {"Mailing Postal Code", type text}, {"Phone Number", type text}, {"Size (Sq Ft)", Int64.Type}, {"Regional DC", Int64.Type}, {"Dry Grocery DC", Int64.Type}, {"Perishable DC", Int64.Type}, {"Specialty DC", Int64.Type}, {"Suncare Mod", type text}, {"Latitude", type number}, {"Longitude", type number}, {"Suncare Mod New", type text}, {"Population Center", type text}, {"Province", type text}, {"Region", type text}, {"Subregion", type text}, {"Water_Cottages_and_Resorts_Description", type text}, {"Cottage Store", type text}}),
+				    #"Replaced Value" = Table.ReplaceValue(#"Changed Type",null,"No",Replacer.ReplaceValue,{"Cottage Store"})
+				in
+				    #"Replaced Value"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

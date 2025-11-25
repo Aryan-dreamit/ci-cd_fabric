@@ -1,0 +1,24 @@
+table 'Billy''Team'
+	lineageTag: 9ee18d90-709e-46b6-9c39-be60297778cf
+
+	column Code
+		dataType: int64
+		formatString: 0
+		lineageTag: 687b004a-ab62-4297-8b13-28465383625c
+		summarizeBy: count
+		sourceColumn: Code
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Billy''Team-4ba19898-1dae-4262-a00c-8f6c2e5ab1e5' = m
+		mode: import
+		queryGroup: Dimensions
+		source =
+				let
+				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i45WMlSKjQUA", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Code = _t]),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Code", Int64.Type}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table
+

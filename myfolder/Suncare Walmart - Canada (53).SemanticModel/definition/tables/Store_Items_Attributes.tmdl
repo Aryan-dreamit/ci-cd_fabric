@@ -1,0 +1,202 @@
+table Store_Items_Attributes
+	lineageTag: c26f5ff2-2340-4415-8c58-9f1d6801645e
+
+	column 'Detail Item Nbr'
+		dataType: int64
+		formatString: 0
+		lineageTag: dcc29681-2193-41c5-94cd-6f2def75ddbb
+		summarizeBy: none
+		sourceColumn: Detail Item Nbr
+
+		annotation SummarizationSetBy = Automatic
+
+	column CID
+		dataType: int64
+		formatString: 0
+		lineageTag: d6adde6e-14ba-4559-8428-dfff34b420aa
+		summarizeBy: none
+		sourceColumn: CID
+
+		annotation SummarizationSetBy = Automatic
+
+	column UPC
+		dataType: int64
+		formatString: 0
+		lineageTag: 7bf4b71b-8f6a-4d0b-9e8d-d62aab08c82e
+		summarizeBy: none
+		sourceColumn: UPC
+
+		annotation SummarizationSetBy = Automatic
+
+	column Mineral
+		dataType: string
+		lineageTag: fee3ae78-b4ce-4b12-837e-b5929c36d86b
+		summarizeBy: none
+		sourceColumn: Mineral
+
+		annotation SummarizationSetBy = Automatic
+
+	column Description
+		dataType: string
+		lineageTag: 4917cef8-aab0-4e0e-b6d6-2ae56d97d813
+		summarizeBy: none
+		sourceColumn: Description
+
+		annotation SummarizationSetBy = Automatic
+
+	column Vendor
+		dataType: string
+		lineageTag: fbfa9b65-5675-4b9c-a019-7307e024885a
+		summarizeBy: none
+		sourceColumn: Vendor
+
+		annotation SummarizationSetBy = Automatic
+
+	column Brand
+		dataType: string
+		lineageTag: d9f6227a-4bd9-408c-95c9-a0b38d63e4a7
+		summarizeBy: none
+		sourceColumn: Brand
+
+		annotation SummarizationSetBy = Automatic
+
+	column Fineline
+		dataType: string
+		lineageTag: 5a456108-9d9e-4e04-a79a-a4be379d93d4
+		summarizeBy: none
+		sourceColumn: Fineline
+
+		annotation SummarizationSetBy = Automatic
+
+	column Format
+		dataType: string
+		lineageTag: d7f90aa0-6f88-4e3f-a5d3-bbbebecbb5c9
+		summarizeBy: none
+		sourceColumn: Format
+
+		annotation SummarizationSetBy = Automatic
+
+	column SPF
+		dataType: string
+		lineageTag: 4ff32bc4-1130-4da6-8081-6f122b8fa48d
+		summarizeBy: none
+		sourceColumn: SPF
+
+		annotation SummarizationSetBy = Automatic
+
+	column Price
+		dataType: string
+		lineageTag: 53583d84-c70a-4d6e-a4da-9c5153ac2313
+		summarizeBy: none
+		sourceColumn: Price
+
+		annotation SummarizationSetBy = Automatic
+
+	column Size
+		dataType: string
+		lineageTag: b3172238-6ac2-4b6b-b11d-185109db26aa
+		summarizeBy: none
+		sourceColumn: Size
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Unit of Measure'
+		dataType: string
+		lineageTag: c6a282c4-9916-4018-bb3a-a8bee2ef81d1
+		summarizeBy: none
+		sourceColumn: Unit of Measure
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Price Per 100mL or 100g'
+		dataType: string
+		lineageTag: 3aff22d4-c6a2-4973-96da-aa7af6583c81
+		summarizeBy: none
+		sourceColumn: Price Per 100mL or 100g
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Item # and Desc' = Store_Items_Attributes[Detail Item Nbr] & " - " &  Store_Items_Attributes[Description]
+		lineageTag: 007cb59b-1bf7-42b2-93b0-6635fff81398
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column Add/Delete = ```
+			
+			SWITCH(Store_Items_Attributes[Placement],
+			 "Delete", "Delete",
+			 "New item", "Add")
+			
+			```
+		lineageTag: 059f9650-a95e-4a92-8e9d-117cee1a6834
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column Add/Delete/CarryForward = IF(Store_Items_Attributes[Placement]="New Item", "Add",[Placement])
+		lineageTag: 553c7d62-3753-4974-a4e0-df36fc7c9555
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column Placement
+		dataType: string
+		lineageTag: 45aa19a1-bb20-4629-963d-76ec5dfc47c8
+		summarizeBy: none
+		sourceColumn: Placement
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Item #'
+		dataType: int64
+		formatString: 0
+		lineageTag: 459a5797-e5d9-4ed7-94b1-31e794151097
+		summarizeBy: none
+		sourceColumn: Item #
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Add+Delete or CarryForward' = IF(Store_Items_Attributes[Placement]="Carry Forward", "Carry Forward", "Add and Delete")
+		lineageTag: b8d8a5d0-99ed-4eb1-b221-54e093f4ba71
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	hierarchy 'Item # Hierarchy'
+		lineageTag: e8e334de-2c2d-40ab-b713-fded9e4cb51a
+
+		level 'Detail Item Nbr'
+			lineageTag: 3d86e003-f50e-4cc7-885b-327f1b9c1212
+			column: 'Detail Item Nbr'
+
+		level Description
+			lineageTag: 85df80f9-72c2-4c6d-8403-d4ef24687f9f
+			column: Description
+
+		level SPF
+			lineageTag: 81490143-5ac0-47b6-9edb-112bd7440013
+			column: SPF
+
+	partition Store_Items_Attributes-21f30477-6fde-4b86-b024-d791620db622 = m
+		mode: import
+		queryGroup: Dimensions
+		source =
+				let
+				    Source = Sql.Database("45abcdnsw5ru7e2ughqdsi5nlu-ttswb43k6wtebajhba5hzpoqhu.datawarehouse.fabric.microsoft.com", "GoldLakehouse", [Query="select [$Table].[Item_#] as [Item #],#(lf)    [$Table].[2024_Placement] as [2024 Placement],#(lf)    [$Table].[CID] as [CID],#(lf)    [$Table].[UPC] as [UPC],#(lf)    [$Table].[Mineral] as [Mineral],#(lf)    [$Table].[Description] as [Description],#(lf)    [$Table].[Vendor] as [Vendor],#(lf)    [$Table].[Brand] as [Brand],#(lf)    [$Table].[Fineline] as [Fineline],#(lf)    [$Table].[Format] as [Format],#(lf)    [$Table].[SPF] as [SPF],#(lf)    [$Table].[Price] as [Price],#(lf)    [$Table].[Size] as [Size],#(lf)    [$Table].[Unit_of_Measure] as [Unit of Measure],#(lf)    [$Table].[Price_Per_100mL_or_100g] as [Price Per 100mL or 100g]#(lf)from [dbo].[StoreItemAttributesMasterList] as [$Table]#(lf)"]),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Item #", Int64.Type}, {"CID", Int64.Type}, {"UPC", Int64.Type}}),
+				    #"Merged Queries" = Table.NestedJoin(#"Changed Type", {"Item #"}, #"Prime Item and Detail Item List", {"Prime Item Nbr"}, "Prime Item and Detail Item List", JoinKind.LeftOuter),
+				    #"Expanded Prime Item and Detail Item List" = Table.ExpandTableColumn(#"Merged Queries", "Prime Item and Detail Item List", {"Detail Item Nbr"}, {"Detail Item Nbr"}),
+				    #"Removed Duplicates" = Table.Distinct(#"Expanded Prime Item and Detail Item List"),
+				    #"Duplicated Column" = Table.DuplicateColumn(#"Removed Duplicates", "Item #", "Item # - Copy"),
+				    #"Renamed Columns" = Table.RenameColumns(#"Duplicated Column",{{"2024 Placement", "Placement"}, {"Item #", "Detail Item Nbr"}, {"Detail Item Nbr", "Detail Item Nbr(withblank)"}}),
+				    #"Removed Columns" = Table.RemoveColumns(#"Renamed Columns",{"Detail Item Nbr(withblank)"}),
+				    #"Renamed Columns1" = Table.RenameColumns(#"Removed Columns",{{"Item # - Copy", "Item #"}}),
+				    #"Removed Duplicates1" = Table.Distinct(#"Renamed Columns1", {"Detail Item Nbr"})
+				in
+				    #"Removed Duplicates1"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

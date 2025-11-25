@@ -1,0 +1,61 @@
+table digital_transformation
+	lineageTag: fbf26a1a-ee29-42d2-9753-392346d84d02
+	sourceLineageTag: [dbo].[digital_transformation]
+
+	column unnamed_0
+		dataType: double
+		lineageTag: 80813477-a9e8-4d9b-886c-3502a63f9dc9
+		sourceLineageTag: unnamed_0
+		summarizeBy: sum
+		sourceColumn: unnamed_0
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column investigations
+		dataType: string
+		lineageTag: d95f9e0b-6263-4ade-9411-03571ba6558d
+		sourceLineageTag: investigations
+		summarizeBy: none
+		sourceColumn: investigations
+
+		annotation SummarizationSetBy = Automatic
+
+	column unnamed_2
+		dataType: double
+		lineageTag: 7a5cd3ef-3113-4afe-a18f-08b707d8d191
+		sourceLineageTag: unnamed_2
+		summarizeBy: sum
+		sourceColumn: unnamed_2
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column unnamed_3
+		dataType: double
+		lineageTag: 05093ab8-2572-40fe-904f-23bd0a8e3f09
+		sourceLineageTag: unnamed_3
+		summarizeBy: sum
+		sourceColumn: unnamed_3
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column unnamed_4
+		dataType: string
+		lineageTag: 5b624035-4aed-46b1-8bfc-4a85fcde62ec
+		sourceLineageTag: unnamed_4
+		summarizeBy: none
+		sourceColumn: unnamed_4
+
+		annotation SummarizationSetBy = Automatic
+
+	partition digital_transformation = entity
+		mode: directLake
+		source
+			entityName: digital_transformation
+			expressionSource: 'DirectLake - gold_layer'
+

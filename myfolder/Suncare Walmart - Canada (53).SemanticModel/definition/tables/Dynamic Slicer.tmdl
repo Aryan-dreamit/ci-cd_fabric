@@ -1,0 +1,99 @@
+table 'Dynamic Slicer'
+	lineageTag: d72ad18b-b40e-4552-8aea-548ef335b33f
+
+	column 'Dynamic Headers'
+		lineageTag: f796e1f6-872c-4df1-a5e3-f96969384a32
+		summarizeBy: none
+		sourceColumn: [Value1]
+		sortByColumn: 'Dynamic Headers Order'
+
+		relatedColumnDetails
+			groupByColumn: 'Dynamic Headers Fields'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Dynamic Headers Fields'
+		isHidden
+		lineageTag: 856afe4f-1dc8-4aac-9cc3-29ee9534798e
+		summarizeBy: none
+		sourceColumn: [Value2]
+		sortByColumn: 'Dynamic Headers Order'
+
+		extendedProperty ParameterMetadata =
+				{
+				  "version": 3,
+				  "kind": 2
+				}
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Dynamic Headers Order'
+		isHidden
+		formatString: 0
+		lineageTag: 8ee05dc7-54f8-47b9-bb4f-8382f9b70cef
+		summarizeBy: sum
+		sourceColumn: [Value3]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Metrics =
+			'Dynamic Slicer'[Dynamic Headers]
+			/*
+			SWITCH('Dynamic Slicer'[Dynamic Headers],
+			"Fineline Description","Fineline Description","Vendor Name","Brand Desc","Items",
+			"Vendor Name","Vendor Name",
+			"Brand Desc","Brand Desc",
+			"Items","Items with Desc, SPF, Format") */
+		lineageTag: 1b715f4d-7e8a-472c-a7b0-40ec17d5ed02
+		summarizeBy: none
+		sortByColumn: SortMetrics
+
+		annotation SummarizationSetBy = Automatic
+
+	column KeyMetrics
+		lineageTag: d8d86b48-a265-49e8-a6af-d49be0ab57a6
+		summarizeBy: none
+		sourceColumn: [Value4]
+		sortByColumn: SortOrder
+
+		annotation SummarizationSetBy = Automatic
+
+	column SortOrder
+		formatString: 0
+		lineageTag: 71dee674-d61a-4ee7-b36b-2a22144ea03f
+		summarizeBy: sum
+		sourceColumn: [Value5]
+
+		annotation SummarizationSetBy = Automatic
+
+	column SortMetrics
+		formatString: 0
+		lineageTag: f56d0ec5-c94f-4b9b-b13a-c2e53780a0f2
+		summarizeBy: sum
+		sourceColumn: [Value6]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Dynamic Slicer-b2832401-f6d7-4394-ba54-ac02420f4573' = calculated
+		mode: import
+		source = ```
+				{
+				    ("Fineline Description", NAMEOF('FactSuncare'[Fineline Description]), 0,"Fineline Description",0,0),
+				    ("Vendor Name", NAMEOF('FactSuncare'[Vendor Name]), 1,"Fineline Description",0,1),
+				    ("Brand Desc", NAMEOF('FactSuncare'[Brand Desc]), 2,"Fineline Description",0,2),
+				    ("Items", NAMEOF('FactSuncare'[items with hierarchy]), 3,"Fineline Description",0,3),
+				
+				    ("Vendor Name", NAMEOF('FactSuncare'[Vendor Name]), 1,"Vendor Name",1,1),
+				    ("Brand Desc", NAMEOF('FactSuncare'[Brand Desc]), 2,"Vendor Name",1,2),
+				    ("Items", NAMEOF('FactSuncare'[items with hierarchy]), 3,"Vendor Name",1,3),
+				
+				    ("Brand Desc", NAMEOF('FactSuncare'[Brand Desc]), 2,"Brand Desc",2,2),
+				    ("Items", NAMEOF('FactSuncare'[items with hierarchy]), 3,"Brand Desc",2,3),
+				  
+				    ("Items", NAMEOF('FactSuncare'[items with hierarchy]), 3,"Items",3,3)
+				
+				}
+				```
+
+	annotation PBI_Id = d359101844dc4dfa95b8d0ea119cc3ed
+

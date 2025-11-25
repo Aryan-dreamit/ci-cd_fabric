@@ -1,0 +1,51 @@
+table ireland_holiday
+	lineageTag: 90fb7a61-4b34-4f64-96e9-4ba66a710848
+	sourceLineageTag: 57b30c27-c7fd-4c6a-8602-bb9dffbd8df5
+
+	column date
+		dataType: dateTime
+		formatString: General Number
+		lineageTag: d334d8e2-845c-42eb-8e17-c4a766ff009d
+		sourceLineageTag: a6739c90-6b9c-41c8-944c-34f1650b6625
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: date
+
+		annotation SummarizationSetBy = User
+
+	column weekday
+		dataType: string
+		lineageTag: 602eeafd-15d9-42f5-8b9e-ae405c7b8d21
+		sourceLineageTag: 4f0641bb-d1c0-4ab2-b96b-095628c7362c
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: weekday
+
+		annotation SummarizationSetBy = User
+
+	column name
+		dataType: string
+		lineageTag: a1655878-ee0b-4a96-9eb0-6f215340c7b1
+		sourceLineageTag: c5abb348-92d6-4072-99ab-6e70c1ef4303
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: name
+
+		annotation SummarizationSetBy = User
+
+	column type
+		dataType: string
+		lineageTag: 0c59a028-da0e-4aaf-8dde-c65f1529de39
+		sourceLineageTag: 647911db-4a91-4b9a-881a-e9e8f5e879c5
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: type
+
+		annotation SummarizationSetBy = User
+
+	partition ireland_holiday = entity
+		mode: directQuery
+		source
+			entityName: ireland_holiday
+			expressionSource: 'DirectQuery to AS - gold_semantic'
+

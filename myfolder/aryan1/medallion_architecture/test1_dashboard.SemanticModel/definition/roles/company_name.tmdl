@@ -1,0 +1,7 @@
+role company_name
+	modelPermission: read
+
+	tablePermission CompanyNames = [Company Name] == "Atlantic Technological University (ATU)"
+
+	annotation PBI_Id = 418ea5daf0494884bf94e820687b639a
+

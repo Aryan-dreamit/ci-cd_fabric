@@ -1,0 +1,386 @@
+table contract_search
+	lineageTag: ff49ee20-7bb0-48ce-9ba1-07d4a443d89d
+	sourceLineageTag: [dbo].[contract_search]
+
+	column new_customer_signed_date
+		dataType: string
+		lineageTag: 856c9d00-08bc-40a4-9187-c2d4349eb75e
+		sourceLineageTag: new_customer_signed_date
+		summarizeBy: none
+		sourceColumn: new_customer_signed_date
+
+		annotation SummarizationSetBy = Automatic
+
+	column tenant_id
+		dataType: int64
+		formatString: 0
+		lineageTag: f33d7dec-3a43-47d7-9d58-390d22ad155b
+		sourceLineageTag: tenant_id
+		summarizeBy: sum
+		sourceColumn: tenant_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column vendor_service
+		dataType: string
+		lineageTag: fd17b528-5ad0-407b-a31a-5d8783b4d842
+		sourceLineageTag: vendor_service
+		summarizeBy: none
+		sourceColumn: vendor_service
+
+		annotation SummarizationSetBy = Automatic
+
+	column bundle_status
+		dataType: string
+		lineageTag: efe65deb-4699-4c87-a3c0-a35bafad0e60
+		sourceLineageTag: bundle_status
+		summarizeBy: none
+		sourceColumn: bundle_status
+
+		annotation SummarizationSetBy = Automatic
+
+	column billing_cycle
+		dataType: string
+		lineageTag: 2c3cc176-2a5a-47f5-bd01-8ccf9ba921ee
+		sourceLineageTag: billing_cycle
+		summarizeBy: none
+		sourceColumn: billing_cycle
+
+		annotation SummarizationSetBy = Automatic
+
+	column bundle_type
+		dataType: string
+		lineageTag: acbb89d2-6469-4eed-86fd-e07d6a713b77
+		sourceLineageTag: bundle_type
+		summarizeBy: none
+		sourceColumn: bundle_type
+
+		annotation SummarizationSetBy = Automatic
+
+	column complete_status_10_days
+		dataType: string
+		lineageTag: 946491ef-1980-4899-bc8d-1dd47e9bcd75
+		sourceLineageTag: complete_status_10_days
+		summarizeBy: none
+		sourceColumn: complete_status_10_days
+
+		annotation SummarizationSetBy = Automatic
+
+	column contract_bundle
+		dataType: string
+		lineageTag: e6708a6a-c2c7-4bb1-8fa0-279a806cc2eb
+		sourceLineageTag: contract_bundle
+		summarizeBy: none
+		sourceColumn: contract_bundle
+
+		annotation SummarizationSetBy = Automatic
+
+	column executive_am_support
+		dataType: string
+		lineageTag: 081f7c00-edda-4055-9740-ba03ca3e8020
+		sourceLineageTag: executive_am_support
+		summarizeBy: none
+		sourceColumn: executive_am_support
+
+		annotation SummarizationSetBy = Automatic
+
+	column fair_usage_allowance_monthly
+		dataType: string
+		lineageTag: 07de9a94-66aa-42c5-9a62-43c8f75925d5
+		sourceLineageTag: fair_usage_allowance_monthly
+		summarizeBy: none
+		sourceColumn: fair_usage_allowance_monthly
+
+		annotation SummarizationSetBy = Automatic
+
+	column nce_contract_renewal_month
+		dataType: string
+		lineageTag: dceacbe7-cade-4304-a1f3-1f9271103c30
+		sourceLineageTag: nce_contract_renewal_month
+		summarizeBy: none
+		sourceColumn: nce_contract_renewal_month
+
+		annotation SummarizationSetBy = Automatic
+
+	column line_of_business_billing
+		dataType: string
+		lineageTag: 34ec7ff1-c342-45fc-b750-014f97ba996f
+		sourceLineageTag: line_of_business_billing
+		summarizeBy: none
+		sourceColumn: line_of_business_billing
+
+		annotation SummarizationSetBy = Automatic
+
+	column opportunity
+		dataType: string
+		lineageTag: 13c70f3f-2252-439b-8525-fbdac6a95f6b
+		sourceLineageTag: opportunity
+		summarizeBy: none
+		sourceColumn: opportunity
+
+		annotation SummarizationSetBy = Automatic
+
+	column parent_account
+		dataType: string
+		lineageTag: 0a697877-9e05-4a78-a6d0-4119794d4ffd
+		sourceLineageTag: parent_account
+		summarizeBy: none
+		sourceColumn: parent_account
+
+		annotation SummarizationSetBy = Automatic
+
+	column renewal_of
+		dataType: string
+		lineageTag: 2fdc1bfa-d290-41f6-808e-b4c5c91c9132
+		sourceLineageTag: renewal_of
+		summarizeBy: none
+		sourceColumn: renewal_of
+
+		annotation SummarizationSetBy = Automatic
+
+	column renewed
+		dataType: string
+		lineageTag: f2c0e6fb-7d9a-4f49-98a6-c4bac54377e6
+		sourceLineageTag: renewed
+		summarizeBy: none
+		sourceColumn: renewed
+
+		annotation SummarizationSetBy = Automatic
+
+	column service_level_agreement
+		dataType: string
+		lineageTag: 1eecdaf2-7599-4595-a502-7f4062361f19
+		sourceLineageTag: service_level_agreement
+		summarizeBy: none
+		sourceColumn: service_level_agreement
+
+		annotation SummarizationSetBy = Automatic
+
+	column current_balance
+		dataType: int64
+		formatString: 0
+		lineageTag: b7ea7d5a-ed65-44bc-b0bb-eb41d87ed9b5
+		sourceLineageTag: current_balance
+		summarizeBy: sum
+		sourceColumn: current_balance
+
+		annotation SummarizationSetBy = Automatic
+
+	column estimated_cost
+		dataType: int64
+		formatString: 0
+		lineageTag: f7f83afb-3fb7-48d5-a2fc-4bacace03c59
+		sourceLineageTag: estimated_cost
+		summarizeBy: sum
+		sourceColumn: estimated_cost
+
+		annotation SummarizationSetBy = Automatic
+
+	column estimated_hours
+		dataType: string
+		lineageTag: 52b1e4fa-0d1d-450a-beb1-a39286f61e6a
+		sourceLineageTag: estimated_hours
+		summarizeBy: none
+		sourceColumn: estimated_hours
+
+		annotation SummarizationSetBy = Automatic
+
+	column external_contract_number
+		dataType: string
+		lineageTag: 9ed32223-4174-4e9f-8262-ad641f365220
+		sourceLineageTag: external_contract_number
+		summarizeBy: none
+		sourceColumn: external_contract_number
+
+		annotation SummarizationSetBy = Automatic
+
+	column has_exclusions
+		dataType: string
+		lineageTag: c6932f87-cd3c-40c8-97cd-74ee08bbe009
+		sourceLineageTag: has_exclusions
+		summarizeBy: none
+		sourceColumn: has_exclusions
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_exclusion_contract
+		dataType: string
+		lineageTag: a7a40829-b531-4656-9468-05ccc1cef963
+		sourceLineageTag: is_exclusion_contract
+		summarizeBy: none
+		sourceColumn: is_exclusion_contract
+
+		annotation SummarizationSetBy = Automatic
+
+	column company_category
+		dataType: string
+		lineageTag: 3fadc75d-2f57-487b-a926-e74281a93db0
+		sourceLineageTag: company_category
+		summarizeBy: none
+		sourceColumn: company_category
+
+		annotation SummarizationSetBy = Automatic
+
+	column company_to_bill
+		dataType: string
+		lineageTag: a5ad6fee-cbe3-43e5-bf3a-27c3f6d7aa2b
+		sourceLineageTag: company_to_bill
+		summarizeBy: none
+		sourceColumn: company_to_bill
+
+		annotation SummarizationSetBy = Automatic
+
+	column contact
+		dataType: string
+		lineageTag: 990a69cc-92fc-455f-bf63-b2206774ae9d
+		sourceLineageTag: contact
+		summarizeBy: none
+		sourceColumn: contact
+
+		annotation SummarizationSetBy = Automatic
+
+	column contract_category
+		dataType: string
+		lineageTag: c23a7592-3017-4cf5-91bd-f6053f2b7533
+		sourceLineageTag: contract_category
+		summarizeBy: none
+		sourceColumn: contract_category
+
+		annotation SummarizationSetBy = Automatic
+
+	column contract_id
+		dataType: int64
+		formatString: 0
+		lineageTag: ecab461f-c020-471b-8b64-5142a6ad17e7
+		sourceLineageTag: contract_id
+		summarizeBy: sum
+		sourceColumn: contract_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column contract_period_type
+		dataType: string
+		lineageTag: c0d33ff1-bc1e-4a99-a48b-5c2d342c85a3
+		sourceLineageTag: contract_period_type
+		summarizeBy: none
+		sourceColumn: contract_period_type
+
+		annotation SummarizationSetBy = Automatic
+
+	column end_date
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: ddfcf080-caac-40c5-9cbf-7dbafb604b13
+		sourceLineageTag: end_date
+		summarizeBy: none
+		sourceColumn: end_date
+
+		annotation SummarizationSetBy = Automatic
+
+	column estimated_revenue
+		dataType: int64
+		formatString: 0
+		lineageTag: f33f7c96-00fe-4c21-a2cb-655a3dd5b415
+		sourceLineageTag: estimated_revenue
+		summarizeBy: sum
+		sourceColumn: estimated_revenue
+
+		annotation SummarizationSetBy = Automatic
+
+	column default_service_desk_contract
+		dataType: string
+		lineageTag: 9d47bf84-f2bd-4522-991d-1aeb8021e4f0
+		sourceLineageTag: default_service_desk_contract
+		summarizeBy: none
+		sourceColumn: default_service_desk_contract
+
+		annotation SummarizationSetBy = Automatic
+
+	column approve__post_labour
+		dataType: string
+		lineageTag: 5c65c938-7ce3-4547-820d-a4d25f15831c
+		sourceLineageTag: approve__post_labour
+		summarizeBy: none
+		sourceColumn: approve__post_labour
+
+		annotation SummarizationSetBy = Automatic
+
+	column out_of_compliance
+		dataType: string
+		lineageTag: 5c06bd1d-fb23-4007-a590-3a713d3c139f
+		sourceLineageTag: out_of_compliance
+		summarizeBy: none
+		sourceColumn: out_of_compliance
+
+		annotation SummarizationSetBy = Automatic
+
+	column account_manager
+		dataType: string
+		lineageTag: b1a1cd87-f33d-406a-bdc7-5ece065f107d
+		sourceLineageTag: account_manager
+		summarizeBy: none
+		sourceColumn: account_manager
+
+		annotation SummarizationSetBy = Automatic
+
+	column classification
+		dataType: string
+		lineageTag: f83a8ed6-2a5d-448a-9fc8-b3f0e58a262f
+		sourceLineageTag: classification
+		summarizeBy: none
+		sourceColumn: classification
+
+		annotation SummarizationSetBy = Automatic
+
+	column contract_name
+		dataType: string
+		lineageTag: 77ab9bb9-e84b-4975-9ff3-c527d3a6cf02
+		sourceLineageTag: contract_name
+		summarizeBy: none
+		sourceColumn: contract_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column company_name
+		dataType: string
+		lineageTag: f5881f35-47fa-4183-a930-5857e0a193bc
+		sourceLineageTag: company_name
+		summarizeBy: none
+		sourceColumn: company_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column contract_type
+		dataType: string
+		lineageTag: 9d0818d5-d25c-4543-b58a-4a57bf48e168
+		sourceLineageTag: contract_type
+		summarizeBy: none
+		sourceColumn: contract_type
+
+		annotation SummarizationSetBy = Automatic
+
+	column active
+		dataType: string
+		lineageTag: 32328a2a-ad32-49f7-8bc0-7b045eb307df
+		sourceLineageTag: active
+		summarizeBy: none
+		sourceColumn: active
+
+		annotation SummarizationSetBy = Automatic
+
+	column start_date
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: e8a49dd6-7474-4bfa-9a22-1cbc08834cdd
+		sourceLineageTag: start_date
+		summarizeBy: none
+		sourceColumn: start_date
+
+		annotation SummarizationSetBy = Automatic
+
+	partition contract_search = entity
+		mode: directLake
+		source
+			entityName: contract_search
+			expressionSource: 'DirectLake - gold_layer'
+

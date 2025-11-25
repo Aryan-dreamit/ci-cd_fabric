@@ -1,0 +1,11 @@
+expression 'DirectQuery to AS - gold_semantic' =
+		let
+		    Source = AnalysisServices.Database("powerbi://api.powerbi.com/v1.0/myorg/Test_ServicePrincipal", "gold_semantic"),
+		    Cubes = Table.Combine(Source[Data]),
+		    Cube = Cubes{[Id="Model", Kind="Cube"]}[Data]
+		in
+		    Cube
+	lineageTag: 26b0bc52-c732-43a7-b623-7d105eb3927f
+
+	annotation PBI_IncludeFutureArtifacts = True
+

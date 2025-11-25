@@ -1,0 +1,35 @@
+table LastNWeek
+	lineageTag: 38929365-4533-4658-9f27-c8bba7ae4be2
+
+	column Category
+		dataType: string
+		lineageTag: b4ffad77-abe5-44b4-8749-7100dd7c33db
+		summarizeBy: none
+		sourceColumn: Category
+		sortByColumn: SrtCat
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column SrtCat
+		dataType: int64
+		formatString: 0
+		lineageTag: e8b17ee9-787f-4ba8-8ff9-b85577dea2b9
+		summarizeBy: sum
+		sourceColumn: SrtCat
+
+		annotation SummarizationSetBy = Automatic
+
+	partition LastNWeek-7409474a-21d5-462e-9d45-7d2ee92a8fd6 = m
+		mode: import
+		queryGroup: Dimensions
+		source =
+				let
+				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i45W8kksLlEIT03NVtJRMlSK1YGKmIDFioGCRghBQ2O4qDFC1NQILmoCFo0McQGyTZViYwE=", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Category = _t, SrtCat = _t]),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Category", type text}, {"SrtCat", Int64.Type}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table
+

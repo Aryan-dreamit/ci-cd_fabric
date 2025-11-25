@@ -1,0 +1,103 @@
+table 'Prime Item and Detail Item List'
+	lineageTag: be59d58a-d845-43c2-a95a-e93d35e76bfb
+
+	column 'Prime Item Nbr'
+		dataType: int64
+		formatString: 0
+		lineageTag: 10210027-2b3e-49e3-9252-6bc70f0f4712
+		summarizeBy: sum
+		sourceColumn: Prime Item Nbr
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Detail Item Nbr'
+		dataType: int64
+		formatString: 0
+		lineageTag: 3fef0aad-f706-4b8c-8d7d-c5f749458b83
+		summarizeBy: sum
+		sourceColumn: Detail Item Nbr
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Fineline Number'
+		dataType: int64
+		formatString: 0
+		lineageTag: c4dac129-e053-45fb-b0fc-68293c4ca94b
+		summarizeBy: sum
+		sourceColumn: Fineline Number
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Fineline Description'
+		dataType: string
+		lineageTag: e4bb0611-bdeb-4de3-be3e-6f252991debc
+		summarizeBy: none
+		sourceColumn: Fineline Description
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Item Desc 1'
+		dataType: string
+		lineageTag: b6470a89-7ea2-442b-adfd-b9a182955e95
+		summarizeBy: none
+		sourceColumn: Item Desc 1
+
+		annotation SummarizationSetBy = Automatic
+
+	column UPC
+		dataType: int64
+		formatString: 0
+		lineageTag: b58c7be6-7f4a-4c2e-b5bb-5c4bad0d224d
+		summarizeBy: sum
+		sourceColumn: UPC
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'VNPK Qty'
+		dataType: int64
+		formatString: 0
+		lineageTag: 1de2ce1f-dffc-4e6f-bc81-c26a19c25b05
+		summarizeBy: sum
+		sourceColumn: VNPK Qty
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'WHPK Qty'
+		dataType: int64
+		formatString: 0
+		lineageTag: 4eccef09-902a-4204-9720-ab7d6895c29e
+		summarizeBy: sum
+		sourceColumn: WHPK Qty
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Vendor Name'
+		dataType: string
+		lineageTag: e94b9d9a-654f-4706-a19a-16996ba09e4c
+		summarizeBy: none
+		sourceColumn: Vendor Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Brand Desc'
+		dataType: string
+		lineageTag: 7f5f356e-116d-4dda-aaef-45272caa7ec4
+		summarizeBy: none
+		sourceColumn: Brand Desc
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Prime Item and Detail Item List' = m
+		mode: import
+		queryGroup: 'Prime Item'
+		source =
+				let
+				    Source = Sql.Database("dreamit.database.windows.net", "BDF"),
+				    #"Filtered Rows" = Table.SelectRows(Source, each ([Name] = "PrimeItemandDetailItem")),
+				    dbo_PrimeItemandDetailItem = #"Filtered Rows"{[Schema="dbo",Item="PrimeItemandDetailItem"]}[Data],
+				    #"Changed Type" = Table.TransformColumnTypes(#"dbo_PrimeItemandDetailItem",{{"Prime Item Nbr", Int64.Type}, {"Detail Item Nbr", Int64.Type}, {"Fineline Number", Int64.Type}, {"Fineline Description", type text}, {"Item Desc 1", type text}, {"UPC", Int64.Type}, {"VNPK Qty", Int64.Type}, {"WHPK Qty", Int64.Type}, {"Vendor Name", type text}, {"Brand Desc", type text}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table
+

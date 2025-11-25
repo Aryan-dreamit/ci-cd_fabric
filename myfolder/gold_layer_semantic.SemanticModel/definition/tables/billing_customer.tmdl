@@ -1,0 +1,989 @@
+table billing_customer
+	lineageTag: 907d5fe0-f988-495c-accc-38efe2b2b5b6
+	sourceLineageTag: [dbo].[billing_customer]
+
+	column combined_customer_hours__billing_item_detail_by_contract
+		dataType: string
+		lineageTag: 684183af-f6ef-4ffd-84db-ea3a9004b69f
+		sourceLineageTag: combined_customer_hours__billing_item_detail_by_contract
+		summarizeBy: none
+		sourceColumn: combined_customer_hours__billing_item_detail_by_contract
+
+		annotation SummarizationSetBy = Automatic
+
+	column unnamed_1
+		dataType: string
+		lineageTag: ff8b8287-5b23-4d28-9743-9e311178cd74
+		sourceLineageTag: unnamed_1
+		summarizeBy: none
+		sourceColumn: unnamed_1
+
+		annotation SummarizationSetBy = Automatic
+
+	column unnamed_2
+		dataType: string
+		lineageTag: ce998527-c2c3-44da-86ff-5e27f060f421
+		sourceLineageTag: unnamed_2
+		summarizeBy: none
+		sourceColumn: unnamed_2
+
+		annotation SummarizationSetBy = Automatic
+
+	column unnamed_3
+		dataType: string
+		lineageTag: 7acd9c95-a5e2-423a-a96c-eb7553b322df
+		sourceLineageTag: unnamed_3
+		summarizeBy: none
+		sourceColumn: unnamed_3
+
+		annotation SummarizationSetBy = Automatic
+
+	column unnamed_4
+		dataType: string
+		lineageTag: f98482f1-cf3c-4d38-ba17-0baf30bc6541
+		sourceLineageTag: unnamed_4
+		summarizeBy: none
+		sourceColumn: unnamed_4
+
+		annotation SummarizationSetBy = Automatic
+
+	column unnamed_5
+		dataType: string
+		lineageTag: 6ad0938c-52f9-481d-bb9a-77a2fe9f7cfa
+		sourceLineageTag: unnamed_5
+		summarizeBy: none
+		sourceColumn: unnamed_5
+
+		annotation SummarizationSetBy = Automatic
+
+	column invoice_date_paid
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 98d65013-37ea-4539-b0b3-a9bd55c8d289
+		sourceLineageTag: invoice_date_paid
+		summarizeBy: none
+		sourceColumn: invoice_date_paid
+
+		annotation SummarizationSetBy = Automatic
+
+	column actual_nonbillable_hours
+		dataType: double
+		lineageTag: 85ab3f72-5f0b-4b8c-9b1b-59c8d0373f81
+		sourceLineageTag: actual_nonbillable_hours
+		summarizeBy: sum
+		sourceColumn: actual_nonbillable_hours
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column quantity
+		dataType: double
+		lineageTag: 0c538cef-5e39-44ca-9bfe-4cdf235cef1e
+		sourceLineageTag: quantity
+		summarizeBy: sum
+		sourceColumn: quantity
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column billed_rate
+		dataType: string
+		lineageTag: 6ab18b81-6ae5-4cb1-9057-6a8015a37346
+		sourceLineageTag: billed_rate
+		summarizeBy: none
+		sourceColumn: billed_rate
+
+		annotation SummarizationSetBy = Automatic
+
+	column billed_hours
+		dataType: double
+		lineageTag: 0f72ae45-3694-4726-95df-f92a759702f3
+		sourceLineageTag: billed_hours
+		summarizeBy: sum
+		sourceColumn: billed_hours
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column billed_amount
+		dataType: string
+		lineageTag: eea637be-0bc5-4d42-8111-fc77d67f8674
+		sourceLineageTag: billed_amount
+		summarizeBy: none
+		sourceColumn: billed_amount
+
+		annotation SummarizationSetBy = Automatic
+
+	column posted_date
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 596d48f9-0396-4576-bc2a-086fc8724b68
+		sourceLineageTag: posted_date
+		summarizeBy: none
+		sourceColumn: posted_date
+
+		annotation SummarizationSetBy = Automatic
+
+	column hours_deducted_from_block
+		dataType: double
+		lineageTag: 323c8513-adc3-4abd-826e-1026682cd1e8
+		sourceLineageTag: hours_deducted_from_block
+		summarizeBy: sum
+		sourceColumn: hours_deducted_from_block
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column block_overage_hours
+		dataType: double
+		lineageTag: eeb74ee0-9f91-4275-a2ff-c4f040b90795
+		sourceLineageTag: block_overage_hours
+		summarizeBy: sum
+		sourceColumn: block_overage_hours
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column overage_billing_rate
+		dataType: double
+		lineageTag: db4a9ffb-3670-4c5f-86ff-d234cf20eda5
+		sourceLineageTag: overage_billing_rate
+		summarizeBy: sum
+		sourceColumn: overage_billing_rate
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column work_entry_rate
+		dataType: string
+		lineageTag: 98decac1-08fd-46b5-98c9-0327854efc1b
+		sourceLineageTag: work_entry_rate
+		summarizeBy: none
+		sourceColumn: work_entry_rate
+
+		annotation SummarizationSetBy = Automatic
+
+	column approve__post_labour_preference
+		dataType: string
+		lineageTag: 785cce64-2a2b-45f9-991f-082b41435d39
+		sourceLineageTag: approve__post_labour_preference
+		summarizeBy: none
+		sourceColumn: approve__post_labour_preference
+
+		annotation SummarizationSetBy = Automatic
+
+	column actual_billable_hours
+		dataType: double
+		lineageTag: f9487ff7-167e-42c2-be06-a00b8fd3296c
+		sourceLineageTag: actual_billable_hours
+		summarizeBy: sum
+		sourceColumn: actual_billable_hours
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column blockretainer_balance
+		dataType: double
+		lineageTag: a088205d-f728-403d-9cf9-9c06caa87ba1
+		sourceLineageTag: blockretainer_balance
+		summarizeBy: sum
+		sourceColumn: blockretainer_balance
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column blockretainer_balance_1
+		dataType: double
+		lineageTag: 219d209b-2119-468f-b47c-578c85b2aa04
+		sourceLineageTag: blockretainer_balance_1
+		summarizeBy: sum
+		sourceColumn: blockretainer_balance_1
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column blockretainer_current_active_purchase_amount
+		dataType: double
+		lineageTag: 1a4aa550-76f2-4357-a3e1-4946005f7000
+		sourceLineageTag: blockretainer_current_active_purchase_amount
+		summarizeBy: sum
+		sourceColumn: blockretainer_current_active_purchase_amount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column blockretainer_purchase_amount
+		dataType: double
+		lineageTag: 5147af49-3648-48a1-aeaa-e47c0ce3b953
+		sourceLineageTag: blockretainer_purchase_amount
+		summarizeBy: sum
+		sourceColumn: blockretainer_purchase_amount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column number_of_blockspurchases
+		dataType: double
+		lineageTag: b11a42af-99bf-494f-a17d-f38fa4945197
+		sourceLineageTag: number_of_blockspurchases
+		summarizeBy: sum
+		sourceColumn: number_of_blockspurchases
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column hours
+		dataType: double
+		lineageTag: 049a01e9-5cc5-4c45-aed8-3cb7d4d615e8
+		sourceLineageTag: hours
+		summarizeBy: sum
+		sourceColumn: hours
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column nonbillable_hours
+		dataType: double
+		lineageTag: 88f7de42-da29-4c4f-a651-a1f2a537da23
+		sourceLineageTag: nonbillable_hours
+		summarizeBy: sum
+		sourceColumn: nonbillable_hours
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column hours_worked
+		dataType: double
+		lineageTag: 6937e327-ad5d-422e-a8ac-5059c72c4ce6
+		sourceLineageTag: hours_worked
+		summarizeBy: sum
+		sourceColumn: hours_worked
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column hours_worked_link
+		dataType: string
+		lineageTag: dc2fa845-16c3-402f-9d1f-b0bc7a048cc7
+		sourceLineageTag: hours_worked_link
+		summarizeBy: none
+		sourceColumn: hours_worked_link
+
+		annotation SummarizationSetBy = Automatic
+
+	column total_billed_amount
+		dataType: double
+		lineageTag: 7e3e9b47-6566-4e03-b442-5e35d6a5b2d7
+		sourceLineageTag: total_billed_amount
+		summarizeBy: sum
+		sourceColumn: total_billed_amount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column item_type
+		dataType: string
+		lineageTag: 3df065d1-7ac0-4db8-9738-df2f14f5a8e2
+		sourceLineageTag: item_type
+		summarizeBy: none
+		sourceColumn: item_type
+
+		annotation SummarizationSetBy = Automatic
+
+	column task_or_ticket_status
+		dataType: string
+		lineageTag: 7221229e-4164-4517-9f8c-24cd7efc38f9
+		sourceLineageTag: task_or_ticket_status
+		summarizeBy: none
+		sourceColumn: task_or_ticket_status
+
+		annotation SummarizationSetBy = Automatic
+
+	column item_date
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 999e6017-22d2-4cb1-ac38-e12414b1eae1
+		sourceLineageTag: item_date
+		summarizeBy: none
+		sourceColumn: item_date
+
+		annotation SummarizationSetBy = Automatic
+
+	column estimated_cost
+		dataType: double
+		lineageTag: 0d636e0f-4c85-4c11-a88d-6e67ed6e6813
+		sourceLineageTag: estimated_cost
+		summarizeBy: sum
+		sourceColumn: estimated_cost
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column estimated_revenue
+		dataType: double
+		lineageTag: 4c7cc31d-133f-490c-9b43-090c93497ad1
+		sourceLineageTag: estimated_revenue
+		summarizeBy: sum
+		sourceColumn: estimated_revenue
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column estimated_hours
+		dataType: double
+		lineageTag: ace5529c-1b19-4353-83b3-b3b798f98fc3
+		sourceLineageTag: estimated_hours
+		summarizeBy: sum
+		sourceColumn: estimated_hours
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column billing_rate
+		dataType: double
+		lineageTag: 8711d350-9beb-4696-b10e-ad10a6e29e7e
+		sourceLineageTag: billing_rate
+		summarizeBy: sum
+		sourceColumn: billing_rate
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column billable_hours
+		dataType: double
+		lineageTag: 9e6c7204-ba7d-4579-b176-914704682661
+		sourceLineageTag: billable_hours
+		summarizeBy: sum
+		sourceColumn: billable_hours
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column task_or_ticket_number
+		dataType: string
+		lineageTag: 71fa7311-d998-4f60-9ad0-3e4934746d36
+		sourceLineageTag: task_or_ticket_number
+		summarizeBy: none
+		sourceColumn: task_or_ticket_number
+
+		annotation SummarizationSetBy = Automatic
+
+	column resource_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 1eb25792-f46f-468e-a661-8f00f3ea2f52
+		sourceLineageTag: resource_id
+		summarizeBy: sum
+		sourceColumn: resource_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column resource_name
+		dataType: string
+		lineageTag: 1e31713c-e603-4bff-934c-ff347425dbbf
+		sourceLineageTag: resource_name
+		summarizeBy: none
+		sourceColumn: resource_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column role_name
+		dataType: string
+		lineageTag: 2a6d74ef-04f9-49aa-bb2d-8f50904a28d4
+		sourceLineageTag: role_name
+		summarizeBy: none
+		sourceColumn: role_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column internal_resource_cost
+		dataType: double
+		lineageTag: f69827a2-04f0-45c4-92ec-1578f2a0491a
+		sourceLineageTag: internal_resource_cost
+		summarizeBy: sum
+		sourceColumn: internal_resource_cost
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column worked_date
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 69e2a6a3-c460-4a2d-bcf0-c51f89fd93df
+		sourceLineageTag: worked_date
+		summarizeBy: none
+		sourceColumn: worked_date
+
+		annotation SummarizationSetBy = Automatic
+
+	column contract_type
+		dataType: string
+		lineageTag: 01d8599a-6cb5-4ab4-ae71-9718e7625f9c
+		sourceLineageTag: contract_type
+		summarizeBy: none
+		sourceColumn: contract_type
+
+		annotation SummarizationSetBy = Automatic
+
+	column contract_start_date
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 06ee15e3-3450-4894-a607-5f9c35fbd65a
+		sourceLineageTag: contract_start_date
+		summarizeBy: none
+		sourceColumn: contract_start_date
+
+		annotation SummarizationSetBy = Automatic
+
+	column contract_end_date
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: df358128-5f64-4b9f-b0e1-57288a6e2f36
+		sourceLineageTag: contract_end_date
+		summarizeBy: none
+		sourceColumn: contract_end_date
+
+		annotation SummarizationSetBy = Automatic
+
+	column line_of_business
+		dataType: string
+		lineageTag: 1ccf30bd-6bd0-43d4-b311-e73f0749166d
+		sourceLineageTag: line_of_business
+		summarizeBy: none
+		sourceColumn: line_of_business
+
+		annotation SummarizationSetBy = Automatic
+
+	column company_name
+		dataType: string
+		lineageTag: 7f68ccdb-3371-4700-bff8-9f5d0f5bd078
+		sourceLineageTag: company_name
+		summarizeBy: none
+		sourceColumn: company_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column contract_name
+		dataType: string
+		lineageTag: c7b341f0-93df-46a7-8348-71018c68fe68
+		sourceLineageTag: contract_name
+		summarizeBy: none
+		sourceColumn: contract_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column consumption_of_hours
+		dataType: string
+		lineageTag: ce07e9f1-1dc7-4f7a-9d2e-f7d5b9961dca
+		sourceLineageTag: consumption_of_hours
+		summarizeBy: none
+		sourceColumn: consumption_of_hours
+
+		annotation SummarizationSetBy = Automatic
+
+	column hourly_rate
+		dataType: string
+		lineageTag: f243621f-395b-479f-8fc6-8350a4e91164
+		sourceLineageTag: hourly_rate
+		summarizeBy: none
+		sourceColumn: hourly_rate
+
+		annotation SummarizationSetBy = Automatic
+
+	column revenue
+		dataType: string
+		lineageTag: ab9a7672-1cee-4bb9-a07f-19d86f458ac5
+		sourceLineageTag: revenue
+		summarizeBy: none
+		sourceColumn: revenue
+
+		annotation SummarizationSetBy = Automatic
+
+	column contract_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 9b6ec0e2-f079-430a-b4bb-a79389d7b688
+		sourceLineageTag: contract_id
+		summarizeBy: sum
+		sourceColumn: contract_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column contract_active
+		dataType: string
+		lineageTag: 6e0ed66d-0b3d-4258-9d80-dceb1a895558
+		sourceLineageTag: contract_active
+		summarizeBy: none
+		sourceColumn: contract_active
+
+		annotation SummarizationSetBy = Automatic
+
+	column contract_period_type
+		dataType: string
+		lineageTag: 3f3d9317-d616-4c79-ac06-0bfbc77f431e
+		sourceLineageTag: contract_period_type
+		summarizeBy: none
+		sourceColumn: contract_period_type
+
+		annotation SummarizationSetBy = Automatic
+
+	column this_is_either_the_worked_datebilled_date
+		dataType: string
+		lineageTag: b63fe2d2-3249-4edc-8e49-e51d1e7fd388
+		sourceLineageTag: this_is_either_the_worked_datebilled_date
+		summarizeBy: none
+		sourceColumn: this_is_either_the_worked_datebilled_date
+
+		annotation SummarizationSetBy = Automatic
+
+	column number_of_hours_per_block
+		dataType: string
+		lineageTag: 92bb9a3a-1e4a-48ae-af9d-d13e4b417904
+		sourceLineageTag: number_of_hours_per_block
+		summarizeBy: none
+		sourceColumn: number_of_hours_per_block
+
+		annotation SummarizationSetBy = Automatic
+
+	column billing_item
+		dataType: string
+		lineageTag: 2a14502e-f434-4b1c-adf9-bcde9355d93d
+		sourceLineageTag: billing_item
+		summarizeBy: none
+		sourceColumn: billing_item
+
+		annotation SummarizationSetBy = Automatic
+
+	column number_of_hours_remaining_over_total_contract
+		dataType: string
+		lineageTag: 2278b82f-14ba-4788-ac62-6100c006ee8a
+		sourceLineageTag: number_of_hours_remaining_over_total_contract
+		summarizeBy: none
+		sourceColumn: number_of_hours_remaining_over_total_contract
+
+		annotation SummarizationSetBy = Automatic
+
+	column number_of_hours_per_block_1
+		dataType: string
+		lineageTag: 95485c6e-ae49-4221-809a-ee0bff07ef92
+		sourceLineageTag: number_of_hours_per_block_1
+		summarizeBy: none
+		sourceColumn: number_of_hours_per_block_1
+
+		annotation SummarizationSetBy = Automatic
+
+	column total_contract_hours_purchased
+		dataType: string
+		lineageTag: 0ad3a057-cb50-4aca-8e04-359b5e3011dc
+		sourceLineageTag: total_contract_hours_purchased
+		summarizeBy: none
+		sourceColumn: total_contract_hours_purchased
+
+		annotation SummarizationSetBy = Automatic
+
+	column unnamed_42
+		dataType: string
+		lineageTag: 10d3497f-f12d-42a6-ac6a-785bc6f6befb
+		sourceLineageTag: unnamed_42
+		summarizeBy: none
+		sourceColumn: unnamed_42
+
+		annotation SummarizationSetBy = Automatic
+
+	column unnamed_43
+		dataType: string
+		lineageTag: 4082ca92-7559-471d-98da-b7bd235d3c28
+		sourceLineageTag: unnamed_43
+		summarizeBy: none
+		sourceColumn: unnamed_43
+
+		annotation SummarizationSetBy = Automatic
+
+	column unnamed_44
+		dataType: string
+		lineageTag: f35776a2-61fa-4b9b-8cbf-3685504013ba
+		sourceLineageTag: unnamed_44
+		summarizeBy: none
+		sourceColumn: unnamed_44
+
+		annotation SummarizationSetBy = Automatic
+
+	column unnamed_45
+		dataType: string
+		lineageTag: f12a7a75-2672-451a-896f-a733a50f07fc
+		sourceLineageTag: unnamed_45
+		summarizeBy: none
+		sourceColumn: unnamed_45
+
+		annotation SummarizationSetBy = Automatic
+
+	column contract
+		dataType: string
+		lineageTag: 6c4fc0a7-5cee-4e1e-b0f5-e67fa1bca20e
+		sourceLineageTag: contract
+		summarizeBy: none
+		sourceColumn: contract
+
+		annotation SummarizationSetBy = Automatic
+
+	column reoccuring_service_contracts_need_this_info
+		dataType: string
+		lineageTag: 4b8f0748-6e3a-484a-bba5-ed6fba82ce54
+		sourceLineageTag: reoccuring_service_contracts_need_this_info
+		summarizeBy: none
+		sourceColumn: reoccuring_service_contracts_need_this_info
+
+		annotation SummarizationSetBy = Automatic
+
+	column unnamed_36
+		dataType: string
+		lineageTag: 03f4f928-dfe3-4047-9c09-8fa737ec253d
+		sourceLineageTag: unnamed_36
+		summarizeBy: none
+		sourceColumn: unnamed_36
+
+		annotation SummarizationSetBy = Automatic
+
+	column unnamed_37
+		dataType: string
+		lineageTag: 85c806e9-3121-421b-9bd6-9de747441c6b
+		sourceLineageTag: unnamed_37
+		summarizeBy: none
+		sourceColumn: unnamed_37
+
+		annotation SummarizationSetBy = Automatic
+
+	column unnamed_38
+		dataType: string
+		lineageTag: fd104308-fc80-46de-9249-0d582daa7865
+		sourceLineageTag: unnamed_38
+		summarizeBy: none
+		sourceColumn: unnamed_38
+
+		annotation SummarizationSetBy = Automatic
+
+	column unnamed_39
+		dataType: string
+		lineageTag: af88c76d-5554-4a94-8241-206baf77d529
+		sourceLineageTag: unnamed_39
+		summarizeBy: none
+		sourceColumn: unnamed_39
+
+		annotation SummarizationSetBy = Automatic
+
+	column unnamed_40
+		dataType: string
+		lineageTag: 26fc9851-ec0a-4510-9417-09b74776cdef
+		sourceLineageTag: unnamed_40
+		summarizeBy: none
+		sourceColumn: unnamed_40
+
+		annotation SummarizationSetBy = Automatic
+
+	column unnamed_41
+		dataType: string
+		lineageTag: 49b64080-f8d9-4539-955b-d47c7ac26cc2
+		sourceLineageTag: unnamed_41
+		summarizeBy: none
+		sourceColumn: unnamed_41
+
+		annotation SummarizationSetBy = Automatic
+
+	column unnamed_30
+		dataType: string
+		lineageTag: f65e0d3f-ff7c-4ca8-ba88-58604255c230
+		sourceLineageTag: unnamed_30
+		summarizeBy: none
+		sourceColumn: unnamed_30
+
+		annotation SummarizationSetBy = Automatic
+
+	column unnamed_31
+		dataType: string
+		lineageTag: c19bb80e-fef7-46b3-bf9b-664cffe79507
+		sourceLineageTag: unnamed_31
+		summarizeBy: none
+		sourceColumn: unnamed_31
+
+		annotation SummarizationSetBy = Automatic
+
+	column unnamed_32
+		dataType: string
+		lineageTag: 0b909050-c74f-4fad-9849-803887d9c4ef
+		sourceLineageTag: unnamed_32
+		summarizeBy: none
+		sourceColumn: unnamed_32
+
+		annotation SummarizationSetBy = Automatic
+
+	column unnamed_33
+		dataType: string
+		lineageTag: ecd9b7dc-e85b-4b71-be7c-3384970ec9da
+		sourceLineageTag: unnamed_33
+		summarizeBy: none
+		sourceColumn: unnamed_33
+
+		annotation SummarizationSetBy = Automatic
+
+	column unnamed_34
+		dataType: string
+		lineageTag: 0e610ac1-743f-4e18-88aa-07765e3890c4
+		sourceLineageTag: unnamed_34
+		summarizeBy: none
+		sourceColumn: unnamed_34
+
+		annotation SummarizationSetBy = Automatic
+
+	column unnamed_35
+		dataType: string
+		lineageTag: 2e5912c1-cf30-4c59-96f3-05468d7982bd
+		sourceLineageTag: unnamed_35
+		summarizeBy: none
+		sourceColumn: unnamed_35
+
+		annotation SummarizationSetBy = Automatic
+
+	column unnamed_24
+		dataType: string
+		lineageTag: 973238ec-28f1-463d-9325-3756927fc4d3
+		sourceLineageTag: unnamed_24
+		summarizeBy: none
+		sourceColumn: unnamed_24
+
+		annotation SummarizationSetBy = Automatic
+
+	column unnamed_25
+		dataType: string
+		lineageTag: 73349539-557d-44fa-9b71-575886bca5a3
+		sourceLineageTag: unnamed_25
+		summarizeBy: none
+		sourceColumn: unnamed_25
+
+		annotation SummarizationSetBy = Automatic
+
+	column unnamed_26
+		dataType: string
+		lineageTag: ceaacbd5-21fc-4a24-8b4b-d85e972fbc3c
+		sourceLineageTag: unnamed_26
+		summarizeBy: none
+		sourceColumn: unnamed_26
+
+		annotation SummarizationSetBy = Automatic
+
+	column unnamed_27
+		dataType: string
+		lineageTag: 9873a109-f657-4121-8a66-d68e5f0611ba
+		sourceLineageTag: unnamed_27
+		summarizeBy: none
+		sourceColumn: unnamed_27
+
+		annotation SummarizationSetBy = Automatic
+
+	column unnamed_28
+		dataType: string
+		lineageTag: 980de9e6-6e12-45fc-b216-eb58e279baa9
+		sourceLineageTag: unnamed_28
+		summarizeBy: none
+		sourceColumn: unnamed_28
+
+		annotation SummarizationSetBy = Automatic
+
+	column unnamed_29
+		dataType: string
+		lineageTag: 259fe6be-0f58-435e-be01-f170bf147ef5
+		sourceLineageTag: unnamed_29
+		summarizeBy: none
+		sourceColumn: unnamed_29
+
+		annotation SummarizationSetBy = Automatic
+
+	column unnamed_18
+		dataType: string
+		lineageTag: 51816c92-6650-41c2-a4db-96a3e2d29646
+		sourceLineageTag: unnamed_18
+		summarizeBy: none
+		sourceColumn: unnamed_18
+
+		annotation SummarizationSetBy = Automatic
+
+	column unnamed_19
+		dataType: string
+		lineageTag: ca5c9cd7-bfbc-45e7-8293-ecc6d0e8adab
+		sourceLineageTag: unnamed_19
+		summarizeBy: none
+		sourceColumn: unnamed_19
+
+		annotation SummarizationSetBy = Automatic
+
+	column unnamed_20
+		dataType: string
+		lineageTag: 68876a32-8fa1-4ff5-ac3c-8aa2d80445c1
+		sourceLineageTag: unnamed_20
+		summarizeBy: none
+		sourceColumn: unnamed_20
+
+		annotation SummarizationSetBy = Automatic
+
+	column unnamed_21
+		dataType: string
+		lineageTag: ed97d78c-764f-4a3e-9166-22091a4b66bc
+		sourceLineageTag: unnamed_21
+		summarizeBy: none
+		sourceColumn: unnamed_21
+
+		annotation SummarizationSetBy = Automatic
+
+	column unnamed_22
+		dataType: string
+		lineageTag: ce4eb1ee-bcfb-4ee4-aa34-3878803c95e7
+		sourceLineageTag: unnamed_22
+		summarizeBy: none
+		sourceColumn: unnamed_22
+
+		annotation SummarizationSetBy = Automatic
+
+	column unnamed_23
+		dataType: string
+		lineageTag: 62b78b0d-f054-44aa-a30d-29763a4ecb59
+		sourceLineageTag: unnamed_23
+		summarizeBy: none
+		sourceColumn: unnamed_23
+
+		annotation SummarizationSetBy = Automatic
+
+	column unnamed_12
+		dataType: string
+		lineageTag: 4c375c87-a2fa-4c6a-b837-bf17e8915a49
+		sourceLineageTag: unnamed_12
+		summarizeBy: none
+		sourceColumn: unnamed_12
+
+		annotation SummarizationSetBy = Automatic
+
+	column unnamed_13
+		dataType: string
+		lineageTag: 0c8acca4-82eb-450d-85c9-318fcb4521df
+		sourceLineageTag: unnamed_13
+		summarizeBy: none
+		sourceColumn: unnamed_13
+
+		annotation SummarizationSetBy = Automatic
+
+	column unnamed_14
+		dataType: string
+		lineageTag: b679bb17-310e-4379-9985-5365ddae9704
+		sourceLineageTag: unnamed_14
+		summarizeBy: none
+		sourceColumn: unnamed_14
+
+		annotation SummarizationSetBy = Automatic
+
+	column unnamed_15
+		dataType: string
+		lineageTag: ad9133bf-d059-4c6f-9a8b-40b73eddf903
+		sourceLineageTag: unnamed_15
+		summarizeBy: none
+		sourceColumn: unnamed_15
+
+		annotation SummarizationSetBy = Automatic
+
+	column unnamed_16
+		dataType: string
+		lineageTag: 6dfd4d5a-6805-4794-803d-2223c64d55ca
+		sourceLineageTag: unnamed_16
+		summarizeBy: none
+		sourceColumn: unnamed_16
+
+		annotation SummarizationSetBy = Automatic
+
+	column unnamed_17
+		dataType: string
+		lineageTag: ae9c29cb-b752-4759-83f9-62f462816d18
+		sourceLineageTag: unnamed_17
+		summarizeBy: none
+		sourceColumn: unnamed_17
+
+		annotation SummarizationSetBy = Automatic
+
+	column unnamed_6
+		dataType: string
+		lineageTag: 6754a5bd-ec8b-4d37-b7a4-927f909326cb
+		sourceLineageTag: unnamed_6
+		summarizeBy: none
+		sourceColumn: unnamed_6
+
+		annotation SummarizationSetBy = Automatic
+
+	column unnamed_7
+		dataType: string
+		lineageTag: 5f1fdf3b-a41b-478e-8642-10e9c3e947c1
+		sourceLineageTag: unnamed_7
+		summarizeBy: none
+		sourceColumn: unnamed_7
+
+		annotation SummarizationSetBy = Automatic
+
+	column unnamed_8
+		dataType: string
+		lineageTag: 9580f209-a02d-4296-9b53-faf3289d4349
+		sourceLineageTag: unnamed_8
+		summarizeBy: none
+		sourceColumn: unnamed_8
+
+		annotation SummarizationSetBy = Automatic
+
+	column unnamed_9
+		dataType: string
+		lineageTag: 56644153-43e6-443d-9f26-2dabf825345f
+		sourceLineageTag: unnamed_9
+		summarizeBy: none
+		sourceColumn: unnamed_9
+
+		annotation SummarizationSetBy = Automatic
+
+	column unnamed_10
+		dataType: string
+		lineageTag: 632cc147-d481-46e0-aaf8-e4c586b84229
+		sourceLineageTag: unnamed_10
+		summarizeBy: none
+		sourceColumn: unnamed_10
+
+		annotation SummarizationSetBy = Automatic
+
+	column unnamed_11
+		dataType: string
+		lineageTag: 010bda44-deff-4e37-9227-c205c0f48a60
+		sourceLineageTag: unnamed_11
+		summarizeBy: none
+		sourceColumn: unnamed_11
+
+		annotation SummarizationSetBy = Automatic
+
+	partition billing_customer = entity
+		mode: directLake
+		source
+			entityName: billing_customer
+			expressionSource: 'DirectLake - gold_layer'
+

@@ -1,0 +1,12 @@
+relationship 4466b476-c85d-8f58-919a-a7053d4ed13a
+	fromColumn: billing_customer.company_name
+	toColumn: contract_search.company_name
+
+relationship 3cc0dffd-79f7-9c59-dace-e90a7d5d3d64
+	fromColumn: billing_customer.resource_name
+	toColumn: resource_list.resource_name
+
+relationship e3deb81a-780c-505f-cf83-dc79bb556f65
+	fromColumn: _Calendar.Date
+	toColumn: contract_search.start_date
+

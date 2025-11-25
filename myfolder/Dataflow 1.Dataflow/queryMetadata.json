@@ -1,0 +1,32 @@
+{
+  "formatVersion": "202502",
+  "computeEngineSettings": {},
+  "name": "Dataflow 1",
+  "queryGroups": [],
+  "documentLocale": "en-US",
+  "queriesMetadata": {
+    "DefaultDestination": {
+      "queryId": "69cee9e4-75a7-44b8-b5b6-6436faa6ce0b",
+      "queryName": "DefaultDestination",
+      "isHidden": true,
+      "loadEnabled": false
+    },
+    "customer_subscriptions": {
+      "queryId": "e8f2429e-bd47-4268-ad83-7d88759ebaaf",
+      "queryName": "customer_subscriptions",
+      "loadEnabled": false
+    }
+  },
+  "connections": [
+    {
+      "path": "Lakehouse",
+      "kind": "Lakehouse",
+      "connectionId": "{\"ClusterId\":\"8c208306-0680-467e-b858-cd1d94e8e66d\",\"DatasourceId\":\"c449c666-511a-48f2-965e-18e198a81c96\"}"
+    },
+    {
+      "path": "https://dreamitcs2020-my.sharepoint.com/personal/aryan_dreamitcs_com/",
+      "kind": "Web",
+      "connectionId": "{\"ClusterId\":\"8c208306-0680-467e-b858-cd1d94e8e66d\",\"DatasourceId\":\"971bc013-a978-4267-924d-f543e8bd1012\"}"
+    }
+  ]
+}

@@ -1,0 +1,47 @@
+table 'ecom Manual table'
+	lineageTag: 8d37c3d0-e321-4e01-85b9-970ca5499ccb
+
+	column Cat
+		dataType: string
+		lineageTag: 44d2d148-558a-40d0-83d0-3668f5b4a93c
+		summarizeBy: none
+		sourceColumn: Cat
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Sub Cat'
+		dataType: string
+		lineageTag: 8d01a809-f541-4af9-8db1-dc3b4eda068f
+		summarizeBy: none
+		sourceColumn: Sub Cat
+
+		annotation SummarizationSetBy = Automatic
+
+	column Sort
+		dataType: int64
+		formatString: 0
+		lineageTag: bea2c90b-607c-40fb-9636-187719e0492e
+		summarizeBy: none
+		sourceColumn: Sort
+
+		annotation SummarizationSetBy = Automatic
+
+	column Filter
+		dataType: string
+		lineageTag: 596533f9-f2f8-449b-aef0-9f6b265294b1
+		summarizeBy: none
+		sourceColumn: Filter
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'ecom Manual table-d3670849-908d-4848-8c07-ba23651c2b9c' = m
+		mode: import
+		source =
+				let
+				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("lZExD4IwEIX/yqUzA0VFXY1SF4SkbsBAoIlEoKQpJv57Cw0KIhCHJtd738u9ywUBwj6EtWlaNlg+MtCFSaC3rKpYCsSFMy8YHFmePZh4hqUCsHqnhBcoMpbMNJMMJAcquWBKtmasVy7jHPrNdtqqb/Ed2snUoeN5fpbcwRG8eE9c/2NvyqF9M2vXkUdtu2/SDHGn8W0f98hXLI/oMO1udaXU3RI/OJmS9yODTtKW2BylfQNtWyF4GjnoVZr1sPULIyIuU+h++HPO6AU=", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Cat = _t, #"Sub Cat" = _t, Sort = _t, Filter = _t]),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Cat", type text}, {"Sub Cat", type text}, {"Sort", Int64.Type}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table
+

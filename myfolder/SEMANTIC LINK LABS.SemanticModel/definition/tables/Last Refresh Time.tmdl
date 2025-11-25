@@ -1,0 +1,23 @@
+table 'Last Refresh Time'
+	lineageTag: 30fe934e-5d66-4728-a385-f0f6f249306d
+
+	column 'Last Refresh Time'
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: adb9db3e-0d5a-4da2-a9c5-469c2c534a91
+		summarizeBy: none
+		sourceColumn: Last Refresh Time
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Last Refresh Time' = m
+		mode: import
+		queryGroup: Parameter
+		source =
+				let
+				    Source = DateTime.LocalNow()
+				in
+				    Source
+
+	annotation PBI_ResultType = DateTime
+

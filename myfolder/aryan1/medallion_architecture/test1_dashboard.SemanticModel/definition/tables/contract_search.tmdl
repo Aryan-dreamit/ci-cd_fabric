@@ -1,0 +1,260 @@
+table contract_search
+	lineageTag: 7890a643-7339-491c-a4b2-74dfa956b72e
+
+	column Classification
+		dataType: string
+		lineageTag: 6337cc16-27b1-4b2b-b8b8-89d94c7f5afb
+		summarizeBy: none
+		sourceColumn: Classification
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Contract Name'
+		dataType: string
+		lineageTag: 5e466f61-c933-4129-baf4-8b6c76a2f3e0
+		summarizeBy: none
+		sourceColumn: Contract Name
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Company Name'
+		dataType: string
+		lineageTag: c8f58103-cd2a-48f6-bcb2-4b28c2b2e0a1
+		summarizeBy: none
+		sourceColumn: Company Name
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Contract Type'
+		dataType: string
+		lineageTag: 5b8ecad9-4ee3-4ee0-b3ec-8e5ec75cb6fa
+		summarizeBy: none
+		sourceColumn: Contract Type
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column Active
+		dataType: string
+		lineageTag: e86fa4e4-d8d9-4c18-b65b-7988181cf472
+		summarizeBy: none
+		sourceColumn: Active
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Start Date'
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 69207b8c-c736-4149-97a7-19fe7631dc6f
+		summarizeBy: none
+		sourceColumn: Start Date
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'End Date'
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: cf36eb68-0d16-4429-9e45-c275162a4ccc
+		summarizeBy: none
+		sourceColumn: End Date
+
+		variation Variation
+			isDefault
+			relationship: 05293b9c-ec7b-4be5-9ec5-da3ea90255cf
+			defaultHierarchy: LocalDateTable_6a319bcb-abcc-4502-85a2-cb7c5f373bb4.'Date Hierarchy'
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Estimated Revenue'
+		dataType: string
+		lineageTag: dff3e8e5-070e-4cf2-b6c3-e7c178287d06
+		summarizeBy: none
+		sourceColumn: Estimated Revenue
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Default Service Desk Contract'
+		dataType: string
+		lineageTag: 5679d967-c471-45ff-9cd3-3594c7f5b35a
+		summarizeBy: none
+		sourceColumn: Default Service Desk Contract
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Approve & Post Labour'
+		dataType: string
+		lineageTag: 3b30bee5-53f9-4fa7-a688-fd1c5f1faaa6
+		summarizeBy: none
+		sourceColumn: Approve & Post Labour
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Account Manager'
+		dataType: string
+		lineageTag: 15b3f708-f4ba-4996-b77f-7791df676d10
+		summarizeBy: none
+		sourceColumn: Account Manager
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Company Category'
+		dataType: string
+		lineageTag: f4a18c26-89a6-4dd1-801f-2d7cd94d573f
+		summarizeBy: none
+		sourceColumn: Company Category
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Contract Category'
+		dataType: string
+		lineageTag: b6e5733f-6d6b-400f-8f59-7a09c9943d4f
+		summarizeBy: none
+		sourceColumn: Contract Category
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Contract ID'
+		dataType: int64
+		formatString: 0
+		lineageTag: e7211a4c-d4e6-484d-b8f7-6abea7a7a261
+		summarizeBy: count
+		sourceColumn: Contract ID
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Contract Period Type'
+		dataType: string
+		lineageTag: 657a550b-5cde-41cf-a0fa-d1757f6d5422
+		summarizeBy: none
+		sourceColumn: Contract Period Type
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Current Balance'
+		dataType: double
+		lineageTag: fc63ea7d-49ec-448f-9725-62a8beb66aae
+		summarizeBy: sum
+		sourceColumn: Current Balance
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Estimated Cost'
+		dataType: string
+		lineageTag: 1e6bed8b-e986-4745-a049-ffcebf762c4e
+		summarizeBy: none
+		sourceColumn: Estimated Cost
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Estimated Hours'
+		dataType: double
+		lineageTag: 4cf76405-1fba-4f58-91db-772b4fd8102c
+		summarizeBy: sum
+		sourceColumn: Estimated Hours
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Line of Business (Billing)'
+		dataType: string
+		lineageTag: c9a3cfd4-2335-4d1a-8b27-8fe35474ae49
+		summarizeBy: none
+		sourceColumn: Line of Business (Billing)
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Tenant ID'
+		dataType: string
+		lineageTag: 3e52019f-dbdd-41ca-829d-e1e4d1d9031e
+		summarizeBy: none
+		sourceColumn: Tenant ID
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Bundle Status'
+		dataType: string
+		lineageTag: e67e7959-7490-4b09-9ff8-6ddff8eda9fe
+		summarizeBy: none
+		sourceColumn: Bundle Status
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Billing Cycle'
+		dataType: string
+		lineageTag: fe64e4e9-752a-44d6-95f9-93bcff43d195
+		summarizeBy: none
+		sourceColumn: Billing Cycle
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	partition contract_search = m
+		mode: import
+		source =
+				let
+				    Source = Folder.Files("C:\Users\goura\OneDrive\Desktop\task"),
+				    #"C:\Users\goura\OneDrive\Desktop\task\_Contract Search Results 1 csv1" = Source{[#"Folder Path"="C:\Users\goura\OneDrive\Desktop\task\",Name="Contract Search Results 1.csv"]}[Content],
+				    #"Imported CSV" = Csv.Document(#"C:\Users\goura\OneDrive\Desktop\task\_Contract Search Results 1 csv1",[Delimiter=",", Columns=41, Encoding=65001, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(#"Imported CSV", [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Classification", type text}, {"Contract Name", type text}, {"Company Name", type text}, {"Contract Type", type text}, {"Active", type text}, {"Start Date", type date}, {"End Date", type date}, {"Estimated Revenue", type text}, {"Default Service Desk Contract", type text}, {"Approve & Post Labour", type text}, {"Out of Compliance", type text}, {"Account Manager", type text}, {"Company Category", type text}, {"Company To Bill", type text}, {"Contact", type text}, {"Contract Category", type text}, {"Contract ID", Int64.Type}, {"Contract Period Type", type text}, {"Current Balance", type number}, {"Estimated Cost", type text}, {"Estimated Hours", type number}, {"External Contract Number", Int64.Type}, {"Has Exclusions", type text}, {"Is Exclusion Contract", type text}, {"Line of Business (Billing)", type text}, {"Opportunity", type text}, {"Parent Account", type text}, {"Renewal Of", type text}, {"Renewed", type text}, {"Service Level Agreement", type text}, {"Bundle Type", type text}, {"complete status 10+ days", type text}, {"Contract Bundle", type text}, {"Executive AM Support", type text}, {"Fair usage allowance (monthly)", Int64.Type}, {"NCE contract renewal month", type text}, {"New customer signed date", type text}, {"Tenant ID", type text}, {"Vendor Service", type text}, {"Bundle Status", type text}, {"Billing Cycle", type text}}),
+				    #"Removed Columns" = Table.RemoveColumns(#"Changed Type",{"Company To Bill", "Contact", "External Contract Number", "Has Exclusions", "Is Exclusion Contract", "Opportunity", "Parent Account", "Renewal Of", "Renewed", "Service Level Agreement", "complete status 10+ days", "Executive AM Support", "Vendor Service", "New customer signed date", "NCE contract renewal month", "Fair usage allowance (monthly)", "Out of Compliance"}),
+				    #"Filtered Rows" = Table.SelectRows(#"Removed Columns", each true),
+				    #"Removed Columns1" = Table.RemoveColumns(#"Filtered Rows",{"Contract Bundle", "Bundle Type"})
+				in
+				    #"Removed Columns1"
+
+	changedProperty = Name
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

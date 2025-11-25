@@ -1,0 +1,66 @@
+table Parameter_ecom
+	lineageTag: 45a50ca7-0f25-4f0d-bba1-4e1b3d728501
+
+	measure 'Text Color On/Off Last N Week Para Ecom' =
+			
+			VAR x= If(CONTAINSSTRING(MAX('Parameter_ecom'[Parameter_ecom]),"Selected Weeks"),"Black","white")
+			RETURN x
+		lineageTag: 6a2ce97a-d05e-4844-b29d-91fbc24c97aa
+
+	measure 'Background On/Off Last N Week for Ecom Table' =
+			
+			VAR x= If(CONTAINSSTRING(MAX('Parameter_ecom'[Parameter_ecom]),"Selected Weeks"),"#E6E6E6", "#1184C7")
+			RETURN x
+		lineageTag: 0ec06ee9-8c7a-4f6a-89d2-f0556fa19215
+
+	measure 'Text On/Off Last N Week Ecom Table' =
+			
+			VAR x= If(CONTAINSSTRING(MAX('Parameter_ecom'[Parameter_ecom]),"Selected Weeks"),"Filter is in Off State","Last N Weeks")
+			RETURN x
+		lineageTag: 4812c8da-4948-43f1-ab28-2fd6407a3347
+
+	column Parameter_ecom
+		lineageTag: d762f942-8c68-46a5-bac6-8aba263a7938
+		summarizeBy: none
+		sourceColumn: [Value1]
+		sortByColumn: 'Parameter_ecom Order'
+
+		relatedColumnDetails
+			groupByColumn: 'Parameter_ecom Fields'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Parameter_ecom Fields'
+		isHidden
+		lineageTag: 015de693-db40-43e8-aad2-dba8ce922a5c
+		summarizeBy: none
+		sourceColumn: [Value2]
+		sortByColumn: 'Parameter_ecom Order'
+
+		extendedProperty ParameterMetadata =
+				{
+				  "version": 3,
+				  "kind": 2
+				}
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Parameter_ecom Order'
+		isHidden
+		formatString: 0
+		lineageTag: b2034649-5087-450b-89c6-f9fb03f063a3
+		summarizeBy: sum
+		sourceColumn: [Value3]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Parameter_ecom = calculated
+		mode: import
+		source =
+				{
+				    ("Last N Weeks", NAMEOF('_Key Measures'[Calculation_based_on_LastNWeek Ecom Sales]), 0),
+				    ("Selected Weeks", NAMEOF('_Key Measures'[Calculation_based_on_Selected_Weeks(Custom Slicer) Ecom Table]), 1)
+				}
+
+	annotation PBI_Id = c035ec262b4046fcb79a0bd4c220be8a
+

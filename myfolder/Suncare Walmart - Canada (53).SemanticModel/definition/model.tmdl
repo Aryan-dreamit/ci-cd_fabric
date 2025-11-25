@@ -1,0 +1,91 @@
+model Model
+	culture: en-US
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: en-IN
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+queryGroup Fact
+
+	annotation PBI_QueryGroupOrder = 1
+
+queryGroup Dimensions
+
+	annotation PBI_QueryGroupOrder = 2
+
+queryGroup Parameter
+
+	annotation PBI_QueryGroupOrder = 0
+
+queryGroup 'Prime Item'
+
+	annotation PBI_QueryGroupOrder = 3
+
+queryGroup Fact\Ecommerce
+
+	annotation PBI_QueryGroupOrder = 1
+
+queryGroup Fact\Inventory
+
+	annotation PBI_QueryGroupOrder = 0
+
+queryGroup Fact\Weekly
+
+	annotation PBI_QueryGroupOrder = 2
+
+annotation PBI_QueryOrder = ["_Key Measures","WMT Weeks","Store","Date Slicer Table","Last Refresh Time","MaxYear","LastNWeek","FactSuncare_CurrentYear","FactSuncare_PreviousYear","FactSuncare","Billy'Team","UserList","Competition","Store_Items_Attributes","FactSuncare_Canada_Inventory","factsuncare_canada_Ecom","ecom Manual table","CustomEcomSupport","CustomCalculation_based_on_LastNWeek/Selected Week","CustomCalculation_based_on_LastNWeek/Selected Week FOR ADD- DELETE","Segment table","CustomSortOrder","Period","CustomSortByMeasure","Prime Item and Detail Item List","Add-Delete-CustomSortByMeasure","CanadaReportMonthWeekOrder","WMT Weeks (old)","CurrentYearWeek","PreviousEndYearWeek","FactSuncare_Canada_Inventory_PreviousYear","FactSuncare_Canada_Inventory_CurrentYear","factsuncare_canada_Ecom_PreviousYear","factsuncare_canada_Ecom_CurrentYear"]
+
+annotation __PBI_TimeIntelligenceEnabled = 0
+
+annotation PBIDesktopVersion = 2.145.1105.0 (25.07)+decbc46fce458c5b8d5109d6f32a743f2ac949c8
+
+annotation __TEdtr = 1
+
+annotation PBI_ProTooling = ["DaxQueryView_Desktop"]
+
+ref table '_Key Measures'
+ref table 'WMT Weeks'
+ref table Store
+ref table 'Date Slicer Table'
+ref table DateSlicers
+ref table 'Measures List'
+ref table LastNWeek
+ref table Parameter
+ref table FactSuncare
+ref table 'Billy''Team'
+ref table UserList
+ref table Competition
+ref table Store_Items_Attributes
+ref table Range
+ref table FactSuncare_Canada_Inventory
+ref table 'Last Refresh Time'
+ref table 'slice button change'
+ref table factsuncare_canada_Ecom
+ref table 'ecom Manual table'
+ref table 'Dynamic Slicer'
+ref table 'Ecom Para_1'
+ref table CustomEcomSupport
+ref table 'Parameter for Ecom Table'
+ref table 'CustomCalculation_based_on_LastNWeek/Selected Week'
+ref table Calculationby?
+ref table Parameter_ecom
+ref table 'CustomCalculation_based_on_LastNWeek/Selected Week FOR ADD- DELETE'
+ref table 'Add_delete Parameter'
+ref table 'Parameter Geography '
+ref table 'Segment table'
+ref table CustomSortOrder
+ref table Period
+ref table CustomSortByMeasure
+ref table 'Prime Item and Detail Item List'
+ref table Add-Delete-CustomSortByMeasure
+ref table DimBrand
+ref table DimVendor
+ref table MaxYear
+ref table 'Sales by Week'
+ref table CanadaReportMonthWeekOrder
+
+ref role Roles
+
+ref cultureInfo en-US
+

@@ -1,0 +1,384 @@
+table FactSuncare
+	lineageTag: 3b922b02-5e70-47e3-a229-2d956e81555d
+
+	measure 'TY $''s' = ```
+			VAR _year=[Comparison Year]
+			RETURN 
+			CALCULATE(
+			    SUM(FactSuncare[POS Sales]),
+			    FILTER(
+			        'WMT Weeks',
+			        'WMT Weeks'[Fiscal Year] = _year
+			    )
+			)
+			```
+		lineageTag: ac558d99-1b0e-4062-8295-53c1f3c6131c
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'LY $''s' = ```
+			VAR _year=[Comparison Year]-1
+			RETURN
+			CALCULATE(
+			    SUM(FactSuncare[POS Sales]),
+			
+			        'Date Slicer Table'[Year] = _year
+			    )
+			
+			```
+		lineageTag: 389cb5b1-f493-4555-8283-face9f82a326
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'TY U''s' =
+			VAR _year=[Comparison Year]
+			RETURN
+			CALCULATE(
+			    SUM(FactSuncare[POS Qty]),
+			    FILTER(
+			        'WMT Weeks',
+			        'WMT Weeks'[Fiscal Year] = _year
+			    )
+			)
+		formatString: 0
+		lineageTag: 71a76a11-a31c-444f-893f-75fed0c32f62
+
+	measure 'LY U''s' = ```
+			VAR _year=[Comparison Year]-1
+			RETURN
+			CALCULATE(
+			    SUM(FactSuncare[POS Qty]),
+			  
+			        'Date Slicer Table'[Year]
+			
+			)
+			```
+		formatString: 0
+		lineageTag: d6606d64-ea55-420b-b768-68aefec61c01
+
+	measure 'Instock % Factsuncare' = ```
+			
+			var a = SUM(FactSuncare[Sum of Instock])
+			var b = SUM(FactSuncare[Traited Factsuncare])
+			VAR _Stockweeek= MAX(FactSuncare[WM Week])
+			VAR _StockweeekNo= INT(RIGHT(MAX(FactSuncare[WM Week]),2))
+			VAR result=CALCULATE(DIVIDE(SUM(FactSuncare[Sum of Instock]),SUM(FactSuncare[Traited Factsuncare])), FactSuncare[Store to be included]=1)
+			VAR _currweek= CALCULATE(DIVIDE(SUM(FactSuncare[Sum of Instock]),SUM(FactSuncare[Traited Factsuncare])), FactSuncare[Store to be included]=1, 'WMT Weeks'[WMT Week]= _Stockweeek)
+			
+			VAR _Cond=COUNTROWS(VALUES('WMT Weeks'[WMT WK Number]))
+			RETURN 
+			   IF (
+			        CONTAINSSTRING ( MAX ( 'Calculationby?'[Calculationby?] ), "Last" ) && (_Cond ==_StockweeekNo),_currweek, result)
+			   
+			```
+		lineageTag: 1162e329-1ec4-4200-bba4-e17226a192a1
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Store Nbr'
+		dataType: int64
+		formatString: 0
+		lineageTag: 1a4d6577-9187-418d-a6a3-9c75aa9161f9
+		summarizeBy: none
+		sourceColumn: Store Nbr
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Store Name'
+		dataType: string
+		lineageTag: d27080ef-4b47-4fb8-b62c-e471828ce834
+		summarizeBy: none
+		sourceColumn: Store Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Fineline Number'
+		dataType: int64
+		formatString: 0
+		lineageTag: 628aa8c7-4c02-41a4-b25e-8c099c8dbdbb
+		summarizeBy: sum
+		sourceColumn: Fineline Number
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Fineline Description'
+		dataType: string
+		lineageTag: 8c56ab98-05a3-48e6-839d-0b46614b5ee1
+		summarizeBy: none
+		sourceColumn: Fineline Description
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Item Nbr'
+		dataType: int64
+		formatString: 0
+		lineageTag: 01d05147-f8c9-476e-bba9-084d944ad9be
+		summarizeBy: sum
+		sourceColumn: Item Nbr
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Item Desc 1'
+		dataType: string
+		lineageTag: 97cc4fc2-d22d-4122-8e8a-2d36face0635
+		summarizeBy: none
+		sourceColumn: Item Desc 1
+
+		annotation SummarizationSetBy = Automatic
+
+	column UPC
+		dataType: int64
+		formatString: 0
+		lineageTag: 7ef6356d-2892-4f7c-aa33-5fa7f14cd9d8
+		summarizeBy: sum
+		sourceColumn: UPC
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Brand ID'
+		dataType: int64
+		formatString: 0
+		lineageTag: a7dbe2e4-d414-46a8-b594-fbdc2811e433
+		summarizeBy: count
+		sourceColumn: Brand ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Brand Desc'
+		dataType: string
+		lineageTag: 325aade8-f109-475c-85bb-0646923bf238
+		summarizeBy: none
+		sourceColumn: Brand Desc
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Vendor Nbr'
+		dataType: int64
+		formatString: 0
+		lineageTag: c56678a8-e211-4ce4-af82-370d41d48fad
+		summarizeBy: sum
+		sourceColumn: Vendor Nbr
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Vendor Name'
+		dataType: string
+		lineageTag: a85c133a-dd6a-46df-9a7c-b1296ae29820
+		summarizeBy: none
+		sourceColumn: Vendor Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'WM Week'
+		dataType: int64
+		formatString: 0
+		lineageTag: 291ab190-bcc0-4169-97e1-aa559db38b62
+		summarizeBy: none
+		sourceColumn: WM Week
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'POS Qty'
+		dataType: int64
+		formatString: #,0
+		lineageTag: 44da6724-ed22-4496-aec0-7a5fa79b562e
+		summarizeBy: sum
+		sourceColumn: POS Qty
+
+		changedProperty = FormatString
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isDecimal":true}
+
+	column 'POS Sales'
+		dataType: double
+		formatString: \$#,0;(\$#,0);\$#,0
+		lineageTag: b843770d-32a7-412a-870e-be99237993d5
+		summarizeBy: sum
+		sourceColumn: POS Sales
+
+		changedProperty = FormatString
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	column 'Hist On Hand Qty'
+		dataType: int64
+		lineageTag: a5ccf010-1491-45e0-bb78-092be569ab6b
+		summarizeBy: sum
+		sourceColumn: Hist On Hand Qty
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column joinkey = ```
+			COMBINEVALUES(" ",FactSuncare[Item Nbr],FactSuncare[UPC],FactSuncare[Fineline Number],FactSuncare[Vendor Nbr],FactSuncare[Brand ID],FactSuncare[Store Nbr], FactSuncare[WM Week])
+			
+			
+			```
+		lineageTag: 4a9bea09-bbdd-413b-a8fe-441875069129
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column Code = 1
+		formatString: 0
+		lineageTag: 8ab99ba9-39ce-4988-90fd-fc6693b13971
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column State
+		dataType: string
+		lineageTag: f4be8ba6-46dc-4c08-bea8-fd322726536f
+		summarizeBy: none
+		sourceColumn: State
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Store Type Descr'
+		dataType: string
+		lineageTag: d2e0589b-b38c-4795-a32c-b7296dffeccf
+		summarizeBy: none
+		sourceColumn: Store Type Descr
+
+		annotation SummarizationSetBy = Automatic
+
+	column Item = FactSuncare[Item Nbr]  & " - " & FactSuncare[Item Desc 1]
+		lineageTag: 1dd889d5-42fa-4c60-b84a-f0de339478ca
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Net Ship Qty'
+		dataType: double
+		lineageTag: 06ae8a1a-f990-408a-8069-5cd412d29963
+		summarizeBy: sum
+		sourceColumn: Net Ship Qty
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Consumer Id'
+		dataType: int64
+		formatString: 0
+		lineageTag: db80b2bf-82cd-41c9-aeb9-7a042f0b89e7
+		summarizeBy: count
+		sourceColumn: Consumer Id
+
+		annotation SummarizationSetBy = Automatic
+
+	column TestStore = RELATED(Store[Store Nbr])
+		formatString: 0
+		lineageTag: 41cad32a-807b-4ee4-ad8c-0be3a3614bbd
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column WNBR =
+			
+			related('WMT Weeks'[WMT WK Number])
+		formatString: 0
+		lineageTag: b6621ecd-2ee1-4977-b783-f518c05497f2
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'items with hierarchy' = ```
+			
+			 VAR _spf  = RELATED(Store_Items_Attributes[SPF])
+			  
+			VAR  _form=RELATED(Store_Items_Attributes[Format])
+			VAr _item =CONCATENATE(FactSuncare[Item Nbr],CONCATENATE(" | ",FactSuncare[Item Desc 1]))
+			VAR _withspf= If(CONTAINSSTRING(_spf,"n/a") || ISBLANK(_Spf), _item,_item  & " | " & _spf)
+			
+			VAr _withform = If(ISBLANK(_form), _withspf, _withspf & " | " & _form)
+			
+			RETURN _withform
+			```
+		lineageTag: a0a368bc-53c2-42b1-a06f-30e566bb794f
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Store to be included' =
+			
+			VAR x= RELATED(Store[Store Nbr])
+			
+			RETURN If(x= FactSuncare[Store Nbr] , 1, 0)
+		formatString: 0
+		lineageTag: 751ec0df-40b4-4a95-8b01-f6e5016a819b
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Item # and Desc' = ```
+			RELATED(Store_Items_Attributes[Item # and Desc]) 
+			//'FactSuncare'[Item Nbr] & " - " & 'FactSuncare'[Item Desc 1]
+			```
+		lineageTag: b2ed3620-9358-4720-95fa-acc617f4657c
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Joinkey Ecom' = ```
+			COMBINEVALUES(" ",FactSuncare[Item Nbr],FactSuncare[UPC],FactSuncare[Fineline Number],FactSuncare[Brand ID],FactSuncare[Vendor Nbr],FactSuncare[WM Week])
+			
+			```
+		lineageTag: c9027cc4-ee3f-440b-9a60-cc5241823461
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Traited Factsuncare' = LOOKUPVALUE(FactSuncare_Canada_Inventory[Sum of Traited],FactSuncare_Canada_Inventory[joinkey],FactSuncare[joinkey])
+		formatString: 0
+		lineageTag: 6c279420-5c27-47c4-a887-da43b431d9d1
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Prime Item Nbr'
+		dataType: int64
+		formatString: 0
+		lineageTag: 2da56574-6062-41fb-b9e3-4730cdbb9875
+		summarizeBy: none
+		sourceColumn: Prime Item Nbr
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Sum of Instock' = LOOKUPVALUE(FactSuncare_Canada_Inventory[Sum of instock],FactSuncare_Canada_Inventory[joinkey],FactSuncare[joinkey])
+		formatString: 0
+		lineageTag: 77812de5-4040-4ad4-9d62-15db44441681
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Store # and Store Name' = FactSuncare[Store Nbr] & " - " & FactSuncare[Store Name]
+		lineageTag: d205badb-ec25-48ba-bd81-2ea3b5465bf6
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	partition FactSuncare-7c7c317c-de90-478c-853e-3af463c229b2 = m
+		mode: import
+		queryGroup: Fact\Weekly
+		source =
+				let
+				    Source = Table.Combine({FactSuncare_CurrentYear, FactSuncare_PreviousYear}),
+				    #"Removed Other Columns" = Table.SelectColumns(Source,{"Store Nbr", "Store Name", "State", "Store Type Descr", "Fineline Number", "Fineline Description", "Consumer Id", "Prime Item Nbr", "Item Nbr", "Item Desc 1", "UPC", "Brand ID", "Brand Desc", "Vendor Nbr", "Vendor Name", "WM Week", "POS Qty", "POS Sales", "Net Ship Qty", "Hist On Hand Qty"}),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Removed Other Columns",{{"Store Nbr", Int64.Type}, {"Store Name", type text}, {"Fineline Number", Int64.Type}, {"Fineline Description",type text }, {"Item Nbr", Int64.Type}, {"Item Desc 1", type text}, {"UPC", Int64.Type}, {"Brand ID", Int64.Type}, {"Brand Desc", type text}, {"Vendor Nbr", Int64.Type}, {"Vendor Name", type text}, {"WM Week", Int64.Type}, {"POS Qty", Int64.Type}, {"POS Sales", type number}, {"Hist On Hand Qty", Int64.Type}, {"Consumer Id", Int64.Type}}),
+				 #"Removed Other Columns1" = Table.SelectColumns(#"Changed Type",{"Store Nbr", "Store Name", "State", "Store Type Descr", "Fineline Number", "Fineline Description", "Consumer Id", "Prime Item Nbr", "Item Nbr", "Item Desc 1", "UPC", "Brand ID", "Brand Desc", "Vendor Nbr", "Vendor Name", "WM Week", "POS Qty", "POS Sales", "Net Ship Qty", "Hist On Hand Qty"}),
+				    #"Filtered Rows" = Table.SelectRows(#"Removed Other Columns1", each [WM Week] <> null and [WM Week] <> "")
+				in
+				    #"Filtered Rows"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

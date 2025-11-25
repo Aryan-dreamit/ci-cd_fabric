@@ -1,0 +1,370 @@
+table FactSuncare_Canada_Inventory
+	lineageTag: 287b4b11-3b3c-43c0-ba8d-09aedcb258b0
+
+	measure 'Instock % INV' =
+			
+			var a = SUM(FactSuncare_Canada_Inventory[Sum of instock])
+			var b = SUM(FactSuncare_Canada_Inventory[Sum of Traited])
+			return DIVIDE(a,b)
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: ee205e70-f492-4b55-b3f4-d920519192dd
+
+	column 'Store Nbr'
+		dataType: int64
+		formatString: 0
+		lineageTag: 118a25f2-273a-40b1-8a88-98edd84c480d
+		summarizeBy: none
+		sourceColumn: Store Nbr
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Store Name'
+		dataType: string
+		lineageTag: 2c401e8e-2a65-4c65-b800-45c570f33164
+		summarizeBy: none
+		sourceColumn: Store Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Fineline Number'
+		dataType: int64
+		formatString: 0
+		lineageTag: 69b56e5c-4a0c-42c0-af91-4783900db35e
+		summarizeBy: sum
+		sourceColumn: Fineline Number
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Fineline Description'
+		dataType: string
+		lineageTag: 9f869a3a-1b9e-4bea-b2d3-191266a0ab48
+		summarizeBy: none
+		sourceColumn: Fineline Description
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Consumer Id'
+		dataType: int64
+		formatString: 0
+		lineageTag: 5a2d4ed8-c436-45a8-bf2a-12d1bc1e804e
+		summarizeBy: count
+		sourceColumn: Consumer Id
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Prime Item Nbr'
+		dataType: int64
+		formatString: 0
+		lineageTag: b4304293-b544-46f0-9a9e-c63125bba356
+		summarizeBy: sum
+		sourceColumn: Prime Item Nbr
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Item Nbr'
+		dataType: int64
+		formatString: 0
+		lineageTag: 81a78b7b-a8e1-43a6-9a2a-dfb052856612
+		summarizeBy: sum
+		sourceColumn: Item Nbr
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Item Flags'
+		dataType: string
+		lineageTag: 59921694-3e49-4845-bc8e-a7a5dc34556f
+		summarizeBy: none
+		sourceColumn: Item Flags
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Item Desc 1'
+		dataType: string
+		lineageTag: f95da865-9ee9-4536-bb01-45a06ac79735
+		summarizeBy: none
+		sourceColumn: Item Desc 1
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Item Desc 2'
+		dataType: string
+		lineageTag: dc4cd1a1-2b1b-4692-a9b5-458dd5c7aede
+		summarizeBy: none
+		sourceColumn: Item Desc 2
+
+		annotation SummarizationSetBy = Automatic
+
+	column UPC
+		dataType: int64
+		formatString: 0
+		lineageTag: 1eb76874-95bb-4bba-b88a-10ea858a93b7
+		summarizeBy: sum
+		sourceColumn: UPC
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'UPC Desc'
+		dataType: string
+		lineageTag: 2d08d9ab-27d2-4a0a-9152-18d4c3c13041
+		summarizeBy: none
+		sourceColumn: UPC Desc
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Unit Retail'
+		dataType: double
+		lineageTag: 81cbeb8d-c96f-407c-ab5e-31f5a6acc8ab
+		summarizeBy: sum
+		sourceColumn: Unit Retail
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Unit Cost'
+		dataType: int64
+		formatString: 0
+		lineageTag: 4e7272fb-49c7-4f7b-a26e-85be2baf2d7f
+		summarizeBy: sum
+		sourceColumn: Unit Cost
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'MU %'
+		dataType: int64
+		formatString: 0
+		lineageTag: f49ade6b-748d-45f4-a92e-3d76ae6df39b
+		summarizeBy: sum
+		sourceColumn: MU %
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Item Status'
+		dataType: string
+		lineageTag: 87eeb625-e169-4e9b-9f90-73090397d0ad
+		summarizeBy: none
+		sourceColumn: Item Status
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Brand ID'
+		dataType: int64
+		formatString: 0
+		lineageTag: aed87b6c-8790-4320-985a-76919384de24
+		summarizeBy: count
+		sourceColumn: Brand ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Brand Desc'
+		dataType: string
+		lineageTag: aedb87d8-a5ff-4956-8021-4e363d081d30
+		summarizeBy: none
+		sourceColumn: Brand Desc
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Vendor Nbr'
+		dataType: int64
+		formatString: 0
+		lineageTag: c6a1ae46-5b7d-42c4-9d50-bf1879d88b8d
+		summarizeBy: sum
+		sourceColumn: Vendor Nbr
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Vendor Name'
+		dataType: string
+		lineageTag: 6388b06e-de17-4c0a-a300-9fcd71d4f6a8
+		summarizeBy: none
+		sourceColumn: Vendor Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'WM Week'
+		dataType: int64
+		formatString: 0
+		lineageTag: 36cae4e2-b196-4e5e-9fea-e01f51f4d8d8
+		summarizeBy: none
+		sourceColumn: WM Week
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Curr Valid Store/Item Comb.'
+		dataType: int64
+		formatString: 0
+		lineageTag: 9802e6d6-8ad0-434b-b9e8-f55e2775a640
+		summarizeBy: sum
+		sourceColumn: Curr Valid Store/Item Comb.
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Curr Str On Hand Qty'
+		dataType: int64
+		formatString: 0
+		lineageTag: 1a7fe395-8758-4cff-b3a9-7bb7fe205faa
+		summarizeBy: sum
+		sourceColumn: Curr Str On Hand Qty
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Curr Str On Order Qty'
+		dataType: int64
+		formatString: 0
+		lineageTag: 24dc5057-4488-42ab-a1e6-0313b79f8190
+		summarizeBy: sum
+		sourceColumn: Curr Str On Order Qty
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Curr Str In Transit Qty'
+		dataType: int64
+		formatString: 0
+		lineageTag: 36d08876-9ca6-4635-9389-e47b8907c68e
+		summarizeBy: sum
+		sourceColumn: Curr Str In Transit Qty
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Curr Str In Whse Qty'
+		dataType: int64
+		formatString: 0
+		lineageTag: 63a250f6-b46e-463d-8c68-6962bdc3d7a9
+		summarizeBy: sum
+		sourceColumn: Curr Str In Whse Qty
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Curr Str On Hand Retail'
+		dataType: double
+		formatString: 0
+		lineageTag: 746c7ed3-4705-49f1-aeda-ea5153ff947e
+		summarizeBy: sum
+		sourceColumn: Curr Str On Hand Retail
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isDecimal":true}
+
+	column 'Curr Str On Order Retail'
+		dataType: double
+		formatString: 0
+		lineageTag: 3db81cf0-cb10-4f0e-a00f-f52a02a7d7e4
+		summarizeBy: sum
+		sourceColumn: Curr Str On Order Retail
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isDecimal":true}
+
+	column 'Curr Str In Transit Retail'
+		dataType: double
+		formatString: 0
+		lineageTag: c3c39ba7-348c-4ae1-bfd8-cb3dd9a35b94
+		summarizeBy: sum
+		sourceColumn: Curr Str In Transit Retail
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isDecimal":true}
+
+	column 'Curr Str In Whse Retail'
+		dataType: double
+		formatString: 0
+		lineageTag: 6f07c2a8-4279-4c90-8cef-38b0feb6d759
+		summarizeBy: sum
+		sourceColumn: Curr Str In Whse Retail
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isDecimal":true}
+
+	column joinkey = ```
+			
+			 
+			COMBINEVALUES(" ",FactSuncare_Canada_Inventory[Item Nbr],FactSuncare_Canada_Inventory[UPC],FactSuncare_Canada_Inventory[Fineline Number],FactSuncare_Canada_Inventory[Vendor Nbr],FactSuncare_Canada_Inventory[Brand ID],FactSuncare_Canada_Inventory[Store Nbr],FactSuncare_Canada_Inventory[WMWeek Adjusted (Weekly Sales)])
+			```
+		lineageTag: 478d1100-fee3-4410-b812-5bcc26505edf
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Store to be included' =
+			
+			VAR x= RELATED(Store[Store Nbr])
+			
+			RETURN If(x= FactSuncare_Canada_Inventory[Store Nbr] , 1, 0)
+		formatString: 0
+		lineageTag: 41bfa952-e989-4979-8294-adc7ca65cbff
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column Item = FactSuncare_Canada_Inventory[Item Nbr] & " - " & FactSuncare_Canada_Inventory[Item Desc 1]
+		lineageTag: 41d4d60a-2574-4958-ba9d-21f5fe9258d1
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Sum of Traited' = ```
+			
+			 VAR x =IF(FactSuncare_Canada_Inventory[Curr Valid Store/Item Comb.]>0,1,0)
+			
+			 RETURN IF(FactSuncare_Canada_Inventory[Store to be included]=1, x)
+			```
+		formatString: 0
+		lineageTag: b9bbaad7-293b-4196-9d87-26ca4c252e6d
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Sum of instock' =
+			
+			VAR x=IF(FactSuncare_Canada_Inventory[Sum of Traited]>0,IF(FactSuncare_Canada_Inventory[Curr Str On Hand Qty]>0,1,0),0)
+			 RETURN IF(FactSuncare_Canada_Inventory[Store to be included]=1, x)
+		formatString: 0
+		lineageTag: 7732cfa0-76cd-486d-9f8e-834fb18d1930
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'WMWeek Adjusted (Weekly Sales)'
+		dataType: int64
+		formatString: 0
+		lineageTag: 9a628364-6bc7-4593-b152-5e575aa84b94
+		summarizeBy: sum
+		sourceColumn: WMWeek Adjusted (Weekly Sales)
+
+		annotation SummarizationSetBy = Automatic
+
+	partition FactSuncare_Canada_Inventory-815137d1-542e-463e-a234-bc7cf74db025 = m
+		mode: import
+		queryGroup: Fact\Inventory
+		source =
+				let
+				    Source = Table.Combine({FactSuncare_Canada_Inventory_CurrentYear, FactSuncare_Canada_Inventory_PreviousYear}),
+				     #"Changed Type" = Table.TransformColumnTypes(Source,{{"Dept Category Group Description", type text}, {"Dept Category Description", type text}, {"Dept Subcategory Description", type text}, {"Subdiv", type text}, {"Region", Int64.Type}, {"District", Int64.Type}, {"Store Nbr", Int64.Type}, {"Store Name", type text}, {"Street Address", type text}, {"Building Address", type text}, {"City", type text}, {"State", type text}, {"Store Type Descr", type text}, {"Zip Code", type text}, {"Open Date", type date}, {"Fineline Number", Int64.Type}, {"Fineline Description", type text}, {"Consumer Id", Int64.Type}, {"Prime Item Desc", type text}, {"Prime Item Nbr", Int64.Type}, {"Prime Size Desc", type text}, {"Item Nbr", Int64.Type}, {"Item Flags", type text}, {"Item Desc 1", type text}, {"Item Desc 2", type text}, {"UPC", Int64.Type}, {"UPC Desc", type text}, {"Unit Retail", type number}, {"Unit Cost", Int64.Type}, {"MU %", Int64.Type}, {"Item Status", type text}, {"Brand ID", Int64.Type}, {"Brand Desc", type text}, {"Vendor Nbr", Int64.Type}, {"Vendor Name", type text}, {"WM Week", Int64.Type}, {"Curr Valid Store/Item Comb.", Int64.Type}, {"Curr Str On Hand Qty", Int64.Type}, {"Curr Str On Order Qty", Int64.Type}, {"Curr Str In Transit Qty", Int64.Type}, {"Curr Str In Whse Qty", Int64.Type}, {"Curr Str On Hand Retail", type number}, {"Curr Str On Order Retail", type number}, {"Curr Str In Transit Retail", type number}, {"Curr Str In Whse Retail", type number}, {"InsertDate", type datetime}}),
+				    #"Removed Columns" = Table.RemoveColumns(#"Changed Type",{"InsertDate"}),
+				    #"Removed Other Columns" = Table.SelectColumns(#"Removed Columns",{"Store Nbr", "Store Name", "Fineline Number", "Fineline Description", "Consumer Id", "Prime Item Nbr", "Item Nbr", "Item Flags", "Item Desc 1", "Item Desc 2", "UPC", "UPC Desc", "Unit Retail", "Unit Cost", "MU %", "Item Status", "Brand ID", "Brand Desc", "Vendor Nbr", "Vendor Name", "WM Week", "Curr Valid Store/Item Comb.", "Curr Str On Hand Qty", "Curr Str On Order Qty", "Curr Str In Transit Qty", "Curr Str In Whse Qty", "Curr Str On Hand Retail", "Curr Str On Order Retail", "Curr Str In Transit Retail", "Curr Str In Whse Retail"}),
+				    #"Duplicated Column" = Table.DuplicateColumn(#"Removed Other Columns", "WM Week", "WM Week - Copy"),
+				    #"Changed Type1" = Table.TransformColumnTypes(#"Duplicated Column",{{"WM Week - Copy", type text}}),
+				    #"Split Column by Position" = Table.SplitColumn(#"Changed Type1", "WM Week - Copy", Splitter.SplitTextByPositions({0, 4}, false), {"WM Week - Copy.1", "WM Week - Copy.2"}),
+				    #"Renamed Columns" = Table.RenameColumns(#"Split Column by Position",{{"WM Week - Copy.1", "WM Week - Year"}, {"WM Week - Copy.2", "WM Week - Number"}}),
+				    #"Changed Type2" = Table.TransformColumnTypes(#"Renamed Columns",{{"WM Week - Year", Int64.Type}}),
+				    #"Added Custom" = Table.AddColumn(#"Changed Type2", "CustomYear", each [#"WM Week - Year"]-1),
+				    #"Added Custom1" = Table.AddColumn(#"Added Custom", "CustomWeek", each "01"),
+				    #"Changed Type3" = Table.TransformColumnTypes(#"Added Custom1",{{"CustomWeek", type text}}),
+				    #"Added Conditional Column" = Table.AddColumn(#"Changed Type3", "FinalWeek", each if [#"WM Week - Number"] = "52" then [CustomWeek] else [#"WM Week - Number"]),
+				    #"Added Conditional Column1" = Table.AddColumn(#"Added Conditional Column", "FinalYear", each if [#"WM Week - Number"] = "52" then [CustomYear] else [#"WM Week - Year"]),
+				    #"Removed Columns1" = Table.RemoveColumns(#"Added Conditional Column1",{"WM Week - Year", "WM Week - Number", "CustomYear", "CustomWeek"}),
+				    #"Merged Columns" = Table.CombineColumns(Table.TransformColumnTypes(#"Removed Columns1", {{"FinalYear", type text}}, "en-GB"),{"FinalYear", "FinalWeek"},Combiner.CombineTextByDelimiter("", QuoteStyle.None),"Merged"),
+				    #"Changed Type4" = Table.TransformColumnTypes(#"Merged Columns",{{"Merged", Int64.Type}}),
+				    #"Renamed Columns1" = Table.RenameColumns(#"Changed Type4",{{"Merged", "WMWeek Adjusted (Weekly Sales)"}}),
+				    #"Filtered Rows" = Table.SelectRows(#"Renamed Columns1", each [WM Week] <> null and [WM Week] <> "")
+				in
+				    #"Filtered Rows"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

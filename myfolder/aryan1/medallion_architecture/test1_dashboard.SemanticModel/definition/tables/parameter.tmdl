@@ -1,0 +1,51 @@
+table parameter
+	isHidden
+	lineageTag: f7249d24-bb70-442f-8e28-0614a369906c
+
+	column parameter
+		isHidden
+		lineageTag: c863e327-3cc0-4462-ba9a-fba0bd48564b
+		summarizeBy: none
+		sourceColumn: [Value1]
+		sortByColumn: 'parameter Order'
+
+		relatedColumnDetails
+			groupByColumn: 'parameter Fields'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'parameter Fields'
+		isHidden
+		lineageTag: 7d33c3fc-e4d2-4dbd-9058-98a4c2102799
+		summarizeBy: none
+		sourceColumn: [Value2]
+		sortByColumn: 'parameter Order'
+
+		extendedProperty ParameterMetadata =
+				{
+				  "version": 3,
+				  "kind": 2
+				}
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'parameter Order'
+		isHidden
+		formatString: 0
+		lineageTag: 89a71698-c0a3-4632-ba65-d615388f9298
+		summarizeBy: sum
+		sourceColumn: [Value3]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition parameter = calculated
+		mode: import
+		source =
+				{
+				    ("RevenueLastYear", NAMEOF('_measures_table'[RevenueLastYear]), 0),
+				    ("RevenueLastWeek", NAMEOF('_measures_table'[RevenueLastWeek]), 1),
+				    ("RevenueLastMonth", NAMEOF('_measures_table'[RevenueLastMonth]), 2)
+				}
+
+	annotation PBI_Id = 7dba2ad2181b4babbb58ebb79527e309
+

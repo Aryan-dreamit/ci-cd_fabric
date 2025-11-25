@@ -1,0 +1,35 @@
+table CompanyNames
+	isHidden
+	lineageTag: 88c37561-713e-41c5-8875-990a5b6e3e11
+
+	column 'Company Name'
+		dataType: string
+		isHidden
+		lineageTag: ca1e3878-5ef8-449c-ae11-5f13495509c8
+		summarizeBy: none
+		sourceColumn: Company Name
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	partition CompanyNames = m
+		mode: import
+		source =
+				let
+				    Source = Folder.Files("C:\Users\goura\OneDrive\Desktop\task"),
+				    #"C:\Users\goura\OneDrive\Desktop\task\_Digital Transformation Hours xlsx1" = Source{[#"Folder Path"="C:\Users\goura\OneDrive\Desktop\task\",Name="Digital Transformation Hours.xlsx"]}[Content],
+				    #"Imported Excel Workbook" = Excel.Workbook(#"C:\Users\goura\OneDrive\Desktop\task\_Digital Transformation Hours xlsx1"),
+				    CompanyNames_DefinedName = #"Imported Excel Workbook"{[Item="CompanyNames",Kind="DefinedName"]}[Data],
+				    #"Removed Blank Rows" = Table.SelectRows(CompanyNames_DefinedName, each not List.IsEmpty(List.RemoveMatchingItems(Record.FieldValues(_), {"", null}))),
+				    #"Filtered Rows" = Table.SelectRows(#"Removed Blank Rows", each true),
+				    #"Renamed Columns" = Table.RenameColumns(#"Filtered Rows",{{"Column1", "Company Name"}})
+				in
+				    #"Renamed Columns"
+
+	changedProperty = IsHidden
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,53 @@
+model Model
+	culture: en-US
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: en-AU
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+/// Errors in queries that were loaded on 8/10/2025 9:26:31 AM.
+queryGroup 'Query Errors - 8/10/2025 9:26:31 AM'
+
+	annotation PBI_QueryGroupOrder = 0
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation PBI_QueryOrder = ["contract_search","ireland_holiday","resource_list","actuals","Revenue by Month","ContractNames","CompanyNames","billing_customer","Errors in Revenue by Month","DirectQuery to AS - gold_semantic"]
+
+ref table DateTableTemplate_6c91ed54-8504-4ed6-b950-4de107348d3a
+ref table contract_search
+ref table LocalDateTable_6a319bcb-abcc-4502-85a2-cb7c5f373bb4
+ref table ireland_holiday
+ref table LocalDateTable_070da174-e3b9-4374-be15-dba529746a3e
+ref table resource_list
+ref table LocalDateTable_89c5f133-e561-404c-a397-36a7e9e34818
+ref table actuals
+ref table LocalDateTable_2fbdf1bb-b54d-419a-8c72-d44614debe13
+ref table LocalDateTable_51d94f5c-e596-4a38-9c38-a33390bdaed3
+ref table ContractNames
+ref table CompanyNames
+ref table billing_customer
+ref table LocalDateTable_4b55f0b9-622b-4080-bac9-7073b57b1703
+ref table LocalDateTable_3acfca4a-4773-4cab-bb0c-7454efd3eac7
+ref table LocalDateTable_aadaaf31-5db0-4a69-9cca-554fc758ab61
+ref table LocalDateTable_5a6bfe58-45bf-458b-9177-8377b8f438d1
+ref table LocalDateTable_4e80096d-ee61-4e79-add9-6e3da29aa653
+ref table _measures_table
+ref table _Calendar
+ref table LocalDateTable_61c1f591-be1f-41a4-92eb-f64bfcc8ef44
+ref table parameter
+ref table 'contract_search 2'
+ref table 'resource_list 2'
+ref table 'billing_customer 2'
+ref table digital_transformation
+ref table 'ireland_holiday 2'
+ref table '_Calendar 2'
+ref table _measure_Table
+
+ref role company_name
+ref role Untitled
+ref role 'Untitled (2)'
+
+ref cultureInfo en-US
+

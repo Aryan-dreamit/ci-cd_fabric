@@ -1,0 +1,231 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/semanticModel/unappliedChanges/1.0.0/schema.json",
+  "conceptualSchemaSettings": {},
+  "queries": [
+    {
+      "name": "contract_search",
+      "lineageTag": "7890a643-7339-491c-a4b2-74dfa956b72e",
+      "navigationStepName": "Navigation",
+      "text": [
+        "let",
+        "    Source = Folder.Files(\"C:\\Users\\goura\\OneDrive\\Desktop\\task\"),",
+        "    #\"C:\\Users\\goura\\OneDrive\\Desktop\\task\\_Contract Search Results 1 csv1\" = Source{[#\"Folder Path\"=\"C:\\Users\\goura\\OneDrive\\Desktop\\task\\\",Name=\"Contract Search Results 1.csv\"]}[Content],",
+        "    #\"Imported CSV\" = Csv.Document(#\"C:\\Users\\goura\\OneDrive\\Desktop\\task\\_Contract Search Results 1 csv1\",[Delimiter=\",\", Columns=41, Encoding=65001, QuoteStyle=QuoteStyle.None]),",
+        "    #\"Promoted Headers\" = Table.PromoteHeaders(#\"Imported CSV\", [PromoteAllScalars=true]),",
+        "    #\"Changed Type\" = Table.TransformColumnTypes(#\"Promoted Headers\",{{\"Classification\", type text}, {\"Contract Name\", type text}, {\"Company Name\", type text}, {\"Contract Type\", type text}, {\"Active\", type text}, {\"Start Date\", type date}, {\"End Date\", type date}, {\"Estimated Revenue\", type text}, {\"Default Service Desk Contract\", type text}, {\"Approve & Post Labour\", type text}, {\"Out of Compliance\", type text}, {\"Account Manager\", type text}, {\"Company Category\", type text}, {\"Company To Bill\", type text}, {\"Contact\", type text}, {\"Contract Category\", type text}, {\"Contract ID\", Int64.Type}, {\"Contract Period Type\", type text}, {\"Current Balance\", type number}, {\"Estimated Cost\", type text}, {\"Estimated Hours\", type number}, {\"External Contract Number\", Int64.Type}, {\"Has Exclusions\", type text}, {\"Is Exclusion Contract\", type text}, {\"Line of Business (Billing)\", type text}, {\"Opportunity\", type text}, {\"Parent Account\", type text}, {\"Renewal Of\", type text}, {\"Renewed\", type text}, {\"Service Level Agreement\", type text}, {\"Bundle Type\", type text}, {\"complete status 10+ days\", type text}, {\"Contract Bundle\", type text}, {\"Executive AM Support\", type text}, {\"Fair usage allowance (monthly)\", Int64.Type}, {\"NCE contract renewal month\", type text}, {\"New customer signed date\", type text}, {\"Tenant ID\", type text}, {\"Vendor Service\", type text}, {\"Bundle Status\", type text}, {\"Billing Cycle\", type text}}),",
+        "    #\"Removed Columns\" = Table.RemoveColumns(#\"Changed Type\",{\"Company To Bill\", \"Contact\", \"External Contract Number\", \"Has Exclusions\", \"Is Exclusion Contract\", \"Opportunity\", \"Parent Account\", \"Renewal Of\", \"Renewed\", \"Service Level Agreement\", \"complete status 10+ days\", \"Executive AM Support\", \"Vendor Service\", \"New customer signed date\", \"NCE contract renewal month\", \"Fair usage allowance (monthly)\", \"Out of Compliance\"}),",
+        "    #\"Removed Columns1\" = Table.RemoveColumns(#\"Removed Columns\",{\"Contract Bundle\", \"Bundle Type\"}),",
+        "    #\"Filtered Rows\" = Table.SelectRows(#\"Removed Columns1\", each true)",
+        "in",
+        "    #\"Filtered Rows\""
+      ],
+      "isDirectQuery": false,
+      "lastLoadedAsTableFormulaText": "{\"IncludesReferencedQueries\":false,\"RootFormulaText\":\"let\\n    Source = Folder.Files(\\\"C:\\\\Users\\\\goura\\\\OneDrive\\\\Desktop\\\\task\\\"),\\n    #\\\"C:\\\\Users\\\\goura\\\\OneDrive\\\\Desktop\\\\task\\\\_Contract Search Results 1 csv1\\\" = Source{[#\\\"Folder Path\\\"=\\\"C:\\\\Users\\\\goura\\\\OneDrive\\\\Desktop\\\\task\\\\\\\",Name=\\\"Contract Search Results 1.csv\\\"]}[Content],\\n    #\\\"Imported CSV\\\" = Csv.Document(#\\\"C:\\\\Users\\\\goura\\\\OneDrive\\\\Desktop\\\\task\\\\_Contract Search Results 1 csv1\\\",[Delimiter=\\\",\\\", Columns=41, Encoding=65001, QuoteStyle=QuoteStyle.None]),\\n    #\\\"Promoted Headers\\\" = Table.PromoteHeaders(#\\\"Imported CSV\\\", [PromoteAllScalars=true]),\\n    #\\\"Changed Type\\\" = Table.TransformColumnTypes(#\\\"Promoted Headers\\\",{{\\\"Classification\\\", type text}, {\\\"Contract Name\\\", type text}, {\\\"Company Name\\\", type text}, {\\\"Contract Type\\\", type text}, {\\\"Active\\\", type text}, {\\\"Start Date\\\", type date}, {\\\"End Date\\\", type date}, {\\\"Estimated Revenue\\\", type text}, {\\\"Default Service Desk Contract\\\", type text}, {\\\"Approve & Post Labour\\\", type text}, {\\\"Out of Compliance\\\", type text}, {\\\"Account Manager\\\", type text}, {\\\"Company Category\\\", type text}, {\\\"Company To Bill\\\", type text}, {\\\"Contact\\\", type text}, {\\\"Contract Category\\\", type text}, {\\\"Contract ID\\\", Int64.Type}, {\\\"Contract Period Type\\\", type text}, {\\\"Current Balance\\\", type number}, {\\\"Estimated Cost\\\", type text}, {\\\"Estimated Hours\\\", type number}, {\\\"External Contract Number\\\", Int64.Type}, {\\\"Has Exclusions\\\", type text}, {\\\"Is Exclusion Contract\\\", type text}, {\\\"Line of Business (Billing)\\\", type text}, {\\\"Opportunity\\\", type text}, {\\\"Parent Account\\\", type text}, {\\\"Renewal Of\\\", type text}, {\\\"Renewed\\\", type text}, {\\\"Service Level Agreement\\\", type text}, {\\\"Bundle Type\\\", type text}, {\\\"complete status 10+ days\\\", type text}, {\\\"Contract Bundle\\\", type text}, {\\\"Executive AM Support\\\", type text}, {\\\"Fair usage allowance (monthly)\\\", Int64.Type}, {\\\"NCE contract renewal month\\\", type text}, {\\\"New customer signed date\\\", type text}, {\\\"Tenant ID\\\", type text}, {\\\"Vendor Service\\\", type text}, {\\\"Bundle Status\\\", type text}, {\\\"Billing Cycle\\\", type text}}),\\n    #\\\"Removed Columns\\\" = Table.RemoveColumns(#\\\"Changed Type\\\",{\\\"Company To Bill\\\", \\\"Contact\\\", \\\"External Contract Number\\\", \\\"Has Exclusions\\\", \\\"Is Exclusion Contract\\\", \\\"Opportunity\\\", \\\"Parent Account\\\", \\\"Renewal Of\\\", \\\"Renewed\\\", \\\"Service Level Agreement\\\", \\\"complete status 10+ days\\\", \\\"Executive AM Support\\\", \\\"Vendor Service\\\", \\\"New customer signed date\\\", \\\"NCE contract renewal month\\\", \\\"Fair usage allowance (monthly)\\\", \\\"Out of Compliance\\\"}),\\n    #\\\"Filtered Rows\\\" = Table.SelectRows(#\\\"Removed Columns\\\", each true),\\n    #\\\"Removed Columns1\\\" = Table.RemoveColumns(#\\\"Filtered Rows\\\",{\\\"Contract Bundle\\\", \\\"Bundle Type\\\"})\\nin\\n    #\\\"Removed Columns1\\\"\",\"ReferencedQueriesFormulaText\":{}}",
+      "loadAsTableDisabled": false,
+      "resultType": "Exception",
+      "isHidden": false
+    },
+    {
+      "name": "ireland_holiday",
+      "lineageTag": "42b93d74-1cad-4915-9d4d-1889bac642c0",
+      "navigationStepName": "Navigation",
+      "text": [
+        "let",
+        "    Source = Folder.Files(\"C:\\Users\\goura\\OneDrive\\Desktop\\task\"),",
+        "    #\"C:\\Users\\goura\\OneDrive\\Desktop\\task\\_Ireland Holiday 2024 - 2027 2 xlsx1\" = Source{[#\"Folder Path\"=\"C:\\Users\\goura\\OneDrive\\Desktop\\task\\\",Name=\"Ireland Holiday 2024 - 2027 2.xlsx\"]}[Content],",
+        "    #\"Imported Excel Workbook\" = Excel.Workbook(#\"C:\\Users\\goura\\OneDrive\\Desktop\\task\\_Ireland Holiday 2024 - 2027 2 xlsx1\"),",
+        "    #\"Sheet1!_xlnm _FilterDatabase_DefinedName\" = #\"Imported Excel Workbook\"{[Item=\"Sheet1!_xlnm._FilterDatabase\",Kind=\"DefinedName\"]}[Data],",
+        "    #\"Promoted Headers\" = Table.PromoteHeaders(#\"Sheet1!_xlnm _FilterDatabase_DefinedName\", [PromoteAllScalars=true]),",
+        "    #\"Changed Type\" = Table.TransformColumnTypes(#\"Promoted Headers\",{{\"Date\", type date}, {\"Weekday\", type text}, {\"Name\", type text}, {\"Type\", type text}})",
+        "in",
+        "    #\"Changed Type\""
+      ],
+      "isDirectQuery": false,
+      "lastLoadedAsTableFormulaText": "{\"IncludesReferencedQueries\":false,\"RootFormulaText\":\"let\\n    Source = Folder.Files(\\\"C:\\\\Users\\\\goura\\\\OneDrive\\\\Desktop\\\\task\\\"),\\n    #\\\"C:\\\\Users\\\\goura\\\\OneDrive\\\\Desktop\\\\task\\\\_Ireland Holiday 2024 - 2027 2 xlsx1\\\" = Source{[#\\\"Folder Path\\\"=\\\"C:\\\\Users\\\\goura\\\\OneDrive\\\\Desktop\\\\task\\\\\\\",Name=\\\"Ireland Holiday 2024 - 2027 2.xlsx\\\"]}[Content],\\n    #\\\"Imported Excel Workbook\\\" = Excel.Workbook(#\\\"C:\\\\Users\\\\goura\\\\OneDrive\\\\Desktop\\\\task\\\\_Ireland Holiday 2024 - 2027 2 xlsx1\\\"),\\n    #\\\"Sheet1!_xlnm _FilterDatabase_DefinedName\\\" = #\\\"Imported Excel Workbook\\\"{[Item=\\\"Sheet1!_xlnm._FilterDatabase\\\",Kind=\\\"DefinedName\\\"]}[Data],\\n    #\\\"Promoted Headers\\\" = Table.PromoteHeaders(#\\\"Sheet1!_xlnm _FilterDatabase_DefinedName\\\", [PromoteAllScalars=true]),\\n    #\\\"Changed Type\\\" = Table.TransformColumnTypes(#\\\"Promoted Headers\\\",{{\\\"Date\\\", type date}, {\\\"Weekday\\\", type text}, {\\\"Name\\\", type text}, {\\\"Type\\\", type text}})\\nin\\n    #\\\"Changed Type\\\"\",\"ReferencedQueriesFormulaText\":{}}",
+      "loadAsTableDisabled": false,
+      "resultType": "Table",
+      "isHidden": false
+    },
+    {
+      "name": "resource_list",
+      "lineageTag": "7994328d-8c0a-4104-b672-608296e5dcd5",
+      "navigationStepName": "Navigation",
+      "text": [
+        "let",
+        "    Source = Folder.Files(\"C:\\Users\\goura\\OneDrive\\Desktop\\task\"),",
+        "    #\"C:\\Users\\goura\\OneDrive\\Desktop\\task\\_Resource List 1 csv1\" = Source{[#\"Folder Path\"=\"C:\\Users\\goura\\OneDrive\\Desktop\\task\\\",Name=\"Resource List 1.csv\"]}[Content],",
+        "    #\"Imported CSV\" = Csv.Document(#\"C:\\Users\\goura\\OneDrive\\Desktop\\task\\_Resource List 1 csv1\",[Delimiter=\",\", Columns=13, Encoding=65001, QuoteStyle=QuoteStyle.None]),",
+        "    #\"Promoted Headers\" = Table.PromoteHeaders(#\"Imported CSV\", [PromoteAllScalars=true]),",
+        "    #\"Changed Type\" = Table.TransformColumnTypes(#\"Promoted Headers\",{{\"Resource Name\", type text}, {\"Resource ID\", Int64.Type}, {\"Default Department\", type text}, {\"Security Level\", type text}, {\"License Type\", type text}, {\"Office Phone\", type text}, {\"Mobile Phone\", type text}, {\"Email\", type text}, {\"Primary Internal Location\", type text}, {\"Resource Survey Rating\", type text}, {\"Active\", type text}, {\"Last Activated By\", type text}, {\"Last Activated Date\", type datetime}}),",
+        "    #\"Removed Columns\" = Table.RemoveColumns(#\"Changed Type\",{\"Default Department\", \"Mobile Phone\", \"Office Phone\", \"Resource Survey Rating\"})",
+        "in",
+        "    #\"Removed Columns\""
+      ],
+      "isDirectQuery": false,
+      "lastLoadedAsTableFormulaText": "{\"IncludesReferencedQueries\":false,\"RootFormulaText\":\"let\\n    Source = Folder.Files(\\\"C:\\\\Users\\\\goura\\\\OneDrive\\\\Desktop\\\\task\\\"),\\n    #\\\"C:\\\\Users\\\\goura\\\\OneDrive\\\\Desktop\\\\task\\\\_Resource List 1 csv1\\\" = Source{[#\\\"Folder Path\\\"=\\\"C:\\\\Users\\\\goura\\\\OneDrive\\\\Desktop\\\\task\\\\\\\",Name=\\\"Resource List 1.csv\\\"]}[Content],\\n    #\\\"Imported CSV\\\" = Csv.Document(#\\\"C:\\\\Users\\\\goura\\\\OneDrive\\\\Desktop\\\\task\\\\_Resource List 1 csv1\\\",[Delimiter=\\\",\\\", Columns=13, Encoding=65001, QuoteStyle=QuoteStyle.None]),\\n    #\\\"Promoted Headers\\\" = Table.PromoteHeaders(#\\\"Imported CSV\\\", [PromoteAllScalars=true]),\\n    #\\\"Changed Type\\\" = Table.TransformColumnTypes(#\\\"Promoted Headers\\\",{{\\\"Resource Name\\\", type text}, {\\\"Resource ID\\\", Int64.Type}, {\\\"Default Department\\\", type text}, {\\\"Security Level\\\", type text}, {\\\"License Type\\\", type text}, {\\\"Office Phone\\\", type text}, {\\\"Mobile Phone\\\", type text}, {\\\"Email\\\", type text}, {\\\"Primary Internal Location\\\", type text}, {\\\"Resource Survey Rating\\\", type text}, {\\\"Active\\\", type text}, {\\\"Last Activated By\\\", type text}, {\\\"Last Activated Date\\\", type datetime}}),\\n    #\\\"Removed Columns\\\" = Table.RemoveColumns(#\\\"Changed Type\\\",{\\\"Default Department\\\", \\\"Mobile Phone\\\", \\\"Office Phone\\\", \\\"Resource Survey Rating\\\"})\\nin\\n    #\\\"Removed Columns\\\"\",\"ReferencedQueriesFormulaText\":{}}",
+      "loadAsTableDisabled": false,
+      "resultType": "Table",
+      "isHidden": false
+    },
+    {
+      "name": "actuals",
+      "lineageTag": "82cb91d4-ea50-4719-a3af-8abd36f895a7",
+      "navigationStepName": "Navigation",
+      "text": [
+        "let",
+        "    Source = Folder.Files(\"C:\\Users\\goura\\OneDrive\\Desktop\\task\"),",
+        "    #\"C:\\Users\\goura\\OneDrive\\Desktop\\task\\_Digital Transformation Hours xlsx1\" = Source{[#\"Folder Path\"=\"C:\\Users\\goura\\OneDrive\\Desktop\\task\\\",Name=\"Digital Transformation Hours.xlsx\"]}[Content],",
+        "    #\"Imported Excel Workbook\" = Excel.Workbook(#\"C:\\Users\\goura\\OneDrive\\Desktop\\task\\_Digital Transformation Hours xlsx1\"),",
+        "    Actuals_Sheet = #\"Imported Excel Workbook\"{[Item=\"Actuals\",Kind=\"Sheet\"]}[Data],",
+        "    #\"Removed Top Rows\" = Table.Skip(Actuals_Sheet,4),",
+        "    #\"Promoted Headers\" = Table.PromoteHeaders(#\"Removed Top Rows\", [PromoteAllScalars=true]),",
+        "    #\"Changed Type\" = Table.TransformColumnTypes(#\"Promoted Headers\",{{\"Date\", type date}, {\"Source\", type text}, {\"Contact\", type text}, {\"Project\", type text}, {\"Contract ID\", type any}, {\"Description\", type text}, {\"Invoice Number\", type text}, {\"Reference\", type text}, {\"Debit (EUR)\", type number}, {\"Credit (EUR)\", type number}, {\"Income\", type number}, {\"Account Code\", Int64.Type}, {\"Area\", type text}, {\"Month\", type date}, {\"Column15\", type text}}),",
+        "    #\"Removed Columns\" = Table.RemoveColumns(#\"Changed Type\",{\"Column15\"})",
+        "in",
+        "    #\"Removed Columns\""
+      ],
+      "isDirectQuery": false,
+      "lastLoadedAsTableFormulaText": "{\"IncludesReferencedQueries\":false,\"RootFormulaText\":\"let\\n    Source = Folder.Files(\\\"C:\\\\Users\\\\goura\\\\OneDrive\\\\Desktop\\\\task\\\"),\\n    #\\\"C:\\\\Users\\\\goura\\\\OneDrive\\\\Desktop\\\\task\\\\_Digital Transformation Hours xlsx1\\\" = Source{[#\\\"Folder Path\\\"=\\\"C:\\\\Users\\\\goura\\\\OneDrive\\\\Desktop\\\\task\\\\\\\",Name=\\\"Digital Transformation Hours.xlsx\\\"]}[Content],\\n    #\\\"Imported Excel Workbook\\\" = Excel.Workbook(#\\\"C:\\\\Users\\\\goura\\\\OneDrive\\\\Desktop\\\\task\\\\_Digital Transformation Hours xlsx1\\\"),\\n    Actuals_Sheet = #\\\"Imported Excel Workbook\\\"{[Item=\\\"Actuals\\\",Kind=\\\"Sheet\\\"]}[Data],\\n    #\\\"Removed Top Rows\\\" = Table.Skip(Actuals_Sheet,4),\\n    #\\\"Promoted Headers\\\" = Table.PromoteHeaders(#\\\"Removed Top Rows\\\", [PromoteAllScalars=true]),\\n    #\\\"Changed Type\\\" = Table.TransformColumnTypes(#\\\"Promoted Headers\\\",{{\\\"Date\\\", type date}, {\\\"Source\\\", type text}, {\\\"Contact\\\", type text}, {\\\"Project\\\", type text}, {\\\"Contract ID\\\", type any}, {\\\"Description\\\", type text}, {\\\"Invoice Number\\\", type text}, {\\\"Reference\\\", type text}, {\\\"Debit (EUR)\\\", type number}, {\\\"Credit (EUR)\\\", type number}, {\\\"Income\\\", type number}, {\\\"Account Code\\\", Int64.Type}, {\\\"Area\\\", type text}, {\\\"Month\\\", type date}, {\\\"Column15\\\", type text}}),\\n    #\\\"Removed Columns\\\" = Table.RemoveColumns(#\\\"Changed Type\\\",{\\\"Column15\\\"})\\nin\\n    #\\\"Removed Columns\\\"\",\"ReferencedQueriesFormulaText\":{}}",
+      "loadAsTableDisabled": false,
+      "resultType": "Table",
+      "isHidden": false
+    },
+    {
+      "name": "Revenue by Month",
+      "lineageTag": "5d04e441-2195-4539-a0ff-6384baa1b39a",
+      "navigationStepName": "Navigation",
+      "text": [
+        "let",
+        "    Source = Folder.Files(\"C:\\Users\\goura\\OneDrive\\Desktop\\task\"),",
+        "    #\"C:\\Users\\goura\\OneDrive\\Desktop\\task\\_Digital Transformation Hours xlsx1\" = Source{[#\"Folder Path\"=\"C:\\Users\\goura\\OneDrive\\Desktop\\task\\\",Name=\"Digital Transformation Hours.xlsx\"]}[Content],",
+        "    #\"Imported Excel Workbook\" = Excel.Workbook(#\"C:\\Users\\goura\\OneDrive\\Desktop\\task\\_Digital Transformation Hours xlsx1\"),",
+        "    #\"Revenue by Month_Sheet\" = #\"Imported Excel Workbook\"{[Item=\"Revenue by Month\",Kind=\"Sheet\"]}[Data],",
+        "    #\"Removed Top Rows\" = Table.Skip(#\"Revenue by Month_Sheet\",1),",
+        "    #\"Promoted Headers\" = Table.PromoteHeaders(#\"Removed Top Rows\", [PromoteAllScalars=true]),",
+        "    #\"Changed Type\" = Table.TransformColumnTypes(#\"Promoted Headers\",{{\"Contract Active\", type text}, {\"Start Date\", type date}, {\"End Date\", type date}, {\"Contract Type\", type text}, {\"Company Name\", type text}, {\"Contract ID\", Int64.Type}, {\"Contract Name\", type text}, {\"Estimated Revenue (€)\", type number}, {\"Revenue (€) /hr\", type number}, {\"Contract Revenue (Total)\", type number}, {\"2025 Revenue\", Int64.Type}, {\"Unrecognised Revenue\", type number}, {\"Jan-24\", type number}, {\"Feb-24\", type number}, {\"Mar-24\", Int64.Type}, {\"Apr-24\", Int64.Type}, {\"May-24\", Int64.Type}, {\"Jun-24\", Int64.Type}, {\"Jul-24\", Int64.Type}, {\"Aug-24\", Int64.Type}, {\"Sep-24\", Int64.Type}, {\"Oct-24\", Int64.Type}, {\"Nov-24\", Int64.Type}, {\"Dec-24\", Int64.Type}, {\"Jan-25\", Int64.Type}, {\"Feb-25\", Int64.Type}, {\"Mar-25\", Int64.Type}, {\"Apr-25\", Int64.Type}, {\"May-25\", Int64.Type}, {\"Jun-25\", Int64.Type}, {\"Jul-25\", Int64.Type}, {\"Aug-25\", Int64.Type}, {\"Sep-25\", Int64.Type}, {\"Oct-25\", Int64.Type}, {\"Nov-25\", Int64.Type}, {\"Dec-25\", Int64.Type}, {\"Jan-26\", Int64.Type}, {\"Feb-26\", Int64.Type}, {\"Mar-26\", Int64.Type}, {\"Apr-26\", Int64.Type}, {\"May-26\", Int64.Type}, {\"Jun-26\", Int64.Type}, {\"Jul-26\", Int64.Type}, {\"Aug-26\", Int64.Type}, {\"Sep-26\", Int64.Type}, {\"Oct-26\", Int64.Type}, {\"Nov-26\", Int64.Type}, {\"Dec-26\", Int64.Type}}),",
+        "    #\"Removed Errors\" = Table.RemoveRowsWithErrors(#\"Changed Type\", {\"Contract Active\"}),",
+        "    #\"Removed Errors1\" = Table.RemoveRowsWithErrors(#\"Removed Errors\", {\"Start Date\"}),",
+        "    #\"Removed Errors2\" = Table.RemoveRowsWithErrors(#\"Removed Errors1\", {\"2025 Revenue\"})",
+        "in",
+        "    #\"Removed Errors2\""
+      ],
+      "loadAsTableDisabled": true,
+      "resultType": "Exception",
+      "isHidden": false
+    },
+    {
+      "name": "ContractNames",
+      "lineageTag": "fa8d0168-7df0-4f20-9f90-3986ff8dae0b",
+      "navigationStepName": "Navigation",
+      "text": [
+        "let",
+        "    Source = Folder.Files(\"C:\\Users\\goura\\OneDrive\\Desktop\\task\"),",
+        "    #\"C:\\Users\\goura\\OneDrive\\Desktop\\task\\_Digital Transformation Hours xlsx1\" = Source{[#\"Folder Path\"=\"C:\\Users\\goura\\OneDrive\\Desktop\\task\\\",Name=\"Digital Transformation Hours.xlsx\"]}[Content],",
+        "    #\"Imported Excel Workbook\" = Excel.Workbook(#\"C:\\Users\\goura\\OneDrive\\Desktop\\task\\_Digital Transformation Hours xlsx1\"),",
+        "    ContractNames_DefinedName = #\"Imported Excel Workbook\"{[Item=\"ContractNames\",Kind=\"DefinedName\"]}[Data],",
+        "    #\"Removed Blank Rows\" = Table.SelectRows(ContractNames_DefinedName, each not List.IsEmpty(List.RemoveMatchingItems(Record.FieldValues(_), {\"\", null}))),",
+        "    #\"Renamed Columns\" = Table.RenameColumns(#\"Removed Blank Rows\",{{\"Column1\", \"Contract Name\"}})",
+        "in",
+        "    #\"Renamed Columns\""
+      ],
+      "isDirectQuery": false,
+      "lastLoadedAsTableFormulaText": "{\"IncludesReferencedQueries\":false,\"RootFormulaText\":\"let\\n    Source = Folder.Files(\\\"C:\\\\Users\\\\goura\\\\OneDrive\\\\Desktop\\\\task\\\"),\\n    #\\\"C:\\\\Users\\\\goura\\\\OneDrive\\\\Desktop\\\\task\\\\_Digital Transformation Hours xlsx1\\\" = Source{[#\\\"Folder Path\\\"=\\\"C:\\\\Users\\\\goura\\\\OneDrive\\\\Desktop\\\\task\\\\\\\",Name=\\\"Digital Transformation Hours.xlsx\\\"]}[Content],\\n    #\\\"Imported Excel Workbook\\\" = Excel.Workbook(#\\\"C:\\\\Users\\\\goura\\\\OneDrive\\\\Desktop\\\\task\\\\_Digital Transformation Hours xlsx1\\\"),\\n    ContractNames_DefinedName = #\\\"Imported Excel Workbook\\\"{[Item=\\\"ContractNames\\\",Kind=\\\"DefinedName\\\"]}[Data],\\n    #\\\"Removed Blank Rows\\\" = Table.SelectRows(ContractNames_DefinedName, each not List.IsEmpty(List.RemoveMatchingItems(Record.FieldValues(_), {\\\"\\\", null}))),\\n    #\\\"Renamed Columns\\\" = Table.RenameColumns(#\\\"Removed Blank Rows\\\",{{\\\"Column1\\\", \\\"Contract Name\\\"}})\\nin\\n    #\\\"Renamed Columns\\\"\",\"ReferencedQueriesFormulaText\":{}}",
+      "loadAsTableDisabled": false,
+      "resultType": "Table",
+      "isHidden": false
+    },
+    {
+      "name": "CompanyNames",
+      "lineageTag": "88c37561-713e-41c5-8875-990a5b6e3e11",
+      "navigationStepName": "Navigation",
+      "text": [
+        "let",
+        "    Source = Folder.Files(\"C:\\Users\\goura\\OneDrive\\Desktop\\task\"),",
+        "    #\"C:\\Users\\goura\\OneDrive\\Desktop\\task\\_Digital Transformation Hours xlsx1\" = Source{[#\"Folder Path\"=\"C:\\Users\\goura\\OneDrive\\Desktop\\task\\\",Name=\"Digital Transformation Hours.xlsx\"]}[Content],",
+        "    #\"Imported Excel Workbook\" = Excel.Workbook(#\"C:\\Users\\goura\\OneDrive\\Desktop\\task\\_Digital Transformation Hours xlsx1\"),",
+        "    CompanyNames_DefinedName = #\"Imported Excel Workbook\"{[Item=\"CompanyNames\",Kind=\"DefinedName\"]}[Data],",
+        "    #\"Removed Blank Rows\" = Table.SelectRows(CompanyNames_DefinedName, each not List.IsEmpty(List.RemoveMatchingItems(Record.FieldValues(_), {\"\", null}))),",
+        "    #\"Filtered Rows\" = Table.SelectRows(#\"Removed Blank Rows\", each true),",
+        "    #\"Renamed Columns\" = Table.RenameColumns(#\"Filtered Rows\",{{\"Column1\", \"Company Name\"}})",
+        "in",
+        "    #\"Renamed Columns\""
+      ],
+      "isDirectQuery": false,
+      "lastLoadedAsTableFormulaText": "{\"IncludesReferencedQueries\":false,\"RootFormulaText\":\"let\\n    Source = Folder.Files(\\\"C:\\\\Users\\\\goura\\\\OneDrive\\\\Desktop\\\\task\\\"),\\n    #\\\"C:\\\\Users\\\\goura\\\\OneDrive\\\\Desktop\\\\task\\\\_Digital Transformation Hours xlsx1\\\" = Source{[#\\\"Folder Path\\\"=\\\"C:\\\\Users\\\\goura\\\\OneDrive\\\\Desktop\\\\task\\\\\\\",Name=\\\"Digital Transformation Hours.xlsx\\\"]}[Content],\\n    #\\\"Imported Excel Workbook\\\" = Excel.Workbook(#\\\"C:\\\\Users\\\\goura\\\\OneDrive\\\\Desktop\\\\task\\\\_Digital Transformation Hours xlsx1\\\"),\\n    CompanyNames_DefinedName = #\\\"Imported Excel Workbook\\\"{[Item=\\\"CompanyNames\\\",Kind=\\\"DefinedName\\\"]}[Data],\\n    #\\\"Removed Blank Rows\\\" = Table.SelectRows(CompanyNames_DefinedName, each not List.IsEmpty(List.RemoveMatchingItems(Record.FieldValues(_), {\\\"\\\", null}))),\\n    #\\\"Filtered Rows\\\" = Table.SelectRows(#\\\"Removed Blank Rows\\\", each true),\\n    #\\\"Renamed Columns\\\" = Table.RenameColumns(#\\\"Filtered Rows\\\",{{\\\"Column1\\\", \\\"Company Name\\\"}})\\nin\\n    #\\\"Renamed Columns\\\"\",\"ReferencedQueriesFormulaText\":{}}",
+      "loadAsTableDisabled": false,
+      "resultType": "Table",
+      "isHidden": false
+    },
+    {
+      "name": "billing_customer",
+      "lineageTag": "513de527-b3e4-487f-8ca3-5f86fcd3a70a",
+      "navigationStepName": "Navigation",
+      "text": [
+        "let",
+        "    Source = Folder.Files(\"C:\\Users\\goura\\OneDrive\\Desktop\\task\"),",
+        "    #\"C:\\Users\\goura\\OneDrive\\Desktop\\task\\_Billing & Customer Hours by Contract_Combo Billing Item Detail & Customer Hour by Contract 1 xlsx\" = Source{[#\"Folder Path\"=\"C:\\Users\\goura\\OneDrive\\Desktop\\task\\\",Name=\"Billing & Customer Hours by Contract_Combo Billing Item Detail & Customer Hour by Contract 1.xlsx\"]}[Content],",
+        "    #\"Imported Excel Workbook\" = Excel.Workbook(#\"C:\\Users\\goura\\OneDrive\\Desktop\\task\\_Billing & Customer Hours by Contract_Combo Billing Item Detail & Customer Hour by Contract 1 xlsx\"),",
+        "    #\"Combo Billing Item Detail & Cus!_xlnm _FilterDatabase_DefinedName\" = #\"Imported Excel Workbook\"{[Item=\"Combo Billing Item Detail & Cus!_xlnm._FilterDatabase\",Kind=\"DefinedName\"]}[Data],",
+        "    #\"Promoted Headers\" = Table.PromoteHeaders(#\"Combo Billing Item Detail & Cus!_xlnm _FilterDatabase_DefinedName\", [PromoteAllScalars=true]),",
+        "    #\"Changed Type\" = Table.TransformColumnTypes(#\"Promoted Headers\",{{\"Contract ID\", Int64.Type}, {\"Contract Active\", type text}, {\"Contract Period Type\", type text}, {\"Contract Type\", type text}, {\"Contract Start Date\", type date}, {\"Contract End Date\", type date}, {\"Line of Business\", type text}, {\"Company Name\", type text}, {\"Contract Name\", type text}, {\"Task or Ticket Number\", type text}, {\"Resource ID\", Int64.Type}, {\"Resource Name\", type text}, {\"Role Name\", type text}, {\"Internal Resource Cost\", type number}, {\"Worked Date\", type date}, {\"Item Date\", type date}, {\"Estimated Cost\", Int64.Type}, {\"Estimated Revenue\", type number}, {\"Estimated Hours\", Int64.Type}, {\"Billing Rate\", Int64.Type}, {\"Billable Hours\", type number}, {\"Non-Billable Hours\", type number}, {\"Hours Worked\", type number}, {\"Hours Worked Link\", type text}, {\"Total Billed Amount\", Int64.Type}, {\"Item Type\", type text}, {\"Task or Ticket Status\", type text}, {\"Block/Retainer Balance\", type any}, {\"Block/Retainer Balance_1\", type any}, {\"Block/Retainer Current Active Purchase Amount\", type any}, {\"Block/Retainer Purchase Amount\", type any}, {\"Number of Blocks/Purchases\", type any}, {\"Hours\", type number}, {\"Hours Deducted from Block\", Int64.Type}, {\"Block Overage Hours\", Int64.Type}, {\"Overage Billing Rate\", type any}, {\"Work Entry Rate\", type text}, {\"Approve & Post Labour Preference\", type text}, {\"Actual Billable Hours\", type number}, {\"Actual Non-Billable Hours\", type number}, {\"Quantity\", type number}, {\"Billed Rate\", type text}, {\"Billed Hours\", type number}, {\"Billed Amount\", type text}, {\"Posted Date\", type date}, {\"Invoice Date Paid\", type date}})",
+        "in",
+        "    #\"Changed Type\""
+      ],
+      "isDirectQuery": false,
+      "lastLoadedAsTableFormulaText": "{\"IncludesReferencedQueries\":false,\"RootFormulaText\":\"let\\n    Source = Folder.Files(\\\"C:\\\\Users\\\\goura\\\\OneDrive\\\\Desktop\\\\task\\\"),\\n    #\\\"C:\\\\Users\\\\goura\\\\OneDrive\\\\Desktop\\\\task\\\\_Billing & Customer Hours by Contract_Combo Billing Item Detail & Customer Hour by Contract 1 xlsx\\\" = Source{[#\\\"Folder Path\\\"=\\\"C:\\\\Users\\\\goura\\\\OneDrive\\\\Desktop\\\\task\\\\\\\",Name=\\\"Billing & Customer Hours by Contract_Combo Billing Item Detail & Customer Hour by Contract 1.xlsx\\\"]}[Content],\\n    #\\\"Imported Excel Workbook\\\" = Excel.Workbook(#\\\"C:\\\\Users\\\\goura\\\\OneDrive\\\\Desktop\\\\task\\\\_Billing & Customer Hours by Contract_Combo Billing Item Detail & Customer Hour by Contract 1 xlsx\\\"),\\n    #\\\"Combo Billing Item Detail & Cus!_xlnm _FilterDatabase_DefinedName\\\" = #\\\"Imported Excel Workbook\\\"{[Item=\\\"Combo Billing Item Detail & Cus!_xlnm._FilterDatabase\\\",Kind=\\\"DefinedName\\\"]}[Data],\\n    #\\\"Promoted Headers\\\" = Table.PromoteHeaders(#\\\"Combo Billing Item Detail & Cus!_xlnm _FilterDatabase_DefinedName\\\", [PromoteAllScalars=true]),\\n    #\\\"Changed Type\\\" = Table.TransformColumnTypes(#\\\"Promoted Headers\\\",{{\\\"Contract ID\\\", Int64.Type}, {\\\"Contract Active\\\", type text}, {\\\"Contract Period Type\\\", type text}, {\\\"Contract Type\\\", type text}, {\\\"Contract Start Date\\\", type date}, {\\\"Contract End Date\\\", type date}, {\\\"Line of Business\\\", type text}, {\\\"Company Name\\\", type text}, {\\\"Contract Name\\\", type text}, {\\\"Task or Ticket Number\\\", type text}, {\\\"Resource ID\\\", Int64.Type}, {\\\"Resource Name\\\", type text}, {\\\"Role Name\\\", type text}, {\\\"Internal Resource Cost\\\", type number}, {\\\"Worked Date\\\", type date}, {\\\"Item Date\\\", type date}, {\\\"Estimated Cost\\\", Int64.Type}, {\\\"Estimated Revenue\\\", type number}, {\\\"Estimated Hours\\\", Int64.Type}, {\\\"Billing Rate\\\", Int64.Type}, {\\\"Billable Hours\\\", type number}, {\\\"Non-Billable Hours\\\", type number}, {\\\"Hours Worked\\\", type number}, {\\\"Hours Worked Link\\\", type text}, {\\\"Total Billed Amount\\\", Int64.Type}, {\\\"Item Type\\\", type text}, {\\\"Task or Ticket Status\\\", type text}, {\\\"Block/Retainer Balance\\\", type any}, {\\\"Block/Retainer Balance_1\\\", type any}, {\\\"Block/Retainer Current Active Purchase Amount\\\", type any}, {\\\"Block/Retainer Purchase Amount\\\", type any}, {\\\"Number of Blocks/Purchases\\\", type any}, {\\\"Hours\\\", type number}, {\\\"Hours Deducted from Block\\\", Int64.Type}, {\\\"Block Overage Hours\\\", Int64.Type}, {\\\"Overage Billing Rate\\\", type any}, {\\\"Work Entry Rate\\\", type text}, {\\\"Approve & Post Labour Preference\\\", type text}, {\\\"Actual Billable Hours\\\", type number}, {\\\"Actual Non-Billable Hours\\\", type number}, {\\\"Quantity\\\", type number}, {\\\"Billed Rate\\\", type text}, {\\\"Billed Hours\\\", type number}, {\\\"Billed Amount\\\", type text}, {\\\"Posted Date\\\", type date}, {\\\"Invoice Date Paid\\\", type date}})\\nin\\n    #\\\"Changed Type\\\"\",\"ReferencedQueriesFormulaText\":{}}",
+      "loadAsTableDisabled": false,
+      "resultType": "Table",
+      "isHidden": false
+    },
+    {
+      "name": "Errors in Revenue by Month",
+      "lineageTag": "c8098554-e721-44c6-a027-0b2f0b6af782",
+      "queryGroupId": "9209c9e9-c43c-4a8d-9b60-6f4a6f18cabb",
+      "navigationStepName": "Navigation",
+      "text": [
+        "let",
+        "Source = #\"Revenue by Month\",",
+        "  #\"Detected Type Mismatches\" = let",
+        "    tableWithOnlyPrimitiveTypes = Table.SelectColumns(Source, Table.ColumnsOfType(Source, {type nullable number, type nullable text, type nullable logical, type nullable date, type nullable datetime, type nullable datetimezone, type nullable time, type nullable duration})),",
+        "    recordTypeFields = Type.RecordFields(Type.TableRow(Value.Type(tableWithOnlyPrimitiveTypes))),",
+        "    fieldNames = Record.FieldNames(recordTypeFields),",
+        "    fieldTypes = List.Transform(Record.ToList(recordTypeFields), each [Type]),",
+        "    pairs = List.Transform(List.Positions(fieldNames), (i) => {fieldNames{i}, (v) => if v = null or Value.Is(v, fieldTypes{i}) then v else error [Message = \"The type of the value does not match the type of the column.\", Detail = v], fieldTypes{i}})",
+        "in",
+        "    Table.TransformColumns(Source, pairs),",
+        "  #\"Added Index\" = Table.AddIndexColumn(#\"Detected Type Mismatches\", \"Row Number\" ,1),",
+        "  #\"Kept Errors\" = Table.SelectRowsWithErrors(#\"Added Index\", {\"Contract Active\", \"Start Date\", \"End Date\", \"Contract Type\", \"Company Name\", \"Contract ID\", \"Contract Name\", \"Estimated Revenue (€)\", \"Revenue (€) /hr\", \"Contract Revenue (Total)\", \"2025 Revenue\", \"Unrecognised Revenue\", \"Jan-24\", \"Feb-24\", \"Mar-24\", \"Apr-24\", \"May-24\", \"Jun-24\", \"Jul-24\", \"Aug-24\", \"Sep-24\", \"Oct-24\", \"Nov-24\", \"Dec-24\", \"Jan-25\", \"Feb-25\", \"Mar-25\", \"Apr-25\", \"May-25\", \"Jun-25\", \"Jul-25\", \"Aug-25\", \"Sep-25\", \"Oct-25\", \"Nov-25\", \"Dec-25\", \"Jan-26\", \"Feb-26\", \"Mar-26\", \"Apr-26\", \"May-26\", \"Jun-26\", \"Jul-26\", \"Aug-26\", \"Sep-26\", \"Oct-26\", \"Nov-26\", \"Dec-26\"}),",
+        "  #\"Reordered Columns\" = Table.ReorderColumns(#\"Kept Errors\", {\"Row Number\", \"Contract Active\", \"Start Date\", \"End Date\", \"Contract Type\", \"Company Name\", \"Contract ID\", \"Contract Name\", \"Estimated Revenue (€)\", \"Revenue (€) /hr\", \"Contract Revenue (Total)\", \"2025 Revenue\", \"Unrecognised Revenue\", \"Jan-24\", \"Feb-24\", \"Mar-24\", \"Apr-24\", \"May-24\", \"Jun-24\", \"Jul-24\", \"Aug-24\", \"Sep-24\", \"Oct-24\", \"Nov-24\", \"Dec-24\", \"Jan-25\", \"Feb-25\", \"Mar-25\", \"Apr-25\", \"May-25\", \"Jun-25\", \"Jul-25\", \"Aug-25\", \"Sep-25\", \"Oct-25\", \"Nov-25\", \"Dec-25\", \"Jan-26\", \"Feb-26\", \"Mar-26\", \"Apr-26\", \"May-26\", \"Jun-26\", \"Jul-26\", \"Aug-26\", \"Sep-26\", \"Oct-26\", \"Nov-26\", \"Dec-26\"})",
+        "in",
+        "  #\"Reordered Columns\""
+      ],
+      "loadAsTableDisabled": true,
+      "resultType": "Table",
+      "isHidden": false
+    },
+    {
+      "name": "DirectQuery to AS - gold_semantic",
+      "lineageTag": "a2a6d126-e797-4640-958a-90304a179c14",
+      "text": [
+        "let",
+        "    Source = AnalysisServices.Database(\"powerbi://api.powerbi.com/v1.0/myorg/Test_ServicePrincipal\", \"gold_semantic\"),",
+        "    Cubes = Table.Combine(Source[Data]),",
+        "    Cube = Cubes{[Id=\"Model\", Kind=\"Cube\"]}[Data]",
+        "in",
+        "    Cube"
+      ],
+      "isDirectQuery": true,
+      "resultType": "Unknown",
+      "isHidden": true
+    }
+  ],
+  "queryGroups": [
+    {
+      "name": "Query Errors - 8/10/2025 9:26:31 AM",
+      "id": "9209c9e9-c43c-4a8d-9b60-6f4a6f18cabb",
+      "description": "Errors in queries that were loaded on 8/10/2025 9:26:31 AM."
+    }
+  ],
+  "culture": "en-IN",
+  "firewallEnabled": true
+}

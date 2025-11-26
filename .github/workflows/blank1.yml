@@ -5,7 +5,7 @@ name: Sync Source to Target Branch
 on:
   push:
     branches:
-      - source-branch # Trigger the workflow on pushes to the source branch
+      - cloneprojectbranch
 
 jobs:
   sync-branches:
@@ -24,19 +24,19 @@ jobs:
         run: |
           git config user.name "GitHub Actions"
           git config user.email "actions@github.com"
-      - name: Force Merge Unrelated Histories
-        run: |
-          git pull origin cloneprojectbranch --allow-unrelated-histories
-          # OR if you are using git merge specifically:
-          # git merge origin/cloneprojectbranch --allow-unrelated-histories
-          git push origin main # Push the combined result back up 
+      # - name: Force Merge Unrelated Histories
+      #   run: |
+      #     git pull origin cloneprojectbranch --allow-unrelated-histories
+         
+      #     # git merge origin/cloneprojectbranch --allow-unrelated-histories
+      #     git push origin main 
       - name: Merge source into target
         run: |
-          # Checkout the target branch
-          git checkout target-branch
+        
+          git checkout test
           # Pull the latest changes from the source branch
-          git pull origin source-branch
+          git pull origin cloneprojectbranch 
           # Push the combined changes back to the target branch
-          git push origin target-branch
+          git push origin test
 p
 

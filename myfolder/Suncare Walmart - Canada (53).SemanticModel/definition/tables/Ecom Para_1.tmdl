@@ -1,0 +1,53 @@
+table 'Ecom Para_1'
+	lineageTag: 08ab1de6-ee3a-49c9-a7fb-2ab23c5eca2e
+
+	column Value1
+		lineageTag: 8bd3a1f2-3b59-42e5-9632-197c8dde2533
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Value1]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Value2
+		formatString: 0
+		lineageTag: dc8b5805-91eb-4cb9-88d6-b72d44c38e52
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Value2]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Metrics =
+			SWITCH('Ecom Para_1'[Value1],
+			"Sum of Net Shipped GM Home Delivery","1P & 2P",
+			"Sum of Net Shipped Gm Site to Store","1P & 2P",
+			"Sum of net ship Gm Pick from Store","PFS & SFS",
+			"Sum of Net Shipped GM ship from Store","PFS & SFS",
+			"Sum of Net shipped OG Store Pickup","OG",
+			"Sum of Net shipped OG Home delivery","OG",
+			"Total ecom","Total",
+			"Total B&M","Total",
+			"Grand Total","Total")
+		lineageTag: 9cef218b-91af-4fcc-890d-cfaf977a7c44
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Ecom Para_1-fffbe447-a7e9-4962-9225-6c3b83716ea1' = calculated
+		mode: import
+		source =
+				{
+				    ("Sum of Net Shipped GM Home Delivery", 0),
+				    ("Sum of Net Shipped GM Site to Store", 1),
+				    ("Sum of net ship Gm Pick from Store", 2),
+				    ("Sum of Net Shipped GM ship from store", 3),
+				    ("Sum of Net shipped OG Store Pickup",  4),
+				    ("Sum of Net shipped OG Home delivery",  5),
+				    ("Total ecom", 6),
+				    ("Total B&M",  7),
+				    ("Grand Total",  8)
+				}
+
+	annotation PBI_Id = a0727db868294d6d94fc4f1d57d26c97
+

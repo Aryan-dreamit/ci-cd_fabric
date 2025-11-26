@@ -1,0 +1,326 @@
+table 'CustomCalculation_based_on_LastNWeek/Selected Week'
+	lineageTag: 98efc220-7582-4ec8-9ca8-2c4bc834f02c
+
+	measure Calculation_based_on_LastNWeek = ```
+			
+			 
+			VAR x= SELECTEDVALUE('CustomCalculation_based_on_LastNWeek/Selected Week'[Metrics])
+			 
+			 VAR posty=[POS TY]
+			 VAR posly=[POS LY]
+			 VAR tydollarchg=[CHG POS $]
+			 VAR typerchg=[% CHG POS $] 
+			 VAR uty=[POS QTY TY]
+			 VAR uly= [POS QTY LY]
+			 VAR tyuchg=[CHG POS QTY]
+			 VAR utyperchg=[% CHG POS QTY]
+			 VAR avgty=[AVG PRICE TY]
+			 VAR avgly=[AVG PRICE LY]
+			 VAR avgchg=[Avg Price Chg]
+			 VAR avgperchg= [% CHG AVG PRICE]
+			 VAR instock=[Instock % Factsuncare]
+			
+			RETURN SWITCH(TRUE(),
+			x="TY $'s",FORMAT(posty,"$#,###;-$#,###;$0"),
+			x="LY $'s",  FORMAT(posly,"$#,###;-$#,###;$0"),
+			x="TY $ Chg", FORMAT(tydollarchg,"+$#,###;-$#,###;$0"),
+			x="TY $ % Chg", If(typerchg> 0, FORMAT(typerchg,"+0.0%"), FORMAT(typerchg,"0.0%")),
+			x="TY U’s", FORMAT( uty,"#,###;-#,###;0"),
+			x="LY U’s",  FORMAT(uly,"#,###;-#,###;0"),
+			x="TY U Chg", FORMAT(tyuchg,"+#,###;-#,###;0"),
+			x="TY U % Chg", If( utyperchg> 0, FORMAT(utyperchg,"+0.0%"), FORMAT(utyperchg,"0.0%")),
+			x="ARP TY",  FORMAT(avgty,"$#,###.00;-$#,###.00;$0.00;"),
+			x="ARP LY",  FORMAT(avgly,"$#,###.00;-$#,###.00;$0.00;"),
+			//x="ARP Chg",  FORMAT([Avg Price Chg],"+$#,###.##;-$#,###.##;$0.00;"),
+			x="ARP Chg",FORMAT(avgchg,"+$0.00;-$0.00"),
+			x="ARP % Chg", If( avgperchg> 0 ,FORMAT( avgperchg,"+0.0%"), FORMAT( avgperchg,"0.0%")),
+			x="Instock %",FORMAT(instock,"0.0%")
+			)
+			```
+		lineageTag: 4195043f-2ef3-4a18-b586-4ba0378a7b88
+
+	measure 'Calculation_based_on_Selected_Weeks(Custom Slicer)' = ```
+			
+			VAR _year = [Comparison Year]
+			VAR x = SELECTEDVALUE('CustomCalculation_based_on_LastNWeek/Selected Week'[Metrics])
+			
+			// Total Sales Calculations
+			VAR TY_Dollar = 
+			    CALCULATE(
+			        [Total Sales], 
+			        'Date Slicer Table'[Year] = _year
+			    )
+			    
+			// VAR LY_Dollar= [Last year sales_10_2]
+			 VAR LY_Dollar= [Last_year_sales_combined] 
+			// VAR LY_Dollar = 
+			//      CALCULATE(
+			//         [Total Sales], 
+			//         'Date Slicer Table'[Year] = _year - 1,
+			//         'WMT Weeks'[WMT WK Number] IN VALUES('WMT Weeks'[WMT WK Number])
+			//     )
+			
+			VAR CHG_POS_Dollar = TY_Dollar - LY_Dollar
+			VAR CHG_POS_Dollar_per = DIVIDE(CHG_POS_Dollar, LY_Dollar)
+			
+			// Total Quantity Calculations
+			VAR TY_QTY = 
+			    CALCULATE(
+			        [Total Quantity], 
+			        'Date Slicer Table'[Year] = _year
+			    )
+			
+			VAR LY_QTY = 
+			   [Last_year_QTY_combined]
+			
+			VAR CHG_POS_QTY = TY_QTY - LY_QTY
+			VAR CHG_POS_QTY_per = DIVIDE(CHG_POS_QTY, LY_QTY)
+			
+			// Average Calculations
+			VAR TY_AVG = DIVIDE(TY_Dollar, TY_QTY)
+			VAR LY_AVG = DIVIDE(LY_Dollar, LY_QTY)
+			VAR CHG_POS_AVG = TY_AVG - LY_AVG
+			VAR CHG_POS_AVG_per = DIVIDE(CHG_POS_AVG, LY_AVG)
+			
+			// Return the result based on the selected metric
+			RETURN 
+			    SWITCH(
+			        TRUE(),
+			        x = "TY $'s", FORMAT(TY_Dollar, "$#,###;-$#,###;$0"),
+			        x = "LY $'s", FORMAT(LY_Dollar, "$#,###;-$#,###;$0"),
+			        x = "TY $ Chg", FORMAT(CHG_POS_Dollar, "+$#,###;-$#,###;$0"),
+			        x = "TY $ % Chg", IF(CHG_POS_Dollar_per > 0, FORMAT(CHG_POS_Dollar_per, "+0.0%"), FORMAT(CHG_POS_Dollar_per, "0.0%")),
+			        x = "TY U’s", FORMAT(TY_QTY, "#,###;-#,###;0"),
+			        x = "LY U’s", FORMAT(LY_QTY, "#,###;-#,###;0"),
+			        x = "TY U Chg", FORMAT(CHG_POS_QTY, "+#,###;-#,###;0"),
+			        x = "TY U % Chg", IF(CHG_POS_QTY_per > 0, FORMAT(CHG_POS_QTY_per, "+0.0%"), FORMAT(CHG_POS_QTY_per, "0.0%")),
+			        x = "ARP TY", FORMAT(TY_AVG, "$#,###.00;-$#,###.00;$0.00"),
+			        x = "ARP LY", FORMAT(LY_AVG, "$#,###.00;-$#,###.00;$0.00"),
+			        x = "ARP Chg", FORMAT(CHG_POS_AVG, "+$0.00;-$0.00"),
+			        x = "ARP % Chg", IF(CHG_POS_AVG_per > 0, FORMAT(CHG_POS_AVG_per, "+0.0%"), FORMAT(CHG_POS_AVG_per, "0.0%")),
+			        x = "Instock %", FORMAT([Instock % Factsuncare], "0.0%"),
+			        BLANK() // Default case if no metric is selected
+			    )
+			```
+		lineageTag: 1b314420-315e-4c6a-ba33-1da53c5b21d4
+
+	measure 'Calculation_based_on_Selected_Weeks(Custom Slicer)(Normal Value)' = ```
+			
+			
+			VAR _year=[Comparison Year]
+			VAR x = SELECTEDVALUE('CustomCalculation_based_on_LastNWeek/Selected Week'[Metrics])
+			VAR _choice= SELECTEDVALUE(CustomSortByMeasure[Metrics])
+			
+			// Dollar Calculate
+			VAR TY_Dollar= CALCULATE([Total Sales], 'Date Slicer Table'[Year] = _year)
+			VAR LY_Dollar= CALCULATE([Total Sales], 'Date Slicer Table'[Year] = _year-1,'WMT Weeks'[WMT WK Number] in VALUES('WMT Weeks'[WMT WK Number]))
+			VAR CHG_POS_Dollar = TY_Dollar-LY_Dollar
+			VAR CHG_POS_Dollar_per = DIVIDE(CHG_POS_Dollar, LY_Dollar)
+			 
+			//QTY Calculate
+			VAR TY_QTY= CALCULATE([Total Quantity], 'Date Slicer Table'[Year] = _year)
+			VAR LY_QTY= CALCULATE([Total Quantity], 'Date Slicer Table'[Year] = _year-1,'WMT Weeks'[WMT WK Number] in VALUES('WMT Weeks'[WMT WK Number]))
+			VAR CHG_POS_QTY = TY_QTY-LY_QTY
+			VAR CHG_POS_QTY_per = DIVIDE(CHG_POS_QTY, LY_QTY)
+			 
+			// AVG
+			VAR TY_AVG= DIVIDE(TY_Dollar,TY_QTY)
+			VAR LY_AVG=  DIVIDE(LY_Dollar,LY_QTY)
+			VAR CHG_POS_AVG =TY_AVG-LY_AVG
+			VAR CHG_POS_AVG_per = DIVIDE(CHG_POS_AVG, LY_AVG)
+			 
+			
+			
+			RETURN SWITCH(TRUE(),
+			_choice="TY $'s", TY_Dollar,
+			_choice="LY $'s",  LY_Dollar,
+			_choice="$ Chg",  CHG_POS_Dollar,
+			_choice="$ % Chg",CHG_POS_Dollar_per,
+			_choice="TY U’s", TY_QTY,
+			_choice="LY U’s", LY_QTY,
+			_choice="U Chg", CHG_POS_QTY,
+			_choice="U % Chg",CHG_POS_QTY_per,
+			 
+			_choice="ARP TY", TY_AVG,
+			_choice="ARP LY",  LY_AVG,
+			_choice="ARP Chg",  CHG_POS_AVG,
+			_choice="ARP % Chg", CHG_POS_AVG_per,
+			_choice="Instock %",[Instock % Factsuncare]
+			)
+			```
+		lineageTag: 14550b4d-c181-4036-8882-5103caf497cc
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Calculation_based_on_LastNWeek (Normal Value)' = ```
+			
+			 
+			VAR x= SELECTEDVALUE(CustomSortByMeasure[Metrics])
+			//SELECTEDVALUE('CustomCalculation_based_on_LastNWeek/Selected Week'[Metrics])
+			
+			 
+			RETURN CALCULATE(SWITCH(TRUE(),
+			x="TY $'s",[POS TY],
+			x="LY $'s",  [POS LY],
+			x="$ Chg", [CHG POS $],
+			x="$ % Chg", [% CHG POS $],
+			x="TY U’s",  [POS QTY TY],
+			x="LY U’s",  [POS QTY LY],
+			x="U Chg", [CHG POS QTY],
+			x="U % Chg", [% CHG POS QTY],
+			x="ARP TY",  [AVG PRICE TY],
+			x="ARP LY",  [AVG PRICE LY],
+			x="ARP Chg",  [Avg Price Chg],
+			x="ARP % Chg",  [% CHG AVG PRICE],
+			x="Instock %",[Instock % Factsuncare]
+			),'WMT Weeks'[FactSuncare MaxWeek] <=0)
+			```
+		lineageTag: ca673223-9ab9-4e7f-b8e4-2d27ca6029fa
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure Test1Calculation_based_on_LastNWeekTest1 = ```
+			
+			
+			 
+			VAR x= SELECTEDVALUE('CustomCalculation_based_on_LastNWeek/Selected Week'[Metrics])
+			 
+			 VAR posty=[POS TY]
+			 VAR posly=[POS LY]
+			 VAR tydollarchg=[CHG POS $]
+			 VAR typerchg=[% CHG POS $] 
+			 VAR uty=[POS QTY TY]
+			 VAR uly= [POS QTY LY]
+			 VAR tyuchg=[CHG POS QTY]
+			 VAR utyperchg=[% CHG POS QTY]
+			 VAR avgty=[AVG PRICE TY]
+			 VAR avgly=[AVG PRICE LY]
+			 VAR avgchg=[Avg Price Chg]
+			 VAR avgperchg= [% CHG AVG PRICE]
+			 VAR instock=[Instock % Factsuncare]
+			
+			RETURN SWITCH(TRUE(),
+			
+			x="TY $ Chg", If(tydollarchg > 0, "Green","Red"),
+			x="TY $ % Chg", If(typerchg> 0, "Green","Red"),
+			
+			x="TY U Chg", If(tyuchg > 0 ,"Green","Red"),
+			x="TY U % Chg", If( utyperchg> 0, "Green","Red"),
+			
+			
+			x="ARP Chg",If(avgchg > 0,"Green","Red"),
+			x="ARP % Chg", If( avgperchg> 0 ,"Green","Red")
+			
+			)
+			```
+		lineageTag: 28e3bbcc-deec-4668-9734-1e8abbd49043
+
+	measure Calculation_based_on_LastNWeek_test = ```
+			
+			 
+			VAR x= SELECTEDVALUE('CustomCalculation_based_on_LastNWeek/Selected Week'[Metrics])
+			 
+			 VAR posty=[POS TY_test]
+			 VAR posly=[POS LY_test]
+			 VAR tydollarchg=[CHG POS $]
+			 VAR typerchg=[% CHG POS $] 
+			 VAR uty=[POS QTY TY]
+			 VAR uly= [POS QTY LY]
+			 VAR tyuchg=[CHG POS QTY]
+			 VAR utyperchg=[% CHG POS QTY]
+			 VAR avgty=[AVG PRICE TY]
+			 VAR avgly=[AVG PRICE LY]
+			 VAR avgchg=[Avg Price Chg]
+			 VAR avgperchg= [% CHG AVG PRICE]
+			 VAR instock=[Instock % Factsuncare]
+			
+			RETURN SWITCH(TRUE(),
+			x="TY $'s",FORMAT(posty,"$#,###;-$#,###;$0"),
+			x="LY $'s",  FORMAT(posly,"$#,###;-$#,###;$0"),
+			x="TY $ Chg", FORMAT(tydollarchg,"+$#,###;-$#,###;$0"),
+			x="TY $ % Chg", If(typerchg> 0, FORMAT(typerchg,"+0.0%"), FORMAT(typerchg,"0.0%")),
+			x="TY U’s", FORMAT( uty,"#,###;-#,###;0"),
+			x="LY U’s",  FORMAT(uly,"#,###;-#,###;0"),
+			x="TY U Chg", FORMAT(tyuchg,"+#,###;-#,###;0"),
+			x="TY U % Chg", If( utyperchg> 0, FORMAT(utyperchg,"+0.0%"), FORMAT(utyperchg,"0.0%")),
+			x="ARP TY",  FORMAT(avgty,"$#,###.00;-$#,###.00;$0.00;"),
+			x="ARP LY",  FORMAT(avgly,"$#,###.00;-$#,###.00;$0.00;"),
+			//x="ARP Chg",  FORMAT([Avg Price Chg],"+$#,###.##;-$#,###.##;$0.00;"),
+			x="ARP Chg",FORMAT(avgchg,"+$0.00;-$0.00"),
+			x="ARP % Chg", If( avgperchg> 0 ,FORMAT( avgperchg,"+0.0%"), FORMAT( avgperchg,"0.0%")),
+			x="Instock %",FORMAT(instock,"0.0%")
+			)
+			```
+		lineageTag: 864b688f-3bab-4ec5-b793-ab2d1aafef0c
+
+	column Category
+		dataType: string
+		lineageTag: 8d85c3d7-8766-4865-9ddb-2b2141504bfd
+		summarizeBy: none
+		sourceColumn: Category
+		sortByColumn: SortCategory
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column Metrics
+		dataType: string
+		lineageTag: e7e3c7ea-b7ae-482e-bf83-1db2657fa25e
+		summarizeBy: none
+		sourceColumn: Metrics
+		sortByColumn: SortMetrics
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column SortCategory
+		dataType: int64
+		formatString: 0
+		lineageTag: b301511e-897e-44ca-91f3-b51ac9478d52
+		summarizeBy: sum
+		sourceColumn: SortCategory
+
+		annotation SummarizationSetBy = Automatic
+
+	column SortMetrics
+		dataType: int64
+		formatString: 0
+		lineageTag: dda7ba14-9d19-497f-a65f-9f5f9235c225
+		summarizeBy: sum
+		sourceColumn: SortMetrics
+
+		annotation SummarizationSetBy = Automatic
+
+	column Metrics_ = ```
+			
+			SWITCH(
+			    'CustomCalculation_based_on_LastNWeek/Selected Week'[Metrics],
+			    "TY $ Chg", "$ Chg",
+			    "TY $ % Chg", "$ % Chg",
+			    "TY U Chg", "U Chg",
+			    "TY U % Chg", "U % Chg",
+			    [Metrics]
+			)
+			
+			```
+		lineageTag: 89c30578-153c-4810-a236-cd3a3aa10553
+		summarizeBy: none
+		sortByColumn: SortMetrics
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'CustomCalculation_based_on_LastNWeek/Selected Week' = m
+		mode: import
+		source =
+				let
+				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i45WCvAPVlBR0lEKiVRQiSk1MDAyLwbyDME4Vgch74Mhb4QiD9Kv4JyRDpU0xpRURZI2gUuHQqRDHzXMLAYbqqNkiiLpgypphqETaixI0hxTUhVJ2gIs7RgUAGQDSYWQSLBLdZQs0SR8YBKGBmgyEMPAUoZoUqrIkpDA8cwrLslPzlZQBQohsw3AODYWAA==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Category = _t, Metrics = _t, SortCategory = _t, SortMetrics = _t]),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Category", type text}, {"Metrics", type text}, {"SortCategory", Int64.Type}, {"SortMetrics", Int64.Type}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table
+

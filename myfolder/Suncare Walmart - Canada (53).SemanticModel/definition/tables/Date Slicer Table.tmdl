@@ -1,0 +1,157 @@
+table 'Date Slicer Table'
+	lineageTag: ab4884a5-bae7-47e7-87b4-0535786eb48c
+
+	column Date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 98b603c3-497e-4c4e-b47e-568f140e1804
+		summarizeBy: none
+		sourceColumn: Date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Wmt Week Number'
+		dataType: int64
+		formatString: 0
+		lineageTag: 19e10bc3-12ea-4920-8ef1-2300637dd978
+		summarizeBy: none
+		sourceColumn: Wmt Week Number
+
+		annotation SummarizationSetBy = Automatic
+
+	column WeekNum =
+			//Related('WMT Weeks'[WMT WK Number])//WEEKNUM('Date Slicer Table'[Date])
+			Related('WMT Weeks'[WMT WK Number])
+		formatString: 0
+		lineageTag: 77e1f149-9392-4a2c-8959-1fa2596f4703
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Current Year' = If('Date Slicer Table'[Year]=Year(TODAY()),1,0)
+		lineageTag: 9a5ecf87-64db-437b-9795-c32bacdeb389
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column Year = RELATED('WMT Weeks'[Fiscal Year])
+		dataType: int64
+		formatString: 0
+		lineageTag: caa8e7ee-a5af-4bae-b207-4d5a51403176
+		summarizeBy: sum
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Last Year' = If('Date Slicer Table'[Year]=Year(TODAY())-1,1,0)
+		formatString: 0
+		lineageTag: c3e1543c-0f3e-45b8-a6a0-0f5c01928986
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Week ending' = ```
+			var a = 'Date Slicer Table'[Date]+(7-'Date Slicer Table'[weekday number]) 
+			var test = MONTH(a) 
+			var test_1 =  MONTH('Date Slicer Table'[Date]) 
+			return if(test = test_1 , a , blank())
+			```
+		formatString: dd mmmm yyyy
+		lineageTag: 5b6aa745-34a2-4d94-bb6a-f85730b609fd
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column 'weekday number' = WEEKDAY('Date Slicer Table'[Date],1)
+		formatString: 0
+		lineageTag: b771512c-dca0-4d13-93dc-6ffd64384796
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column Month = MONTH('Date Slicer Table'[Date])
+		formatString: 0
+		lineageTag: 2264e886-e1c2-4c86-af0a-ad41a61c9c97
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Year (New)' = YEAR('Date Slicer Table'[Date])
+		formatString: 0
+		lineageTag: 8afad73e-47c0-451e-b739-1a078aab9662
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Quarter New' = if('Date Slicer Table'[Month] in { 2,3,4} , "Q1" , IF('Date Slicer Table'[Month] IN {5,6,7} , "Q2", IF('Date Slicer Table'[Month] IN {8,9,10},"Q3","Q4")))
+		lineageTag: e5943689-7503-43d2-9faf-8db9ec592d1c
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Month Name' = FORMAT('Date Slicer Table'[Date] , "MMM")
+		dataType: string
+		lineageTag: 0c0b2cc9-cd02-4d70-9049-9e00aefcb19f
+		summarizeBy: none
+		sortByColumn: Month
+
+		changedProperty = DataType
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Week end date' = WEEKNUM('Date Slicer Table'[Date],1)
+		formatString: 0
+		lineageTag: 1cb4dd4c-b17e-4e1a-b02b-2e31296993af
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column DateKey = ```
+			var a = YEAR('Date Slicer Table'[Week ending]) * 10000 + MONTH('Date Slicer Table'[Week ending]) * 100 + DAY('Date Slicer Table'[Week ending])
+			
+			//var b = RIGHT('Date Slicer Table'[Quarter],1)
+			
+			var z = --if('Date Slicer Table'[Month] = 1, (a+1200)  , 0)
+			
+			if('Date Slicer Table'[Month] = 1 , (a+1000) , IF('Date Slicer Table'[Month] = 12, (a+100) , IF('Date Slicer Table'[Month] = 11, (a+100) , a)))
+			
+			 
+			
+			return if('Date Slicer Table'[Week ending] = BLANK() ,BLANK() , z)
+			```
+		formatString: 0
+		lineageTag: 0869bcf7-c225-40a9-a90a-ad6957494b91
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Week end date (weekending)' = WEEKNUM('Date Slicer Table'[Week ending],1)
+		formatString: 0
+		lineageTag: 52907ccb-d7df-43d7-ae79-2b2b4f4c9fdd
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Date Slicer Table-9c087153-2298-4bf9-91dd-e6ca7d6af9ad' = m
+		mode: import
+		queryGroup: Dimensions
+		source = ```
+				let
+				    Source = Sql.Database("45abcdnsw5ru7e2ughqdsi5nlu-ttswb43k6wtebajhba5hzpoqhu.datawarehouse.fabric.microsoft.com", "GoldLakehouse", [Query="select [$Table].[Date] as [Date],#(lf)    [$Table].[Wmt_Week_Number] as [Wmt Week Number]#(lf)from [dbo].[Dateslicer] as [$Table]"]),
+				 
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Date", type date}, {"Wmt Week Number", Int64.Type}})
+				in
+				    #"Changed Type"
+				```
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

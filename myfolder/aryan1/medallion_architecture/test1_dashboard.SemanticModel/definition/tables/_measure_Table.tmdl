@@ -1,0 +1,27 @@
+table _measure_Table
+	lineageTag: 7e464747-3d48-4384-b00c-7d3be0146595
+	sourceLineageTag: c8400dbe-45f7-4c3e-868d-3e21814b0be7
+
+	measure Measure = EXTERNALMEASURE("Measure", INTEGER, "DirectQuery to AS - gold_semantic")
+		formatString: 0
+		lineageTag: 916bf2a5-3059-4e20-aa47-9bb5c699413a
+		sourceLineageTag: 61a7c7f8-26ca-4dd5-90d9-b493329839d2
+		dataCategory: Uncategorized
+
+	column Column
+		dataType: int64
+		formatString: 0
+		lineageTag: 1fc6fc4d-adfb-4018-be45-c26de68b5cc7
+		sourceLineageTag: 7bea9e4c-0edd-4b7b-94a7-7a8b7b164ede
+		dataCategory: Uncategorized
+		summarizeBy: sum
+		sourceColumn: Column
+
+		annotation SummarizationSetBy = User
+
+	partition _measure_Table = entity
+		mode: directQuery
+		source
+			entityName: _measure_Table
+			expressionSource: 'DirectQuery to AS - gold_semantic'
+

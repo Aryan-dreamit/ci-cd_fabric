@@ -1,0 +1,145 @@
+table resource_list
+	lineageTag: f012d9c4-df37-4786-87dc-e0ebcb93de7e
+	sourceLineageTag: af0dd593-8c33-4eb1-9e20-758922fc16dd
+
+	column resource_name
+		dataType: string
+		isNullable: false
+		lineageTag: d36a825f-19c4-4f8e-870b-d0959e1f44e8
+		sourceLineageTag: afe91255-f4ac-4834-b810-3312d348ffae
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: resource_name
+
+		annotation SummarizationSetBy = User
+
+	column resource_id
+		dataType: int64
+		formatString: 0
+		lineageTag: c55db98b-57ea-4e09-824e-a5871d901193
+		sourceLineageTag: 2a9e8e6e-9684-4a03-96b4-35616561eff1
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: resource_id
+
+		annotation SummarizationSetBy = User
+
+	column default_department
+		dataType: string
+		lineageTag: 0bfa0af7-ebc0-4db5-9e7f-52d4386952b0
+		sourceLineageTag: ece4023a-88d0-4a46-b2a3-f77009e5390f
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: default_department
+
+		annotation SummarizationSetBy = User
+
+	column security_level
+		dataType: string
+		lineageTag: 0f726dfc-1fe2-438d-badc-388bed7467e4
+		sourceLineageTag: d4472676-1209-4cc3-9eac-859ef2337853
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: security_level
+
+		annotation SummarizationSetBy = User
+
+	column license_type
+		dataType: string
+		lineageTag: e52b73fe-52ac-4cc6-945f-f7272dcd763f
+		sourceLineageTag: 15db7590-76fc-4e3c-8ffa-8541cff68e46
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: license_type
+
+		annotation SummarizationSetBy = User
+
+	column office_phone
+		dataType: int64
+		formatString: 0
+		lineageTag: 537ea383-9f38-4277-bfb1-2a79110c0144
+		sourceLineageTag: ccbc8b52-03e0-4671-aa8b-08f284788015
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: office_phone
+
+		annotation SummarizationSetBy = User
+
+	column last_activated_date
+		dataType: dateTime
+		formatString: General Number
+		lineageTag: 7aa5e35d-651b-46cf-86e3-100eaf9d238b
+		sourceLineageTag: 43e47dbe-4993-4d03-86af-cd5611b74565
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: last_activated_date
+
+		annotation SummarizationSetBy = User
+
+	column mobile_phone
+		dataType: int64
+		formatString: 0
+		lineageTag: 44ecf8bd-f5cf-4f71-9c86-5fe15b2cca43
+		sourceLineageTag: e81bd0b6-f1f2-421e-a749-03950f033f8d
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: mobile_phone
+
+		annotation SummarizationSetBy = User
+
+	column email
+		dataType: string
+		lineageTag: e946896d-abb5-42c7-a8fb-c49942e8267c
+		sourceLineageTag: 10f9a6fd-8009-4f45-b61b-079b81513208
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: email
+
+		annotation SummarizationSetBy = User
+
+	column primary_internal_location
+		dataType: string
+		lineageTag: 77e8f8c7-dd61-4411-a0bf-87a26b2d2397
+		sourceLineageTag: dde0e438-2896-4ba3-ac9f-ddf75d72e67f
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: primary_internal_location
+
+		annotation SummarizationSetBy = User
+
+	column resource_survey_rating
+		dataType: string
+		lineageTag: de86fad3-8664-4050-9761-9aa57c74f8dc
+		sourceLineageTag: 834b2f7c-363a-416b-981e-63a2e0019f05
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: resource_survey_rating
+
+		annotation SummarizationSetBy = User
+
+	column active
+		dataType: string
+		lineageTag: e0f00e3d-180d-4dd0-823e-c7e970423cc5
+		sourceLineageTag: 6d61d2be-7cba-4a62-9f7b-99d36a4743b5
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: active
+
+		annotation SummarizationSetBy = User
+
+	column last_activated_by
+		dataType: string
+		lineageTag: 9bb40deb-8cfb-4fbb-8257-f49b37bdb1d7
+		sourceLineageTag: e6b0661f-951e-4f8b-b8d8-b7624382ca4e
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: last_activated_by
+
+		annotation SummarizationSetBy = User
+
+	partition resource_list = entity
+		mode: directQuery
+		source
+			entityName: resource_list
+			expressionSource: 'DirectQuery to AS - gold_semantic'
+

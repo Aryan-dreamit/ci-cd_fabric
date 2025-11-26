@@ -1,0 +1,80 @@
+{
+  "properties": {
+    "activities": [
+      {
+        "type": "Copy",
+        "typeProperties": {
+          "source": {
+            "type": "KustoDatabaseSource",
+            "query": "Data_for_sample",
+            "noTruncation": true,
+            "queryTimeout": "01:00:00",
+            "datasetSettings": {
+              "type": "KustoDatabaseTable",
+              "typeProperties": {
+                "table": "Data_for_sample"
+              },
+              "schema": [],
+              "linkedService": {
+                "name": "Sample_data",
+                "properties": {
+                  "type": "KustoDatabase",
+                  "typeProperties": {
+                    "endpoint": "https://trd-qcgz6ju9a0hjmekfvu.z3.kusto.fabric.microsoft.com",
+                    "workspaceId": "00000000-0000-0000-0000-000000000000",
+                    "database": "0cfc7d83-f18e-897b-419a-c30dc20a8151"
+                  },
+                  "annotations": []
+                }
+              },
+              "annotations": []
+            }
+          },
+          "sink": {
+            "type": "LakehouseTableSink",
+            "tableActionOption": "Append",
+            "applyVOrder": true,
+            "datasetSettings": {
+              "type": "LakehouseTable",
+              "typeProperties": {
+                "table": "from_event_to_landing"
+              },
+              "schema": [],
+              "linkedService": {
+                "name": "Landing_Lakehouse",
+                "properties": {
+                  "type": "Lakehouse",
+                  "typeProperties": {
+                    "artifactId": "4a2d28d9-1446-bc32-40bb-9e832ba365ca",
+                    "workspaceId": "00000000-0000-0000-0000-000000000000",
+                    "rootFolder": "Tables"
+                  },
+                  "annotations": []
+                }
+              },
+              "annotations": []
+            }
+          },
+          "translator": {
+            "type": "TabularTranslator",
+            "typeConversion": true,
+            "typeConversionSettings": {
+              "allowDataTruncation": true,
+              "treatBooleanAsNumber": false
+            }
+          },
+          "enableStaging": false
+        },
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureInput": false,
+          "secureOutput": false
+        },
+        "name": "Copy data1",
+        "dependsOn": []
+      }
+    ]
+  }
+}

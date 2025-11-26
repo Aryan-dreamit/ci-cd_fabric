@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Lakehouse",
+    "displayName": "sharepoint"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "f7e0d1e4-198b-80be-49de-3ae9707389a7"
+  }
+}

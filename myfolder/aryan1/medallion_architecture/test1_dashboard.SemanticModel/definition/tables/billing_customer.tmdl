@@ -1,0 +1,553 @@
+table billing_customer
+	lineageTag: 513de527-b3e4-487f-8ca3-5f86fcd3a70a
+
+	column 'Contract ID'
+		dataType: int64
+		formatString: 0
+		lineageTag: 9c008ea9-e633-41d3-9812-543b87624b56
+		summarizeBy: count
+		sourceColumn: Contract ID
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = User
+
+	column 'Contract Active'
+		dataType: string
+		lineageTag: 39ed405b-0810-4cce-a018-60d201b61ef3
+		summarizeBy: none
+		sourceColumn: Contract Active
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Contract Period Type'
+		dataType: string
+		lineageTag: b4fd5952-8242-422d-b7ac-efe108f188b8
+		summarizeBy: none
+		sourceColumn: Contract Period Type
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Contract Type'
+		dataType: string
+		lineageTag: 3155fcc1-9b59-45d0-8ce2-3342aa78705a
+		summarizeBy: none
+		sourceColumn: Contract Type
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Contract Start Date'
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 69dd1f86-1c7e-4f1a-a625-a63f69c8451b
+		summarizeBy: none
+		sourceColumn: Contract Start Date
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Contract End Date'
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 567c8a59-5e82-4ff6-bd8b-aa5d18286672
+		summarizeBy: none
+		sourceColumn: Contract End Date
+
+		variation Variation
+			isDefault
+			relationship: c1bcd298-293b-471d-8cce-50044915bb77
+			defaultHierarchy: LocalDateTable_4b55f0b9-622b-4080-bac9-7073b57b1703.'Date Hierarchy'
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Line of Business'
+		dataType: string
+		lineageTag: 90ed2373-fac6-4c5f-a777-65d941a63fb7
+		summarizeBy: none
+		sourceColumn: Line of Business
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Company Name'
+		dataType: string
+		lineageTag: 697ada35-1813-4f35-ab9f-e79055b787f8
+		summarizeBy: none
+		sourceColumn: Company Name
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Contract Name'
+		dataType: string
+		lineageTag: 88c20722-53e2-4079-9410-71b80386ec4e
+		summarizeBy: none
+		sourceColumn: Contract Name
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Task or Ticket Number'
+		dataType: string
+		lineageTag: da177146-f6ad-484d-997e-85cd419e6d3b
+		summarizeBy: none
+		sourceColumn: Task or Ticket Number
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Resource ID'
+		dataType: int64
+		formatString: 0
+		lineageTag: 4ce99bae-83e1-4e5e-abca-ce4ac767779e
+		summarizeBy: none
+		sourceColumn: Resource ID
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Resource Name'
+		dataType: string
+		lineageTag: 28096709-8b3a-4095-a062-e8870f74f897
+		summarizeBy: none
+		sourceColumn: Resource Name
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Role Name'
+		dataType: string
+		lineageTag: 0a9d8300-cb4c-4a5e-acbf-b7c74841ccd1
+		summarizeBy: none
+		sourceColumn: Role Name
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Internal Resource Cost'
+		dataType: double
+		lineageTag: 3d8110f2-6c31-466e-8461-0e29f64428b7
+		summarizeBy: sum
+		sourceColumn: Internal Resource Cost
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Worked Date'
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 72b64dd4-2652-413f-b03c-116e3d52b762
+		summarizeBy: none
+		sourceColumn: Worked Date
+
+		variation Variation
+			isDefault
+			relationship: c969bba7-0489-4283-b38f-81f27d2551bf
+			defaultHierarchy: LocalDateTable_3acfca4a-4773-4cab-bb0c-7454efd3eac7.'Date Hierarchy'
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Item Date'
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: d85a22a3-84ac-46ef-b57c-bc787daa980f
+		summarizeBy: none
+		sourceColumn: Item Date
+
+		variation Variation
+			isDefault
+			relationship: 819f117b-9c46-48fc-bb62-fdf47b7ad781
+			defaultHierarchy: LocalDateTable_aadaaf31-5db0-4a69-9cca-554fc758ab61.'Date Hierarchy'
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Estimated Cost'
+		dataType: int64
+		formatString: 0
+		lineageTag: cf78a2d1-2595-4f4b-b972-12920a0e99b4
+		summarizeBy: sum
+		sourceColumn: Estimated Cost
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Estimated Revenue'
+		dataType: double
+		lineageTag: c4e2e8df-4940-48e0-b967-b6b0a8a02385
+		summarizeBy: sum
+		sourceColumn: Estimated Revenue
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Estimated Hours'
+		dataType: int64
+		formatString: 0
+		lineageTag: 1bb7eb2b-6f95-458b-bee5-e15887749799
+		summarizeBy: sum
+		sourceColumn: Estimated Hours
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Billing Rate'
+		dataType: int64
+		formatString: 0
+		lineageTag: 2092bd67-2bf8-4f39-975c-ee976d94eee6
+		summarizeBy: sum
+		sourceColumn: Billing Rate
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Billable Hours'
+		dataType: double
+		lineageTag: f1aaa738-5a3f-49d7-a2ce-8afd243009f9
+		summarizeBy: sum
+		sourceColumn: Billable Hours
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Non-Billable Hours'
+		dataType: double
+		lineageTag: 59f40b69-448d-4b8a-a905-aac7fcaa7b51
+		summarizeBy: sum
+		sourceColumn: Non-Billable Hours
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Hours Worked'
+		dataType: double
+		lineageTag: 3d0478bf-a322-4a02-828f-43891f98eaae
+		summarizeBy: sum
+		sourceColumn: Hours Worked
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Hours Worked Link'
+		dataType: string
+		lineageTag: f0f035a1-5c52-4fd1-9f91-8d6fbb3a7c59
+		summarizeBy: none
+		sourceColumn: Hours Worked Link
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Total Billed Amount'
+		dataType: int64
+		formatString: 0
+		lineageTag: 2baa94cb-7f3a-43f0-976b-14a40cf34514
+		summarizeBy: sum
+		sourceColumn: Total Billed Amount
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Item Type'
+		dataType: string
+		lineageTag: d2cde9b5-5bb3-4918-bc07-ce50f4df5d9c
+		summarizeBy: none
+		sourceColumn: Item Type
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Task or Ticket Status'
+		dataType: string
+		lineageTag: d5da8bb2-263d-48b5-913a-98e1cee97b3d
+		summarizeBy: none
+		sourceColumn: Task or Ticket Status
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Block/Retainer Balance'
+		dataType: string
+		lineageTag: 6536df56-b3dd-4b59-a7a3-9aa20fb1346e
+		summarizeBy: none
+		sourceColumn: Block/Retainer Balance
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Block/Retainer Balance_1'
+		dataType: string
+		lineageTag: ab0bcaf9-f30f-44f9-a1a6-04873047142b
+		summarizeBy: none
+		sourceColumn: Block/Retainer Balance_1
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Block/Retainer Current Active Purchase Amount'
+		dataType: string
+		lineageTag: 0dc8cb19-6f42-44ba-9736-8c651d8438a7
+		summarizeBy: none
+		sourceColumn: Block/Retainer Current Active Purchase Amount
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Block/Retainer Purchase Amount'
+		dataType: string
+		lineageTag: ba722fa2-3382-4365-bf93-4caecfbd6d9d
+		summarizeBy: none
+		sourceColumn: Block/Retainer Purchase Amount
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Number of Blocks/Purchases'
+		dataType: string
+		lineageTag: 229958d0-9aa4-4c18-b0bd-df0f94d1a638
+		summarizeBy: none
+		sourceColumn: Number of Blocks/Purchases
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column Hours
+		dataType: double
+		lineageTag: 149c74d7-b5fd-45d0-b1a0-315da975435b
+		summarizeBy: sum
+		sourceColumn: Hours
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Hours Deducted from Block'
+		dataType: int64
+		formatString: 0
+		lineageTag: 169e9a66-c776-47df-beb8-bc6446e7f7bc
+		summarizeBy: sum
+		sourceColumn: Hours Deducted from Block
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Block Overage Hours'
+		dataType: int64
+		formatString: 0
+		lineageTag: 534dcf06-32b0-4441-b6f9-826e414d9559
+		summarizeBy: sum
+		sourceColumn: Block Overage Hours
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Overage Billing Rate'
+		dataType: string
+		lineageTag: ffb31c4f-8f13-44a6-817a-5975fdf7c96e
+		summarizeBy: none
+		sourceColumn: Overage Billing Rate
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Work Entry Rate'
+		dataType: string
+		lineageTag: d7210b42-592e-495a-a1a6-2d0c32718550
+		summarizeBy: none
+		sourceColumn: Work Entry Rate
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Approve & Post Labour Preference'
+		dataType: string
+		lineageTag: df9239dd-742a-41ec-a1fd-0daec3acacf4
+		summarizeBy: none
+		sourceColumn: Approve & Post Labour Preference
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Actual Billable Hours'
+		dataType: double
+		lineageTag: beec91c0-f11e-4eef-b7c7-568ea5e844bf
+		summarizeBy: sum
+		sourceColumn: Actual Billable Hours
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Actual Non-Billable Hours'
+		dataType: double
+		lineageTag: e6d4b1c4-44c9-4d73-9828-8e32f571030b
+		summarizeBy: sum
+		sourceColumn: Actual Non-Billable Hours
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Quantity
+		dataType: double
+		lineageTag: 43a99a75-840e-4caa-a133-242883331046
+		summarizeBy: sum
+		sourceColumn: Quantity
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Billed Rate'
+		dataType: string
+		lineageTag: cfb4a523-3e06-4808-9e7d-717a131cb870
+		summarizeBy: none
+		sourceColumn: Billed Rate
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Billed Hours'
+		dataType: double
+		lineageTag: 576e7e3a-8bc0-43f4-96e6-f992818654ca
+		summarizeBy: sum
+		sourceColumn: Billed Hours
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Billed Amount'
+		dataType: string
+		lineageTag: 77dd796f-46fb-48dd-be68-5007b9fac3e8
+		summarizeBy: none
+		sourceColumn: Billed Amount
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Posted Date'
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: b7ff5265-42ef-439a-b6fd-410bc78973a0
+		summarizeBy: none
+		sourceColumn: Posted Date
+
+		variation Variation
+			isDefault
+			relationship: 5628d834-57ce-43fd-99a7-9d0aeca11618
+			defaultHierarchy: LocalDateTable_5a6bfe58-45bf-458b-9177-8377b8f438d1.'Date Hierarchy'
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Invoice Date Paid'
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: eb02dc4d-200e-4147-8e2b-a5fd87fd0b35
+		summarizeBy: none
+		sourceColumn: Invoice Date Paid
+
+		variation Variation
+			isDefault
+			relationship: 8ef4530a-1b22-4b0c-b14a-ab564325b749
+			defaultHierarchy: LocalDateTable_4e80096d-ee61-4e79-add9-6e3da29aa653.'Date Hierarchy'
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	partition billing_customer = m
+		mode: import
+		source =
+				let
+				    Source = Folder.Files("C:\Users\goura\OneDrive\Desktop\task"),
+				    #"C:\Users\goura\OneDrive\Desktop\task\_Billing & Customer Hours by Contract_Combo Billing Item Detail & Customer Hour by Contract 1 xlsx" = Source{[#"Folder Path"="C:\Users\goura\OneDrive\Desktop\task\",Name="Billing & Customer Hours by Contract_Combo Billing Item Detail & Customer Hour by Contract 1.xlsx"]}[Content],
+				    #"Imported Excel Workbook" = Excel.Workbook(#"C:\Users\goura\OneDrive\Desktop\task\_Billing & Customer Hours by Contract_Combo Billing Item Detail & Customer Hour by Contract 1 xlsx"),
+				    #"Combo Billing Item Detail & Cus!_xlnm _FilterDatabase_DefinedName" = #"Imported Excel Workbook"{[Item="Combo Billing Item Detail & Cus!_xlnm._FilterDatabase",Kind="DefinedName"]}[Data],
+				    #"Promoted Headers" = Table.PromoteHeaders(#"Combo Billing Item Detail & Cus!_xlnm _FilterDatabase_DefinedName", [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Contract ID", Int64.Type}, {"Contract Active", type text}, {"Contract Period Type", type text}, {"Contract Type", type text}, {"Contract Start Date", type date}, {"Contract End Date", type date}, {"Line of Business", type text}, {"Company Name", type text}, {"Contract Name", type text}, {"Task or Ticket Number", type text}, {"Resource ID", Int64.Type}, {"Resource Name", type text}, {"Role Name", type text}, {"Internal Resource Cost", type number}, {"Worked Date", type date}, {"Item Date", type date}, {"Estimated Cost", Int64.Type}, {"Estimated Revenue", type number}, {"Estimated Hours", Int64.Type}, {"Billing Rate", Int64.Type}, {"Billable Hours", type number}, {"Non-Billable Hours", type number}, {"Hours Worked", type number}, {"Hours Worked Link", type text}, {"Total Billed Amount", Int64.Type}, {"Item Type", type text}, {"Task or Ticket Status", type text}, {"Block/Retainer Balance", type any}, {"Block/Retainer Balance_1", type any}, {"Block/Retainer Current Active Purchase Amount", type any}, {"Block/Retainer Purchase Amount", type any}, {"Number of Blocks/Purchases", type any}, {"Hours", type number}, {"Hours Deducted from Block", Int64.Type}, {"Block Overage Hours", Int64.Type}, {"Overage Billing Rate", type any}, {"Work Entry Rate", type text}, {"Approve & Post Labour Preference", type text}, {"Actual Billable Hours", type number}, {"Actual Non-Billable Hours", type number}, {"Quantity", type number}, {"Billed Rate", type text}, {"Billed Hours", type number}, {"Billed Amount", type text}, {"Posted Date", type date}, {"Invoice Date Paid", type date}})
+				in
+				    #"Changed Type"
+
+	changedProperty = Name
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

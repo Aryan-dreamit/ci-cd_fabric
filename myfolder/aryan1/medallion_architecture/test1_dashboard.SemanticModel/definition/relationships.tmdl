@@ -1,0 +1,95 @@
+relationship 05293b9c-ec7b-4be5-9ec5-da3ea90255cf
+	joinOnDateBehavior: datePartOnly
+	fromColumn: contract_search.'End Date'
+	toColumn: LocalDateTable_6a319bcb-abcc-4502-85a2-cb7c5f373bb4.Date
+
+relationship 4256e80b-df38-40a3-907b-cd67e2fa1237
+	joinOnDateBehavior: datePartOnly
+	fromColumn: ireland_holiday.Date
+	toColumn: LocalDateTable_070da174-e3b9-4374-be15-dba529746a3e.Date
+
+relationship c1e14c9a-60c7-4a51-a2a0-9c65c7b779cf
+	joinOnDateBehavior: datePartOnly
+	fromColumn: resource_list.'Last Activated Date'
+	toColumn: LocalDateTable_89c5f133-e561-404c-a397-36a7e9e34818.Date
+
+relationship ee72bac7-22cc-422d-814b-ff44a88cd5c9
+	joinOnDateBehavior: datePartOnly
+	fromColumn: actuals.Date
+	toColumn: LocalDateTable_2fbdf1bb-b54d-419a-8c72-d44614debe13.Date
+
+relationship 60a13da6-3131-46b9-b096-9720937dd079
+	joinOnDateBehavior: datePartOnly
+	fromColumn: actuals.Month
+	toColumn: LocalDateTable_51d94f5c-e596-4a38-9c38-a33390bdaed3.Date
+
+relationship c1bcd298-293b-471d-8cce-50044915bb77
+	joinOnDateBehavior: datePartOnly
+	fromColumn: billing_customer.'Contract End Date'
+	toColumn: LocalDateTable_4b55f0b9-622b-4080-bac9-7073b57b1703.Date
+
+relationship c969bba7-0489-4283-b38f-81f27d2551bf
+	joinOnDateBehavior: datePartOnly
+	fromColumn: billing_customer.'Worked Date'
+	toColumn: LocalDateTable_3acfca4a-4773-4cab-bb0c-7454efd3eac7.Date
+
+relationship 819f117b-9c46-48fc-bb62-fdf47b7ad781
+	joinOnDateBehavior: datePartOnly
+	fromColumn: billing_customer.'Item Date'
+	toColumn: LocalDateTable_aadaaf31-5db0-4a69-9cca-554fc758ab61.Date
+
+relationship 5628d834-57ce-43fd-99a7-9d0aeca11618
+	joinOnDateBehavior: datePartOnly
+	fromColumn: billing_customer.'Posted Date'
+	toColumn: LocalDateTable_5a6bfe58-45bf-458b-9177-8377b8f438d1.Date
+
+relationship 8ef4530a-1b22-4b0c-b14a-ab564325b749
+	joinOnDateBehavior: datePartOnly
+	fromColumn: billing_customer.'Invoice Date Paid'
+	toColumn: LocalDateTable_4e80096d-ee61-4e79-add9-6e3da29aa653.Date
+
+relationship AutoDetected_bb44184f-b257-4edb-83c1-6f74471caf45
+	fromColumn: billing_customer.'Resource ID'
+	toColumn: resource_list.'Resource ID'
+
+relationship 21ea0f8f-0127-491a-b6f3-4b5e0239de26
+	joinOnDateBehavior: datePartOnly
+	fromColumn: _Calendar.Date
+	toColumn: LocalDateTable_61c1f591-be1f-41a4-92eb-f64bfcc8ef44.Date
+
+relationship 4434b1d0-502d-7aab-6952-c046dae20052
+	fromColumn: actuals.'Credit (EUR)'
+	toColumn: _Calendar.Date
+
+relationship a0c5d16e-de98-4764-d581-cc41b6d1f127
+	fromColumn: contract_search.'Company Name'
+	toColumn: CompanyNames.'Company Name'
+
+relationship 17fec833-3a73-82c8-e9d0-0462a130efd5
+	fromColumn: contract_search.'Contract Name'
+	toColumn: ContractNames.'Contract Name'
+
+relationship 22293986-5310-980a-f4e4-8106bc05f919
+	fromColumn: billing_customer.'Contract Name'
+	toColumn: ContractNames.'Contract Name'
+
+relationship 78f4f71d-e0af-7179-f248-4c8af14d45ec
+	fromColumn: billing_customer.'Contract Start Date'
+	toColumn: _Calendar.Date
+
+relationship 0e45689e-30f3-14c4-97f8-4eda377497ed
+	fromColumn: contract_search.'Start Date'
+	toColumn: _Calendar.Date
+
+relationship f5747a34-bc64-43f8-9707-0c1aa657a676
+	fromColumn: 'billing_customer 2'.company_name
+	toColumn: 'contract_search 2'.company_name
+
+relationship 5b18db4d-2544-4aee-8bea-1a2fcbfda406
+	fromColumn: 'billing_customer 2'.resource_name
+	toColumn: 'resource_list 2'.resource_name
+
+relationship e1330ca7-e97b-4d44-b7d2-c64146df05bd
+	fromColumn: '_Calendar 2'.Date
+	toColumn: 'contract_search 2'.start_date
+

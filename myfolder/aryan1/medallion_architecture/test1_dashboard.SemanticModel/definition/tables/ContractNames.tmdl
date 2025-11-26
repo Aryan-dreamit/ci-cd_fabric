@@ -1,0 +1,34 @@
+table ContractNames
+	isHidden
+	lineageTag: fa8d0168-7df0-4f20-9f90-3986ff8dae0b
+
+	column 'Contract Name'
+		dataType: string
+		isHidden
+		lineageTag: 36874ad0-16d3-43e9-a825-493fef14e853
+		summarizeBy: none
+		sourceColumn: Contract Name
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	partition ContractNames = m
+		mode: import
+		source =
+				let
+				    Source = Folder.Files("C:\Users\goura\OneDrive\Desktop\task"),
+				    #"C:\Users\goura\OneDrive\Desktop\task\_Digital Transformation Hours xlsx1" = Source{[#"Folder Path"="C:\Users\goura\OneDrive\Desktop\task\",Name="Digital Transformation Hours.xlsx"]}[Content],
+				    #"Imported Excel Workbook" = Excel.Workbook(#"C:\Users\goura\OneDrive\Desktop\task\_Digital Transformation Hours xlsx1"),
+				    ContractNames_DefinedName = #"Imported Excel Workbook"{[Item="ContractNames",Kind="DefinedName"]}[Data],
+				    #"Removed Blank Rows" = Table.SelectRows(ContractNames_DefinedName, each not List.IsEmpty(List.RemoveMatchingItems(Record.FieldValues(_), {"", null}))),
+				    #"Renamed Columns" = Table.RenameColumns(#"Removed Blank Rows",{{"Column1", "Contract Name"}})
+				in
+				    #"Renamed Columns"
+
+	changedProperty = IsHidden
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

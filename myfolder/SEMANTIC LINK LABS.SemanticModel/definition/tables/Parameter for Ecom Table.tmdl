@@ -1,0 +1,61 @@
+table 'Parameter for Ecom Table'
+	lineageTag: 76a4138f-8d5d-4116-96f2-f4bc327a1bc5
+
+	column Parameter
+		lineageTag: 109edc39-d962-4d3e-9210-d5a71121eed3
+		summarizeBy: none
+		sourceColumn: [Value1]
+		sortByColumn: 'Parameter Order'
+
+		relatedColumnDetails
+			groupByColumn: 'Parameter Fields'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Parameter Fields'
+		isHidden
+		lineageTag: 3a188860-d08c-448e-ba07-0fc87a57c758
+		summarizeBy: none
+		sourceColumn: [Value2]
+		sortByColumn: 'Parameter Order'
+
+		extendedProperty ParameterMetadata =
+				{
+				  "kind": 2,
+				  "version": 3
+				}
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Parameter Order'
+		isHidden
+		formatString: 0
+		lineageTag: d524662e-5f3b-4838-8a83-d712699b6423
+		summarizeBy: sum
+		sourceColumn: [Value3]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Metrics =
+			SWITCH('Parameter for Ecom Table'[Parameter],
+			        "Fineline_Desc", "Fineline Desc",
+			        "Vendor_Name","Vendor Name",
+			        "Brand_Desc","Brand Desc",
+			        "Item_Nbr", "Item Nbr")
+		lineageTag: 63dacd47-cb8a-4876-9d28-2df9516cf732
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Parameter for Ecom Table' = calculated
+		mode: import
+		source =
+				{
+				    ("Fineline Desc", NAMEOF('factsuncare_canada_Ecom'[Fineline_Desc]), 0),
+				    ("Vendor Name", NAMEOF('factsuncare_canada_Ecom'[Vendor_Name]), 1),
+				    ("Brand Desc", NAMEOF('factsuncare_canada_Ecom'[Brand_Desc]), 2),
+				    ("Item Nbr & Desc", NAMEOF('factsuncare_canada_Ecom'[Item # and Desc]), 3)
+				}
+
+	annotation PBI_Id = e5b5fb4f5b1f42199bafe5e64ac83828
+

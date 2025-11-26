@@ -1,0 +1,110 @@
+table _measures_table
+	lineageTag: e2e4e979-94d9-4bd9-9688-252e09b62ae5
+
+	measure MonthlyRevenue =
+			
+			CALCULATE(
+			    SUM('billing_customer'[Estimated Revenue]),
+			    DATESMTD(actuals[Date])
+			)
+		lineageTag: 64f85494-d6b3-45e3-9d35-2fc9748793fa
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure contracts_per_company = COUNT('contract_search'[Contract ID])
+		formatString: 0
+		lineageTag: f5c4b27e-354f-4165-a55b-72b170d740d8
+
+	measure TOTAL_CONTRACT = DISTINCTCOUNT(ContractNames[Contract Name])
+		formatString: 0
+		lineageTag: 8b9c76ac-49c0-460a-929e-5421fe645f5f
+
+	measure Total_Revenue_All = ```
+			
+			CALCULATE(
+			    SUM('billing_customer'[Estimated Revenue]),
+			    ALL('billing_customer')
+			)
+			
+			```
+		lineageTag: aef969af-f3ef-4b36-a3f7-314051ca8fe3
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure TOTAL_COMPANY = ```
+			
+			CALCULATE(
+			    DISTINCTCOUNT(CompanyNames[Company Name]),
+			    NOT(ISBLANK(CompanyNames[Company Name]))
+			)
+			
+			```
+		formatString: 0
+		lineageTag: 3740ad56-dc2f-4c66-9369-e0e96cd27633
+
+	measure RevenueLastWeek =
+			
+			CALCULATE(
+			    SUM('billing_customer'[Estimated Revenue]),
+			    DATESINPERIOD(_Calendar[Date], TODAY(), -7, DAY)
+			)
+		lineageTag: 2fb9d213-3c8c-426f-8ec1-8a9eb8e79e92
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure RevenueLastMonth =
+			
+			CALCULATE(
+			    SUM('billing_customer'[Estimated Revenue]),
+			    DATESINPERIOD(_Calendar[Date], TODAY(), -1, MONTH)
+			)
+		lineageTag: c6138752-5ced-429e-84ea-2b210e5df258
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure RevenueLastYear =
+			
+			CALCULATE(
+			    SUM('billing_customer'[Estimated Revenue]),
+			    DATESINPERIOD(_Calendar[Date], TODAY(), -1, YEAR)
+			)
+		lineageTag: d890a49d-739b-4943-9a53-9c4a04eb1539
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure sumofHour = SUM('billing_customer'[Hours Worked])
+		lineageTag: c227c691-f732-4e32-8c42-ed026b963f66
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'conditional formatting1' =
+			
+			var hourss= [sumofHour]
+			RETURN
+			SWITCH(
+			    TRUE(),
+			    hourss>50 ,"#FF0000",
+			    hourss<50 , "#00FF00",
+			    "#000000"
+			)
+		lineageTag: 4cdc2807-21da-4be9-9a23-58242a35a15f
+
+	measure countcontractsearch = count('contract_search 2'[contract_name])
+		formatString: 0
+		lineageTag: 16e3036f-e2c1-4d24-a852-7930ee61a497
+
+	column Column
+		formatString: 0
+		lineageTag: b27936d1-d705-4398-bfc6-6b60cf65465d
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Column]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition _measures_table = calculated
+		mode: import
+		source = Row("Column", BLANK())
+
+	annotation PBI_Id = b9d2a8c03bd946b2a353328c102f2fff
+

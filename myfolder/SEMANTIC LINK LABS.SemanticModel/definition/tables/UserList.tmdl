@@ -1,0 +1,51 @@
+table UserList
+	lineageTag: 0a438211-4ea1-4e8d-b0ff-5df8f34b7f19
+
+	column Id
+		dataType: int64
+		formatString: 0
+		lineageTag: 645aed57-332a-49b2-9a40-b1d368648b39
+		summarizeBy: count
+		sourceColumn: Id
+
+		annotation SummarizationSetBy = Automatic
+
+	column User
+		dataType: string
+		lineageTag: ff20d770-55f2-4eb1-8f01-0ced7e4b7a44
+		summarizeBy: none
+		sourceColumn: User
+
+		annotation SummarizationSetBy = Automatic
+
+	column Email
+		dataType: string
+		lineageTag: f780e2ee-8ce3-4f8b-8370-530a0ec6cfeb
+		summarizeBy: none
+		sourceColumn: Email
+
+		annotation SummarizationSetBy = Automatic
+
+	column Code
+		dataType: int64
+		formatString: 0
+		lineageTag: dd891026-be9a-4031-9803-ba5b634a926d
+		summarizeBy: none
+		sourceColumn: Code
+
+		annotation SummarizationSetBy = Automatic
+
+	partition UserList-1c05f746-897b-45ca-a118-90d0767815d0 = m
+		mode: import
+		queryGroup: Dimensions
+		source =
+				let
+				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("dZA7b8MwDIT/iqE5IJC26WMLuiRIEaBTFiMD7bA2Y8o2JOXVX1/SQYei0HTfSXeExLJ0czdz7yxy+1Wo0Y8ViSwrYgrxMIQvqAev93O3n5XuQWmNPfaqrSl0Krn0o9IHh8rmd6ZwGG5CufiT0g4FA5PS+U4QPac2V1kobU4yFY6mELWWSz8rfVKy8KgCjRDGIfv8F4sHrFsuNsj25XFycFQHdE0Uesyu6lVpq0uNxZowtRRsZXcCb+fLC4rHkP603qyFTcNUrE7f3Kn1k4XG7P/O/gc=", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Id = _t, User = _t, Email = _t, Code = _t]),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Id", Int64.Type}, {"User", type text}, {"Email", type text}, {"Code", Int64.Type}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

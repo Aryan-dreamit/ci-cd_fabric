@@ -1,0 +1,47 @@
+table ireland_holiday
+	lineageTag: 5884e7ac-790f-4220-9956-918129f175d7
+	sourceLineageTag: [dbo].[ireland_holiday]
+
+	column date
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 07d33318-7ed6-40bb-bb73-24162d9f1fb6
+		sourceLineageTag: date
+		summarizeBy: none
+		sourceColumn: date
+
+		annotation SummarizationSetBy = Automatic
+
+	column weekday
+		dataType: string
+		lineageTag: 9961ccbb-cb66-4dcb-b0d1-e4a15c882e81
+		sourceLineageTag: weekday
+		summarizeBy: none
+		sourceColumn: weekday
+
+		annotation SummarizationSetBy = Automatic
+
+	column name
+		dataType: string
+		lineageTag: 94ce1b15-4f51-443d-872a-07bf902aee55
+		sourceLineageTag: name
+		summarizeBy: none
+		sourceColumn: name
+
+		annotation SummarizationSetBy = Automatic
+
+	column type
+		dataType: string
+		lineageTag: 733cc609-5b08-4617-865c-fc7783e8083d
+		sourceLineageTag: type
+		summarizeBy: none
+		sourceColumn: type
+
+		annotation SummarizationSetBy = Automatic
+
+	partition ireland_holiday = entity
+		mode: directLake
+		source
+			entityName: ireland_holiday
+			expressionSource: 'DirectLake - gold_layer'
+

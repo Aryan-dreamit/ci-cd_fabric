@@ -1,0 +1,54 @@
+expression 'Errors in Revenue by Month' =
+		let
+		Source = #"Revenue by Month",
+		  #"Detected Type Mismatches" = let
+		    tableWithOnlyPrimitiveTypes = Table.SelectColumns(Source, Table.ColumnsOfType(Source, {type nullable number, type nullable text, type nullable logical, type nullable date, type nullable datetime, type nullable datetimezone, type nullable time, type nullable duration})),
+		    recordTypeFields = Type.RecordFields(Type.TableRow(Value.Type(tableWithOnlyPrimitiveTypes))),
+		    fieldNames = Record.FieldNames(recordTypeFields),
+		    fieldTypes = List.Transform(Record.ToList(recordTypeFields), each [Type]),
+		    pairs = List.Transform(List.Positions(fieldNames), (i) => {fieldNames{i}, (v) => if v = null or Value.Is(v, fieldTypes{i}) then v else error [Message = "The type of the value does not match the type of the column.", Detail = v], fieldTypes{i}})
+		in
+		    Table.TransformColumns(Source, pairs),
+		  #"Added Index" = Table.AddIndexColumn(#"Detected Type Mismatches", "Row Number" ,1),
+		  #"Kept Errors" = Table.SelectRowsWithErrors(#"Added Index", {"Contract Active", "Start Date", "End Date", "Contract Type", "Company Name", "Contract ID", "Contract Name", "Estimated Revenue (€)", "Revenue (€) /hr", "Contract Revenue (Total)", "2025 Revenue", "Unrecognised Revenue", "Jan-24", "Feb-24", "Mar-24", "Apr-24", "May-24", "Jun-24", "Jul-24", "Aug-24", "Sep-24", "Oct-24", "Nov-24", "Dec-24", "Jan-25", "Feb-25", "Mar-25", "Apr-25", "May-25", "Jun-25", "Jul-25", "Aug-25", "Sep-25", "Oct-25", "Nov-25", "Dec-25", "Jan-26", "Feb-26", "Mar-26", "Apr-26", "May-26", "Jun-26", "Jul-26", "Aug-26", "Sep-26", "Oct-26", "Nov-26", "Dec-26"}),
+		  #"Reordered Columns" = Table.ReorderColumns(#"Kept Errors", {"Row Number", "Contract Active", "Start Date", "End Date", "Contract Type", "Company Name", "Contract ID", "Contract Name", "Estimated Revenue (€)", "Revenue (€) /hr", "Contract Revenue (Total)", "2025 Revenue", "Unrecognised Revenue", "Jan-24", "Feb-24", "Mar-24", "Apr-24", "May-24", "Jun-24", "Jul-24", "Aug-24", "Sep-24", "Oct-24", "Nov-24", "Dec-24", "Jan-25", "Feb-25", "Mar-25", "Apr-25", "May-25", "Jun-25", "Jul-25", "Aug-25", "Sep-25", "Oct-25", "Nov-25", "Dec-25", "Jan-26", "Feb-26", "Mar-26", "Apr-26", "May-26", "Jun-26", "Jul-26", "Aug-26", "Sep-26", "Oct-26", "Nov-26", "Dec-26"})
+		in
+		  #"Reordered Columns"
+	lineageTag: c8098554-e721-44c6-a027-0b2f0b6af782
+	queryGroup: 'Query Errors - 8/10/2025 9:26:31 AM'
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression 'Revenue by Month' =
+		let
+		    Source = Folder.Files("C:\Users\goura\OneDrive\Desktop\task"),
+		    #"C:\Users\goura\OneDrive\Desktop\task\_Digital Transformation Hours xlsx1" = Source{[#"Folder Path"="C:\Users\goura\OneDrive\Desktop\task\",Name="Digital Transformation Hours.xlsx"]}[Content],
+		    #"Imported Excel Workbook" = Excel.Workbook(#"C:\Users\goura\OneDrive\Desktop\task\_Digital Transformation Hours xlsx1"),
+		    #"Revenue by Month_Sheet" = #"Imported Excel Workbook"{[Item="Revenue by Month",Kind="Sheet"]}[Data],
+		    #"Removed Top Rows" = Table.Skip(#"Revenue by Month_Sheet",1),
+		    #"Promoted Headers" = Table.PromoteHeaders(#"Removed Top Rows", [PromoteAllScalars=true]),
+		    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Contract Active", type text}, {"Start Date", type date}, {"End Date", type date}, {"Contract Type", type text}, {"Company Name", type text}, {"Contract ID", Int64.Type}, {"Contract Name", type text}, {"Estimated Revenue (€)", type number}, {"Revenue (€) /hr", type number}, {"Contract Revenue (Total)", type number}, {"2025 Revenue", Int64.Type}, {"Unrecognised Revenue", type number}, {"Jan-24", type number}, {"Feb-24", type number}, {"Mar-24", Int64.Type}, {"Apr-24", Int64.Type}, {"May-24", Int64.Type}, {"Jun-24", Int64.Type}, {"Jul-24", Int64.Type}, {"Aug-24", Int64.Type}, {"Sep-24", Int64.Type}, {"Oct-24", Int64.Type}, {"Nov-24", Int64.Type}, {"Dec-24", Int64.Type}, {"Jan-25", Int64.Type}, {"Feb-25", Int64.Type}, {"Mar-25", Int64.Type}, {"Apr-25", Int64.Type}, {"May-25", Int64.Type}, {"Jun-25", Int64.Type}, {"Jul-25", Int64.Type}, {"Aug-25", Int64.Type}, {"Sep-25", Int64.Type}, {"Oct-25", Int64.Type}, {"Nov-25", Int64.Type}, {"Dec-25", Int64.Type}, {"Jan-26", Int64.Type}, {"Feb-26", Int64.Type}, {"Mar-26", Int64.Type}, {"Apr-26", Int64.Type}, {"May-26", Int64.Type}, {"Jun-26", Int64.Type}, {"Jul-26", Int64.Type}, {"Aug-26", Int64.Type}, {"Sep-26", Int64.Type}, {"Oct-26", Int64.Type}, {"Nov-26", Int64.Type}, {"Dec-26", Int64.Type}}),
+		    #"Removed Errors" = Table.RemoveRowsWithErrors(#"Changed Type", {"Contract Active"}),
+		    #"Removed Errors1" = Table.RemoveRowsWithErrors(#"Removed Errors", {"Start Date"}),
+		    #"Removed Errors2" = Table.RemoveRowsWithErrors(#"Removed Errors1", {"2025 Revenue"})
+		in
+		    #"Removed Errors2"
+	lineageTag: 5d04e441-2195-4539-a0ff-6384baa1b39a
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression 'DirectQuery to AS - gold_semantic' =
+		let
+		    Source = AnalysisServices.Database("powerbi://api.powerbi.com/v1.0/myorg/Test_ServicePrincipal", "gold_semantic"),
+		    Cubes = Table.Combine(Source[Data]),
+		    Cube = Cubes{[Id="Model", Kind="Cube"]}[Data]
+		in
+		    Cube
+	lineageTag: a2a6d126-e797-4640-958a-90304a179c14
+
+	annotation PBI_IncludeFutureArtifacts = True
+

@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "SemanticModel",
+    "displayName": "SEMANTIC LINK LABS"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "d458c608-203e-904e-4550-5e4dc76c03e9"
+  }
+}

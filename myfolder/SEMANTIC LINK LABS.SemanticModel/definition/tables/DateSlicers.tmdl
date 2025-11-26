@@ -1,0 +1,149 @@
+table DateSlicers
+	lineageTag: 70da1419-3f71-4039-9201-992eb11eb454
+
+	column Date
+		formatString: General Date
+		lineageTag: d23ae4a3-bb2f-4896-9bde-3d43fa45330f
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: Date Slicer Table[Date]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Wmt Week Number'
+		formatString: 0
+		lineageTag: fbf26aea-3eba-46b7-ab86-f9c5f72889cd
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: Date Slicer Table[Wmt Week Number]
+
+		annotation SummarizationSetBy = Automatic
+
+	column WeekNum
+		formatString: 0
+		lineageTag: f6baa540-3ea1-42fd-a569-74565eb7cec5
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: Date Slicer Table[WeekNum]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Current Year'
+		formatString: 0
+		lineageTag: 7f5ef809-dd09-4f1e-89e9-3d0dd353528a
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: Date Slicer Table[Current Year]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Year
+		formatString: 0
+		lineageTag: 509ecfb9-309e-4674-b2c8-0a05c4834660
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: Date Slicer Table[Year]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Last Year'
+		formatString: 0
+		lineageTag: b0554bab-43d4-458e-b6cf-fae09979c0f2
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: Date Slicer Table[Last Year]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Week ending'
+		formatString: General Date
+		lineageTag: 89a4a9d9-6d54-46e7-97c2-750db0370af2
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: Date Slicer Table[Week ending]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'weekday number'
+		formatString: 0
+		lineageTag: 45b1a033-8622-4cd9-8f59-f3fd13275f33
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: Date Slicer Table[weekday number]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Month
+		formatString: 0
+		lineageTag: 07e5ef0c-73f4-4093-a8e1-d6d54d552994
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: Date Slicer Table[Month]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Year (New)'
+		formatString: 0
+		lineageTag: 01c7119d-77a5-4ddf-8845-d07d0fcb2430
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: Date Slicer Table[Year (New)]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Quarter New'
+		lineageTag: 20452be6-6638-4878-87b0-4a34ffa7ff10
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: Date Slicer Table[Quarter New]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Month Name'
+		lineageTag: 740a6bf9-ec17-41d6-a219-6fb4362030fe
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: Date Slicer Table[Month Name]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Week end date'
+		formatString: 0
+		lineageTag: b3b1f844-0b79-4afc-b975-8d5539e32983
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: Date Slicer Table[Week end date]
+
+		annotation SummarizationSetBy = Automatic
+
+	column DateKey
+		formatString: 0
+		lineageTag: 46fe01d3-5883-4bac-8b72-406c05e09d1d
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: Date Slicer Table[DateKey]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Week end date (weekending)'
+		formatString: 0
+		lineageTag: 6aaa0583-8a97-4c15-91c2-c7816a4b73d5
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: Date Slicer Table[Week end date (weekending)]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition DateSlicers-3b287c10-e349-42cf-adfe-9ad36cc93f65 = calculated
+		mode: import
+		source =
+				
+				VAR TodayDate = TODAY()
+				VAR YearStart = DATE(YEAR(TodayDate),1,1)
+				VAR MonthStart = DATE(YEAR(TodayDate),MONTH(TodayDate),1)
+				VAR Result = UNION(ADDCOLUMNS(CALENDAR(YearStart,TodayDate),"Selection","YTD","Order",7),ADDCOLUMNS(CALENDAR(MonthStart,TodayDate),"Selection","Current Week","Order",1),ADDCOLUMNS(CALENDAR(TodayDate-7,TodayDate-1),"Selection","Last Week","Order",2),ADDCOLUMNS(CALENDAR(TodayDate-28,TodayDate),"Selection","Last 4 Weeks","Order",3),ADDCOLUMNS(CALENDAR(TodayDate-91,TodayDate),"Selection","Last 13 Weeks","Order",4),ADDCOLUMNS(CALENDAR(TodayDate-365,TodayDate),"Selection","Last 52 Weeks","Order",5))
+				RETURN
+				ALLNOBLANKROW('Date Slicer Table')//Result
+
+	annotation PBI_Id = b289109532874ca3b5c804fd4d90dfe0
+

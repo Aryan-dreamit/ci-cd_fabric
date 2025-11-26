@@ -1,0 +1,884 @@
+table 'Measures List'
+	lineageTag: 0cd92157-b471-4aa3-822d-c0bd0a3d9b0d
+
+	measure 'Total Sales' = SUM('FactSuncare'[POS Sales])
+		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+		lineageTag: 09d0e92e-c32a-43cf-8312-bb9cd9d7a08e
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure '% CHG POS $last13wk' = DIVIDE([CHG POS $L13W],[Last13weeksSales])
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Value\Last13Week
+		lineageTag: d41abf57-e5e6-4a0f-af8e-d2bddfd3e303
+
+	measure 'CHG POS $L13W' = [Last13weeksSalesCompYr]-[Last13weeksSales]
+		displayFolder: Value\Last13Week
+		lineageTag: 9554f8c7-6e22-4771-93b8-b4ec07cb4416
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure Last13weeksSales =
+			
+			
+			CALCULATE (
+			    [Total sales],All('Date Slicer Table'),
+			    DATESINPERIOD ( 'Date Slicer Table'[Date],[LastYear_LastDate_new], -91, DAY ))
+		displayFolder: Value\Last13Week
+		lineageTag: 672a196f-197f-48cd-885c-f49a80d1bdd0
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure Last13weeksSalesCompYr = ```
+			
+			var a=[ThisYear]
+			Var week=max('Date Slicer Table'[WeekNum])
+			
+			var Startdate=CALCULATE(MIN('Date Slicer Table'[Date]), All('Date Slicer Table'),'Date Slicer Table'[WeekNum]=week,'Date Slicer Table'[Year]=a)
+			var enddate=CALCULATE(MAX('Date Slicer Table'[Date]), All('Date Slicer Table'),'Date Slicer Table'[WeekNum]=week,'Date Slicer Table'[Year]=a)
+			return  
+			CALCULATE ([Total Sales],ALL('Date Slicer Table'),'Date Slicer Table'[Date]>=StartDate-84,'Date Slicer Table'[Date]<=enddate)
+			```
+		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+		displayFolder: Value\Last13Week
+		lineageTag: 8c5dfe45-852d-4aaa-833e-92cf3879721f
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure '% CHG POS $last1wk' = DIVIDE([CHG POS $L1W],[Last1weeksSales])
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Value\Last1Week
+		lineageTag: 243cbfb4-45ec-4302-abc8-82047edf0e0d
+
+	measure 'CHG POS $L1W' = [Last1weeksSalesCompYr]-[Last1weeksSales]//'Key Measures'[Last1weeksSales2021]-'Key Measures'[Last1weeksSales2020]
+		displayFolder: Value\Last1Week
+		lineageTag: ada21088-6d56-4de0-b77b-d5685b974f43
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure Last1weeksSales =
+			
+			
+			CALCULATE ([Total sales],All('Date Slicer Table'),DATESINPERIOD ( 'Date Slicer Table'[Date],[LastYear_LastDate_new], -7, DAY ))
+			--CALCULATE ([Total sales],All('Date Slicer Table'),DATESINPERIOD ( 'Date Slicer Table'[Date], LASTDATE ( 'Date Slicer Table'[Date] ), -7, DAY ))
+		displayFolder: Value\Last1Week
+		lineageTag: 1cb2b32d-bfd2-4c96-8f4d-53730205442a
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure Last1weeksSalesCompYr = ```
+			var a=  [ThisYear] -- MAX(DateSlicers[Year])
+			Var week=max('Date Slicer Table'[WeekNum])
+			
+			var Startdate=CALCULATE(MIN('Date Slicer Table'[Date]), All('Date Slicer Table'),'Date Slicer Table'[WeekNum]=week,'Date Slicer Table'[Year]=a)
+			var enddate=CALCULATE(MAX('Date Slicer Table'[Date]), All('Date Slicer Table'),'Date Slicer Table'[WeekNum]=week,'Date Slicer Table'[Year]=a)
+			return  
+			CALCULATE ([Total sales],ALL('Date Slicer Table'),'Date Slicer Table'[Date]>=StartDate,'Date Slicer Table'[Date]<=enddate)
+			```
+		formatString: "₹"\ #,0.00;#,0.00\ -"₹";"₹"\ #,0.00
+		displayFolder: Value\Last1Week
+		lineageTag: 3c454fcc-8e81-4afc-8ef0-b55e88e17a4b
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-IN"}
+
+	measure '% CHG POS $last4wk' = DIVIDE([CHG POS $L4W],[Last4weeksSales])
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Value\Last4Week
+		lineageTag: 274f5a32-543c-4117-b703-079fe5c728b6
+
+	measure 'CHG POS $L4W' = [Last4weeksSalesCompYr]-[Last4weeksSales]
+		displayFolder: Value\Last4Week
+		lineageTag: 760519d0-60d9-4939-881c-0785ec8deb0d
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure Last4weeksSales = ```
+			
+			
+			CALCULATE (
+			    [Total sales],All('Date Slicer Table'),
+			    DATESINPERIOD ( 'Date Slicer Table'[Date],[LastYear_LastDate_new], -28, DAY )
+			)
+			
+			```
+		displayFolder: Value\Last4Week
+		lineageTag: ed5c9643-9ea3-4a80-b113-5686a76d00c3
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure Last4weeksSalesCompYr = ```
+			
+			var a=[ThisYear]
+			Var week=max('Date Slicer Table'[WeekNum])
+			
+			var Startdate=CALCULATE(MIN('Date Slicer Table'[Date]), All('Date Slicer Table'),'Date Slicer Table'[WeekNum]=week,'Date Slicer Table'[Year]=a)
+			var enddate=CALCULATE(MAX('Date Slicer Table'[Date]), All('Date Slicer Table'),'Date Slicer Table'[WeekNum]=week,'Date Slicer Table'[Year]=a)
+			return  
+			CALCULATE ([Total Sales],ALL('Date Slicer Table'),'Date Slicer Table'[Date]>=StartDate-21,'Date Slicer Table'[Date]<=enddate)
+			```
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		displayFolder: Value\Last4Week
+		lineageTag: 2a5dfcd4-2094-4ce1-adb1-4f0ffb8b869f
+
+	measure '% CHG POS $last52wk' = DIVIDE( [CHG POS $L52W],[Last52weeksSales])
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Value\Last52Week
+		lineageTag: dda92935-cf85-4cc0-9fea-4542ffb62ed0
+
+	measure 'CHG POS $L52W' = [Last52weeksSalesCompYr]-[Last52weeksSales]
+		displayFolder: Value\Last52Week
+		lineageTag: 7cfe9ec7-0437-4fa6-8577-aded787150cb
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure Last52weeksSales =
+			
+			
+			CALCULATE (
+			    [Total sales],All('Date Slicer Table'),
+			    DATESINPERIOD ( 'Date Slicer Table'[Date], [LastYear_LastDate_new], -364, DAY ))
+		displayFolder: Value\Last52Week
+		lineageTag: 22f84285-5c86-4f0e-8237-6a88ee5f924c
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure Last52weeksSalesCompYr = ```
+			
+			var a=[ThisYear]
+			Var week=max('Date Slicer Table'[WeekNum])
+			
+			var Startdate=CALCULATE(MIN('Date Slicer Table'[Date]), All('Date Slicer Table'),'Date Slicer Table'[WeekNum]=week,'Date Slicer Table'[Year]=a)
+			var enddate=CALCULATE(MAX('Date Slicer Table'[Date]), All('Date Slicer Table'),'Date Slicer Table'[WeekNum]=week,'Date Slicer Table'[Year]=a)
+			return  
+			CALCULATE ([Total Sales],ALL('Date Slicer Table'),'Date Slicer Table'[Date]>=StartDate-357,'Date Slicer Table'[Date]<=enddate)
+			```
+		displayFolder: Value\Last52Week
+		lineageTag: a4eb90cc-0a47-4f0c-86d0-50af99c2daf8
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure '% CHG POS $YTD' = DIVIDE([CHG POS $YTD],[YTD])
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Value\YTD
+		lineageTag: b3c782f0-d858-4206-a8a0-5e324bc43dc7
+
+	measure 'CHG POS $YTD' = [YTDCompYr]-[YTD]
+		displayFolder: Value\YTD
+		lineageTag: 714929a3-e45b-4433-80a9-0536772205fb
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure YTD = ```
+			
+			var a= [ThisYear]-1 --MAX('Date Slicer Table'[Year])
+			Var weekno=max('Date Slicer Table'[WeekNum])
+			var Startdate=CALCULATE(MIN('Date Slicer Table'[Date]), FILTER(All('Date Slicer Table'),'Date Slicer Table'[WeekNum]=1 &&'Date Slicer Table'[Year]=a )) 
+			var enddate= CALCULATE(MAX('Date Slicer Table'[Date]), FILTER(All('Date Slicer Table'),'Date Slicer Table'[WeekNum]=weekno &&'Date Slicer Table'[Year]=a )) 
+			
+			
+			VAR v=  CALCULATE ([Total sales],ALL('Date Slicer Table'),'Date Slicer Table'[Date]>=Startdate,'Date Slicer Table'[Date]<=enddate)
+			RETURN v
+			
+			//CALCULATE ([Total sales],All('Date Slicer Table'),DATESYTD(  'Date Slicer Table'[Date]))
+			```
+		displayFolder: Value\YTD
+		lineageTag: d9f5878d-abc3-44d6-83c2-c9850ab4d0d3
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure YTDCompYr = ```
+			
+			var a=[ThisYear]
+			Var weekno=max('Date Slicer Table'[WeekNum])
+			var Startdate=CALCULATE(MIN('Date Slicer Table'[Date]), FILTER(All('Date Slicer Table'),'Date Slicer Table'[WeekNum]=1 &&'Date Slicer Table'[Year]=a )) 
+			var enddate= CALCULATE(MAX('Date Slicer Table'[Date]), FILTER(All('Date Slicer Table'),'Date Slicer Table'[WeekNum]=weekno &&'Date Slicer Table'[Year]=a )) 
+			
+			
+			VAR v=  CALCULATE ([Total Sales],ALL('Date Slicer Table'),'Date Slicer Table'[Date]>=Startdate,'Date Slicer Table'[Date]<=enddate)
+			RETURN v
+			
+			```
+		formatString: \$#,0;(\$#,0);\$#,0
+		displayFolder: Value\YTD
+		lineageTag: 9326910c-2eba-468a-98e9-32624cc83cbd
+
+		changedProperty = FormatString
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure '% CHG QTY $last13wk' = DIVIDE([CHG QTY $L13W],[Last13weeksQTY])
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Unit\Last13Week
+		lineageTag: 43122b1b-fe0f-44f5-9cf4-7bb07a9ce17a
+
+	measure 'CHG QTY $L13W' = [Last13weeksQTYCompYr]-[Last13weeksQTY]
+		displayFolder: Unit\Last13Week
+		lineageTag: 3cac7d55-5416-4238-97c7-586418a88d4e
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure Last13weeksQTY =
+			
+			CALCULATE (
+			    [Total Quantity],All('Date Slicer Table'),
+			    DATESINPERIOD ( 'Date Slicer Table'[Date],[LastYear_LastDate_new], -91, DAY ))
+		displayFolder: Unit\Last13Week
+		lineageTag: 41b3efb2-9d7f-459b-8e14-cde1923aeab1
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure Last13weeksQTYCompYr = ```
+			
+			var a=[ThisYear]
+			Var week=max('Date Slicer Table'[WeekNum])
+			
+			var Startdate=CALCULATE(MIN('Date Slicer Table'[Date]), All('Date Slicer Table'),'Date Slicer Table'[WeekNum]=week,'Date Slicer Table'[Year]=a)
+			var enddate=CALCULATE(MAX('Date Slicer Table'[Date]), All('Date Slicer Table'),'Date Slicer Table'[WeekNum]=week,'Date Slicer Table'[Year]=a)
+			return  
+			CALCULATE ([Total Quantity],ALL('Date Slicer Table'),'Date Slicer Table'[Date]>=StartDate-84,'Date Slicer Table'[Date]<=enddate)
+			```
+		displayFolder: Unit\Last13Week
+		lineageTag: 4e29c284-1344-4cc9-bdd6-3971cedd9685
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure '% CHG QTY $last1wk' = DIVIDE([CHG QTY $L1W],[Last1weeksQTY])
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Unit\Last1Week
+		lineageTag: 3f23a46a-ebdb-47f2-a941-4940e86cbac5
+
+	measure 'CHG QTY $L1W' = [Last1weeksQTYCompYr]-[Last1weeksQTY]//'Key Measures'[Last1weeksSales2021]-'Key Measures'[Last1weeksSales2020]
+		displayFolder: Unit\Last1Week
+		lineageTag: 4c832286-bfa3-447b-afb8-1bb2499e7494
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure Last1weeksQTY =
+			
+			CALCULATE ([Total Quantity],All('Date Slicer Table'),DATESINPERIOD ( 'Date Slicer Table'[Date], [LastYear_LastDate_new], -7, DAY ))
+		displayFolder: Unit\Last1Week
+		lineageTag: d9463105-937f-45ee-9b1d-33699bf6baba
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure Last1weeksQTYCompYr = ```
+			var a=[ThisYear]
+			Var week=max('Date Slicer Table'[WeekNum])
+			
+			var Startdate=CALCULATE(MIN('Date Slicer Table'[Date]), All('Date Slicer Table'),'Date Slicer Table'[WeekNum]=week,'Date Slicer Table'[Year]=a)
+			var enddate=CALCULATE(MAX('Date Slicer Table'[Date]), All('Date Slicer Table'),'Date Slicer Table'[WeekNum]=week,'Date Slicer Table'[Year]=a)
+			return  
+			CALCULATE ([Total Quantity],ALL('Date Slicer Table'),'Date Slicer Table'[Date]>=StartDate,'Date Slicer Table'[Date]<=enddate)
+			```
+		formatString: "₹"\ #,0.###############;#,0.###############\ -"₹";"₹"\ #,0.###############
+		displayFolder: Unit\Last1Week
+		lineageTag: 9ab5b7a9-dc50-4559-aadb-0c8ec9947052
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-IN"}
+
+	measure '% CHG QTY $last4wk' = DIVIDE([CHG QTY $L4W],[Last4weeksQTY])
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Unit\Last4Week
+		lineageTag: 0e4b27c9-078e-46da-81e5-a19d9dde67b3
+
+	measure 'CHG QTY $L4W' = [Last4weeksQTYCompYr]-[Last4weeksQTY]
+		displayFolder: Unit\Last4Week
+		lineageTag: c8d3f84d-009f-4ae2-8e97-228b5e85334f
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure Last4weeksQTY = ```
+			
+			CALCULATE (
+			    [Total Quantity],All('Date Slicer Table'),
+			    DATESINPERIOD ( 'Date Slicer Table'[Date], [LastYear_LastDate_new], -28, DAY )
+			)
+			
+			```
+		formatString: "₹"\ #,0.###############;#,0.###############\ -"₹";"₹"\ #,0.###############
+		displayFolder: Unit\Last4Week
+		lineageTag: 8f68de17-fd1c-4d5a-9ff8-14ca7b216a6e
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-IN"}
+
+	measure Last4weeksQTYCompYr = ```
+			
+			var a=[ThisYear]
+			Var week=max('Date Slicer Table'[WeekNum])
+			
+			var Startdate=CALCULATE(MIN('Date Slicer Table'[Date]), All('Date Slicer Table'),'Date Slicer Table'[WeekNum]=week,'Date Slicer Table'[Year]=a)
+			var enddate=CALCULATE(MAX('Date Slicer Table'[Date]), All('Date Slicer Table'),'Date Slicer Table'[WeekNum]=week,'Date Slicer Table'[Year]=a)
+			return  
+			CALCULATE ([Total Quantity],ALL('Date Slicer Table'),'Date Slicer Table'[Date]>=StartDate-21,'Date Slicer Table'[Date]<=enddate)
+			```
+		displayFolder: Unit\Last4Week
+		lineageTag: 1de74cee-c3d8-4c4a-bc99-63d8cfbaabb8
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure '% CHG QTY $last52wk' = DIVIDE( [CHG QTY $L52W],[Last52weeksQTY])
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Unit\Last52Week
+		lineageTag: 4fab8b24-c3dd-4c92-9dcb-5adb009ae927
+
+	measure 'CHG QTY $L52W' = [Last52weeksQTYCompYr]-[Last52weeksQTY]
+		displayFolder: Unit\Last52Week
+		lineageTag: c8baeb3a-ed7c-464e-b72b-11c56536aa01
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure Last52weeksQTY =
+			
+			CALCULATE (
+			    [Total Quantity],All('Date Slicer Table'),
+			    DATESINPERIOD ( 'Date Slicer Table'[Date], [LastYear_LastDate_new], -364, DAY ))
+		displayFolder: Unit\Last52Week
+		lineageTag: b80ce400-976c-4507-8fa8-54f83080649c
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure Last52weeksQTYCompYr = ```
+			
+			var a=[ThisYear]
+			Var week=max('Date Slicer Table'[WeekNum])
+			
+			var Startdate=CALCULATE(MIN('Date Slicer Table'[Date]), All('Date Slicer Table'),'Date Slicer Table'[WeekNum]=week,'Date Slicer Table'[Year]=a)
+			var enddate=CALCULATE(MAX('Date Slicer Table'[Date]), All('Date Slicer Table'),'Date Slicer Table'[WeekNum]=week,'Date Slicer Table'[Year]=a)
+			return  
+			CALCULATE ([Total Quantity],ALL('Date Slicer Table'),'Date Slicer Table'[Date]>=StartDate-357,'Date Slicer Table'[Date]<=enddate)
+			```
+		displayFolder: Unit\Last52Week
+		lineageTag: fa314151-459a-4b7c-93a9-5bd9825e333b
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure '% CHG QTY $YTD' = DIVIDE([CHG QTY $YTD],[YTD QTY])
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Unit\YTD
+		lineageTag: e7f894b3-97a7-4afb-89cd-ba131ab8d717
+
+	measure 'CHG QTY $YTD' = [YTDCompYr QTY]-[YTD QTY]
+		displayFolder: Unit\YTD
+		lineageTag: 6602d792-3607-4ec5-9fe3-fc5e5cc6583c
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'YTDCompYr QTY' = ```
+			
+			var a=[ThisYear]
+			Var weekno=max('Date Slicer Table'[WeekNum])
+			var Startdate=CALCULATE(MIN('Date Slicer Table'[Date]), FILTER(All('Date Slicer Table'),'Date Slicer Table'[WeekNum]=1 &&'Date Slicer Table'[Year]=a )) 
+			var enddate= CALCULATE(MAX('Date Slicer Table'[Date]), FILTER(All('Date Slicer Table'),'Date Slicer Table'[WeekNum]=weekno &&'Date Slicer Table'[Year]=a )) 
+			
+			
+			VAR v=  CALCULATE ([Total Quantity],ALL('Date Slicer Table'),'Date Slicer Table'[Date]>=Startdate,'Date Slicer Table'[Date]<=enddate)
+			RETURN v
+			
+			```
+		formatString: \$#,0;(\$#,0);\$#,0
+		displayFolder: Unit\YTD
+		lineageTag: 4698e51d-da60-4c88-ab07-6a4cab1b10f2
+
+		changedProperty = FormatString
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'Total Inventory Units' = [Curr Store On Hand U’s]+[Curr Store OO U’s]+[Curr Store In Transit U’s]+[Curr Store In WHSE U’s]
+		formatString: #,0
+		lineageTag: 1bd77806-e681-48cc-ac93-f5998970822f
+
+		annotation PBI_FormatHint = {"isDecimal":true}
+
+	measure 'Curr Store In Transit U’s' = SUM(FactSuncare_Canada_Inventory[Curr Str In Transit Qty])
+		formatString: #,0
+		lineageTag: 7757377a-3d39-418e-be10-11267918624b
+
+		annotation PBI_FormatHint = {"isDecimal":true}
+
+	measure 'Curr Store OO U’s' = SUM(FactSuncare_Canada_Inventory[Curr Str On Order Qty])
+		formatString: #,0
+		lineageTag: 1bfaf636-1170-48c1-bb24-0182d46a8bd1
+
+		annotation PBI_FormatHint = {"isDecimal":true}
+
+	measure 'Curr Store On Hand U’s' = SUM(FactSuncare_Canada_Inventory[Curr Str On Hand Qty])
+		formatString: #,0
+		lineageTag: 37ccefec-2c5b-4a24-9859-9957153fe695
+
+		annotation PBI_FormatHint = {"isDecimal":true}
+
+	measure 'Curr Store In WHSE U’s' = SUM(FactSuncare_Canada_Inventory[Curr Str In Whse Qty])
+		formatString: #,0
+		lineageTag: e8bb675d-4c9b-477a-9bd9-17615d33e20f
+
+		annotation PBI_FormatHint = {"isDecimal":true}
+
+	measure 'Curr Store In Transit $’s' = SUM(FactSuncare_Canada_Inventory[Curr Str In Transit Retail])
+		formatString: \$#,0;(\$#,0);\$#,0
+		lineageTag: 47c43d17-0db2-4e38-824b-962bf8f40f73
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'Curr Store In WHSE $’s' = SUM(FactSuncare_Canada_Inventory[Curr Str In Whse Retail])
+		formatString: \$#,0;(\$#,0);\$#,0
+		lineageTag: 3004224e-4cce-4fe1-965d-0a3fbbe80d44
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'Curr Store OO $’s' = SUM(FactSuncare_Canada_Inventory[Curr Str On Order Retail])
+		formatString: \$#,0;(\$#,0);\$#,0
+		lineageTag: da3252f6-46bd-4e6d-a258-34b145229481
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'Curr Store On Hand $’s' = Sum(FactSuncare_Canada_Inventory[Curr Str On Hand Retail])
+		formatString: \$#,0;(\$#,0);\$#,0
+		lineageTag: b5f5cd5b-e225-4837-8238-a01284d5237c
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'Last N Week Selected' = ```
+			
+			VAR _lastNweeks = SELECTEDVALUE(LastNWeek[Category])  & " ending Week " & MAX('WMT Weeks'[WMT WK Number]) 
+			VAR _Count=DISTINCTCOUNT('WMT Weeks'[WMT WK Number])
+			VAR _SelectedWeeks =If(_Count  <= 10 ,CONCATENATEX( VALUES('WMT Weeks'[WMT WK Number] ), 'WMT Weeks'[WMT WK Number],", "), "Multiple")
+			
+			RETURN IF(CONTAINSSTRING(MAX('Calculationby?'[Calculationby?]),"Last"), _lastNweeks,MAX('Calculationby?'[Calculationby?]) & ": "  &   If(MAX('WMT Weeks'[WMT WK Number]) ==  _Count  ,"All",_SelectedWeeks))
+			```
+		lineageTag: ca935353-c72d-4cae-ada1-d9934db4fc8c
+
+	measure 'Inventory for Selected Week Title' =
+			
+			
+			VAR _selectedvalue = SELECTEDVALUE('WMT Weeks'[WMT WK Number])
+			VAR _year= SELECTEDVALUE('WMT Weeks'[Fiscal Year])
+			RETURN If(HASONEFILTER('WMT Weeks'[WMT WK Number]) && HASONEVALUE('WMT Weeks'[Fiscal Year]), "Inventory Stores Summary for Year : " & _year & ", Week : " & _selectedvalue, "Inventory Stores Summary for Week : Multiple Week")
+		lineageTag: 1238e75e-7271-4741-a2e3-73a09e863602
+
+	measure 'Last Refresh' = "Last Refresh : " & MAX('Last Refresh Time'[Last Refresh Time])
+		lineageTag: 571cde64-0c2f-4230-a44b-849e6df5f40e
+
+	measure 'YTD QTY' = ```
+			
+			var a=[ThisYear]-1 
+			Var weekno=max('Date Slicer Table'[WeekNum])
+			var Startdate=CALCULATE(MIN('Date Slicer Table'[Date]), FILTER(All('Date Slicer Table'),'Date Slicer Table'[WeekNum]=1 &&'Date Slicer Table'[Year]=a )) 
+			var enddate= CALCULATE(MAX('Date Slicer Table'[Date]), FILTER(All('Date Slicer Table'),'Date Slicer Table'[WeekNum]=weekno &&'Date Slicer Table'[Year]=a )) 
+			
+			
+			VAR v=  CALCULATE ([Total Quantity],ALL('Date Slicer Table'),'Date Slicer Table'[Date]>=Startdate,'Date Slicer Table'[Date]<=enddate)
+			RETURN v
+			//CALCULATE ([Total Quantity],All('Date Slicer Table'),DATESYTD(  'Date Slicer Table'[Date]))
+			```
+		formatString: 0
+		lineageTag: ff0269e0-88e5-44b0-83bf-8401f198d155
+
+	measure 'Last N Week Selected for Add- delete' = ```
+			
+			VAR _lastNweeks = SELECTEDVALUE(LastNWeek[Category])  & " ending Week " & MAX('WMT Weeks'[WMT WK Number]) 
+			VAR _Count=DISTINCTCOUNT('WMT Weeks'[WMT WK Number])
+			VAR _SelectedWeeks =If(_Count  <= 10 ,CONCATENATEX( VALUES('WMT Weeks'[WMT WK Number] ), 'WMT Weeks'[WMT WK Number],", "), "Multiple")
+			
+			RETURN IF(CONTAINSSTRING(MAX('Add_delete Parameter'[Add_delete Para]),"Last"), _lastNweeks,MAX('Add_delete Parameter'[Add_delete Para]) & ": "  &   If(MAX('WMT Weeks'[WMT WK Number]) ==  _Count  ,"All",_SelectedWeeks))
+			```
+		lineageTag: ed30c359-c985-4329-bc44-2fd371707ec0
+
+	measure 'Inventory Segments for Selected Week Title' =
+			
+			
+			VAR _selectedvalue = SELECTEDVALUE('WMT Weeks'[WMT WK Number])
+			VAR _year= SELECTEDVALUE('WMT Weeks'[Fiscal Year])
+			RETURN If(HASONEFILTER('WMT Weeks'[WMT WK Number]) && HASONEVALUE('WMT Weeks'[Fiscal Year]), "Inventory Segment Summary for Year : " & _year & ", Week : " & _selectedvalue, "Inventory Segment Summary for Week : Multiple Week")
+		lineageTag: d13c0545-94f6-4aa3-ae8a-83e0282ba250
+
+	measure 'Comparison Year' = ```
+			//INT( LEFT(MAX(FactSuncare[WM Week]),4))
+			MAX('Date Slicer Table'[Year]) 
+			```
+		formatString: 0
+		lineageTag: e31c7002-88d1-45a2-8191-c7152623584c
+
+	measure 'Comparison Year_previous' =
+			//INT( LEFT(MAX(FactSuncare[WM Week]),4))
+			MAX('Date Slicer Table'[Year]) -1
+		formatString: 0
+		lineageTag: c4dbf8f1-7b08-4838-b224-1d9869b8d1b6
+
+	measure YTDCompYr_test = ```
+			
+			var a=[ThisYear]
+			Var weekno=max('Date Slicer Table'[WeekNum])
+			var Startdate=CALCULATE(MIN('Date Slicer Table'[Date]), FILTER(All('Date Slicer Table'),'Date Slicer Table'[WeekNum]=1 &&'Date Slicer Table'[Year]=a )) 
+			var enddate= CALCULATE(MAX('Date Slicer Table'[Date]), FILTER(ALLSELECTED('Date Slicer Table'),'Date Slicer Table'[WeekNum]=weekno &&'Date Slicer Table'[Year]=a )) 
+			
+			
+			VAR v=  CALCULATE ([Total Sales],ALL('Date Slicer Table'),'Date Slicer Table'[Date]>=Startdate,'Date Slicer Table'[Date]<=enddate)
+			RETURN v
+			```
+		displayFolder: Value\YTD
+		lineageTag: abf8e79d-9c5c-4364-87b1-23b7130243cf
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure YTDCompYr_53 = ```
+			
+			VAR a = [ThisYear]
+			VAR weekno = MAX('Date Slicer Table'[WeekNum])
+			
+			-- Identify if the current year is a leap year from 'wmt week' table
+			VAR isLeapYear = CALCULATE(
+			    SELECTEDVALUE('WMT Weeks'[Is Leap Year]), 
+			    'WMT Weeks'[Fiscal Year] = a 
+			)
+			
+			-- Identify if the previous year was a leap year
+			VAR prevYearLeap = CALCULATE(
+			    SELECTEDVALUE('WMT Weeks'[Is Leap Year]), 
+			    'WMT Weeks'[Fiscal Year] = a - 1
+			)
+			
+			-- Determine start and end dates based on week adjustments
+			VAR Startdate =
+			    CALCULATE(
+			        MIN('Date Slicer Table'[Date]),
+			        FILTER(
+			            ALL('Date Slicer Table'),
+			            'Date Slicer Table'[WeekNum] = IF(weekno = 53 && isLeapYear = "Yes", 1, 1) 
+			            && 'Date Slicer Table'[Year] = a
+			        )
+			    )
+			
+			VAR enddate =
+			    CALCULATE(
+			        MAX('Date Slicer Table'[Date]),
+			        FILTER(
+			            ALLSELECTED('Date Slicer Table'),
+			            'Date Slicer Table'[WeekNum] = 
+			                IF(
+			                    weekno = 1 && prevYearLeap = "Yes",
+			                    2, -- If previous year was a leap year, compare with week 2
+			                    IF(weekno = 2 && prevYearLeap = "Yes", 
+			                        3, -- If previous year was a leap year, compare with week 3
+			                        weekno
+			                    )
+			                ) 
+			            && 'Date Slicer Table'[Year] = a
+			        )
+			    )
+			
+			VAR v =
+			    CALCULATE(
+			        [Total Sales],
+			        ALL('Date Slicer Table'),
+			        'Date Slicer Table'[Date] >= Startdate,
+			        'Date Slicer Table'[Date] <= enddate
+			    )
+			
+			RETURN v
+			
+			```
+		displayFolder: Value\YTD
+		lineageTag: ace6a258-1138-44b1-8bfb-6e0188187f1e
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure YTDCompYr_test53 = ```
+			
+			VAR weekno = MAX('Date Slicer Table'[WeekNum]) -- Current WeekNum
+			VAR min_week = weekno -- Ensuring we only look at the last 52 weeks
+			
+			-- Get Start Date (Week 1 or Min of the Last 52 Weeks)
+			VAR StartDate = CALCULATE(
+			    MIN('Date Slicer Table'[Date]), 
+			    FILTER(ALL('Date Slicer Table'), 'Date Slicer Table'[WeekNum] = MAX(1, min_week)) -- Ensuring the minimum week stays at 1
+			)
+			
+			-- Get End Date (Current Week)
+			VAR EndDate = CALCULATE(
+			    MAX('Date Slicer Table'[Date]), 
+			    FILTER(ALL('Date Slicer Table'), 'Date Slicer Table'[WeekNum] = weekno)
+			)
+			
+			-- Calculate Total Sales for the Last 52 Weeks
+			VAR v = CALCULATE(
+			    [Total sales], 
+			    ALL('Date Slicer Table'), 
+			    'Date Slicer Table'[Date] >= StartDate, 
+			    'Date Slicer Table'[Date] <= EndDate
+			)
+			
+			RETURN v
+			
+			```
+		displayFolder: Value\YTD
+		lineageTag: 0096e286-59e1-4c9c-833d-cc997962e621
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure YTD_11_2 = ```
+			
+			VAR a = [ThisYear] - 1 
+			Var b= [ThisYear]
+			VAR weekno = MAX('Date Slicer Table'[WeekNum])
+			
+			-- Start date (Always from Week 1 of last year)
+			VAR Startdate = 
+			    CALCULATE(
+			        MIN('Date Slicer Table'[Date]), 
+			        FILTER(
+			            ALL('Date Slicer Table'),
+			            'Date Slicer Table'[WeekNum] = 1 &&
+			            'Date Slicer Table'[Year] = a
+			        )
+			    )
+			
+			-- Check if this year is a leap year
+			VAR lycond = MAX('WMT Weeks'[Is Leap Year])
+			
+			-- Previous Year
+			VAR prev_year = a
+			
+			-- Get last date for selected weeks in the previous year
+			VAR enddate_base = 
+			    CALCULATE(
+			        MAX('Date Slicer Table'[Date]),
+			        'Date Slicer Table'[Year] = prev_year,
+			        'Date Slicer Table'[WeekNum] = weekno,
+			        ALL('Date Slicer Table')
+			    )
+			
+			-- Check if the previous year was a leap year
+			VAR prev_year_leap = 
+			    CALCULATE(
+			        MAX('WMT Weeks'[Is Leap Year]), 
+			        FILTER(ALL('Date Slicer Table'), 'Date Slicer Table'[Year] = prev_year)
+			    )
+			
+			-- Get the first week's date of the current year (for leap year handling)
+			VAR ly2m = 
+			    CALCULATE(
+			        MAX('Date Slicer Table'[Date]),  
+			        'Date Slicer Table'[Year] = b,
+			        'Date Slicer Table'[WeekNum] = 1,
+			        ALL('Date Slicer Table')
+			    )
+			
+			-- Get adjusted last date if last year was a leap year
+			VAR adjusted_enddate = 
+			    IF(
+			        prev_year_leap = "Yes",
+			        CALCULATE(
+			            MAX('Date Slicer Table'[Date]), 
+			            'Date Slicer Table'[Year] = prev_year,
+			            'Date Slicer Table'[WeekNum] = weekno + 1,
+			            ALL('Date Slicer Table')
+			        ),
+			        enddate_base
+			    )
+			
+			-- Final end date logic for leap year scenarios
+			VAR final_enddate = 
+			    IF(
+			        lycond = "Yes" && weekno = 53 && prev_year_leap = "No",
+			        ly2m,
+			        adjusted_enddate
+			    )
+			
+			VAR v =  
+			    CALCULATE(
+			        [Total Sales],
+			        ALL('Date Slicer Table'),
+			        'Date Slicer Table'[Date] >= Startdate,
+			        'Date Slicer Table'[Date] <= final_enddate
+			    )
+			
+			RETURN v
+			
+			
+			```
+		displayFolder: Value\YTD
+		lineageTag: be54550f-f4ee-4495-ad83-2b1a13b9293d
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure YTD_sales_new = ```
+			
+			VAR a = [ThisYear] - 1 
+			VAR b = [ThisYear]
+			VAR weekno = MAX('Date Slicer Table'[WeekNum])
+			
+			-- Check if this year is a leap year
+			VAR lycond = MAX('WMT Weeks'[Is Leap Year])
+			
+			-- Check if the previous year was a leap year
+			VAR prev_year_leap = 
+			    CALCULATE(
+			        MAX('WMT Weeks'[Is Leap Year]), 
+			        FILTER(ALL('Date Slicer Table'), 'Date Slicer Table'[Year] = a)
+			    )
+			
+			-- Determine the correct start date based on leap year conditions
+			VAR Startdate = 
+			    CALCULATE(
+			        MIN('Date Slicer Table'[Date]), 
+			        FILTER(
+			            ALL('Date Slicer Table'),
+			            'Date Slicer Table'[WeekNum] = 
+			                IF(prev_year_leap = "Yes", 2, 1) &&  -- If last year was leap and `weeknum+1` condition, start from week 2
+			            'Date Slicer Table'[Year] = a
+			        )
+			    )
+			
+			-- Get last date for selected weeks in the previous year
+			VAR enddate_base = 
+			    CALCULATE(
+			        MAX('Date Slicer Table'[Date]),
+			        'Date Slicer Table'[Year] = a,
+			        'Date Slicer Table'[WeekNum] = weekno,
+			        ALL('Date Slicer Table')
+			    )
+			
+			-- Get the first week's date of the current year (for leap year handling)
+			VAR ly2m = 
+			    CALCULATE(
+			        MAX('Date Slicer Table'[Date]),  
+			        'Date Slicer Table'[Year] = b,
+			        'Date Slicer Table'[WeekNum] = 1,
+			        ALL('Date Slicer Table')
+			    )
+			
+			-- Get adjusted last date if last year was a leap year
+			VAR adjusted_enddate = 
+			    IF(
+			        prev_year_leap = "Yes",
+			        CALCULATE(
+			            MAX('Date Slicer Table'[Date]), 
+			            'Date Slicer Table'[Year] = a,
+			            'Date Slicer Table'[WeekNum] = weekno + 1,
+			            ALL('Date Slicer Table')
+			        ),
+			        enddate_base
+			    )
+			
+			-- Final end date logic for leap year scenarios
+			VAR final_enddate = 
+			    IF(
+			        lycond = "Yes" && weekno = 53 && prev_year_leap = "No",
+			        ly2m,
+			        adjusted_enddate
+			    )
+			
+			VAR v =  
+			    CALCULATE(
+			        [Total Sales],
+			        ALL('Date Slicer Table'),
+			        'Date Slicer Table'[Date] >= Startdate,
+			        'Date Slicer Table'[Date] <= final_enddate
+			    )
+			
+			RETURN v
+			
+			```
+		displayFolder: Value\YTD
+		lineageTag: dcd41f61-4c07-469f-9ee2-d0888dbd765a
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'YTD QTY_new' = ```
+			
+			VAR a = [ThisYear] - 1 
+			VAR b = [ThisYear]
+			VAR weekno = MAX('Date Slicer Table'[WeekNum])
+			
+			-- Check if this year is a leap year
+			VAR lycond = MAX('WMT Weeks'[Is Leap Year])
+			
+			-- Check if the previous year was a leap year
+			VAR prev_year_leap = 
+			    CALCULATE(
+			        MAX('WMT Weeks'[Is Leap Year]), 
+			        FILTER(ALL('Date Slicer Table'), 'Date Slicer Table'[Year] = a)
+			    )
+			
+			-- Determine the correct start date based on leap year conditions
+			VAR Startdate = 
+			    CALCULATE(
+			        MIN('Date Slicer Table'[Date]), 
+			        FILTER(
+			            ALL('Date Slicer Table'),
+			            'Date Slicer Table'[WeekNum] = 
+			                IF(prev_year_leap = "Yes", 2, 1) &&  -- If last year was leap and `weeknum+1` condition, start from week 2
+			            'Date Slicer Table'[Year] = a
+			        )
+			    )
+			
+			-- Get last date for selected weeks in the previous year
+			VAR enddate_base = 
+			    CALCULATE(
+			        MAX('Date Slicer Table'[Date]),
+			        'Date Slicer Table'[Year] = a,
+			        'Date Slicer Table'[WeekNum] = weekno,
+			        ALL('Date Slicer Table')
+			    )
+			
+			-- Get the first week's date of the current year (for leap year handling)
+			VAR ly2m = 
+			    CALCULATE(
+			        MAX('Date Slicer Table'[Date]),  
+			        'Date Slicer Table'[Year] = b,
+			        'Date Slicer Table'[WeekNum] = 1,
+			        ALL('Date Slicer Table')
+			    )
+			
+			-- Get adjusted last date if last year was a leap year
+			VAR adjusted_enddate = 
+			    IF(
+			        prev_year_leap = "Yes",
+			        CALCULATE(
+			            MAX('Date Slicer Table'[Date]), 
+			            'Date Slicer Table'[Year] = a,
+			            'Date Slicer Table'[WeekNum] = weekno + 1,
+			            ALL('Date Slicer Table')
+			        ),
+			        enddate_base
+			    )
+			
+			-- Final end date logic for leap year scenarios
+			VAR final_enddate = 
+			    IF(
+			        lycond = "Yes" && weekno = 53 && prev_year_leap = "No",
+			        ly2m,
+			        adjusted_enddate
+			    )
+			
+			VAR v =  
+			    CALCULATE(
+			        [Total Quantity],
+			        ALL('Date Slicer Table'),
+			        'Date Slicer Table'[Date] >= Startdate,
+			        'Date Slicer Table'[Date] <= final_enddate
+			    )
+			
+			RETURN v
+			
+			```
+		formatString: 0
+		lineageTag: 94ede46b-5844-4055-ac18-0de529d8f1c9
+
+	column Column
+		formatString: 0
+		lineageTag: 32b63a00-6929-4e55-8891-897b71a4c50e
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Column]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Measures List-4fa14989-65c1-4cea-80db-48e5b8eac4f8' = calculated
+		mode: import
+		source = Row("Column", BLANK())
+
+	annotation PBI_Id = 76182a09cea744b2800773db73a1e971
+
+	annotation 436ba87b-9c83-4389-a31b-ebd06a36be98 = {"Expression":""}
+

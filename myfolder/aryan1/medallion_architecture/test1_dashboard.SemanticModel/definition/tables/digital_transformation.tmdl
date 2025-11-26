@@ -1,0 +1,66 @@
+table digital_transformation
+	lineageTag: 9a6c548f-b8db-4260-ad1d-0821607997f4
+	sourceLineageTag: d795a2ac-a3c5-4493-b16e-e1ba38b8c39c
+
+	column unnamed_0
+		dataType: double
+		lineageTag: 26dcf8f6-bfc7-4307-ab33-b1caa85eb16b
+		sourceLineageTag: 950c0499-6ccd-4293-9f45-ed29dfc4b3a5
+		dataCategory: Uncategorized
+		summarizeBy: sum
+		sourceColumn: unnamed_0
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column investigations
+		dataType: string
+		lineageTag: 139cd0bc-c2b5-419f-ba81-d685a8ef9d3c
+		sourceLineageTag: 7386678e-a388-48c4-86fc-317f8ccda04b
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: investigations
+
+		annotation SummarizationSetBy = User
+
+	column unnamed_2
+		dataType: double
+		lineageTag: 374538d3-6d23-49ef-81ea-ea8177f09d83
+		sourceLineageTag: e73abc75-104e-45c4-856d-c8dcd500ff78
+		dataCategory: Uncategorized
+		summarizeBy: sum
+		sourceColumn: unnamed_2
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column unnamed_3
+		dataType: double
+		lineageTag: 649e59eb-5770-49cc-9db9-03c04c8c5f1c
+		sourceLineageTag: beb2ff07-d6e2-4656-a4d7-6ffbb9097a7e
+		dataCategory: Uncategorized
+		summarizeBy: sum
+		sourceColumn: unnamed_3
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column unnamed_4
+		dataType: string
+		lineageTag: f0b9f9b2-7181-4e74-9af6-7612ead15b57
+		sourceLineageTag: 9bbd343c-0c62-4d57-9195-066625f04301
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: unnamed_4
+
+		annotation SummarizationSetBy = User
+
+	partition digital_transformation = entity
+		mode: directQuery
+		source
+			entityName: digital_transformation
+			expressionSource: 'DirectQuery to AS - gold_semantic'
+

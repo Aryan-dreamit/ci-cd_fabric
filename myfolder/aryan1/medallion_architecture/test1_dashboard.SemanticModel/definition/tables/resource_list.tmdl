@@ -1,0 +1,119 @@
+table resource_list
+	lineageTag: 7994328d-8c0a-4104-b672-608296e5dcd5
+
+	column 'Resource Name'
+		dataType: string
+		lineageTag: e2dfd133-b51c-486c-95aa-93806046ff59
+		summarizeBy: none
+		sourceColumn: Resource Name
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Resource ID'
+		dataType: int64
+		formatString: 0
+		lineageTag: 96bb2349-e420-4eea-a89d-2d80857d5cf7
+		summarizeBy: none
+		sourceColumn: Resource ID
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Security Level'
+		dataType: string
+		lineageTag: 3409da92-8404-4b13-96e2-2a10551a27fc
+		summarizeBy: none
+		sourceColumn: Security Level
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'License Type'
+		dataType: string
+		lineageTag: c1051580-d5f7-4f18-85c1-1394cc6fb365
+		summarizeBy: none
+		sourceColumn: License Type
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column Email
+		dataType: string
+		lineageTag: 3885c2e6-e53b-4ae0-944b-80c3720f3362
+		summarizeBy: none
+		sourceColumn: Email
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Primary Internal Location'
+		dataType: string
+		lineageTag: 71726a5d-1350-42d2-a521-0d0a24cbe534
+		summarizeBy: none
+		sourceColumn: Primary Internal Location
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column Active
+		dataType: string
+		lineageTag: 39d334bb-8bd5-4796-b94f-41d8fefacde7
+		summarizeBy: none
+		sourceColumn: Active
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Last Activated By'
+		dataType: string
+		lineageTag: 933eb98c-35fb-4d68-9437-dd22a930562b
+		summarizeBy: none
+		sourceColumn: Last Activated By
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Last Activated Date'
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 03d993a8-c58f-48c0-b2af-1b4c35ae74e3
+		summarizeBy: none
+		sourceColumn: Last Activated Date
+
+		variation Variation
+			isDefault
+			relationship: c1e14c9a-60c7-4a51-a2a0-9c65c7b779cf
+			defaultHierarchy: LocalDateTable_89c5f133-e561-404c-a397-36a7e9e34818.'Date Hierarchy'
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	partition resource_list = m
+		mode: import
+		source =
+				let
+				    Source = Folder.Files("C:\Users\goura\OneDrive\Desktop\task"),
+				    #"C:\Users\goura\OneDrive\Desktop\task\_Resource List 1 csv1" = Source{[#"Folder Path"="C:\Users\goura\OneDrive\Desktop\task\",Name="Resource List 1.csv"]}[Content],
+				    #"Imported CSV" = Csv.Document(#"C:\Users\goura\OneDrive\Desktop\task\_Resource List 1 csv1",[Delimiter=",", Columns=13, Encoding=65001, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(#"Imported CSV", [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Resource Name", type text}, {"Resource ID", Int64.Type}, {"Default Department", type text}, {"Security Level", type text}, {"License Type", type text}, {"Office Phone", type text}, {"Mobile Phone", type text}, {"Email", type text}, {"Primary Internal Location", type text}, {"Resource Survey Rating", type text}, {"Active", type text}, {"Last Activated By", type text}, {"Last Activated Date", type datetime}}),
+				    #"Removed Columns" = Table.RemoveColumns(#"Changed Type",{"Default Department", "Mobile Phone", "Office Phone", "Resource Survey Rating"})
+				in
+				    #"Removed Columns"
+
+	changedProperty = Name
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

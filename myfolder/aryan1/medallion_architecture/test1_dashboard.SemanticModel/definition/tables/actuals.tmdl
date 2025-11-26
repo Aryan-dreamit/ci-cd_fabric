@@ -1,0 +1,202 @@
+table actuals
+	isHidden
+	lineageTag: 82cb91d4-ea50-4719-a3af-8abd36f895a7
+
+	column Date
+		dataType: dateTime
+		isHidden
+		formatString: Long Date
+		lineageTag: ecac52a3-48d9-4bfc-973a-1189adc6fdc9
+		summarizeBy: none
+		sourceColumn: Date
+
+		variation Variation
+			isDefault
+			relationship: ee72bac7-22cc-422d-814b-ff44a88cd5c9
+			defaultHierarchy: LocalDateTable_2fbdf1bb-b54d-419a-8c72-d44614debe13.'Date Hierarchy'
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Source
+		dataType: string
+		isHidden
+		lineageTag: ab258401-59b9-46f4-9186-0353bd055612
+		summarizeBy: none
+		sourceColumn: Source
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column Contact
+		dataType: string
+		isHidden
+		lineageTag: 086fd078-f289-4f85-be6e-ac46cf365626
+		summarizeBy: none
+		sourceColumn: Contact
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column Project
+		dataType: string
+		isHidden
+		lineageTag: fe96c7e6-fe02-4663-a915-7e8de591b3a3
+		summarizeBy: none
+		sourceColumn: Project
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Contract ID'
+		dataType: string
+		isHidden
+		lineageTag: 76227f80-b95e-4227-853a-bed266822a94
+		summarizeBy: none
+		sourceColumn: Contract ID
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column Description
+		dataType: string
+		isHidden
+		lineageTag: 1ec0a8cf-abc4-4ea9-a579-a09481267bc0
+		summarizeBy: none
+		sourceColumn: Description
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Invoice Number'
+		dataType: string
+		isHidden
+		lineageTag: 4e839713-9d9f-4793-bb08-b74d5df37691
+		summarizeBy: none
+		sourceColumn: Invoice Number
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column Reference
+		dataType: string
+		isHidden
+		lineageTag: b3194a2b-0f34-424c-95ac-e83176ec03e4
+		summarizeBy: none
+		sourceColumn: Reference
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Debit (EUR)'
+		dataType: double
+		isHidden
+		lineageTag: 05002609-a662-4cca-a9a5-1a5b1e69383c
+		summarizeBy: sum
+		sourceColumn: Debit (EUR)
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Credit (EUR)'
+		dataType: double
+		isHidden
+		lineageTag: 6568e06e-93de-4a20-a588-28c0a2fc6f97
+		summarizeBy: none
+		sourceColumn: Credit (EUR)
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Income
+		dataType: double
+		isHidden
+		lineageTag: 27235281-905b-401c-b6ca-89f9587d2208
+		summarizeBy: sum
+		sourceColumn: Income
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Account Code'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: fbceb9ff-8447-432c-88a1-e117c638316e
+		summarizeBy: count
+		sourceColumn: Account Code
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column Area
+		dataType: string
+		isHidden
+		lineageTag: eacf63e3-4a8e-4cdb-b1c9-1742acee5eff
+		summarizeBy: none
+		sourceColumn: Area
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column Month
+		dataType: dateTime
+		isHidden
+		formatString: Long Date
+		lineageTag: b4964070-afe8-4f77-b618-004ce250f900
+		summarizeBy: none
+		sourceColumn: Month
+
+		variation Variation
+			isDefault
+			relationship: 60a13da6-3131-46b9-b096-9720937dd079
+			defaultHierarchy: LocalDateTable_51d94f5c-e596-4a38-9c38-a33390bdaed3.'Date Hierarchy'
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	partition actuals = m
+		mode: import
+		source =
+				let
+				    Source = Folder.Files("C:\Users\goura\OneDrive\Desktop\task"),
+				    #"C:\Users\goura\OneDrive\Desktop\task\_Digital Transformation Hours xlsx1" = Source{[#"Folder Path"="C:\Users\goura\OneDrive\Desktop\task\",Name="Digital Transformation Hours.xlsx"]}[Content],
+				    #"Imported Excel Workbook" = Excel.Workbook(#"C:\Users\goura\OneDrive\Desktop\task\_Digital Transformation Hours xlsx1"),
+				    Actuals_Sheet = #"Imported Excel Workbook"{[Item="Actuals",Kind="Sheet"]}[Data],
+				    #"Removed Top Rows" = Table.Skip(Actuals_Sheet,4),
+				    #"Promoted Headers" = Table.PromoteHeaders(#"Removed Top Rows", [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Date", type date}, {"Source", type text}, {"Contact", type text}, {"Project", type text}, {"Contract ID", type any}, {"Description", type text}, {"Invoice Number", type text}, {"Reference", type text}, {"Debit (EUR)", type number}, {"Credit (EUR)", type number}, {"Income", type number}, {"Account Code", Int64.Type}, {"Area", type text}, {"Month", type date}, {"Column15", type text}}),
+				    #"Removed Columns" = Table.RemoveColumns(#"Changed Type",{"Column15"})
+				in
+				    #"Removed Columns"
+
+	changedProperty = IsHidden
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

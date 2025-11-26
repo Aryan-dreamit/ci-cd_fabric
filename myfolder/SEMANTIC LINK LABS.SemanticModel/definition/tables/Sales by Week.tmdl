@@ -1,0 +1,61 @@
+table 'Sales by Week'
+	lineageTag: 8cb0d7fb-98c9-447c-a39b-a2b43b9e4178
+
+	column QuarterName
+		lineageTag: 9b8a3b02-8060-48d1-b203-ef21e3776f3b
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: WMT Weeks[QuarterName]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Month_
+		lineageTag: d57eec3b-44be-440c-8b82-0bbd7598ea79
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: WMT Weeks[Month_]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'WMT WK Number'
+		formatString: 0
+		lineageTag: 3e8b76fe-f381-4f22-b809-81b31c8673c3
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: WMT Weeks[WMT WK Number]
+
+		annotation SummarizationSetBy = User
+
+	column 'POS TY'
+		lineageTag: 8d92de6e-bcfc-4374-aca1-bb54063fceb5
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [POS TY]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'POS LY'
+		lineageTag: d4536eb8-63f7-47b3-8b5b-8cd89eb5c804
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [POS LY]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition 'Sales by Week' = calculated
+		mode: import
+		source =
+				
+				SUMMARIZE(FactSuncare,
+				'WMT Weeks'[QuarterName],
+				'WMT Weeks'[Month_],
+				'WMT Weeks'[WMT WK Number],
+				"POS TY", [POS TY_],
+				"POS LY", [POS LY_])
+
+	annotation PBI_Id = 535d1b2e381243dfba408708cb5293cc
+

@@ -1,0 +1,158 @@
+table 'CustomCalculation_based_on_LastNWeek/Selected Week FOR ADD- DELETE'
+	lineageTag: 704624e5-2078-4ad0-a848-0eb17b24c92a
+
+	measure 'Calculation_based_on_Selected_Weeks(Custom Slicer) for Add- delete' = ```
+			
+			VAR _year=[Comparison Year]
+			VAR a = SELECTEDVALUE('CustomCalculation_based_on_LastNWeek/Selected Week FOR ADD- DELETE'[Metrics])
+			// Dollar Calculate
+			VAR TY_Dollar=  CALCULATE([Total Sales],Store_Items_Attributes[Placement] = "New item", 'Date Slicer Table'[Year] = _year)
+			VAR LY_Dollar=CALCULATE([Total Sales],Store_Items_Attributes[Placement] = "Delete", 'Date Slicer Table'[Year] = _year-1,'WMT Weeks'[WMT WK Number] in VALUES('WMT Weeks'[WMT WK Number]))
+			VAR CHG_POS_Dollar = TY_Dollar-LY_Dollar
+			VAR CHG_POS_Dollar_per = DIVIDE(CHG_POS_Dollar, LY_Dollar)
+			
+			//QTY Calculate
+			VAR TY_QTY= CALCULATE( [Total Quantity],Store_Items_Attributes[Placement] = "New item", 'Date Slicer Table'[Year] = _year)
+			VAR LY_QTY= CALCULATE( [Total Quantity],Store_Items_Attributes[Placement] = "Delete", 'Date Slicer Table'[Year] = _year-1,'WMT Weeks'[WMT WK Number] in VALUES('WMT Weeks'[WMT WK Number]))
+			VAR CHG_POS_QTY = TY_QTY-LY_QTY
+			VAR CHG_POS_QTY_per = DIVIDE(CHG_POS_QTY, LY_QTY)
+			
+			// AVG
+			VAR TY_AVG= DIVIDE(TY_Dollar,TY_QTY)
+			VAR LY_AVG=  DIVIDE(LY_Dollar,LY_QTY)
+			VAR CHG_POS_AVG =TY_AVG-LY_AVG
+			VAR CHG_POS_AVG_per = DIVIDE(CHG_POS_AVG, LY_AVG)
+			return SWITCH(TRUE(),
+			a = "TY POS $",FORMAT(TY_Dollar,"$#,###;-$#,###;$0"),
+			a= "LY POS $",FORMAT(LY_Dollar,"$#,###;-$#,###;$0"),
+			a="$ Chg",FORMAT(CHG_POS_Dollar,"$#,###;-$#,###;$0"),
+			a="% Chg",FORMAT(CHG_POS_Dollar_per,"0.0%"),
+			a="TY POS U",FORMAT(TY_QTY,"#,###;-#,###;0"),
+			a="LY POS U",FORMAT(LY_QTY,"#,###;-#,###;0"),
+			a="U Chg",FORMAT(chg_pos_qty,"#,###;-#,###;0"),
+			a="U % Chg",FORMAT(CHG_POS_QTY_per,"0.0%"),
+			a="Instock %",FORMAT([Instock % Factsuncare],"0.0%")
+			)
+			
+			```
+		lineageTag: efac2744-c0f9-4c2a-b1b9-be3af9f9dac6
+
+	measure 'Calculation_based_on_LastNWeek for Add- Deletes(Normal Value)' =
+			
+			var a = SELECTEDVALUE('Add-Delete-CustomSortByMeasure'[Metrics])
+			return SWITCH(TRUE(),
+			a = "TY POS $",[POS TY Add],
+			a= "LY POS $",[POS LY Delete],
+			a="$ Chg",[POS LY-TY $ Chg (Add-Delete)],
+			a="% Chg",[Pos $ Chg % add-del],
+			a="TY POS U",[POS TY Add Qty],
+			a="LY POS U",[POS LY Delete Qty],
+			a="U Chg",[POS LY-TY Chg Qty],
+			a="U % Chg",[POS Chg % add-del Qty],
+			a="Instock %",[Instock % Factsuncare]
+			)
+		lineageTag: 14dfab6d-3b3c-4feb-a302-67c0b3eeb4b2
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Calculation_based_on_Selected_Weeks(Custom Slicer) for Add- delete (Normal Value)' = ```
+			
+			VAR _year=[Comparison Year]
+			VAR a = SELECTEDVALUE('Add-Delete-CustomSortByMeasure'[Metrics])
+			// Dollar Calculate
+			VAR TY_Dollar=  CALCULATE([Total Sales],Store_Items_Attributes[Placement] = "New item", 'Date Slicer Table'[Year] = _year)
+			VAR LY_Dollar=CALCULATE([Total Sales],Store_Items_Attributes[Placement] = "Delete", 'Date Slicer Table'[Year] = _year-1,'WMT Weeks'[WMT WK Number] in VALUES('WMT Weeks'[WMT WK Number]))
+			VAR CHG_POS_Dollar = TY_Dollar-LY_Dollar
+			VAR CHG_POS_Dollar_per = DIVIDE(CHG_POS_Dollar, LY_Dollar)
+			
+			//QTY Calculate
+			VAR TY_QTY= CALCULATE( [Total Quantity],Store_Items_Attributes[Placement] = "New item", 'Date Slicer Table'[Year] = _year)
+			VAR LY_QTY= CALCULATE( [Total Quantity],Store_Items_Attributes[Placement] = "Delete", 'Date Slicer Table'[Year] = _year-1,'WMT Weeks'[WMT WK Number] in VALUES('WMT Weeks'[WMT WK Number]))
+			VAR CHG_POS_QTY = TY_QTY-LY_QTY
+			VAR CHG_POS_QTY_per = DIVIDE(CHG_POS_QTY, LY_QTY)
+			
+			// AVG
+			VAR TY_AVG= DIVIDE(TY_Dollar,TY_QTY)
+			VAR LY_AVG=  DIVIDE(LY_Dollar,LY_QTY)
+			VAR CHG_POS_AVG =TY_AVG-LY_AVG
+			VAR CHG_POS_AVG_per = DIVIDE(CHG_POS_AVG, LY_AVG)
+			return SWITCH(TRUE(),
+			a = "TY POS $",TY_Dollar,
+			a= "LY POS $",LY_Dollar,
+			a="$ Chg",CHG_POS_Dollar,
+			a="% Chg",CHG_POS_Dollar_per,
+			a="TY POS U",TY_QTY,
+			a="LY POS U",LY_QTY,
+			a="U Chg",chg_pos_qty,
+			a="U % Chg",CHG_POS_QTY_per,
+			a="Instock %",[Instock % Factsuncare]
+			)
+			
+			```
+		lineageTag: 58233637-8b78-47a6-af73-762ac57b2605
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Calculation_based_on_LastNWeek for Add- Deletes' =
+			
+			var a = SELECTEDVALUE('CustomCalculation_based_on_LastNWeek/Selected Week FOR ADD- DELETE'[Metrics])
+			return SWITCH(TRUE(),
+			a = "TY POS $",FORMAT([POS TY Add],"$#,###;-$#,###;$0"),
+			a= "LY POS $",FORMAT([POS LY Delete],"$#,###;-$#,###;$0"),
+			a="$ Chg",FORMAT([POS LY-TY $ Chg (Add-Delete)],"$#,###;-$#,###;$0"),
+			a="% Chg",FORMAT([Pos $ Chg % add-del],"0.0%"),
+			a="TY POS U",FORMAT([POS TY Add Qty],"#,###;-#,###;0"),
+			a="LY POS U",FORMAT([POS LY Delete Qty],"#,###;-#,###;0"),
+			a="U Chg",FORMAT([POS LY-TY Chg Qty],"#,###;-#,###;0"),
+			a="U % Chg",FORMAT([POS Chg % add-del Qty],"0.0%"),
+			a="Instock %",FORMAT([Instock % Factsuncare],"0.0%")
+			)
+		lineageTag: 46e6ff67-4f20-4318-bb19-4cd969d45396
+
+	column Category
+		dataType: string
+		lineageTag: 2563e128-3037-4a69-8fef-eb38c2a2928b
+		summarizeBy: none
+		sourceColumn: Category
+
+		annotation SummarizationSetBy = Automatic
+
+	column Metrics
+		dataType: string
+		lineageTag: 28ce19b4-97af-4cca-b15b-7d3414564467
+		summarizeBy: none
+		sourceColumn: Metrics
+		sortByColumn: SortMetrics
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column SortCategory
+		dataType: int64
+		formatString: 0
+		lineageTag: 660a8033-e032-4971-ae9d-d999ac93ffbc
+		summarizeBy: sum
+		sourceColumn: SortCategory
+
+		annotation SummarizationSetBy = Automatic
+
+	column SortMetrics
+		dataType: string
+		lineageTag: 7251ac98-2f64-42f0-b71e-cb8ba8726236
+		summarizeBy: none
+		sourceColumn: SortMetrics
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'CustomCalculation_based_on_LastNWeek/Selected Week FOR ADD- DELETE-21c0a539-5562-4a17-8806-1ac200f82f3e' = m
+		mode: import
+		source =
+				let
+				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i45WCvAPVlBR0lEKiVSAMQ3BOFYHIemDKmmEIqmi4JyRDpUxRpFRRZIxgcuEImwLBRumo2SKIumDKmmGIhkKNRMkYw6XgUqpIklagCU984pL8pOzFVSBIshsAzCOjQUA", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Category = _t, Metrics = _t, SortCategory = _t, SortMetrics = _t]),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Category", type text}, {"Metrics", type text}, {"SortCategory", Int64.Type}, {"SortMetrics", type text}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table
+

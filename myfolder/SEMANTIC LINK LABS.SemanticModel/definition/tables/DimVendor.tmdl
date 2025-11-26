@@ -1,0 +1,30 @@
+table DimVendor
+	lineageTag: 65cdfe51-700c-47e3-8641-13f7f5ecd01b
+
+	column 'Vendor Nbr'
+		formatString: 0
+		lineageTag: 6d145098-d4ac-41c9-8530-afccc94c56d3
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: FactSuncare[Vendor Nbr]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Vendor Name'
+		lineageTag: 280695ff-345c-4884-8266-dd26015f99c0
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: FactSuncare[Vendor Name]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition DimVendor = calculated
+		mode: import
+		source =
+				
+				SUMMARIZE(FactSuncare,
+				FactSuncare[Vendor Nbr],
+				FactSuncare[Vendor Name])
+
+	annotation PBI_Id = ab4008dfc3d147018b5cdc6d8fe65630
+

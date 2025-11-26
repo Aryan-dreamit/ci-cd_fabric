@@ -1,0 +1,70 @@
+table ireland_holiday
+	lineageTag: 42b93d74-1cad-4915-9d4d-1889bac642c0
+
+	column Date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: d2be4191-32c5-4006-aa8d-a28a1e94ef26
+		summarizeBy: none
+		sourceColumn: Date
+
+		variation Variation
+			isDefault
+			relationship: 4256e80b-df38-40a3-907b-cd67e2fa1237
+			defaultHierarchy: LocalDateTable_070da174-e3b9-4374-be15-dba529746a3e.'Date Hierarchy'
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Weekday
+		dataType: string
+		lineageTag: 0ce22779-0736-4e4c-859e-167960e0160f
+		summarizeBy: none
+		sourceColumn: Weekday
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column Name
+		dataType: string
+		lineageTag: bddd7258-6a0d-4c3f-ace4-1243b4e986cc
+		summarizeBy: none
+		sourceColumn: Name
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column Type
+		dataType: string
+		lineageTag: 7857436b-cec2-4bde-93ee-d4b10b48c46e
+		summarizeBy: none
+		sourceColumn: Type
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	partition ireland_holiday = m
+		mode: import
+		source =
+				let
+				    Source = Folder.Files("C:\Users\goura\OneDrive\Desktop\task"),
+				    #"C:\Users\goura\OneDrive\Desktop\task\_Ireland Holiday 2024 - 2027 2 xlsx1" = Source{[#"Folder Path"="C:\Users\goura\OneDrive\Desktop\task\",Name="Ireland Holiday 2024 - 2027 2.xlsx"]}[Content],
+				    #"Imported Excel Workbook" = Excel.Workbook(#"C:\Users\goura\OneDrive\Desktop\task\_Ireland Holiday 2024 - 2027 2 xlsx1"),
+				    #"Sheet1!_xlnm _FilterDatabase_DefinedName" = #"Imported Excel Workbook"{[Item="Sheet1!_xlnm._FilterDatabase",Kind="DefinedName"]}[Data],
+				    #"Promoted Headers" = Table.PromoteHeaders(#"Sheet1!_xlnm _FilterDatabase_DefinedName", [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Date", type date}, {"Weekday", type text}, {"Name", type text}, {"Type", type text}})
+				in
+				    #"Changed Type"
+
+	changedProperty = Name
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

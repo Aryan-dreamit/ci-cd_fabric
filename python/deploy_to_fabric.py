@@ -21,8 +21,7 @@ access_token = token["access_token"]
 headers = {"Authorization": f"Bearer {access_token}", "Content-Type": "application/json"}
 url = f"https://api.fabric.microsoft.com/v1/workspaces/{workspace_id}/items"
 
-with open("myfolder/ci/cd_workflow_test.Notebook/notebook-content.ipynb", "r") as f:
-    notebook_content = f.read()
+
 
 payload = {
     "displayName": "My Notebook",

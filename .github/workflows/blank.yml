@@ -30,12 +30,13 @@
 #         run: echo Hello, world!
 
 name: Merge Clone to Test
-
+      
 on:
+  workflow_dispatch:
   push:
     branches:
       - cloneprojectbranch
-
+           
 jobs:
   merge-clone-to-test:
     runs-on: ubuntu-latest

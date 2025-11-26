@@ -1,0 +1,60 @@
+table Parameter
+	lineageTag: 16d9f121-4cc4-4851-8e9f-0984b0059016
+
+	column Parameter
+		lineageTag: 9670bbac-f867-4eb6-a49f-e816cb7141b4
+		summarizeBy: none
+		sourceColumn: [Value1]
+		sortByColumn: 'Parameter Order'
+
+		relatedColumnDetails
+			groupByColumn: 'Parameter Fields'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Parameter Fields'
+		isHidden
+		lineageTag: 58ae4b6f-efb5-414c-a001-ea6176dc0c7f
+		summarizeBy: none
+		sourceColumn: [Value2]
+		sortByColumn: 'Parameter Order'
+
+		extendedProperty ParameterMetadata =
+				{
+				  "version": 3,
+				  "kind": 2
+				}
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Parameter Order'
+		isHidden
+		formatString: 0
+		lineageTag: d34f3128-ec79-43aa-a989-87c8abc90d71
+		summarizeBy: sum
+		sourceColumn: [Value3]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Parameter-9d6fb044-2c77-4ca6-8302-df93ff81f52d = calculated
+		mode: import
+		source =
+				{
+				    ("Brand Desc", NAMEOF('FactSuncare'[Brand Desc]), 3),
+				    ("Brand ID", NAMEOF('FactSuncare'[Brand ID]), 3),
+				    ("Fineline Description", NAMEOF('FactSuncare'[Fineline Description]), 5),
+				    ("Fineline Number", NAMEOF('FactSuncare'[Fineline Number]), 5),
+				    ("Hist On Hand Qty", NAMEOF('FactSuncare'[Hist On Hand Qty]), 7),
+				    ("Item Desc 1", NAMEOF('FactSuncare'[Item Desc 1]), 1),
+				    ("Item Nbr", NAMEOF('FactSuncare'[Item Nbr]), 1),
+				    ("Store Name", NAMEOF('FactSuncare'[Store Name]), 2),
+				    ("Store Nbr", NAMEOF('FactSuncare'[Store Nbr]), 2),
+				    ("UPC", NAMEOF('FactSuncare'[UPC]), 6),
+				    ("Vendor Name", NAMEOF('FactSuncare'[Vendor Name]), 4),
+				    ("Vendor Nbr", NAMEOF('FactSuncare'[Vendor Nbr]), 4)
+				}
+
+	annotation PBI_Id = 7d89e1eb53674e95865c106f55497ad4
+

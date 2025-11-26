@@ -1,0 +1,429 @@
+table contract_search
+	lineageTag: c2b0b204-1a1a-44df-93d3-0f53529f822c
+	sourceLineageTag: a70cf57e-62c8-40d0-8230-7bab22c0b51e
+
+	column new_customer_signed_date
+		dataType: string
+		lineageTag: ce6012d6-dc23-4f96-a550-1c462428a5ec
+		sourceLineageTag: e7fbbbdd-7142-4212-aca3-9c889dfe24a1
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: new_customer_signed_date
+
+		annotation SummarizationSetBy = User
+
+	column tenant_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 1682f0fd-0005-40ee-886a-a3fc8a2bd94f
+		sourceLineageTag: e5dabddc-06f4-4c83-94c1-d67fa9a2f976
+		dataCategory: Uncategorized
+		summarizeBy: sum
+		sourceColumn: tenant_id
+
+		annotation SummarizationSetBy = User
+
+	column vendor_service
+		dataType: string
+		lineageTag: af857176-2bcc-4210-958d-0998b1d30dfc
+		sourceLineageTag: a3a30de4-e6a0-4af6-8197-f72fb27ff469
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: vendor_service
+
+		annotation SummarizationSetBy = User
+
+	column bundle_status
+		dataType: string
+		lineageTag: 520b1897-b319-495e-a3b9-77819dc37d96
+		sourceLineageTag: d99559f6-2a8c-4844-8d42-05e2bac4d29a
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: bundle_status
+
+		annotation SummarizationSetBy = User
+
+	column billing_cycle
+		dataType: string
+		lineageTag: 1b194239-2dd2-405c-a1e3-55e5596cca86
+		sourceLineageTag: 7b0ee44f-9c3c-4a57-945e-9ef182bf4a3a
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: billing_cycle
+
+		annotation SummarizationSetBy = User
+
+	column bundle_type
+		dataType: string
+		lineageTag: 879c038f-30f3-4c9a-a96f-69f749a0bcd9
+		sourceLineageTag: 97eb82d3-91f0-45aa-98eb-3dfe5aa8be01
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: bundle_type
+
+		annotation SummarizationSetBy = User
+
+	column complete_status_10_days
+		dataType: string
+		lineageTag: 80094d94-5fbf-4f06-8ab4-a8bacd9b448b
+		sourceLineageTag: 2d24a152-55ea-44c2-a90c-c24a7dfa24ed
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: complete_status_10_days
+
+		annotation SummarizationSetBy = User
+
+	column contract_bundle
+		dataType: string
+		lineageTag: 9ac9911f-6020-43db-9e06-41e8040ea276
+		sourceLineageTag: 43d93681-5abe-40b8-98d9-086c31cdc888
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: contract_bundle
+
+		annotation SummarizationSetBy = User
+
+	column executive_am_support
+		dataType: string
+		lineageTag: 876a5a0a-e7e9-4fad-a002-61a989d2d427
+		sourceLineageTag: 787129c6-9822-4bb8-a3f8-8b593e836d5a
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: executive_am_support
+
+		annotation SummarizationSetBy = User
+
+	column fair_usage_allowance_monthly
+		dataType: string
+		lineageTag: 3e4db850-ea2d-4cf5-a19e-cf00d6f034e8
+		sourceLineageTag: fa85b4e5-a28f-466a-961b-b325c606b53b
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: fair_usage_allowance_monthly
+
+		annotation SummarizationSetBy = User
+
+	column nce_contract_renewal_month
+		dataType: string
+		lineageTag: 94d2043b-6f14-4d5c-b896-3dba49a9f36c
+		sourceLineageTag: 6a983901-b9fe-4aa7-9a85-0b974e9a70b9
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: nce_contract_renewal_month
+
+		annotation SummarizationSetBy = User
+
+	column line_of_business_billing
+		dataType: string
+		lineageTag: 2dc76f18-c9a6-4d5b-b6ad-c5f29240914b
+		sourceLineageTag: 89a0f40f-a6b4-4730-b417-07e8e0da80d0
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: line_of_business_billing
+
+		annotation SummarizationSetBy = User
+
+	column opportunity
+		dataType: string
+		lineageTag: b7eccb33-7509-45a7-882b-d0e0f14172a2
+		sourceLineageTag: 3e16abc0-9afe-475e-b2e2-726f9f91f434
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: opportunity
+
+		annotation SummarizationSetBy = User
+
+	column parent_account
+		dataType: string
+		lineageTag: 9894593d-e9eb-4814-8816-088c1229c6fa
+		sourceLineageTag: 1a6b73cf-dda9-44c6-879d-4002490aa11e
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: parent_account
+
+		annotation SummarizationSetBy = User
+
+	column renewal_of
+		dataType: string
+		lineageTag: c12a8128-f4a6-4682-8801-d4930614cca7
+		sourceLineageTag: dec97ad5-f5b6-4184-97f7-7208659bf6f3
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: renewal_of
+
+		annotation SummarizationSetBy = User
+
+	column renewed
+		dataType: string
+		lineageTag: ead8696b-467e-4ccf-bff9-bbafabc8a4f8
+		sourceLineageTag: a5f0ce76-a54a-48df-883b-caaa90f42493
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: renewed
+
+		annotation SummarizationSetBy = User
+
+	column service_level_agreement
+		dataType: string
+		lineageTag: 72021820-4f9e-422c-b0f9-9828748c1691
+		sourceLineageTag: d38406d8-18c8-4b48-82aa-60f519b25901
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: service_level_agreement
+
+		annotation SummarizationSetBy = User
+
+	column current_balance
+		dataType: int64
+		formatString: 0
+		lineageTag: b8c3bc2d-9764-4de6-a012-b6b73bf43116
+		sourceLineageTag: 1a31fbb4-650c-4a1f-aa81-95f2080b9f16
+		dataCategory: Uncategorized
+		summarizeBy: sum
+		sourceColumn: current_balance
+
+		annotation SummarizationSetBy = User
+
+	column estimated_cost
+		dataType: int64
+		formatString: 0
+		lineageTag: 6c5f97e4-2bac-44ff-883a-b63b19f59216
+		sourceLineageTag: 568c4fbf-bf1b-489e-9fa8-6626508338bb
+		dataCategory: Uncategorized
+		summarizeBy: sum
+		sourceColumn: estimated_cost
+
+		annotation SummarizationSetBy = User
+
+	column estimated_hours
+		dataType: string
+		lineageTag: 9fa9be62-c516-48d5-873f-6c4a05a14abc
+		sourceLineageTag: 497a0af1-d5c9-4fe0-9240-49acedaa6a2b
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: estimated_hours
+
+		annotation SummarizationSetBy = User
+
+	column external_contract_number
+		dataType: string
+		lineageTag: 6a80535a-8663-4aa3-8a1d-5cc22bd7af14
+		sourceLineageTag: 4f83a9fe-da66-4fbd-8013-33ab86c9002d
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: external_contract_number
+
+		annotation SummarizationSetBy = User
+
+	column has_exclusions
+		dataType: string
+		lineageTag: c94fae3e-702f-4a7d-9638-2c36a40cb6c6
+		sourceLineageTag: 18abce59-2a3c-41e4-9c29-9272c1299468
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: has_exclusions
+
+		annotation SummarizationSetBy = User
+
+	column is_exclusion_contract
+		dataType: string
+		lineageTag: 74c4f978-b821-4af6-a855-bf3678771b94
+		sourceLineageTag: 638da202-bf88-4d0a-bf89-cf7f61a9432a
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: is_exclusion_contract
+
+		annotation SummarizationSetBy = User
+
+	column company_category
+		dataType: string
+		lineageTag: a5ce8f1b-87f7-4db3-b28a-655336722a38
+		sourceLineageTag: 0e77421a-c530-4093-aafa-092cfb2951b0
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: company_category
+
+		annotation SummarizationSetBy = User
+
+	column company_to_bill
+		dataType: string
+		lineageTag: 4c35d702-ca43-443c-b349-2923a77bf4f4
+		sourceLineageTag: f669c0af-792d-47ca-8555-81588b96fe44
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: company_to_bill
+
+		annotation SummarizationSetBy = User
+
+	column contact
+		dataType: string
+		lineageTag: 6d6be84d-8ccb-4bfa-910a-1ed5510985ee
+		sourceLineageTag: 5f1be1c7-d187-49db-938f-671557b02ece
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: contact
+
+		annotation SummarizationSetBy = User
+
+	column contract_category
+		dataType: string
+		lineageTag: 8960719f-1b64-4f02-bb24-fd812953462d
+		sourceLineageTag: 94f26987-86dc-4b08-9777-115433ab847f
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: contract_category
+
+		annotation SummarizationSetBy = User
+
+	column contract_id
+		dataType: int64
+		formatString: 0
+		lineageTag: c16b8768-25f5-49ca-b5be-efd59fe4852f
+		sourceLineageTag: be75754f-aa32-4243-a323-3774a10731fb
+		dataCategory: Uncategorized
+		summarizeBy: sum
+		sourceColumn: contract_id
+
+		annotation SummarizationSetBy = User
+
+	column contract_period_type
+		dataType: string
+		lineageTag: 2fbed26f-2890-4574-9430-90eb4235e337
+		sourceLineageTag: 611dbf22-15ac-4140-8ddd-07a8e1cb0272
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: contract_period_type
+
+		annotation SummarizationSetBy = User
+
+	column end_date
+		dataType: dateTime
+		formatString: General Number
+		lineageTag: ca603bd6-d919-401f-a016-96610f6918a7
+		sourceLineageTag: 098440e0-e19e-4b8b-8f5f-c15b70959afc
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: end_date
+
+		annotation SummarizationSetBy = User
+
+	column estimated_revenue
+		dataType: int64
+		formatString: 0
+		lineageTag: f68fce11-af38-461d-a031-d137727c55f1
+		sourceLineageTag: 36e4a07e-f599-47b3-87b4-51ca9d6b7bad
+		dataCategory: Uncategorized
+		summarizeBy: sum
+		sourceColumn: estimated_revenue
+
+		annotation SummarizationSetBy = User
+
+	column default_service_desk_contract
+		dataType: string
+		lineageTag: 699dcc2c-6738-4981-bbcb-1f74bb4d7c19
+		sourceLineageTag: 5c7f595a-8e6b-4e69-b0a9-feb0f56cfd7d
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: default_service_desk_contract
+
+		annotation SummarizationSetBy = User
+
+	column approve__post_labour
+		dataType: string
+		lineageTag: 83f6871b-7872-4fe6-ab06-c916d73055c4
+		sourceLineageTag: 1b4c2de4-da04-4600-9a18-05a02ff09678
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: approve__post_labour
+
+		annotation SummarizationSetBy = User
+
+	column out_of_compliance
+		dataType: string
+		lineageTag: d0ebc0db-2331-48a6-9e49-da96e9f667f2
+		sourceLineageTag: 64d5bd97-83d1-4068-835d-fa8016527484
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: out_of_compliance
+
+		annotation SummarizationSetBy = User
+
+	column account_manager
+		dataType: string
+		lineageTag: 592a8e95-02f7-4997-8963-d99da8591339
+		sourceLineageTag: 2f4da913-0096-43ed-bfe2-5b624fe90c12
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: account_manager
+
+		annotation SummarizationSetBy = User
+
+	column classification
+		dataType: string
+		lineageTag: 6afd6593-7b46-4aec-894e-d238fb9058b6
+		sourceLineageTag: 8a955224-3c1d-45bc-aa17-9d88d47efcee
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: classification
+
+		annotation SummarizationSetBy = User
+
+	column contract_name
+		dataType: string
+		lineageTag: 066f019d-bf03-456e-8bb6-b2c44c740138
+		sourceLineageTag: 1b33cfdf-b296-4b2b-b96c-c50b13eb573c
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: contract_name
+
+		annotation SummarizationSetBy = User
+
+	column company_name
+		dataType: string
+		isNullable: false
+		lineageTag: c549c9cd-5593-41d0-8972-67f589c658d0
+		sourceLineageTag: 0c53f928-6f78-40b5-9b2a-317e19cd28fa
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: company_name
+
+		annotation SummarizationSetBy = User
+
+	column contract_type
+		dataType: string
+		lineageTag: a9805007-b5ef-49c2-b6f2-f8d933571f3e
+		sourceLineageTag: 72384de2-4775-4ffe-8b45-ee6b5dad0965
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: contract_type
+
+		annotation SummarizationSetBy = User
+
+	column active
+		dataType: string
+		lineageTag: 066997a8-486a-4c46-801d-5878cfe4b673
+		sourceLineageTag: fd4c20fb-7a9f-4809-9d39-4db30a6e7b0c
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: active
+
+		annotation SummarizationSetBy = User
+
+	column start_date
+		dataType: dateTime
+		isNullable: false
+		formatString: General Number
+		lineageTag: 86fb9fc6-24b1-4da4-afe4-6f12b95a938d
+		sourceLineageTag: 239917c1-6c76-4ae8-8789-6292304ffb22
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: start_date
+
+		annotation SummarizationSetBy = User
+
+	partition contract_search = entity
+		mode: directQuery
+		source
+			entityName: contract_search
+			expressionSource: 'DirectQuery to AS - gold_semantic'
+

@@ -1,0 +1,86 @@
+table _Calendar
+	lineageTag: 44ffb1bf-8d76-4f7d-ad61-a8a3093bb298
+
+	column Date
+		formatString: General Date
+		lineageTag: d9842a0f-a224-427d-9d2c-203cccbf835e
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Date]
+
+		variation Variation
+			isDefault
+			relationship: 21ea0f8f-0127-491a-b6f3-4b5e0239de26
+			defaultHierarchy: LocalDateTable_61c1f591-be1f-41a4-92eb-f64bfcc8ef44.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column Year
+		formatString: 0
+		lineageTag: 7fe9c29b-1208-44d1-908b-ae01336c3a06
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Year]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Month Number'
+		formatString: 0
+		lineageTag: d886d5df-a453-4c8f-92fc-5b8de6f12823
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Month Number]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Month Name'
+		lineageTag: 22273e50-ecf9-4c21-9911-f3a2dea857b2
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Month Name]
+		sortByColumn: 'Month Number'
+
+		annotation SummarizationSetBy = Automatic
+
+	column Quarter
+		lineageTag: 01785d2a-8ecc-453a-a4bc-9c95dbc3a986
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Quarter]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Weekday
+		lineageTag: bad4e5da-d711-4146-9668-d6b30a68523a
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Weekday]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Weekday Number'
+		formatString: 0
+		lineageTag: 1c36ed6a-0b83-45dc-b903-a5adfdb85657
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Weekday Number]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition _Calendar = calculated
+		mode: import
+		source = ```
+				
+				ADDCOLUMNS (
+				    CALENDAR (DATE(2020, 1, 1), DATE(2030, 12, 31)),
+				    "Year", YEAR([Date]),
+				    "Month Number", MONTH([Date]),
+				    "Month Name", FORMAT([Date], "MMMM"),
+				    "Quarter", "Q" & FORMAT([Date], "Q"),
+				    "Weekday", FORMAT([Date], "dddd"),
+				    "Weekday Number", WEEKDAY([Date],2) 
+				)
+				```
+
+	annotation PBI_Id = 35e162678fd24f7fb62b44a09561239f
+

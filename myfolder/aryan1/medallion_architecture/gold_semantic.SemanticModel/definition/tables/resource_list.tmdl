@@ -1,0 +1,131 @@
+table resource_list
+	lineageTag: af0dd593-8c33-4eb1-9e20-758922fc16dd
+	sourceLineageTag: [dbo].[resource_list]
+
+	column resource_name
+		dataType: string
+		lineageTag: afe91255-f4ac-4834-b810-3312d348ffae
+		sourceLineageTag: resource_name
+		summarizeBy: none
+		sourceColumn: resource_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column resource_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 2a9e8e6e-9684-4a03-96b4-35616561eff1
+		sourceLineageTag: resource_id
+		summarizeBy: none
+		sourceColumn: resource_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column default_department
+		dataType: string
+		lineageTag: ece4023a-88d0-4a46-b2a3-f77009e5390f
+		sourceLineageTag: default_department
+		summarizeBy: none
+		sourceColumn: default_department
+
+		annotation SummarizationSetBy = Automatic
+
+	column security_level
+		dataType: string
+		lineageTag: d4472676-1209-4cc3-9eac-859ef2337853
+		sourceLineageTag: security_level
+		summarizeBy: none
+		sourceColumn: security_level
+
+		annotation SummarizationSetBy = Automatic
+
+	column license_type
+		dataType: string
+		lineageTag: 15db7590-76fc-4e3c-8ffa-8541cff68e46
+		sourceLineageTag: license_type
+		summarizeBy: none
+		sourceColumn: license_type
+
+		annotation SummarizationSetBy = Automatic
+
+	column office_phone
+		dataType: int64
+		formatString: 0
+		lineageTag: ccbc8b52-03e0-4671-aa8b-08f284788015
+		sourceLineageTag: office_phone
+		summarizeBy: none
+		sourceColumn: office_phone
+
+		annotation SummarizationSetBy = Automatic
+
+	column last_activated_date
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 43e47dbe-4993-4d03-86af-cd5611b74565
+		sourceLineageTag: last_activated_date
+		summarizeBy: none
+		sourceColumn: last_activated_date
+
+		annotation SummarizationSetBy = Automatic
+
+	column mobile_phone
+		dataType: int64
+		formatString: 0
+		lineageTag: e81bd0b6-f1f2-421e-a749-03950f033f8d
+		sourceLineageTag: mobile_phone
+		summarizeBy: none
+		sourceColumn: mobile_phone
+
+		annotation SummarizationSetBy = Automatic
+
+	column email
+		dataType: string
+		lineageTag: 10f9a6fd-8009-4f45-b61b-079b81513208
+		sourceLineageTag: email
+		summarizeBy: none
+		sourceColumn: email
+
+		annotation SummarizationSetBy = Automatic
+
+	column primary_internal_location
+		dataType: string
+		lineageTag: dde0e438-2896-4ba3-ac9f-ddf75d72e67f
+		sourceLineageTag: primary_internal_location
+		summarizeBy: none
+		sourceColumn: primary_internal_location
+
+		annotation SummarizationSetBy = Automatic
+
+	column resource_survey_rating
+		dataType: string
+		lineageTag: 834b2f7c-363a-416b-981e-63a2e0019f05
+		sourceLineageTag: resource_survey_rating
+		summarizeBy: none
+		sourceColumn: resource_survey_rating
+
+		annotation SummarizationSetBy = Automatic
+
+	column active
+		dataType: string
+		lineageTag: 6d61d2be-7cba-4a62-9f7b-99d36a4743b5
+		sourceLineageTag: active
+		summarizeBy: none
+		sourceColumn: active
+
+		annotation SummarizationSetBy = Automatic
+
+	column last_activated_by
+		dataType: string
+		lineageTag: e6b0661f-951e-4f8b-b8d8-b7624382ca4e
+		sourceLineageTag: last_activated_by
+		summarizeBy: none
+		sourceColumn: last_activated_by
+
+		annotation SummarizationSetBy = Automatic
+
+	partition resource_list = entity
+		mode: directLake
+		source
+			entityName: resource_list
+			expressionSource: 'DirectLake - gold_layer'
+

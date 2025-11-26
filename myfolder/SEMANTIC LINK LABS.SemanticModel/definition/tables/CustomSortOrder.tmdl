@@ -1,0 +1,31 @@
+table CustomSortOrder
+	lineageTag: e6454454-c286-4838-9460-f26a7e03ffbc
+
+	column Order
+		dataType: string
+		lineageTag: ff7b1193-31c9-478f-8a38-064cf1157a54
+		summarizeBy: none
+		sourceColumn: Order
+
+		annotation SummarizationSetBy = Automatic
+
+	column Sort
+		dataType: int64
+		formatString: 0
+		lineageTag: 02458236-cd05-4be2-9bb3-257be180151b
+		summarizeBy: none
+		sourceColumn: Sort
+
+		annotation SummarizationSetBy = Automatic
+
+	partition CustomSortOrder-6bf564f5-c423-4881-a981-4b6bf54bd3fb = m
+		mode: import
+		source =
+				let
+				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i45Wcgx2VtJRMlSK1YlWcnEFc4yUYmMB", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Order = _t, Sort = _t]),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Order", type text}, {"Sort", Int64.Type}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Dataflow",
+    "displayName": "sharepoint_task"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "650d5d80-5728-a3b6-44f5-281d0c98fe70"
+  }
+}

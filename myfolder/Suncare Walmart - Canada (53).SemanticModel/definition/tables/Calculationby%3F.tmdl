@@ -1,0 +1,466 @@
+table Calculationby?
+	lineageTag: 4b68ff16-1447-4230-8ada-f62566da55b3
+
+	measure 'Background On/Off Last N Week' =
+			
+			VAR x= If(CONTAINSSTRING(MAX('Calculationby?'[Calculationby?]),"Selected Weeks"),"#E6E6E6", "#1184C7")
+			RETURN x
+		lineageTag: 8fab960e-6d37-4599-9ae3-6fafc5e6d2bb
+
+	measure 'Text On/Off Last N Week' =
+			
+			VAR x= If(CONTAINSSTRING(MAX('Calculationby?'[Calculationby?]),"Selected Weeks"),"Filter is in Off State","Last N Weeks")
+			RETURN x
+		lineageTag: 1c2b16d3-1096-4820-a1f1-7c96a77d163d
+
+	measure 'Text Color On/Off Last N Week' =
+			
+			VAR x= If(CONTAINSSTRING(MAX('Calculationby?'[Calculationby?]),"Selected Weeks"),"Black","white")
+			RETURN x
+		lineageTag: e2092795-18ec-47c5-8c69-4a270c854feb
+
+	measure 'Sort by Metrics/Order Title' = "Sort by : " & MAX(CustomSortByMeasure[Metrics]) & " , " & MAX(CustomSortOrder[Order]) & " order"
+		lineageTag: 1fe72264-4693-4435-86b5-2c323f0e49f0
+
+	measure 'Last year sales_10_2' = ```
+			
+			VAR _year = [Comparison Year]
+			
+			// Get if the current year is a leap year
+			VAR lycond = MAX('WMT Weeks'[Is Leap Year])
+			
+			// Check if the previous year was a leap year
+			VAR prev_year_leap = 
+			    CALCULATE(
+			        MAX('WMT Weeks'[Is Leap Year]), 
+			        FILTER(ALL('Date Slicer Table'), 'Date Slicer Table'[Year] = _year - 1)
+			    )
+			
+			// Determine the max week number in the current year
+			VAR max_week = MAX('Date Slicer Table'[WeekNum]) + 1
+			
+			// Calculate the adjusted last year's sales if previous year was a leap year
+			VAR adjusted_ly2m = 
+			    IF(
+			        prev_year_leap = "Yes",
+			        CALCULATE(
+			            [Total Sales], 
+			            FILTER(
+			                ALL('Date Slicer Table'),
+			                'Date Slicer Table'[Year] = _year - 1 &&
+			                'Date Slicer Table'[WeekNum] = max_week
+			            )
+			        ),
+			        0
+			    )
+			
+			// Standard last year sales calculation for selected weeks
+			VAR ly1 = 
+			    CALCULATE(
+			        [Total Sales], 
+			        FILTER(
+			            ALL('Date Slicer Table'),
+			            'Date Slicer Table'[Year] = _year - 1 &&
+			            'Date Slicer Table'[WeekNum] IN VALUES('WMT Weeks'[WMT WK Number])  // New condition
+			        )
+			    )
+			
+			// Special case: Handling when week is 53
+			VAR _ly2m = 
+			    CALCULATE(
+			        [Total Sales], 
+			        FILTER(
+			            ALL('Date Slicer Table'),
+			            'Date Slicer Table'[Year] = _year &&
+			            'Date Slicer Table'[WeekNum] = 1
+			        )
+			    )
+			
+			VAR ly2 = 
+			    IF(
+			        lycond = "Yes", 
+			        adjusted_ly2m,
+			        ly1
+			    )
+			
+			// Determine if any of the selected weeks is 53
+			VAR week_53_condition = 
+			    COUNTROWS(
+			        FILTER(
+			            VALUES('WMT Weeks'[WMT WK Number]),
+			            'WMT Weeks'[WMT WK Number] = 53
+			        )
+			    ) > 0
+			
+			// Final sales calculation based on conditions
+			VAR final_sales = 
+			    IF(
+			        week_53_condition, 
+			        _ly2m,  // Case when any of the weeks is 53
+			        IF(
+			            prev_year_leap = "Yes", 
+			            adjusted_ly2m,  // Case when the previous year was a leap year
+			            ly1 + ly2  // Default case
+			        )
+			    )
+			
+			RETURN final_sales
+			```
+		lineageTag: 03471cf8-b614-4a13-99e0-f8268dce38da
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Last year QTY_11_2' = ```
+			
+			VAR _year=[Comparison Year]
+			VAR ly1=CALCULATE([Total Quantity], 'Date Slicer Table'[Year] = _year-1,'WMT Weeks'[WMT WK Number] in VALUES('WMT Weeks'[WMT WK Number]))
+			VAr lycond=Max('WMT Weeks'[Is Leap Year])
+			VAr _ly2m=     CALCULATE(
+			         [Total Quantity], 
+			            'Date Slicer Table'[Year] = _year,
+			        'Date Slicer Table'[WeekNum] = 1, All('Date Slicer Table'))
+			        
+			VAR ly2 = 
+			    IF(
+			        lycond == "Yes" && MAx('WMT Weeks'[WMT WK Number])=53,_ly2m
+			   
+			    )
+			
+			RETURN 
+			If( MAx('WMT Weeks'[WMT WK Number])=53, ly2,ly1+ly2)
+			```
+		lineageTag: bb8ebecf-b515-4f07-9878-8932be65b4aa
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure Last_year_sales_17_2 = ```
+			VAR _year = [Comparison Year]
+			VAR x = SELECTEDVALUE('CustomCalculation_based_on_LastNWeek/Selected Week'[Metrics])
+			
+			VAR lycond = MAX('WMT Weeks'[Is Leap Year])
+			
+			// Checking if Comparison Year -1 was a Leap Year
+			VAR prev_year_leap = 
+			    CALCULATE(
+			        MAX('WMT Weeks'[Is Leap Year]), 
+			        FILTER(ALL('Date Slicer Table'), 'Date Slicer Table'[Year] = _year - 1)
+			    )
+			
+			VAR max_week = MAX('Date Slicer Table'[WeekNum])+1
+			
+			VAR adjusted_ly2m = 
+			    IF(
+			        prev_year_leap = "Yes",
+			        CALCULATE(
+			            [Total Sales], 
+			            FILTER(
+			                ALL('Date Slicer Table'),
+			                'Date Slicer Table'[Year] = _year - 1 &&
+			                'Date Slicer Table'[WeekNum] = 
+			                    max_week
+			            )
+			        ),
+			        0
+			    )
+			
+			VAR ly2 = 
+			    IF(
+			        lycond = "Yes", 
+			        adjusted_ly2m,
+			        [Last year sales_10_2]
+			    )
+			
+			RETURN adjusted_ly2m
+			
+			
+			
+			
+			
+			```
+		formatString: 0
+		lineageTag: 5de0deb5-5c36-4668-8329-5760d062585b
+
+	measure Last_year_sales_combined = ```
+			
+			VAR _year = [Comparison Year]
+			
+			// Get if the current year is a leap year
+			VAR lycond = MAX('WMT Weeks'[Is Leap Year])
+			
+			// Check if the previous year was a leap year
+			VAR prev_year_leap = 
+			    CALCULATE(
+			        MAX('WMT Weeks'[Is Leap Year]), 
+			        FILTER(ALL('Date Slicer Table'), 'Date Slicer Table'[Year] = _year - 1)
+			    )
+			
+			// Determine the max week number in the current year
+			VAR max_week = MAX('Date Slicer Table'[WeekNum]) + 1
+			
+			// Calculate the adjusted last year's sales if previous year was a leap year
+			VAR adjusted_ly2m = 
+			    IF(
+			        prev_year_leap = "Yes",
+			        CALCULATE(
+			            [Total Sales], 
+			            FILTER(
+			                ALL('Date Slicer Table'),
+			                'Date Slicer Table'[Year] = _year - 1 &&
+			                'Date Slicer Table'[WeekNum] = max_week
+			            )
+			        ),
+			        0
+			    )
+			
+			// Standard last year sales calculation for selected weeks + 1
+			VAR ly1 = 
+			    CALCULATE(
+			        [Total Sales],
+			        FILTER(
+			            ALL('Date Slicer Table'),
+			            'Date Slicer Table'[Year] = _year - 1 &&
+			            'Date Slicer Table'[WeekNum] IN 
+			                SELECTCOLUMNS(
+			                    VALUES('Date Slicer Table'[WeekNum]),
+			                    "Week", 
+			                    IF(
+			                        prev_year_leap = "Yes",
+			                        'Date Slicer Table'[WeekNum] + 1,  // Adjust +1 if leap year
+			                        'Date Slicer Table'[WeekNum]       // Else keep same week
+			                    )
+			                )
+			        )
+			    )
+			
+			
+			// Special case: Handling when week is 53
+			VAR _ly2m = 
+			    CALCULATE(
+			        [Total Sales], 
+			        FILTER(
+			            ALL('Date Slicer Table'),
+			            'Date Slicer Table'[Year] = _year &&  // Corrected to last year
+			            'Date Slicer Table'[WeekNum] = 1
+			        )
+			    )
+			
+			VAR ly2 = 
+			    IF(
+			        lycond = "Yes", 
+			        adjusted_ly2m,
+			        ly1
+			    )
+			
+			// Determine if the week number is 53
+			VAR week_53_condition = MAX('WMT Weeks'[WMT WK Number]) = 53
+			
+			// Aggregate sales for multiple weeks in the last year + 1
+			VAR last_year_sales = 
+			    CALCULATE(
+			        [Total Sales], 
+			        FILTER(
+			            ALL('Date Slicer Table'),
+			            'Date Slicer Table'[Year] = _year - 1 &&  // Corrected to last year
+			            'Date Slicer Table'[WeekNum] IN 
+			                SELECTCOLUMNS(
+			                    VALUES('Date Slicer Table'[WeekNum]),
+			                    "Week", 'Date Slicer Table'[WeekNum] + 1
+			                )
+			        )
+			    )
+			
+			// Final sales calculation based on conditions
+			VAR final_sales = 
+			    IF(
+			        week_53_condition, 
+			        _ly2m,  // Case when the week is 53
+			        IF(
+			            prev_year_leap = "Yes", 
+			            adjusted_ly2m,  // Case when the previous year was a leap year
+			            ly1   // Default case
+			        )
+			    )
+			
+			// Return the aggregated sales for last year when multiple weeks are selected
+			RETURN 
+			    IF(
+			        COUNTROWS(VALUES('Date Slicer Table'[WeekNum])) > 1,
+			        last_year_sales,  // Return last year's aggregated sales for multiple weeks + 1
+			        final_sales       // Return the final sales calculation for a single week
+			    )
+			```
+		lineageTag: 93754bcb-dc83-4a71-bfdc-39bf69461c9f
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure Last_year_QTY_combined = ```
+			
+			VAR _year = [Comparison Year]
+			
+			// Get if the current year is a leap year
+			VAR lycond = MAX('WMT Weeks'[Is Leap Year])
+			
+			// Check if the previous year was a leap year
+			VAR prev_year_leap = 
+			    CALCULATE(
+			        MAX('WMT Weeks'[Is Leap Year]), 
+			        FILTER(ALL('Date Slicer Table'), 'Date Slicer Table'[Year] = _year - 1)
+			    )
+			
+			// Determine the max week number in the current year
+			VAR max_week = MAX('Date Slicer Table'[WeekNum]) + 1
+			
+			// Calculate the adjusted last year's sales if previous year was a leap year
+			VAR adjusted_ly2m = 
+			    IF(
+			        prev_year_leap = "Yes",
+			        CALCULATE(
+			            [Total Quantity], 
+			            FILTER(
+			                ALL('Date Slicer Table'),
+			                'Date Slicer Table'[Year] = _year - 1 &&
+			                'Date Slicer Table'[WeekNum] = max_week
+			            )
+			        ),
+			        0
+			    )
+			
+			// Standard last year sales calculation for selected weeks + 1
+			VAR ly1 = 
+			    CALCULATE(
+			        [Total Quantity],
+			        FILTER(
+			            ALL('Date Slicer Table'),
+			            'Date Slicer Table'[Year] = _year - 1 &&
+			            'Date Slicer Table'[WeekNum] IN 
+			                SELECTCOLUMNS(
+			                    VALUES('Date Slicer Table'[WeekNum]),
+			                    "Week", 
+			                    IF(
+			                        prev_year_leap = "Yes",
+			                        'Date Slicer Table'[WeekNum] + 1,  // Adjust +1 if leap year
+			                        'Date Slicer Table'[WeekNum]       // Else keep same week
+			                    )
+			                )
+			        )
+			    )
+			
+			
+			// Special case: Handling when week is 53
+			VAR _ly2m = 
+			    CALCULATE(
+			        [Total Quantity], 
+			        FILTER(
+			            ALL('Date Slicer Table'),
+			            'Date Slicer Table'[Year] = _year &&  // Corrected to last year
+			            'Date Slicer Table'[WeekNum] = 1
+			        )
+			    )
+			
+			VAR ly2 = 
+			    IF(
+			        lycond = "Yes", 
+			        adjusted_ly2m,
+			        ly1
+			    )
+			
+			// Determine if the week number is 53
+			VAR week_53_condition = MAX('WMT Weeks'[WMT WK Number]) = 53
+			
+			// Aggregate sales for multiple weeks in the last year + 1
+			VAR last_year_sales = 
+			    CALCULATE(
+			        [Total Quantity], 
+			        FILTER(
+			            ALL('Date Slicer Table'),
+			            'Date Slicer Table'[Year] = _year - 1 &&  // Corrected to last year
+			            'Date Slicer Table'[WeekNum] IN 
+			                SELECTCOLUMNS(
+			                    VALUES('Date Slicer Table'[WeekNum]),
+			                    "Week", 'Date Slicer Table'[WeekNum] + 1
+			                )
+			        )
+			    )
+			
+			// Final sales calculation based on conditions
+			VAR final_sales = 
+			    IF(
+			        week_53_condition, 
+			        _ly2m,  // Case when the week is 53
+			        IF(
+			            prev_year_leap = "Yes", 
+			            adjusted_ly2m,  // Case when the previous year was a leap year
+			            ly1   // Default case
+			        )
+			    )
+			
+			// Return the aggregated sales for last year when multiple weeks are selected
+			RETURN 
+			    IF(
+			        COUNTROWS(VALUES('Date Slicer Table'[WeekNum])) > 1,
+			        last_year_sales,  // Return last year's aggregated sales for multiple weeks + 1
+			        final_sales       // Return the final sales calculation for a single week
+			    )
+			```
+		formatString: 0
+		lineageTag: 787b2950-69f7-4a73-b830-e0ff5355d999
+
+	column Calculationby?
+		lineageTag: 9d1da607-afea-44aa-8736-7f7bc5de3a26
+		summarizeBy: none
+		sourceColumn: [Value1]
+		sortByColumn: 'Calculationby? Order'
+
+		relatedColumnDetails
+			groupByColumn: 'Calculationby? Fields'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Calculationby? Fields'
+		lineageTag: fe006724-8111-4636-a05c-188cc6d8e79e
+		summarizeBy: none
+		sourceColumn: [Value2]
+		sortByColumn: 'Calculationby? Order'
+
+		extendedProperty ParameterMetadata =
+				{
+				  "version": 3,
+				  "kind": 2
+				}
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Calculationby? Order'
+		isHidden
+		formatString: 0
+		lineageTag: 05a72c94-813d-4c8b-accc-7e8dccf5e84b
+		summarizeBy: sum
+		sourceColumn: [Value3]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Used for title' = IF('Calculationby?'[Calculationby?] = "Last N Weeks","Last N Week","Selected Weeks")
+		lineageTag: 34881816-d053-4df8-a903-d8c63b381b9f
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column Try = "." // IF('Calculationby?'[Calculationby?] = "Last N Weeks",".",".")
+		lineageTag: f240836e-5ed0-442c-afe8-7a260cccbc9e
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Calculationby? = calculated
+		mode: import
+		source = ```
+				
+				{
+				    ("Last N Weeks", NAMEOF('CustomCalculation_based_on_LastNWeek/Selected Week'[Calculation_based_on_LastNWeek]), 0),
+				    ("Selected Weeks", NAMEOF('CustomCalculation_based_on_LastNWeek/Selected Week'[Calculation_based_on_Selected_Weeks(Custom Slicer)]), 1)
+				}
+				
+				```
+
+	annotation PBI_Id = eea064d819fc42ebbef77974b39da738
+

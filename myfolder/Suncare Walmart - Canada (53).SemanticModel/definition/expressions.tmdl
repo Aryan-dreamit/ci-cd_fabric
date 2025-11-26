@@ -1,0 +1,116 @@
+expression FactSuncare_CurrentYear =
+		let
+		    Source = Sql.Database("45abcdnsw5ru7e2ughqdsi5nlu-ttswb43k6wtebajhba5hzpoqhu.datawarehouse.fabric.microsoft.com", "GoldLakehouse", [Query="select [$Table].[Dept_Category_Group_Description] as [Dept Category Group Description],#(lf)    [$Table].[Dept_Category_Description] as [Dept Category Description],#(lf)    [$Table].[Dept_Subcategory_Description] as [Dept Subcategory Description],#(lf)    [$Table].[Subdiv] as [Subdiv],#(lf)    [$Table].[Region] as [Region],#(lf)    [$Table].[District] as [District],#(lf)    [$Table].[Store_Nbr] as [Store Nbr],#(lf)    [$Table].[Store_Name] as [Store Name],#(lf)    [$Table].[Street_Address] as [Street Address],#(lf)    [$Table].[Building_Address] as [Building Address],#(lf)    [$Table].[City] as [City],#(lf)    [$Table].[State] as [State],#(lf)    [$Table].[Store_Type_Descr] as [Store Type Descr],#(lf)    [$Table].[Zip_Code] as [Zip Code],#(lf)    [$Table].[Open_Date] as [Open Date],#(lf)    [$Table].[Fineline_Number] as [Fineline Number],#(lf)    [$Table].[Fineline_Description] as [Fineline Description],#(lf)    [$Table].[Consumer_Id] as [Consumer Id],#(lf)    [$Table].[Prime_Item_Desc] as [Prime Item Desc],#(lf)    [$Table].[Prime_Item_Nbr] as [Prime Item Nbr],#(lf)    [$Table].[Prime_Size_Desc] as [Prime Size Desc],#(lf)    [$Table].[Item_Nbr] as [Item Nbr],#(lf)    [$Table].[Item_Flags] as [Item Flags],#(lf)    [$Table].[Item_Desc_1] as [Item Desc 1],#(lf)    [$Table].[Item_Desc_2] as [Item Desc 2],#(lf)    [$Table].[UPC] as [UPC],#(lf)    [$Table].[UPC_Desc] as [UPC Desc],#(lf)    [$Table].[Unit_Retail] as [Unit Retail],#(lf)    [$Table].[Unit_Cost] as [Unit Cost],#(lf)    [$Table].[MU_%] as [MU %],#(lf)    [$Table].[Item_Status] as [Item Status],#(lf)    [$Table].[Brand_ID] as [Brand ID],#(lf)    [$Table].[Brand_Desc] as [Brand Desc],#(lf)    [$Table].[Vendor_Nbr] as [Vendor Nbr],#(lf)    [$Table].[Vendor_Name] as [Vendor Name],#(lf)    [$Table].[WM_Week] as [WM Week],#(lf)    [$Table].[POS_Qty] as [POS Qty],#(lf)    [$Table].[POS_Sales] as [POS Sales],#(lf)    [$Table].[POS_Store_Count] as [POS Store Count],#(lf)    [$Table].[Gross_Ship_Qty] as [Gross Ship Qty],#(lf)    [$Table].[Gross_Ship_Retail] as [Gross Ship Retail],#(lf)    [$Table].[Gross_Ship_Cost] as [Gross Ship Cost],#(lf)    [$Table].[Net_Ship_Qty] as [Net Ship Qty],#(lf)    [$Table].[Net_Ship_Retail] as [Net Ship Retail],#(lf)    [$Table].[Net_Ships_Cost] as [Net Ships Cost],#(lf)    [$Table].[Hist_On_Hand_Qty] as [Hist On Hand Qty],#(lf)    [$Table].[InsertDate] as [InsertDate]#(lf)from [dbo].[FactsuncareCanada] as [$Table]#(lf)WHERE [WM_Week] >= "& Number.ToText(CurrentYearWeek)&"#(lf)"])
+		in
+		    Source
+	lineageTag: ea2e74f8-fe04-418a-a8bf-82f88478ab63
+	queryGroup: Fact\Weekly
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+
+expression FactSuncare_PreviousYear =
+		let
+		    Source = Sql.Database("45abcdnsw5ru7e2ughqdsi5nlu-ttswb43k6wtebajhba5hzpoqhu.datawarehouse.fabric.microsoft.com", "GoldLakehouse", [Query="select [$Table].[Dept_Category_Group_Description] as [Dept Category Group Description],#(lf)    [$Table].[Dept_Category_Description] as [Dept Category Description],#(lf)    [$Table].[Dept_Subcategory_Description] as [Dept Subcategory Description],#(lf)    [$Table].[Subdiv] as [Subdiv],#(lf)    [$Table].[Region] as [Region],#(lf)    [$Table].[District] as [District],#(lf)    [$Table].[Store_Nbr] as [Store Nbr],#(lf)    [$Table].[Store_Name] as [Store Name],#(lf)    [$Table].[Street_Address] as [Street Address],#(lf)    [$Table].[Building_Address] as [Building Address],#(lf)    [$Table].[City] as [City],#(lf)    [$Table].[State] as [State],#(lf)    [$Table].[Store_Type_Descr] as [Store Type Descr],#(lf)    [$Table].[Zip_Code] as [Zip Code],#(lf)    [$Table].[Open_Date] as [Open Date],#(lf)    [$Table].[Fineline_Number] as [Fineline Number],#(lf)    [$Table].[Fineline_Description] as [Fineline Description],#(lf)    [$Table].[Consumer_Id] as [Consumer Id],#(lf)    [$Table].[Prime_Item_Desc] as [Prime Item Desc],#(lf)    [$Table].[Prime_Item_Nbr] as [Prime Item Nbr],#(lf)    [$Table].[Prime_Size_Desc] as [Prime Size Desc],#(lf)    [$Table].[Item_Nbr] as [Item Nbr],#(lf)    [$Table].[Item_Flags] as [Item Flags],#(lf)    [$Table].[Item_Desc_1] as [Item Desc 1],#(lf)    [$Table].[Item_Desc_2] as [Item Desc 2],#(lf)    [$Table].[UPC] as [UPC],#(lf)    [$Table].[UPC_Desc] as [UPC Desc],#(lf)    [$Table].[Unit_Retail] as [Unit Retail],#(lf)    [$Table].[Unit_Cost] as [Unit Cost],#(lf)    [$Table].[MU_%] as [MU %],#(lf)    [$Table].[Item_Status] as [Item Status],#(lf)    [$Table].[Brand_ID] as [Brand ID],#(lf)    [$Table].[Brand_Desc] as [Brand Desc],#(lf)    [$Table].[Vendor_Nbr] as [Vendor Nbr],#(lf)    [$Table].[Vendor_Name] as [Vendor Name],#(lf)    [$Table].[WM_Week] as [WM Week],#(lf)    [$Table].[POS_Qty] as [POS Qty],#(lf)    [$Table].[POS_Sales] as [POS Sales],#(lf)    [$Table].[POS_Store_Count] as [POS Store Count],#(lf)    [$Table].[Gross_Ship_Qty] as [Gross Ship Qty],#(lf)    [$Table].[Gross_Ship_Retail] as [Gross Ship Retail],#(lf)    [$Table].[Gross_Ship_Cost] as [Gross Ship Cost],#(lf)    [$Table].[Net_Ship_Qty] as [Net Ship Qty],#(lf)    [$Table].[Net_Ship_Retail] as [Net Ship Retail],#(lf)    [$Table].[Net_Ships_Cost] as [Net Ships Cost],#(lf)    [$Table].[Hist_On_Hand_Qty] as [Hist On Hand Qty],#(lf)    [$Table].[InsertDate] as [InsertDate]#(lf)from [dbo].[FactsuncareCanada] as [$Table]#(lf)WHERE [WM_Week] <= "& Number.ToText(PreviousEndYearWeek)&"#(lf)"])
+		in
+		    Source
+	lineageTag: 7d7ff5ce-dee7-4f95-b0fa-adc9377d07e6
+	queryGroup: Fact\Weekly
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression 'WMT Weeks (old)' =
+		let
+		    Source = Sql.Database("dreamit.database.windows.net", "BDF"),
+		    dbo_WMTWeeks = Source{[Schema="dbo",Item="WMTWeeks"]}[Data],
+		    #"Changed Type" = Table.TransformColumnTypes(dbo_WMTWeeks,{{"WMT Week", Int64.Type}, {"Start Date", type date}, {"Fiscal Year", Int64.Type}, {"WMT WK Number", Int64.Type}, {"Quarter", Int64.Type}}),
+		    #"Added Custom2" = Table.AddColumn(#"Changed Type", "Custom", each Date.AddDays([Start Date],6)),
+		    #"Renamed Columns3" = Table.RenameColumns(#"Added Custom2",{{"Custom", "End Date"}}),
+		    #"Inserted Month Name1" = Table.AddColumn(#"Renamed Columns3", "Month Name", each Date.MonthName([End Date]), type text),
+		    #"Extracted First Characters" = Table.TransformColumns(#"Inserted Month Name1", {{"Month Name", each Text.Start(_, 3), type text}}),
+		    #"Renamed Columns4" = Table.RenameColumns(#"Extracted First Characters",{{"Month Name", "MonthEndDate"}}),
+		    #"Added Custom" = Table.AddColumn(#"Renamed Columns4", "QuarterName", each "Q"),
+		    #"Inserted Merged Column" = Table.AddColumn(#"Added Custom", "Merged", each Text.Combine({[QuarterName], Text.From([Quarter], "en-IN")}, ""), type text),
+		    #"Removed Columns" = Table.RemoveColumns(#"Inserted Merged Column",{"QuarterName"}),
+		    #"Renamed Columns1" = Table.RenameColumns(#"Removed Columns",{{"Merged", "QuarterName"}}),
+		    #"Filtered Rows" = Table.SelectRows(#"Renamed Columns1", each [WMT Week] <> null and [WMT Week] <> ""),
+		    #"Renamed Columns" = Table.RenameColumns(#"Filtered Rows",{{"Quarter", "Quarter No."}}),
+		    #"Inserted Month" = Table.AddColumn(#"Renamed Columns", "Month", each Date.Month([End Date]), Int64.Type),
+		    #"Renamed Columns2" = Table.RenameColumns(#"Inserted Month",{{"Month", "MonthEndDateInt"}}),
+		    #"Changed Type1" = Table.TransformColumnTypes(#"Renamed Columns2",{{"End Date", type date}}),
+		    #"Filtered Rows1" = Table.SelectRows(#"Changed Type1", each [Fiscal Year] >= 2022 and [Fiscal Year] <= MaxYear),
+		    #"Filtered Rows2" = Table.SelectRows(#"Filtered Rows1", each ([WMT WK Number] <> 53))
+		in
+		    #"Filtered Rows2"
+	lineageTag: 92f42b38-3c03-417d-9e7d-64dff043da7a
+	queryGroup: Dimensions
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression CurrentYearWeek = 202501 meta [IsParameterQuery = true, IsParameterQueryRequired = true, Type = "Number"]
+	lineageTag: 4aba00a8-bf56-4429-b17e-9ffda8731646
+	queryGroup: Parameter
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Number
+
+expression PreviousEndYearWeek = 202453 meta [IsParameterQuery = true, IsParameterQueryRequired = true, Type = "Number"]
+	lineageTag: 93029e29-5096-4e8a-a17d-4014753a9c1b
+	queryGroup: Parameter
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Number
+
+expression FactSuncare_Canada_Inventory_PreviousYear =
+		let
+		    Source = Sql.Database("45abcdnsw5ru7e2ughqdsi5nlu-ttswb43k6wtebajhba5hzpoqhu.datawarehouse.fabric.microsoft.com", "GoldLakehouse", [Query="select [$Table].[Dept_Category_Group_Description] as [Dept Category Group Description],#(lf)    [$Table].[Dept_Category_Description] as [Dept Category Description],#(lf)    [$Table].[Dept_Subcategory_Description] as [Dept Subcategory Description],#(lf)    [$Table].[Subdiv] as [Subdiv],#(lf)    [$Table].[Region] as [Region],#(lf)    [$Table].[District] as [District],#(lf)    [$Table].[Store_Nbr] as [Store Nbr],#(lf)    [$Table].[Store_Name] as [Store Name],#(lf)    [$Table].[Street_Address] as [Street Address],#(lf)    [$Table].[Building_Address] as [Building Address],#(lf)    [$Table].[City] as [City],#(lf)    [$Table].[State] as [State],#(lf)    [$Table].[Store_Type_Descr] as [Store Type Descr],#(lf)    [$Table].[Zip_Code] as [Zip Code],#(lf)    [$Table].[Open_Date] as [Open Date],#(lf)    [$Table].[Fineline_Number] as [Fineline Number],#(lf)    [$Table].[Fineline_Description] as [Fineline Description],#(lf)    [$Table].[Consumer_Id] as [Consumer Id],#(lf)    [$Table].[Prime_Item_Desc] as [Prime Item Desc],#(lf)    [$Table].[Prime_Item_Nbr] as [Prime Item Nbr],#(lf)    [$Table].[Prime_Size_Desc] as [Prime Size Desc],#(lf)    [$Table].[Item_Nbr] as [Item Nbr],#(lf)    [$Table].[Item_Flags] as [Item Flags],#(lf)    [$Table].[Item_Desc_1] as [Item Desc 1],#(lf)    [$Table].[Item_Desc_2] as [Item Desc 2],#(lf)    [$Table].[UPC] as [UPC],#(lf)    [$Table].[UPC_Desc] as [UPC Desc],#(lf)    [$Table].[Unit_Retail] as [Unit Retail],#(lf)    [$Table].[Unit_Cost] as [Unit Cost],#(lf)    [$Table].[MU_%] as [MU %],#(lf)    [$Table].[Item_Status] as [Item Status],#(lf)    [$Table].[Brand_ID] as [Brand ID],#(lf)    [$Table].[Brand_Desc] as [Brand Desc],#(lf)    [$Table].[Vendor_Nbr] as [Vendor Nbr],#(lf)    [$Table].[Vendor_Name] as [Vendor Name],#(lf)    [$Table].[WM_Week] as [WM Week],#(lf)    [$Table].[Curr_Valid_Store/Item_Comb.] as [Curr Valid Store/Item Comb.],#(lf)    [$Table].[Curr_Str_On_Hand_Qty] as [Curr Str On Hand Qty],#(lf)    [$Table].[Curr_Str_On_Order_Qty] as [Curr Str On Order Qty],#(lf)    [$Table].[Curr_Str_In_Transit_Qty] as [Curr Str In Transit Qty],#(lf)    [$Table].[Curr_Str_In_Whse_Qty] as [Curr Str In Whse Qty],#(lf)    [$Table].[Curr_Str_On_Hand_Retail] as [Curr Str On Hand Retail],#(lf)    [$Table].[Curr_Str_On_Order_Retail] as [Curr Str On Order Retail],#(lf)    [$Table].[Curr_Str_In_Transit_Retail] as [Curr Str In Transit Retail],#(lf)    [$Table].[Curr_Str_In_Whse_Retail] as [Curr Str In Whse Retail],#(lf)    [$Table].[InsertDate] as [InsertDate]#(lf)from [dbo].[FactsuncareCanadaInventory] as [$Table]#(lf)WHERE [WM_Week] <= "& Number.ToText(PreviousEndYearWeek)&"#(lf)"])
+		    in Source
+	lineageTag: 89f68cab-4add-4c72-9f38-d2d19f4e4364
+	queryGroup: Fact\Inventory
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression FactSuncare_Canada_Inventory_CurrentYear =
+		let
+		    Source = Sql.Database("45abcdnsw5ru7e2ughqdsi5nlu-ttswb43k6wtebajhba5hzpoqhu.datawarehouse.fabric.microsoft.com", "GoldLakehouse", [Query="select [$Table].[Dept_Category_Group_Description] as [Dept Category Group Description],#(lf)    [$Table].[Dept_Category_Description] as [Dept Category Description],#(lf)    [$Table].[Dept_Subcategory_Description] as [Dept Subcategory Description],#(lf)    [$Table].[Subdiv] as [Subdiv],#(lf)    [$Table].[Region] as [Region],#(lf)    [$Table].[District] as [District],#(lf)    [$Table].[Store_Nbr] as [Store Nbr],#(lf)    [$Table].[Store_Name] as [Store Name],#(lf)    [$Table].[Street_Address] as [Street Address],#(lf)    [$Table].[Building_Address] as [Building Address],#(lf)    [$Table].[City] as [City],#(lf)    [$Table].[State] as [State],#(lf)    [$Table].[Store_Type_Descr] as [Store Type Descr],#(lf)    [$Table].[Zip_Code] as [Zip Code],#(lf)    [$Table].[Open_Date] as [Open Date],#(lf)    [$Table].[Fineline_Number] as [Fineline Number],#(lf)    [$Table].[Fineline_Description] as [Fineline Description],#(lf)    [$Table].[Consumer_Id] as [Consumer Id],#(lf)    [$Table].[Prime_Item_Desc] as [Prime Item Desc],#(lf)    [$Table].[Prime_Item_Nbr] as [Prime Item Nbr],#(lf)    [$Table].[Prime_Size_Desc] as [Prime Size Desc],#(lf)    [$Table].[Item_Nbr] as [Item Nbr],#(lf)    [$Table].[Item_Flags] as [Item Flags],#(lf)    [$Table].[Item_Desc_1] as [Item Desc 1],#(lf)    [$Table].[Item_Desc_2] as [Item Desc 2],#(lf)    [$Table].[UPC] as [UPC],#(lf)    [$Table].[UPC_Desc] as [UPC Desc],#(lf)    [$Table].[Unit_Retail] as [Unit Retail],#(lf)    [$Table].[Unit_Cost] as [Unit Cost],#(lf)    [$Table].[MU_%] as [MU %],#(lf)    [$Table].[Item_Status] as [Item Status],#(lf)    [$Table].[Brand_ID] as [Brand ID],#(lf)    [$Table].[Brand_Desc] as [Brand Desc],#(lf)    [$Table].[Vendor_Nbr] as [Vendor Nbr],#(lf)    [$Table].[Vendor_Name] as [Vendor Name],#(lf)    [$Table].[WM_Week] as [WM Week],#(lf)    [$Table].[Curr_Valid_Store/Item_Comb.] as [Curr Valid Store/Item Comb.],#(lf)    [$Table].[Curr_Str_On_Hand_Qty] as [Curr Str On Hand Qty],#(lf)    [$Table].[Curr_Str_On_Order_Qty] as [Curr Str On Order Qty],#(lf)    [$Table].[Curr_Str_In_Transit_Qty] as [Curr Str In Transit Qty],#(lf)    [$Table].[Curr_Str_In_Whse_Qty] as [Curr Str In Whse Qty],#(lf)    [$Table].[Curr_Str_On_Hand_Retail] as [Curr Str On Hand Retail],#(lf)    [$Table].[Curr_Str_On_Order_Retail] as [Curr Str On Order Retail],#(lf)    [$Table].[Curr_Str_In_Transit_Retail] as [Curr Str In Transit Retail],#(lf)    [$Table].[Curr_Str_In_Whse_Retail] as [Curr Str In Whse Retail],#(lf)    [$Table].[InsertDate] as [InsertDate]#(lf)from [dbo].[FactsuncareCanadaInventory] as [$Table]#(lf)WHERE [WM_Week] >= "& Number.ToText(CurrentYearWeek)&"#(lf)"])
+		    in Source
+	lineageTag: b8d6db0a-4e80-4e9b-a22c-f896c55e0052
+	queryGroup: Fact\Inventory
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression factsuncare_canada_Ecom_PreviousYear =
+		let
+		    Source = Sql.Database("45abcdnsw5ru7e2ughqdsi5nlu-ttswb43k6wtebajhba5hzpoqhu.datawarehouse.fabric.microsoft.com", "GoldLakehouse", [Query="select [$Table].[Dept_Category_Description] as [Dept_Category_Description],#(lf)    [$Table].[Dept_Subcategory_Description] as [Dept_Subcategory_Description],#(lf)    [$Table].[Fineline] as [Fineline],#(lf)    [$Table].[Fineline_Desc] as [Fineline_Desc],#(lf)    [$Table].[Item_Nbr] as [Item_Nbr],#(lf)    [$Table].[Item_Desc_1] as [Item_Desc_1],#(lf)    [$Table].[UPC] as [UPC],#(lf)    [$Table].[Brand_Desc] as [Brand_Desc],#(lf)    [$Table].[Vendor_Name] as [Vendor_Name],#(lf)    [$Table].[WM_Week] as [WM_Week],#(lf)    [$Table].[Net_Shipped_Sales_GM_Home_Delivery] as [Net_Shipped_Sales_GM_Home_Delivery],#(lf)    [$Table].[Net_Shipped_Sales_GM_Site_to_Store] as [Net_Shipped_Sales_GM_Site_to_Store],#(lf)    [$Table].[Net_Shipped_Sales_GM_Pick_From_Store] as [Net_Shipped_Sales_GM_Pick_From_Store],#(lf)    [$Table].[Net_Shipped_Sales_GM_Ship_From_Store] as [Net_Shipped_Sales_GM_Ship_From_Store],#(lf)    [$Table].[Net_Shipped_Sales_OG_Store_Pickup] as [Net_Shipped_Sales_OG_Store_Pickup],#(lf)    [$Table].[Net_Shipped_Sales_OG_Home_Delivery] as [Net_Shipped_Sales_OG_Home_Delivery],#(lf)    [$Table].[Net_Shipped_Units_GM_Home_Delivery] as [Net_Shipped_Units_GM_Home_Delivery],#(lf)    [$Table].[Net_Shipped_Units_GM_Site_to_Store] as [Net_Shipped_Units_GM_Site_to_Store],#(lf)    [$Table].[Net_Shipped_Units_GM_Pick_From_Store] as [Net_Shipped_Units_GM_Pick_From_Store],#(lf)    [$Table].[Net_Shipped_Units_GM_Ship_From_Store] as [Net_Shipped_Units_GM_Ship_From_Store],#(lf)    [$Table].[Net_Shipped_Units_OG_Store_Pickup] as [Net_Shipped_Units_OG_Store_Pickup],#(lf)    [$Table].[Net_Shipped_Units_OG_Home_Delivery] as [Net_Shipped_Units_OG_Home_Delivery],#(lf)    [$Table].[InsertDate] as [InsertDate]#(lf)from [dbo].[FactsuncareCanadaEcom] as [$Table]#(lf)WHERE [WM_Week] <= "& Number.ToText(PreviousEndYearWeek)&"#(lf)"])
+		in
+		    Source
+	lineageTag: b3fb1776-21fa-4899-84a8-1b4413d8c82d
+	queryGroup: Fact\Ecommerce
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression factsuncare_canada_Ecom_CurrentYear =
+		let
+		    Source = Sql.Database("45abcdnsw5ru7e2ughqdsi5nlu-ttswb43k6wtebajhba5hzpoqhu.datawarehouse.fabric.microsoft.com", "GoldLakehouse", [Query="select [$Table].[Dept_Category_Description] as [Dept_Category_Description],#(lf)    [$Table].[Dept_Subcategory_Description] as [Dept_Subcategory_Description],#(lf)    [$Table].[Fineline] as [Fineline],#(lf)    [$Table].[Fineline_Desc] as [Fineline_Desc],#(lf)    [$Table].[Item_Nbr] as [Item_Nbr],#(lf)    [$Table].[Item_Desc_1] as [Item_Desc_1],#(lf)    [$Table].[UPC] as [UPC],#(lf)    [$Table].[Brand_Desc] as [Brand_Desc],#(lf)    [$Table].[Vendor_Name] as [Vendor_Name],#(lf)    [$Table].[WM_Week] as [WM_Week],#(lf)    [$Table].[Net_Shipped_Sales_GM_Home_Delivery] as [Net_Shipped_Sales_GM_Home_Delivery],#(lf)    [$Table].[Net_Shipped_Sales_GM_Site_to_Store] as [Net_Shipped_Sales_GM_Site_to_Store],#(lf)    [$Table].[Net_Shipped_Sales_GM_Pick_From_Store] as [Net_Shipped_Sales_GM_Pick_From_Store],#(lf)    [$Table].[Net_Shipped_Sales_GM_Ship_From_Store] as [Net_Shipped_Sales_GM_Ship_From_Store],#(lf)    [$Table].[Net_Shipped_Sales_OG_Store_Pickup] as [Net_Shipped_Sales_OG_Store_Pickup],#(lf)    [$Table].[Net_Shipped_Sales_OG_Home_Delivery] as [Net_Shipped_Sales_OG_Home_Delivery],#(lf)    [$Table].[Net_Shipped_Units_GM_Home_Delivery] as [Net_Shipped_Units_GM_Home_Delivery],#(lf)    [$Table].[Net_Shipped_Units_GM_Site_to_Store] as [Net_Shipped_Units_GM_Site_to_Store],#(lf)    [$Table].[Net_Shipped_Units_GM_Pick_From_Store] as [Net_Shipped_Units_GM_Pick_From_Store],#(lf)    [$Table].[Net_Shipped_Units_GM_Ship_From_Store] as [Net_Shipped_Units_GM_Ship_From_Store],#(lf)    [$Table].[Net_Shipped_Units_OG_Store_Pickup] as [Net_Shipped_Units_OG_Store_Pickup],#(lf)    [$Table].[Net_Shipped_Units_OG_Home_Delivery] as [Net_Shipped_Units_OG_Home_Delivery],#(lf)    [$Table].[InsertDate] as [InsertDate]#(lf)from [dbo].[FactsuncareCanadaEcom] as [$Table]#(lf)WHERE [WM_Week] >= "& Number.ToText(CurrentYearWeek)&"#(lf)"])
+		in
+		    Source
+	lineageTag: 3d69d1a5-7d71-400a-813f-3c30efdaa512
+	queryGroup: Fact\Ecommerce
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

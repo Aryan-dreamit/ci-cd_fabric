@@ -1,0 +1,17 @@
+table Range
+	lineageTag: d1d65646-4402-48df-b58a-654ce7a2e40a
+
+	column 'Period '
+		formatString: 0
+		lineageTag: 21dd1786-b74b-40bc-b6d6-f02806b06d29
+		summarizeBy: sum
+		sourceColumn: [Value]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Range-179829f7-5756-44aa-978d-5bda0064078a = calculated
+		mode: import
+		source = GENERATESERIES(1,12,1)
+
+	annotation PBI_Id = 899255b665884e69b43b51d52162c54a
+

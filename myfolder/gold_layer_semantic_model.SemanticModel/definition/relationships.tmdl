@@ -1,0 +1,8 @@
+relationship 3d87377a-aca4-a847-69b0-de487efe6fa5
+	fromColumn: billing_customer.contract
+	toColumn: contract_search.contact
+
+relationship 5324f0c2-5589-2e4d-6d20-c1d6411f1541
+	fromColumn: contract_search.start_date
+	toColumn: ireland_holiday.date
+

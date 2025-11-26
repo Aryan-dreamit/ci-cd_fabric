@@ -1,0 +1,349 @@
+table 'WMT Weeks'
+	lineageTag: 68662b3b-c31f-439c-b404-ff74704600fc
+
+	column 'WMT Week'
+		dataType: int64
+		formatString: 0
+		lineageTag: e471e271-60f1-47d1-b514-b2bd6001646e
+		summarizeBy: sum
+		sourceColumn: WMT Week
+		sortByColumn: 'WMT WK Number'
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = User
+
+	column 'Start Date'
+		dataType: dateTime
+		formatString: dd/mm/yyyy
+		lineageTag: 796c0fc9-6cbe-4335-8e9c-476a9ec321f5
+		summarizeBy: none
+		sourceColumn: Start Date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column 'Fiscal Year'
+		dataType: int64
+		formatString: 0
+		lineageTag: c7f66b32-3f77-409d-b79f-a6b57b75ee13
+		summarizeBy: sum
+		sourceColumn: Fiscal Year
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'WMT WK Number'
+		dataType: int64
+		formatString: 0
+		lineageTag: 0fb997eb-c295-4a19-ba34-aa1f6b81fe2d
+		summarizeBy: none
+		sourceColumn: WMT WK Number
+		sortByColumn: QuarterName
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Quarter No.'
+		dataType: int64
+		formatString: 0
+		lineageTag: 41da147a-84cc-43ea-a651-9f9d3fe8756e
+		summarizeBy: sum
+		sourceColumn: Quarter No.
+
+		annotation SummarizationSetBy = Automatic
+
+	column YearIsInToday = If(Year(TODAY())>= 'WMT Weeks'[Fiscal Year] ,1,0)
+		formatString: 0
+		lineageTag: 0d245149-f9fa-4e7a-b9ca-d7541dbef769
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column Month = FORMAT('WMT Weeks'[Start Date],"mmmm")
+		lineageTag: 48e5aaa9-7b17-422f-b5cf-3b3b7b8ab88a
+		summarizeBy: none
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column Quarter = ```
+			SWITCH(
+			    'WMT Weeks'[Month],
+			    "February", "Q1",
+			    "March", "Q1",
+			    "April", "Q1",
+			    "May", "Q2",
+			    "June", "Q2",
+			    "July", "Q2",
+			    "August", "Q3",
+			    "September", "Q3",
+			    "October", "Q3",
+			    "Q4"
+			)
+			
+			```
+		lineageTag: e8b01c4a-d79a-41fc-8b7b-91ae1b4525f3
+		summarizeBy: none
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column Weekoffset =
+			
+			var a = MAX('WMT Weeks'[Start Date])
+			return DATEDIFF('WMT Weeks'[Start Date],a,WEEK)
+		formatString: 0
+		lineageTag: c2974c3d-bfd6-4111-a964-f27e55a8c159
+		summarizeBy: sum
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column QuarterName
+		dataType: string
+		lineageTag: a4e864f7-244f-4008-b49d-af7d617c29db
+		summarizeBy: none
+		sourceColumn: QuarterName
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column MonthEndDate
+		dataType: string
+		lineageTag: d422154a-8e54-45e5-aee6-0b9c7f370834
+		summarizeBy: none
+		sourceColumn: MonthEndDate
+		sortByColumn: MonthEndDateInt
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'End Date'
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: 84f22214-2f2c-4fe0-818a-c35f6659dbe7
+		summarizeBy: none
+		sourceColumn: End Date
+		sortByColumn: MonthEndDate
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'FactSuncare MaxWeek' =
+			
+			VAr _y=Year(TODAY())
+			RETURN If('WMT Weeks'[Fiscal Year]=_y,'WMT Weeks'[FactSuncareEcomMaxWeekOffset],-1)
+		lineageTag: 4349e2f1-c172-4f93-ae3d-7aa6dd572715
+		summarizeBy: sum
+		sortByColumn: 'WMT WK Number'
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column ThisYear = 'WMT Weeks'[Fiscal Year]- Year(TODAY())
+		formatString: 0
+		lineageTag: 9fc68127-9447-44f3-83f5-57727158afda
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column MonthEndDateInt
+		dataType: int64
+		formatString: 0
+		lineageTag: 757367a2-91b3-4594-822f-832882477e53
+		summarizeBy: sum
+		sourceColumn: MonthEndDateInt
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Factsuncare Maxweek Ecom Table' =
+			
+			
+			VAr _y=Year(TODAY())
+			RETURN If('WMT Weeks'[Fiscal Year]=_y,'WMT Weeks'[FactSuncareEcomMaxWeekOffset],-1)
+		lineageTag: f7740096-cf68-4a54-bc87-61f4c1a263a7
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'FactSuncareInventory MaxWeek' = ```
+			
+			
+			 VAr x= 'WMT Weeks'[WMT Week] - MAX(FactSuncare_Canada_Inventory[WM Week])
+			
+			 VAR y= RIGHT(MAX(FactSuncare_Canada_Inventory[WM Week]),2)
+			// VAR factsalesweek= MAX(FactSuncare[WM Week])
+			// VAR wmweek=If( INT(RIGHT(factsalesweek,2))=52,INT(RIGHT(factsalesweek,2)), INT(RIGHT(MAX(FactSuncare_Canada_Inventory[WM Week]),2)))
+			
+			 RETURN 'WMT Weeks'[WMT WK Number] - 52
+			
+			```
+		lineageTag: 0a946335-f75a-414d-9ef3-8b3bc9171e5e
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'WMT Week for Inventory' = ```
+			
+			If(MAX(FactSuncare_Canada_Inventory[WM Week])= 'WMT Weeks'[WMT Week], "Current Week", 'WMT Weeks'[WMT WK Number]&"")
+			
+			
+			```
+		lineageTag: fcdefea4-ddba-46dc-8f68-146614c01938
+		summarizeBy: none
+		sortByColumn: 'WMT WK Number'
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column Month_ = If('WMT Weeks'[WMT WK Number]=53, FORMAT('WMT Weeks'[Start Date],"mmm"), FORMAT('WMT Weeks'[End Date], "MMM"))
+		lineageTag: 5f6e0d21-b016-4a07-b830-079930500edc
+		summarizeBy: none
+		sortByColumn: MonthSort_
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column MonthSort_ = FORMAT('WMT Weeks'[Start Date],"mm")
+		lineageTag: c40ad059-4d78-4ab0-b42c-1e9413b3c051
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Current Year' =
+			
+			VAR x= INT(LEFT(MAX(FactSuncare[WM Week]),4))
+			RETURN If('WMT Weeks'[Fiscal Year]=x,"Latest Year", 'WMT Weeks'[Fiscal Year]&"")
+		lineageTag: d98a4ab1-ad01-4546-a83a-8ab31e9eb9e3
+		summarizeBy: none
+		sortByColumn: 'Fiscal Year'
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column FactSuncareMaxWeekOffset = ```
+			
+			 VAr x= 'WMT Weeks'[WMT Week] - MAX(FactSuncare[WM Week])
+			
+			 VAR y= RIGHT(MAX(FactSuncare[WM Week]),2)
+			
+			 RETURN 'WMT Weeks'[WMT WK Number] - y
+			```
+		formatString: 0
+		lineageTag: 09583ae9-9a6f-4c5b-b557-283bd93cbf80
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column FactSuncareEcomMaxWeekOffset = ```
+			
+			var x = 'WMT Weeks'[WMT Week] - MAX(factsuncare_canada_Ecom[WM_Week])
+			var y = RIGHT(MAX(factsuncare_canada_Ecom[WM_Week]),2)
+			return  'WMT Weeks'[WMT WK Number] - y
+			
+			```
+		lineageTag: b2ae1066-f607-43ef-9b5b-bd2615743470
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Column = if('WMT Weeks'[WMT WK Number]=53 && 'WMT Weeks'[Fiscal Year]=2023,52,'WMT Weeks'[WMT WK Number])
+		formatString: 0
+		lineageTag: 8915f840-e151-4241-948e-2ba138f19be1
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Is Leap Year'
+		dataType: string
+		lineageTag: ee1d2938-1802-4188-b03c-faef0b72040b
+		summarizeBy: none
+		sourceColumn: Is Leap Year
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'WMT Weeks-4d147ee7-5a01-4aac-840c-2d74b0f59a2b' = m
+		mode: import
+		queryGroup: Dimensions
+		source = ```
+				let
+				    Source = Sql.Database("45abcdnsw5ru7e2ughqdsi5nlu-ttswb43k6wtebajhba5hzpoqhu.datawarehouse.fabric.microsoft.com", "GoldLakehouse", [Query="select [$Table].[WMT_Week] as [WMT Week],#(lf)    [$Table].[Start_Date] as [Start Date],#(lf)    [$Table].[Fiscal_Year] as [Fiscal Year],#(lf)    [$Table].[WMT_WK_Number] as [WMT WK Number],#(lf)    [$Table].[Quarter] as [Quarter]#(lf)from [dbo].[Wmtweeks] as [$Table]#(lf)"]),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"WMT Week", Int64.Type}, {"Start Date", type date}, {"Fiscal Year", Int64.Type}, {"WMT WK Number", Int64.Type}, {"Quarter", Int64.Type}}),
+				    
+				    // Add End Date Column
+				    #"Added Custom2" = Table.AddColumn(#"Changed Type", "Custom", each Date.AddDays([Start Date],6)),
+				    #"Renamed Columns3" = Table.RenameColumns(#"Added Custom2",{{"Custom", "End Date"}}),
+				
+				    // Add Month Name and Shorten to 3 Letters
+				    #"Inserted Month Name1" = Table.AddColumn(#"Renamed Columns3", "Month Name", each Date.MonthName([End Date]), type text),
+				    #"Extracted First Characters" = Table.TransformColumns(#"Inserted Month Name1", {{"Month Name", each Text.Start(_, 3), type text}}),
+				    #"Renamed Columns4" = Table.RenameColumns(#"Extracted First Characters",{{"Month Name", "MonthEndDate"}}),
+				
+				    // Add Quarter Name
+				    #"Added Custom" = Table.AddColumn(#"Renamed Columns4", "QuarterName", each "Q"),
+				    #"Inserted Merged Column" = Table.AddColumn(#"Added Custom", "Merged", each Text.Combine({[QuarterName], Text.From([Quarter], "en-IN")}, ""), type text),
+				    #"Removed Columns" = Table.RemoveColumns(#"Inserted Merged Column",{"QuarterName"}),
+				    #"Renamed Columns1" = Table.RenameColumns(#"Removed Columns",{{"Merged", "QuarterName"}}),
+				
+				    // Filter Null or Empty WMT Week
+				    #"Filtered Rows" = Table.SelectRows(#"Renamed Columns1", each [WMT Week] <> null and [WMT Week] <> ""),
+				    
+				    // Rename Quarter Column
+				    #"Renamed Columns" = Table.RenameColumns(#"Filtered Rows",{{"Quarter", "Quarter No."}}),
+				
+				    // Add Month Number for End Date
+				    #"Inserted Month" = Table.AddColumn(#"Renamed Columns", "Month", each Date.Month([End Date]), Int64.Type),
+				    #"Renamed Columns2" = Table.RenameColumns(#"Inserted Month",{{"Month", "MonthEndDateInt"}}),
+				
+				    // Ensure End Date is a Date Type
+				    #"Changed Type1" = Table.TransformColumnTypes(#"Renamed Columns2",{{"End Date", type date}}),
+				
+				    // Filter Fiscal Year Range
+				    #"Filtered Rows1" = Table.SelectRows(#"Changed Type1", each [Fiscal Year] >= 2022 and [Fiscal Year] <= MaxYear),
+				
+				    // Add Column to Check if Each Fiscal Year is a Leap Year
+				    #"Added Leap Year Check" = Table.AddColumn(#"Filtered Rows1", "Is Leap Year", 
+				    each if (Number.Mod([Fiscal Year], 400) = 0) or 
+				   (Number.Mod([Fiscal Year], 4) = 0 and Number.Mod([Fiscal Year], 100) <> 0) 
+				   then "Yes" 
+				   else "No",
+				   type text),
+				
+				
+				// Filter Week Numbers Based on Each Fiscal Year's Leap Year Status
+				#"Filtered Week Numbers" = Table.SelectRows(#"Added Leap Year Check", 
+				    each ([Is Leap Year] = "Yes" and [WMT WK Number] <= 53) or 
+				         ([Is Leap Year] = "No" and [WMT WK Number] <= 52))
+				
+				in
+				    #"Filtered Week Numbers"
+				```
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

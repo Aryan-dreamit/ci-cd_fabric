@@ -1,0 +1,85 @@
+table CanadaReportMonthWeekOrder
+	lineageTag: 98b5d372-769f-40c4-9d3c-7b0000cd97d0
+
+	column Quarter
+		dataType: string
+		lineageTag: aa0e5d69-24a7-427a-a415-0061cd4292ea
+		summarizeBy: none
+		sourceColumn: Quarter
+		sortByColumn: QuarterNo
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column QuarterNo
+		dataType: int64
+		formatString: 0
+		lineageTag: e12c12cb-ba30-4a2e-aaa9-6b956355f502
+		summarizeBy: none
+		sourceColumn: QuarterNo
+
+		annotation SummarizationSetBy = Automatic
+
+	column MonthNo
+		dataType: int64
+		formatString: 0
+		lineageTag: aef89251-dea6-4bad-b643-2ca1f1782b40
+		summarizeBy: none
+		sourceColumn: MonthNo
+
+		annotation SummarizationSetBy = Automatic
+
+	column Month
+		dataType: string
+		lineageTag: e238b5c0-ebdf-4dfc-a9c8-6d30d8f22195
+		summarizeBy: none
+		sourceColumn: Month
+		sortByColumn: MonthNo
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column Week
+		dataType: int64
+		formatString: 0
+		lineageTag: 5f30d7e2-a5f3-473c-9d9c-b2e31c48e531
+		summarizeBy: none
+		sourceColumn: Week
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column WeekNo
+		dataType: int64
+		formatString: 0
+		lineageTag: ac1d4c28-ff94-4960-b649-7f4fb5c2877e
+		summarizeBy: none
+		sourceColumn: WeekNo
+
+		annotation SummarizationSetBy = Automatic
+
+	column Year
+		dataType: string
+		lineageTag: f8a6fd69-196f-4b38-b72c-a33ba9147b72
+		summarizeBy: none
+		sourceColumn: Year
+
+		annotation SummarizationSetBy = Automatic
+
+	partition CanadaReportMonthWeekOrder = m
+		mode: import
+		source =
+				let
+				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("ddI9a8MwFIXh/+LZg/Utj4HSwZCGkjFkcIzJEtpQ6kD/fXSNoJbIOxzB5Vmko3s6NZ+qaRuJTnmfL+t0bl+CJjAEtgSTsh9/0ukIPEEgiAR9CTZldxdQHYpC0Sj59Tq/3K0X+BOxKA7Fo4RSfMqwfIlElJ5EdygKRZcSVrnJZFAsikPJHZj8nVG6Xq4iASWi9CSmK6VPOc73XxkVk2YyTJbJlZTWs20O00qeKTBFplyGzSusZJc/vh8ydkyKSTOZiuSX3+ZJRsvkmDxTYIoVSSXDKAtt6zb+ydVtbKhuY0N1GxtKbZyf", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Quarter = _t, QuarterNo = _t, MonthNo = _t, Month = _t, Week = _t]),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Quarter", type text}, {"QuarterNo", Int64.Type}, {"MonthNo", Int64.Type}, {"Month", type text}, {"Week", Int64.Type}}),
+				    #"Duplicated Column" = Table.DuplicateColumn(#"Changed Type", "Week", "Week - Copy"),
+				    #"Renamed Columns" = Table.RenameColumns(#"Duplicated Column",{{"Week - Copy", "WeekNo"}}),
+				    #"Added Custom" = Table.AddColumn(#"Renamed Columns", "Year", each "YTD")
+				in
+				    #"Added Custom"
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,7 @@
+role Roles
+	modelPermission: read
+
+	tablePermission UserList = [Email] =USERPRINCIPALNAME()
+
+	annotation PBI_Id = c1f96fad2123468ca60dca2c1e21ee36
+

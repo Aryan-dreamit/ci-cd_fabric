@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "SemanticModel",
+    "displayName": "Migration"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "65152356-29d0-9df1-4f94-cef377a6c240"
+  }
+}

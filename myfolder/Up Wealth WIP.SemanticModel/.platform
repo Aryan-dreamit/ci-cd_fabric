@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "SemanticModel",
+    "displayName": "Up Wealth WIP"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "44e325ed-d718-8387-4dec-3d82ebf0cd6b"
+  }
+}

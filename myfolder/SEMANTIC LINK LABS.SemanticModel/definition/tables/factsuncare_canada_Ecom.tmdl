@@ -1,0 +1,274 @@
+table factsuncare_canada_Ecom
+	lineageTag: 588b7c24-9430-4b09-a8fe-c9bce4881cbe
+
+	column Dept_Category_Description
+		dataType: string
+		lineageTag: 7a134163-524f-4948-8e8d-3526d470dbde
+		summarizeBy: none
+		sourceColumn: Dept_Category_Description
+
+		annotation SummarizationSetBy = Automatic
+
+	column Dept_Subcategory_Description
+		dataType: string
+		lineageTag: 70688f35-2028-48e4-9f46-75efaccce20e
+		summarizeBy: none
+		sourceColumn: Dept_Subcategory_Description
+
+		annotation SummarizationSetBy = Automatic
+
+	column Fineline
+		dataType: string
+		lineageTag: f53cfff9-2289-4eab-be10-48fcd5f71a83
+		summarizeBy: none
+		sourceColumn: Fineline
+
+		annotation SummarizationSetBy = Automatic
+
+	column Fineline_Desc
+		dataType: string
+		lineageTag: 4f576033-00cf-4c95-8336-8eb1d8a7ef9f
+		summarizeBy: none
+		sourceColumn: Fineline_Desc
+
+		annotation SummarizationSetBy = Automatic
+
+	column Item_Nbr
+		dataType: string
+		lineageTag: 8fadbb51-03c7-496d-8cb0-80f69a4f9106
+		summarizeBy: none
+		sourceColumn: Item_Nbr
+
+		annotation SummarizationSetBy = Automatic
+
+	column Item_Desc_1
+		dataType: string
+		lineageTag: 96de07ca-4302-4ef5-8b11-591923bdfe26
+		summarizeBy: none
+		sourceColumn: Item_Desc_1
+
+		annotation SummarizationSetBy = Automatic
+
+	column UPC
+		dataType: string
+		lineageTag: 585721b8-8fb1-4136-84f0-ffbcc6e58f08
+		summarizeBy: none
+		sourceColumn: UPC
+
+		annotation SummarizationSetBy = Automatic
+
+	column Brand_Desc
+		dataType: string
+		lineageTag: d3f52f3b-c74b-4c07-9f0c-2d4e61ba477e
+		summarizeBy: none
+		sourceColumn: Brand_Desc
+
+		annotation SummarizationSetBy = Automatic
+
+	column Vendor_Name
+		dataType: string
+		lineageTag: 57e4ae09-c0c7-49b7-9588-fd348e75b82b
+		summarizeBy: none
+		sourceColumn: Vendor_Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column WM_Week
+		dataType: int64
+		formatString: 0
+		lineageTag: 4e69b511-b552-4cb2-84b0-402d7173d76c
+		summarizeBy: none
+		sourceColumn: WM_Week
+
+		annotation SummarizationSetBy = Automatic
+
+	column InsertDate
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 6d8b2089-3123-482f-af44-3464aa6d7f89
+		summarizeBy: none
+		sourceColumn: InsertDate
+
+		annotation SummarizationSetBy = Automatic
+
+	column Year = LEFT(factsuncare_canada_Ecom[WM_Week],4)
+		dataType: int64
+		formatString: 0
+		lineageTag: f572d746-c86f-4a47-ad79-4ebe3d51e469
+		summarizeBy: sum
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Item # and Desc' = 'factsuncare_canada_Ecom'[Item_Nbr] & " - " & 'factsuncare_canada_Ecom'[Item_Desc_1]
+		lineageTag: 06e04b3f-fb4b-4e38-884c-20963de6f46d
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Net Shipped Sales GM Home Delivery'
+		dataType: double
+		lineageTag: a13013b9-5489-4e92-b318-15a6530bdd7d
+		summarizeBy: sum
+		sourceColumn: Net Shipped Sales GM Home Delivery
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Net Shipped Sales GM Site to Store'
+		dataType: double
+		lineageTag: 2e6112ed-591c-4f4e-81e6-d2ac4d47a041
+		summarizeBy: sum
+		sourceColumn: Net Shipped Sales GM Site to Store
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Net Shipped Sales GM Pick From Store'
+		dataType: double
+		lineageTag: 278b4583-d228-4fbb-a56e-fa29c2f87fee
+		summarizeBy: sum
+		sourceColumn: Net Shipped Sales GM Pick From Store
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Net Shipped Sales GM Ship From Store'
+		dataType: double
+		lineageTag: d8023887-9cd3-48fd-8830-8b20b98998cb
+		summarizeBy: sum
+		sourceColumn: Net Shipped Sales GM Ship From Store
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Net Shipped Sales OG Store Pickup'
+		dataType: double
+		lineageTag: e3ef2471-5fc0-4a6d-a574-cb78828b163a
+		summarizeBy: sum
+		sourceColumn: Net Shipped Sales OG Store Pickup
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Net Shipped Sales OG Home Delivery'
+		dataType: double
+		lineageTag: f4f9175d-5b99-4fd8-8929-cf0b8fec327b
+		summarizeBy: sum
+		sourceColumn: Net Shipped Sales OG Home Delivery
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Net Shipped Units GM Home Delivery'
+		dataType: double
+		lineageTag: 39d768b6-c6b8-4916-a4fc-77b683c51adb
+		summarizeBy: sum
+		sourceColumn: Net Shipped Units GM Home Delivery
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Net Shipped Units GM Site to Store'
+		dataType: double
+		lineageTag: a67fa683-5b78-47f7-ada7-cd7c90cd4967
+		summarizeBy: sum
+		sourceColumn: Net Shipped Units GM Site to Store
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Net Shipped Units GM Pick From Store'
+		dataType: double
+		lineageTag: c7f34df2-3041-4ea3-8dfb-5757dda99a6c
+		summarizeBy: sum
+		sourceColumn: Net Shipped Units GM Pick From Store
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Net Shipped Units GM Ship From Store'
+		dataType: double
+		lineageTag: 6ed4e6ce-e8e9-4fbe-b592-d4633e4a652e
+		summarizeBy: sum
+		sourceColumn: Net Shipped Units GM Ship From Store
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Net Shipped Units OG Store Pickup'
+		dataType: double
+		lineageTag: 825b46dd-d687-4686-9631-91b90cd1b88a
+		summarizeBy: sum
+		sourceColumn: Net Shipped Units OG Store Pickup
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Net Shipped Units OG Home Delivery'
+		dataType: double
+		lineageTag: 4b545c20-a096-4adc-9a81-36a4786d049d
+		summarizeBy: sum
+		sourceColumn: Net Shipped Units OG Home Delivery
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Joinkey Ecom' = ```
+			COMBINEVALUES(" ",factsuncare_canada_Ecom[Item_Nbr],FactSuncare_canada_ecom[UPC],factsuncare_canada_Ecom[Fineline],factsuncare_canada_Ecom[Brand ID], factsuncare_canada_Ecom[Vendor Nbr],factsuncare_canada_Ecom[WM_Week])
+			
+			```
+		lineageTag: 0589d0f3-b227-4fc8-9274-b07cb93c32ed
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Brand ID' = RELATED(DimBrand[Brand ID])
+		formatString: 0
+		lineageTag: 8728235a-2f02-45e9-8ef6-69426d9adcc4
+		summarizeBy: count
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Vendor Nbr' = RELATED(DimVendor[Vendor Nbr])
+		formatString: 0
+		lineageTag: d413c729-7ab3-4589-a110-75596eda3d14
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Join Key' = COUNTROWS(FILTER(factsuncare_canada_Ecom, factsuncare_canada_Ecom[Joinkey Ecom]=EARLIER(factsuncare_canada_Ecom[Joinkey Ecom])))
+		formatString: 0
+		lineageTag: 024effd5-2468-44a7-b414-c009b41457cc
+		summarizeBy: count
+
+		annotation SummarizationSetBy = Automatic
+
+	partition factsuncare_canada_Ecom-22ed5321-bbfa-43eb-9626-9115450516f9 = m
+		mode: import
+		queryGroup: Fact\Ecommerce
+		source =
+				let
+				    Source = Table.Combine({factsuncare_canada_Ecom_CurrentYear, factsuncare_canada_Ecom_PreviousYear}),
+				    #"Renamed Columns" = Table.RenameColumns(#"Source",{{"Net_Shipped_Sales_GM_Home_Delivery", "Net Shipped Sales GM Home Delivery"}, {"Net_Shipped_Sales_GM_Site_to_Store", "Net Shipped Sales GM Site to Store"}, {"Net_Shipped_Sales_GM_Pick_From_Store", "Net Shipped Sales GM Pick From Store"}, {"Net_Shipped_Sales_GM_Ship_From_Store", "Net Shipped Sales GM Ship From Store"}, {"Net_Shipped_Sales_OG_Store_Pickup", "Net Shipped Sales OG Store Pickup"}, {"Net_Shipped_Sales_OG_Home_Delivery", "Net Shipped Sales OG Home Delivery"}, {"Net_Shipped_Units_GM_Home_Delivery", "Net Shipped Units GM Home Delivery"}, {"Net_Shipped_Units_GM_Site_to_Store", "Net Shipped Units GM Site to Store"}, {"Net_Shipped_Units_GM_Pick_From_Store", "Net Shipped Units GM Pick From Store"}, {"Net_Shipped_Units_GM_Ship_From_Store", "Net Shipped Units GM Ship From Store"}, {"Net_Shipped_Units_OG_Store_Pickup", "Net Shipped Units OG Store Pickup"}, {"Net_Shipped_Units_OG_Home_Delivery", "Net Shipped Units OG Home Delivery"}}),
+				    #"Filtered Rows1" = Table.SelectRows(#"Renamed Columns", each [WM_Week] <> null and [WM_Week] <> "")
+				in
+				    #"Filtered Rows1"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

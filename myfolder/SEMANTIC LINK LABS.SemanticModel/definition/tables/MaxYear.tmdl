@@ -1,0 +1,28 @@
+table MaxYear
+	lineageTag: bca88693-8937-44d8-95a6-267e29f7c519
+
+	column MaxYear
+		dataType: double
+		lineageTag: ae5225e9-f3cd-41a9-85a4-1b10c2919eed
+		summarizeBy: sum
+		sourceColumn: MaxYear
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition MaxYear = m
+		mode: import
+		queryGroup: Parameter
+		source =
+				let
+				    Source = DateTime.LocalNow(),
+				    #"Converted to Table" = #table(1, {{Source}}),
+				    #"Renamed Columns" = Table.RenameColumns(#"Converted to Table",{{"Column1", "Date"}}),
+				    #"Extracted Year" = Table.TransformColumns(#"Renamed Columns",{{"Date", Date.Year, Int64.Type}}),
+				    #"Calculated Maximum" = List.Max(#"Extracted Year"[Date])
+				in
+				    #"Calculated Maximum"
+
+	annotation PBI_ResultType = Number
+

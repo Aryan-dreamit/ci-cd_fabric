@@ -1,0 +1,53 @@
+table 'slice button change'
+	lineageTag: 1b6d6a34-7753-45fd-b14b-f10046acdf88
+
+	column 'slice button change'
+		lineageTag: a8d441cd-ad14-43a2-ab28-892594c2785e
+		summarizeBy: none
+		sourceColumn: [Value1]
+		sortByColumn: 'slice button change Order'
+
+		relatedColumnDetails
+			groupByColumn: 'slice button change Fields'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'slice button change Fields'
+		isHidden
+		lineageTag: e5a879ad-210a-4e78-bc86-b90b542e8f64
+		summarizeBy: none
+		sourceColumn: [Value2]
+		sortByColumn: 'slice button change Order'
+
+		extendedProperty ParameterMetadata =
+				{
+				  "version": 3,
+				  "kind": 2
+				}
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'slice button change Order'
+		isHidden
+		formatString: 0
+		lineageTag: d2fd4c7e-c400-457f-a20e-f86ae36576b5
+		summarizeBy: sum
+		sourceColumn: [Value3]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'slice button change' = calculated
+		mode: import
+		source =
+				{
+				    ("Fineline Description", NAMEOF('FactSuncare'[Fineline Description]), 0),
+				    ("Brand Desc", NAMEOF('FactSuncare'[Brand Desc]), 1),
+				    ("Item Nbr", NAMEOF('FactSuncare'[Item Nbr]), 2),
+				    ("Item Desc 1", NAMEOF('FactSuncare'[Item Desc 1]), 3),
+				    ("Item #", NAMEOF('Store_Items_Attributes'[Detail Item Nbr]), 4),
+				    ("Description", NAMEOF('Store_Items_Attributes'[Description]), 5),
+				    ("SPF", NAMEOF('Store_Items_Attributes'[SPF]), 6)
+				}
+
+	annotation PBI_Id = a38a9f70a1e948ce8e6d5c3167b698f3
+

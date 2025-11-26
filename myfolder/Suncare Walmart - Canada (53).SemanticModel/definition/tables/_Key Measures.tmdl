@@ -1,0 +1,3877 @@
+table '_Key Measures'
+	lineageTag: 0bc6c7f8-f5bb-4e85-b6d7-bdf7010d9a0c
+
+	measure 'POS LY' =
+			
+			SWITCH(TRUE(),SELECTEDVALUE('LastNWeek'[Category])="Last Week",[Last1weeksSales]
+			                        ,SELECTEDVALUE('LastNWeek'[Category])="Last 4 Weeks",[Last4weeksSales]
+			                        ,SELECTEDVALUE('LastNWeek'[Category])="Last 13 Weeks",[Last13weeksSales]
+			                        ,SELECTEDVALUE('LastNWeek'[Category])="Last 52 Weeks",[Last52weeksSales],
+			                        SELECTEDVALUE('LastNWeek'[Category])="YTD",[YTD_sales_new])
+			//CALCULATE(SUM('FactSuncare'[POS Sales]),'WMT Weeks'[Fiscal Year]=2022)
+		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+		displayFolder: General
+		lineageTag: 6a93de58-24c8-4ac2-80d5-dbc2b5e5a0d8
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'CHG POS $' = [POS TY]-[POS LY]
+		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+		displayFolder: POS $
+		lineageTag: 06a5033d-7479-4fbb-8750-9ab551f80f4a
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'POS QTY LY' = ```
+			
+			 SWITCH(TRUE(),SELECTEDVALUE('LastNWeek'[Category])="Last Week",[Last1weeksQTY]
+			                        ,SELECTEDVALUE('LastNWeek'[Category])="Last 4 Weeks",[Last4weeksQTY]
+			                        ,SELECTEDVALUE('LastNWeek'[Category])="Last 13 Weeks",[Last13weeksQTY]
+			                        ,SELECTEDVALUE('LastNWeek'[Category])="Last 52 Weeks",[Last52weeksQTY],
+			                        SELECTEDVALUE('LastNWeek'[Category])="YTD",[YTD QTY_new])
+			//CALCULATE(SUM('FactSuncare'[POS Qty]),'WMT Weeks'[Fiscal Year]=2022)
+			```
+		formatString: #,0
+		displayFolder: POS Qty
+		lineageTag: 93771e4d-98b1-445d-8666-b372734bfb87
+
+	measure 'AVG PRICE LY' = DIVIDE([POS LY],[POS QTY LY])
+		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+		displayFolder: WEEKLY\AVG PRICE
+		lineageTag: 95519516-340d-4b48-bac2-834a5557ae37
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'CHG POS QTY' = [POS QTY TY]-[POS QTY LY]
+		formatString: #,0
+		displayFolder: POS Qty
+		lineageTag: b6ecde01-3916-4b6f-b8ca-75ec54b7c6b8
+
+		annotation PBI_FormatHint = {"isDecimal":true}
+
+	measure 'CHG AVG PRICE' = [AVG PRICE TY]-[AVG PRICE LY]
+		formatString: \$#,0.00;-\$#,0.00;\$#,0.00
+		displayFolder: WEEKLY\AVG PRICE
+		lineageTag: ddbef19e-d4a5-4aec-bea5-3d500689e42c
+
+	measure '% CHG POS $' =
+			
+			VAR a= SWITCH(TRUE(),SELECTEDVALUE('LastNWeek'[Category])="Last Week",[% CHG POS $last1wk]
+			                        ,SELECTEDVALUE('LastNWeek'[Category])="Last 4 Weeks",[% CHG POS $last4wk]
+			                        ,SELECTEDVALUE('LastNWeek'[Category])="Last 13 Weeks",[% CHG POS $last13wk]
+			                        ,SELECTEDVALUE('LastNWeek'[Category])="Last 52 Weeks",[% CHG POS $last52wk],
+			                        SELECTEDVALUE('LastNWeek'[Category])="YTD",[% CHG POS $YTD],[% CHG POS $YTD])
+			//var a= [CHG POS $]/[POS 2022]
+			return if(a=-1,BLANK(),a)
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: POS $
+		lineageTag: 16ecd992-f6b6-4ae8-ae27-d7693e2f6607
+
+	measure '% CHG POS QTY' =
+			
+			SWITCH(TRUE(),SELECTEDVALUE('LastNWeek'[Category])="Last Week",[% CHG QTY $last1wk]
+			                        ,SELECTEDVALUE('LastNWeek'[Category])="Last 4 Weeks",[% CHG QTY $last4wk]
+			                        ,SELECTEDVALUE('LastNWeek'[Category])="Last 13 Weeks",[% CHG QTY $last13wk]
+			                        ,SELECTEDVALUE('LastNWeek'[Category])="Last 52 Weeks",[% CHG QTY $last52wk],
+			                        SELECTEDVALUE('LastNWeek'[Category])="YTD",[% CHG QTY $YTD])
+			//[CHG POS QTY]/[POS QTY 2022]
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: POS Qty
+		lineageTag: 2e45f27f-ba60-4daa-bf30-45cee3412096
+
+	measure '% CHG AVG PRICE' = DIVIDE([CHG AVG PRICE],[AVG PRICE LY])
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: WEEKLY\AVG PRICE
+		lineageTag: cc832648-921e-4793-8289-6ea233b0b136
+
+	measure 'POS QTY TY' =
+			
+			SWITCH(TRUE(),SELECTEDVALUE('LastNWeek'[Category])="Last Week",[Last1weeksQTYCompYr]
+			                        ,SELECTEDVALUE('LastNWeek'[Category])="Last 4 Weeks",[Last4weeksQTYCompYr]
+			                        ,SELECTEDVALUE('LastNWeek'[Category])="Last 13 Weeks",[Last13weeksQTYCompYr]
+			                        ,SELECTEDVALUE('LastNWeek'[Category])="Last 52 Weeks",[Last52weeksQTYCompYr],
+			SELECTEDVALUE('LastNWeek'[Category])="YTD",[YTDCompYr QTY])
+			// CALCULATE(SUM('FactSuncare'[POS Qty]),'WMT Weeks'[Fiscal Year]=2023)
+		formatString: #,0
+		displayFolder: POS Qty
+		lineageTag: eff2e76a-8b65-46f7-9703-def4401b1f09
+
+		annotation PBI_FormatHint = {"isDecimal":true}
+
+	measure 'POS TY' =
+			SWITCH(TRUE(),SELECTEDVALUE('LastNWeek'[Category])="Last Week",[Last1weeksSalesCompYr]
+			                        ,SELECTEDVALUE('LastNWeek'[Category])="Last 4 Weeks",[Last4weeksSalesCompYr]
+			                        ,SELECTEDVALUE('LastNWeek'[Category])="Last 13 Weeks",[Last13weeksSalesCompYr]
+			                        ,SELECTEDVALUE('LastNWeek'[Category])="Last 52 Weeks",[Last52weeksSalesCompYr],
+			SELECTEDVALUE('LastNWeek'[Category])="YTD",[YTDCompYr])
+			// CALCULATE(SUM('FactSuncare'[POS Sales]),'WMT Weeks'[Fiscal Year]=2022)
+		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+		displayFolder: POS $
+		lineageTag: 69fbe2a4-d459-4aff-b997-66a51955eab1
+
+		changedProperty = FormatString
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'AVG PRICE TY' = DIVIDE([POS TY],[POS QTY TY])
+		formatString: \$#,0.0000;(\$#,0.0000);\$#,0.0000
+		displayFolder: WEEKLY\AVG PRICE
+		lineageTag: e3f1290e-84d1-4e66-9330-2cfc25da7447
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'Hist-on-hand LY' = ```
+			
+			VAR _year_1=[Comparison Year]-1
+			VAR _year=[Comparison Year]
+			VAR ly1=CALCULATE(SUM(FactSuncare[Hist On Hand Qty]), 'Date Slicer Table'[Year] = _year-1,'WMT Weeks'[WMT WK Number] in VALUES('WMT Weeks'[WMT WK Number]))
+			VAr lycond=Max('WMT Weeks'[Is Leap Year])
+			
+			// Check if the previous year was a leap year
+			VAR prev_year_leap = 
+			    CALCULATE(
+			        MAX('WMT Weeks'[Is Leap Year]), 
+			        FILTER(ALL('Date Slicer Table'), 'Date Slicer Table'[Year] = _year - 1)
+			    )
+			
+			// Determine the max week number in the current year
+			VAR max_week = MAX('Date Slicer Table'[WeekNum]) + 1
+			
+			// Calculate the adjusted last year's sales if previous year was a leap year
+			VAR adjusted_ly2m = 
+			    IF(
+			        prev_year_leap = "Yes",
+			        CALCULATE
+			            (SUM(FactSuncare[Hist On Hand Qty]), 
+			            FILTER(
+			                ALL('Date Slicer Table'),
+			                'Date Slicer Table'[Year] = _year - 1 &&
+			                'Date Slicer Table'[WeekNum] = max_week
+			            )
+			        ),
+			        BLANK()
+			    )
+			VAr _ly2m=     CALCULATE(
+			         SUM(FactSuncare[Hist On Hand Qty]), 
+			            'Date Slicer Table'[Year] = _year,
+			        'Date Slicer Table'[WeekNum] = 1, All('Date Slicer Table'))
+			
+			VAR ly2 = 
+			    IF(
+			        lycond == "Yes" , adjusted_ly2m,
+			        ly1
+			    )
+			// Determine if the week number is 53
+			VAR week_53_condition = MAX('WMT Weeks'[WMT WK Number]) = 53
+			
+			// Final sales calculation based on conditions
+			VAR final_sales = 
+			    IF(
+			        week_53_condition, 
+			        _ly2m,  // Case when the week is 53
+			        IF(
+			            prev_year_leap = "Yes", 
+			            adjusted_ly2m,  // Case when the previous year was a leap year
+			            ly1
+			        )
+			    )
+			
+			RETURN final_sales
+			
+			
+			
+			// VAR ly2 = 
+			//     IF(
+			//         lycond == "Yes" && MAx('WMT Weeks'[WMT WK Number])=53,_ly2m
+			   
+			//     )
+			
+			// RETURN 
+			// If( MAx('WMT Weeks'[WMT WK Number])=53, ly2,ly1+ly2)
+			
+			// VAR _year=[Comparison Year]-1
+			// RETURN CALCULATE(SUM('FactSuncare'[Hist On Hand Qty]),'Date Slicer Table'[Year]=_year)
+			// VAR _year_1=[Comparison Year]-1
+			// VAR _year=[Comparison Year]
+			// VAR ly1=CALCULATE(SUM(FactSuncare[Hist On Hand Qty]), 'Date Slicer Table'[Year] = _year-1,'WMT Weeks'[WMT WK Number] in VALUES('WMT Weeks'[WMT WK Number]))
+			// VAr lycond=Max('WMT Weeks'[Is Leap Year])
+			// VAr _ly2m=     CALCULATE(
+			//          SUM(FactSuncare[Hist On Hand Qty]), 
+			//             'Date Slicer Table'[Year] = _year,
+			//         'Date Slicer Table'[WeekNum] = 1, All('Date Slicer Table'))
+			        
+			// VAR ly2 = 
+			//     IF(
+			//         lycond == "Yes" && MAx('WMT Weeks'[WMT WK Number])=53,_ly2m
+			   
+			//     )
+			
+			// RETURN 
+			// If( MAx('WMT Weeks'[WMT WK Number])=53, ly2,ly1+ly2)
+			
+			// VAR _year=[Comparison Year]-1
+			// RETURN CALCULATE(SUM('FactSuncare'[Hist On Hand Qty]),'Date Slicer Table'[Year]=_year)
+			```
+		formatString: #,0
+		displayFolder: Hist-On-Hand
+		lineageTag: 66bdb468-0511-4a36-a46a-96bbe179badb
+
+	measure 'Hist-on-hand TY' =
+			VAR _year=[Comparison Year]
+			RETURN CALCULATE(SUM('FactSuncare'[Hist On Hand Qty]),'WMT Weeks'[Fiscal Year]=_year)
+		formatString: #,0
+		displayFolder: Hist-On-Hand
+		lineageTag: 197f2b01-7b38-4d0f-aef9-b0e8c07db8ca
+
+	measure 'POS LY_' = ```
+			
+			VAR _year=[Comparison Year]
+			VAR ly1=CALCULATE(SUM('FactSuncare'[POS Sales]), 'Date Slicer Table'[Year] = _year-1,'WMT Weeks'[WMT WK Number] in VALUES('WMT Weeks'[WMT WK Number]))
+			VAr lycond=Max('WMT Weeks'[Is Leap Year])
+			
+			// Check if the previous year was a leap year
+			VAR prev_year_leap = 
+			    CALCULATE(
+			        MAX('WMT Weeks'[Is Leap Year]), 
+			        FILTER(ALL('Date Slicer Table'), 'Date Slicer Table'[Year] = _year - 1)
+			    )
+			
+			// Determine the max week number in the current year
+			VAR max_week = MAX('Date Slicer Table'[WeekNum]) + 1
+			
+			// Calculate the adjusted last year's sales if previous year was a leap year
+			VAR adjusted_ly2m = 
+			    IF(
+			        prev_year_leap = "Yes",
+			        CALCULATE
+			            (SUM('FactSuncare'[POS Sales]),
+			            FILTER(
+			                ALL('Date Slicer Table'),
+			                'Date Slicer Table'[Year] = _year - 1 &&
+			                'Date Slicer Table'[WeekNum] = max_week
+			            )
+			        ),
+			        BLANK()
+			    )
+			VAr _ly2m=     CALCULATE(
+			         SUM('FactSuncare'[POS Sales]),
+			            'Date Slicer Table'[Year] = _year,
+			        'Date Slicer Table'[WeekNum] = 1, All('Date Slicer Table'))
+			
+			VAR ly2 = 
+			    IF(
+			        lycond == "Yes" , adjusted_ly2m,
+			        ly1
+			    )
+			// Determine if the week number is 53
+			VAR week_53_condition = MAX('WMT Weeks'[WMT WK Number]) = 53
+			
+			// Final sales calculation based on conditions
+			VAR final_sales = 
+			    IF(
+			        week_53_condition, 
+			        _ly2m,  // Case when the week is 53
+			        IF(
+			            prev_year_leap = "Yes", 
+			            adjusted_ly2m,  // Case when the previous year was a leap year
+			            ly1
+			        )
+			    )
+			
+			RETURN final_sales
+			// VAR _year=[Comparison Year]
+			// VAR ly1=CALCULATE(SUM('FactSuncare'[POS Sales]), 'Date Slicer Table'[Year] = _year-1,'WMT Weeks'[WMT WK Number] in VALUES('WMT Weeks'[WMT WK Number]))
+			// VAr lycond=Max('WMT Weeks'[Is Leap Year])
+			// VAr _ly2m=     CALCULATE(
+			//         SUM('FactSuncare'[POS Sales]), 
+			//             'Date Slicer Table'[Year] = _year,
+			//         'Date Slicer Table'[WeekNum] = 1, All('Date Slicer Table'))
+			        
+			// VAR ly2 = 
+			//     IF(
+			//         lycond == "Yes" && MAx('WMT Weeks'[WMT WK Number])=53,_ly2m
+			   
+			//     )
+			
+			// RETURN 
+			// If( MAx('WMT Weeks'[WMT WK Number])=53, ly2,ly1+ly2)
+			
+			
+			// VAR _year=[Comparison Year]-1
+			// RETURN  CALCULATE(SUM('FactSuncare'[POS Sales]),'Date Slicer Table'[Year]=_year, 'WMT Weeks'[WMT WK Number] in VAlues('WMT Weeks'[WMT WK Number]))
+			```
+		formatString: \$#,0;(\$#,0);\$#,0
+		displayFolder: General
+		lineageTag: a144ad23-e7e6-45aa-91da-644e926e4354
+
+		changedProperty = FormatString
+
+	measure 'POS TY_' =
+			
+			VAR _year=[Comparison Year]
+			VAr x=CALCULATE(SUM('FactSuncare'[POS Sales]),'WMT Weeks'[Fiscal Year]=_year)
+			RETURN x // FORMAT(x,"$####")
+		formatString: \$#,0;(\$#,0);\$#,0
+		displayFolder: General
+		lineageTag: 4265bdc2-4281-463d-bf4d-4cee73a83abc
+
+		changedProperty = FormatString
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure '% CHG POS $_' =
+			
+			VAR c='_Key Measures'[POS TY_]-[POS LY_]
+			var a=c/[POS LY_]
+			return if(a=-1,BLANK(),a)
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: POS $
+		lineageTag: 1b68d973-e96e-4e33-800a-998f47eb31e9
+
+		changedProperty = FormatString
+
+	measure 'AVG PRICE LY_' = DIVIDE([POS LY_],[POS QTY LY_])
+		formatString: $#,###.00;-$#,###.00;$0.00
+		displayFolder: WEEKLY\AVG PRICE
+		lineageTag: 3234f7e2-f5c9-4ff9-afdc-c10a4e8ec80e
+
+		annotation PBI_FormatHint = {"isCustom":true}
+
+	measure 'AVG PRICE TY_' = DIVIDE([POS TY_],[POS QTY TY_])
+		formatString: $#,###.00;-$#,###.00;$0.00
+		displayFolder: WEEKLY\AVG PRICE
+		lineageTag: bced1ad2-694e-4724-8a5a-e89cf6b5a1f5
+
+		annotation PBI_FormatHint = {"isCustom":true}
+
+	measure 'POS QTY LY_' = ```
+			
+			VAR _year=[Comparison Year]
+			VAR ly1=CALCULATE(SUM('FactSuncare'[POS Qty]), 'Date Slicer Table'[Year] = _year-1,'WMT Weeks'[WMT WK Number] in VALUES('WMT Weeks'[WMT WK Number]))
+			VAr lycond=Max('WMT Weeks'[Is Leap Year])
+			
+			// Check if the previous year was a leap year
+			VAR prev_year_leap = 
+			    CALCULATE(
+			        MAX('WMT Weeks'[Is Leap Year]), 
+			        FILTER(ALL('Date Slicer Table'), 'Date Slicer Table'[Year] = _year - 1)
+			    )
+			
+			// Determine the max week number in the current year
+			VAR max_week = MAX('Date Slicer Table'[WeekNum]) + 1
+			
+			// Calculate the adjusted last year's sales if previous year was a leap year
+			VAR adjusted_ly2m = 
+			    IF(
+			        prev_year_leap = "Yes",
+			        CALCULATE
+			            (SUM('FactSuncare'[POS Qty]), 
+			            FILTER(
+			                ALL('Date Slicer Table'),
+			                'Date Slicer Table'[Year] = _year - 1 &&
+			                'Date Slicer Table'[WeekNum] = max_week
+			            )
+			        ),
+			        BLANK()
+			    )
+			
+			    VAr _ly2m = CALCULATE(
+			         SUM(FactSuncare[POS Qty]), 
+			            'Date Slicer Table'[Year] = _year,
+			        'Date Slicer Table'[WeekNum] = 1, All('Date Slicer Table'))
+			        
+			VAR ly2 = 
+			    IF(
+			        lycond == "Yes" , adjusted_ly2m,
+			        ly1
+			    )
+			// Determine if the week number is 53
+			VAR week_53_condition = MAX('WMT Weeks'[WMT WK Number]) = 53
+			
+			// Final sales calculation based on conditions
+			VAR final_sales = 
+			    IF(
+			        week_53_condition, 
+			        _ly2m,  // Case when the week is 53
+			        IF(
+			            prev_year_leap = "Yes", 
+			            adjusted_ly2m,  // Case when the previous year was a leap year
+			            ly1
+			        )
+			    )
+			
+			RETURN final_sales
+			
+			// VAr _ly2m=     CALCULATE(
+			//          SUM('FactSuncare'[POS Qty]), 
+			//             'Date Slicer Table'[Year] = _year,
+			//         'Date Slicer Table'[WeekNum] = 1, All('Date Slicer Table'))
+			        
+			// VAR ly2 = 
+			//     IF(
+			//         lycond == "Yes" && MAx('WMT Weeks'[WMT WK Number])=53,_ly2m
+			   
+			//     )
+			
+			// RETURN 
+			// If( MAx('WMT Weeks'[WMT WK Number])=53, ly2,ly1+ly2)
+			
+			// VAR _year=[Comparison Year]-1
+			// RETURN CALCULATE(SUM('FactSuncare'[POS Qty]),'Date Slicer Table'[Year]=_year, 'WMT Weeks'[WMT WK Number] in VAlues('WMT Weeks'[WMT WK Number]))
+			```
+		formatString: #,0
+		displayFolder: POS Qty
+		lineageTag: 19b1167a-2a68-48f5-8d22-d9cd2e2e2cc9
+
+	measure 'POS QTY TY_' =
+			VAR _year=[Comparison Year]
+			RETURN CALCULATE(SUM('FactSuncare'[POS Qty]),'WMT Weeks'[Fiscal Year]=_year)
+		formatString: #,0
+		displayFolder: POS Qty
+		lineageTag: a7288c82-6619-4726-a2e6-8d575c1181d4
+
+		annotation PBI_FormatHint = {"isDecimal":true}
+
+	measure 'Total Quantity' = SUM('FactSuncare'[POS Qty])
+		formatString: #,0
+		displayFolder: General
+		lineageTag: 0e0ce4d7-7210-4900-a2a1-f2611f0cbb32
+
+		annotation PBI_FormatHint = {"isDecimal":true}
+
+	measure TY_PREVIOUS_WEEK =
+			
+			VAR X=SUMMARIZECOLUMNS(FactSuncare[Fineline Description],FactSuncare[POS Sales],'Date Slicer Table'[Month])
+			VAR Z=MAX('Date Slicer Table'[Month])
+			VAR A=Z-1
+			VAR Y=CALCULATE([POS TY_],'Date Slicer Table'[Month]=A,ALL('Date Slicer Table'))
+			RETURN
+			Y
+		formatString: #,0
+		displayFolder: General
+		lineageTag: ba62417c-e0ed-4e0a-b87f-15c30cae925d
+
+	measure SORTBrand = ```
+			
+			VAR x=
+			SWITCH(TRUE(),   
+			ISFILTERED(FactSuncare[Item Desc 1]),RANKX(ALLSELECTED(FactSuncare[Item Desc 1]),[TY_PREVIOUS_WEEK],,DESC,Dense),
+			ISFILTERED(FactSuncare[Fineline Number]),RANKX(ALLSELECTED(FactSuncare[Fineline Number]),[TY_PREVIOUS_WEEK],,DESC,Dense),
+			ISFILTERED(FactSuncare[Fineline Description]),RANKX(ALLSELECTED(FactSuncare[Fineline Description]),[TY_PREVIOUS_WEEK],,DESC,Dense),
+			 
+			ISFILTERED(FactSuncare[Brand Desc]),RANKX(ALLSELECTED(FactSuncare[Brand Desc]),[TY_PREVIOUS_WEEK],,DESC,Dense))
+			
+			RETURN 
+			x
+			
+			
+			```
+		formatString: 0
+		displayFolder: General
+		lineageTag: ab5af3de-b56f-45a4-a107-c978d5222b84
+
+	measure 'CHG POS $ (ABS)' = ABS([CHG POS $])
+		formatString: \$#,0;(\$#,0);\$#,0
+		displayFolder: POS $
+		lineageTag: e798fe55-114a-4983-a82d-33db98b8e6d4
+
+		changedProperty = FormatString
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure Security_Filter = ```
+			var cntry=CALCULATETABLE(VALUES(UserList[Code]),UserList[Email]=USERPRINCIPALNAME())
+			
+			 
+			
+			VAr r= if(SELECTEDVALUE(FactSuncare[Code]) in cntry,1,0)
+			
+			 
+			
+			RETURN   1 //If(cntry=1,1,0)
+			
+			 
+			
+			//  If(cntry=1,1,0)
+			```
+		formatString: 0
+		displayFolder: General
+		lineageTag: 387e170d-bc5e-42f3-bd31-3a8405579cb0
+
+	measure 'Unicode POS $' = ```
+			
+			    VAR X= If(MAX('CustomCalculation_based_on_LastNWeek/Selected Week'[Metrics])="TY $ % Chg"  && CONTAINSSTRING(MAX('Calculationby?'[Calculationby?]),"Last"),'CustomCalculation_based_on_LastNWeek/Selected Week'[Calculation_based_on_LastNWeek],'CustomCalculation_based_on_LastNWeek/Selected Week'[Calculation_based_on_Selected_Weeks(Custom Slicer)]) 
+			
+			    VAR per= If( LEFT(x,1)="-",-1,1)
+			    VAR Down = UNICHAR(11167)
+			    VAR Up = UNICHAR(11165)
+			
+			    VAR f=
+			   SWITCH(True(),
+			           per < 0,Down,
+			          
+			         per> 0 ,Up,
+			           
+			            per= BLANK(),UNICHAR(8722)
+			           
+			       )
+			
+			       RETURN f
+			```
+		displayFolder: POS $
+		lineageTag: db192bd9-bac0-412f-82de-335c8391dfd3
+
+	measure 'Unicode POS $ Color' = ```
+			
+			    VAR X= If(MAX('CustomCalculation_based_on_LastNWeek/Selected Week'[Metrics])="TY $ % Chg"  && CONTAINSSTRING(MAX('Calculationby?'[Calculationby?]),"Last"),'CustomCalculation_based_on_LastNWeek/Selected Week'[Calculation_based_on_LastNWeek],'CustomCalculation_based_on_LastNWeek/Selected Week'[Calculation_based_on_Selected_Weeks(Custom Slicer)]) 
+			
+			    VAR _Color= If( LEFT(x,1)="-", "#D64550","#30A128")
+			
+			    RETURN _Color
+			```
+		displayFolder: POS $
+		lineageTag: 44469b1e-5b55-480c-900e-f4aae1b8e456
+
+	measure '(POS $, U, Avg) Color FactSuncare Custom Week Selection Change' =
+			
+			
+			VAR X =
+			    IF (
+			        CONTAINSSTRING ( MAX ( 'Calculationby?'[Calculationby?] ), "Last" ),
+			        'CustomCalculation_based_on_LastNWeek/Selected Week'[Calculation_based_on_LastNWeek],
+			        'CustomCalculation_based_on_LastNWeek/Selected Week'[Calculation_based_on_Selected_Weeks(Custom Slicer)]
+			    )
+			VAR _color =
+			    IF (
+			        CONTAINSSTRING (
+			            MAX( 'CustomCalculation_based_on_LastNWeek/Selected Week'[Metrics] ),
+			            "Chg"
+			        ) && LEN(x)>=1,
+			        IF ( LEFT ( x, 1 ) = "-", "#D64550","#30A128")
+			    )
+			RETURN   IF ( LEFT ( x, 1 ) = "-", "#D64550","#30A128")
+			   // _color
+		displayFolder: POS $
+		lineageTag: 36fbdb6a-d7cd-45ab-87fe-f8e6f2f8bff5
+
+	measure 'Avg Price Chg' = [AVG PRICE TY] - [AVG PRICE LY]
+		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+		displayFolder: WEEKLY\AVG PRICE
+		lineageTag: eb47f5a8-69de-4095-bc2b-d8c00bb8519c
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'Net Ship Qty LY' = ```
+			
+			
+			VAR _year_1=[Comparison Year]-1
+			VAR _year=[Comparison Year]
+			VAR ly1=CALCULATE(SUM(FactSuncare[Net Ship Qty]), 'Date Slicer Table'[Year] = _year-1,'WMT Weeks'[WMT WK Number] in VALUES('WMT Weeks'[WMT WK Number]))
+			VAr lycond=Max('WMT Weeks'[Is Leap Year])
+			// Check if the previous year was a leap year
+			VAR prev_year_leap = 
+			    CALCULATE(
+			        MAX('WMT Weeks'[Is Leap Year]), 
+			        FILTER(ALL('Date Slicer Table'), 'Date Slicer Table'[Year] = _year - 1)
+			    )
+			
+			// Determine the max week number in the current year
+			VAR max_week = MAX('Date Slicer Table'[WeekNum]) + 1
+			
+			// Calculate the adjusted last year's sales if previous year was a leap year
+			VAR adjusted_ly2m = 
+			    IF(
+			        prev_year_leap = "Yes",
+			        CALCULATE
+			            (SUM(FactSuncare[Net Ship Qty]), 
+			            FILTER(
+			                ALL('Date Slicer Table'),
+			                'Date Slicer Table'[Year] = _year - 1 &&
+			                'Date Slicer Table'[WeekNum] = max_week
+			            )
+			        ),
+			        BLANK()
+			    )
+			VAr _ly2m=     CALCULATE(
+			         SUM(FactSuncare[Net Ship Qty]), 
+			            'Date Slicer Table'[Year] = _year,
+			        'Date Slicer Table'[WeekNum] = 1, All('Date Slicer Table'))
+			        
+			VAR ly2 = 
+			    IF(
+			        lycond == "Yes" , adjusted_ly2m,
+			        ly1
+			    )
+			// Determine if the week number is 53
+			VAR week_53_condition = MAX('WMT Weeks'[WMT WK Number]) = 53
+			
+			// Final sales calculation based on conditions
+			VAR final_sales = 
+			    IF(
+			        week_53_condition, 
+			        _ly2m,  // Case when the week is 53
+			        IF(
+			            prev_year_leap = "Yes", 
+			            adjusted_ly2m,  // Case when the previous year was a leap year
+			            ly1
+			        )
+			    )
+			
+			RETURN final_sales
+			
+			
+			
+			
+			// VAR _year_1=[Comparison Year]-1
+			// VAR _year=[Comparison Year]
+			// VAR ly1=CALCULATE(SUM(FactSuncare[Net Ship Qty]), 'Date Slicer Table'[Year] = _year-1,'WMT Weeks'[WMT WK Number] in VALUES('WMT Weeks'[WMT WK Number]))
+			// VAr lycond=Max('WMT Weeks'[Is Leap Year])
+			// VAr _ly2m=     CALCULATE(
+			//          SUM(FactSuncare[Net Ship Qty]), 
+			//             'Date Slicer Table'[Year] = _year,
+			//         'Date Slicer Table'[WeekNum] = 1, All('Date Slicer Table'))
+			        
+			// VAR ly2 = 
+			//     IF(
+			//         lycond == "Yes" && MAx('WMT Weeks'[WMT WK Number])=53,_ly2m
+			   
+			//     )
+			
+			// RETURN 
+			// If( MAx('WMT Weeks'[WMT WK Number])=53, ly2,ly1+ly2)
+			
+			
+			// // RETURN CALCULATE(SUM(FactSuncare[Net Ship Qty]), 'Date Slicer Table'[Year]=_year)
+			```
+		formatString: #,0
+		displayFolder: Net Ship Qty
+		lineageTag: 9ad73e15-0667-4aea-b42e-617699c238e0
+
+		annotation PBI_FormatHint = {"isDecimal":true}
+
+	measure 'Net Ship Qty TY' =
+			
+			VAR _year=[Comparison Year]
+			RETURN CALCULATE(SUM(FactSuncare[Net Ship Qty]), 'WMT Weeks'[Fiscal Year]=_year)
+		formatString: #,0
+		displayFolder: Net Ship Qty
+		lineageTag: dd40bfb4-ba07-4ccf-8f9a-0b8e12041a21
+
+		annotation PBI_FormatHint = {"isDecimal":true}
+
+	measure 'Change Pos Color qty' = ```
+			/*SWITCH(True(),
+			           [CHG POS QTY] < 0,"#D64550",
+			          
+			          [CHG POS QTY]> 0, "#30A128"
+			           ) */
+			
+			    VAR X= If(CONTAINSSTRING(MAX('Calculationby?'[Calculationby?]),"Last"),'CustomCalculation_based_on_LastNWeek/Selected Week'[Calculation_based_on_LastNWeek],'CustomCalculation_based_on_LastNWeek/Selected Week'[Calculation_based_on_Selected_Weeks(Custom Slicer)]) 
+			
+			    VAR _Color= If( LEFT(x,1)="-", "#D64550","#30A128")
+			
+			    RETURN _Color
+			```
+		displayFolder: General
+		lineageTag: 69f6c122-6387-43c2-bebb-13667b275422
+
+	measure 'POS TY Add' = CALCULATE([POS TY],FILTER(Store_Items_Attributes, Store_Items_Attributes[Placement] = "New item" ))
+		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+		displayFolder: Add-Delete
+		lineageTag: a3d4f52d-7701-4ae2-885c-82011c864c10
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'POS LY-TY $ Chg (Add-Delete)' = [POS TY Add] - [POS LY Delete]
+		formatString: \$#,0.0;(\$#,0.0);\$#,0.0
+		displayFolder: General
+		lineageTag: 7219f722-fbd3-4645-9f2f-2626274f509a
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'Pos $ Chg % add-del' = DIVIDE([POS LY-TY $ Chg (Add-Delete)],[POS LY Delete])
+		formatString: #,0.0%;-#,0.0%;#,0.0%
+		displayFolder: General
+		lineageTag: 77c0a4a2-8173-41f0-b187-191cc42e4d72
+
+	measure 'POS TY Add Qty' = CALCULATE([POS QTY TY],FILTER(Store_Items_Attributes, Store_Items_Attributes[Placement] = "New item" ))
+		formatString: #,0.00
+		displayFolder: Add-Delete
+		lineageTag: 992243f6-14dd-405d-835b-72e812af679c
+
+	measure 'POS LY-TY Chg Qty' = [POS TY Add Qty] - [POS LY Delete Qty]
+		formatString: #,0.00
+		displayFolder: General
+		lineageTag: 749b5d73-1653-42c7-8577-6baa516b5903
+
+	measure 'POS Chg % add-del Qty' = DIVIDE([POS LY-TY Chg Qty] , [POS LY Delete Qty])
+		formatString: #,0.0%;-#,0.0%;#,0.0%
+		displayFolder: General
+		lineageTag: ce23b245-1457-421c-b5f8-56df7c47ec62
+
+	measure 'Avg Price Chg Color' = ```
+			SWITCH(True(),
+			           [Avg Price Chg] < 0,"#D64550",
+			          
+			          [Avg Price Chg]> 0, "#30A128"
+			           )
+			```
+		displayFolder: WEEKLY\AVG PRICE
+		lineageTag: 5103d105-9f08-4419-a7c9-bae9bbbbea7c
+
+	measure 'Total Inventory Retails $''s' = SUM(FactSuncare_Canada_Inventory[Curr Str In Transit Retail])+ SUM(FactSuncare_Canada_Inventory[Curr Str In Whse Retail]) + SUM(FactSuncare_Canada_Inventory[Curr Str On Hand Retail]) + SUM(FactSuncare_Canada_Inventory[Curr Str On Order Retail])
+		formatString: \$#,0;(\$#,0);\$#,0
+		displayFolder: General
+		lineageTag: c3edae3a-2468-4fef-a677-65ed2d6555e8
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'Color 4 ARP Chg' = IF([Avg Price Chg]> 0,"Green","Red")
+		displayFolder: General
+		lineageTag: 7097e80f-6808-4f45-9baf-489958a449a2
+
+	measure 'Color 4 % Chg Avg Price' = IF([% CHG AVG PRICE] >0 ,"Green","Red")
+		displayFolder: WEEKLY\AVG PRICE
+		lineageTag: b23be24d-4c8c-45e1-8445-dc8277971dcd
+
+	measure 'Color 4 Chg Pos $' = IF([CHG POS $]>0,"Green","Red")
+		displayFolder: POS $
+		lineageTag: d768a0a9-eff2-496f-8657-237f9dda561e
+
+	measure 'color format TY U % Chg' = IF([% CHG POS QTY] <0 ,"Red","Green" )
+		displayFolder: General
+		lineageTag: 9b47d091-5047-4ffb-a8e4-897d5153a32b
+
+	measure 'Unicode POS U Color New' = ```
+			
+			    VAR X= If(MAX('CustomCalculation_based_on_LastNWeek/Selected Week'[Metrics])="TY U % Chg"  && CONTAINSSTRING(MAX('Calculationby?'[Calculationby?]),"Last"),'CustomCalculation_based_on_LastNWeek/Selected Week'[Calculation_based_on_LastNWeek],'CustomCalculation_based_on_LastNWeek/Selected Week'[Calculation_based_on_Selected_Weeks(Custom Slicer)]) 
+			
+			    VAR _Color= If( LEFT(x,1)="-", "#D64550","#30A128")
+			
+			RETURN _Color
+			
+			    
+			```
+		displayFolder: General
+		lineageTag: b067d3d0-9849-4bf4-86db-ef9ee1593bfc
+
+	measure 'Unicode AVG Price Color' = ```
+			VAR X= If(MAX('CustomCalculation_based_on_LastNWeek/Selected Week'[Metrics])="ARP % Chg"  && CONTAINSSTRING(MAX('Calculationby?'[Calculationby?]),"Last"),'CustomCalculation_based_on_LastNWeek/Selected Week'[Calculation_based_on_LastNWeek],'CustomCalculation_based_on_LastNWeek/Selected Week'[Calculation_based_on_Selected_Weeks(Custom Slicer)]) 
+			
+			    VAR _Color= If( LEFT(x,1)="-", "#D64550","#30A128")
+			
+			    RETURN _Color
+			```
+		displayFolder: General
+		lineageTag: 69e9a9f0-5030-4f43-a5e8-349b8f0b502e
+
+	measure Last1weeks_ECOM_TOtal_Sales = ```
+			var a=[ThisYear]
+			Var week=max('Date Slicer Table'[WeekNum])
+			
+			var Startdate=CALCULATE(MIN('Date Slicer Table'[Date]), All('Date Slicer Table'),'Date Slicer Table'[WeekNum]=week,'Date Slicer Table'[Year]=a)
+			var enddate=CALCULATE(MAX('Date Slicer Table'[Date]), All('Date Slicer Table'),'Date Slicer Table'[WeekNum]=week,'Date Slicer Table'[Year]=a)
+			return  
+			CALCULATE ([ECOM Sales],ALL('Date Slicer Table'),'Date Slicer Table'[Date]>=StartDate,'Date Slicer Table'[Date]<=enddate)
+			```
+		displayFolder: ECOM\POS $
+		lineageTag: f8a7bc35-f0b6-4620-9fe6-269fa698ab38
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Last4weeks_Ecom_Total_Sales TY' = ```
+			
+			var a=[ThisYear]
+			Var week=max('Date Slicer Table'[WeekNum])
+			
+			var Startdate=CALCULATE(MIN('Date Slicer Table'[Date]), All('Date Slicer Table'),'Date Slicer Table'[WeekNum]=week,'Date Slicer Table'[Year]=a)
+			var enddate=CALCULATE(MAX('Date Slicer Table'[Date]), All('Date Slicer Table'),'Date Slicer Table'[WeekNum]=week,'Date Slicer Table'[Year]=a)
+			return  
+			CALCULATE ([ECOM Sales],ALL('Date Slicer Table'),'Date Slicer Table'[Date]>=StartDate-21,'Date Slicer Table'[Date]<=enddate)
+			```
+		displayFolder: ECOM
+		lineageTag: 6bb991e1-fb29-44ae-a71c-1379170fedd7
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Last13weeks_Ecom_Total_Sales TY' = ```
+			
+			var a=[ThisYear]
+			Var week=max('Date Slicer Table'[WeekNum])
+			
+			var Startdate=CALCULATE(MIN('Date Slicer Table'[Date]), All('Date Slicer Table'),'Date Slicer Table'[WeekNum]=week,'Date Slicer Table'[Year]=a)
+			var enddate=CALCULATE(MAX('Date Slicer Table'[Date]), All('Date Slicer Table'),'Date Slicer Table'[WeekNum]=week,'Date Slicer Table'[Year]=a)
+			return  
+			CALCULATE ([ECOM Sales],ALL('Date Slicer Table'),'Date Slicer Table'[Date]>=StartDate-84,'Date Slicer Table'[Date]<=enddate)
+			```
+		formatString: 0
+		displayFolder: ECOM
+		lineageTag: c9ca151f-6642-4cee-baba-a22177746a45
+
+		annotation PBI_FormatHint = {"isDecimal":true}
+
+	measure 'Last52weeks_Ecom_Total_Sales TY' = ```
+			
+			var a=[ThisYear]
+			Var week=max('Date Slicer Table'[WeekNum])
+			
+			var Startdate=CALCULATE(MIN('Date Slicer Table'[Date]), All('Date Slicer Table'),'Date Slicer Table'[WeekNum]=week,'Date Slicer Table'[Year]=a)
+			var enddate=CALCULATE(MAX('Date Slicer Table'[Date]), All('Date Slicer Table'),'Date Slicer Table'[WeekNum]=week,'Date Slicer Table'[Year]=a)
+			return  
+			CALCULATE ([ECOM Sales],ALL('Date Slicer Table'),'Date Slicer Table'[Date]>=StartDate-357,'Date Slicer Table'[Date]<=enddate)
+			```
+		displayFolder: ECOM
+		lineageTag: 3b655915-a345-4895-ac94-f110428e6c7c
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'YTDCompYr Ecom Sales TY' = ```
+			
+			var a=[ThisYear]
+			Var weekno=max('Date Slicer Table'[WeekNum])
+			var Startdate=CALCULATE(MIN('Date Slicer Table'[Date]), FILTER(All('Date Slicer Table'),'Date Slicer Table'[WeekNum]=1 &&'Date Slicer Table'[Year]=a )) 
+			var enddate= CALCULATE(MAX('Date Slicer Table'[Date]), FILTER(All('Date Slicer Table'),'Date Slicer Table'[WeekNum]=weekno &&'Date Slicer Table'[Year]=a )) 
+			
+			
+			VAR v=  CALCULATE ([ECOM Sales],ALL('Date Slicer Table'),'Date Slicer Table'[Date]>=Startdate,'Date Slicer Table'[Date]<=enddate)
+			RETURN v
+			
+			```
+		displayFolder: ECOM
+		lineageTag: 49dc136e-d7e8-4e59-bdb5-47885d69900a
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'POS TY Ecom Sales' = ```
+			SWITCH(TRUE(),
+			SELECTEDVALUE('LastNWeek'[Category]) = "Last Week",[Last1weeks_ECOM_TOtal_Sales],
+			SELECTEDVALUE(LastNWeek[Category])="Last 4 Weeks",[Last4weeks_Ecom_Total_Sales TY],
+			SELECTEDVALUE(LastNWeek[Category])="Last 13 Weeks",[Last13weeks_Ecom_Total_Sales TY],
+			SELECTEDVALUE(LastNWeek[Category])="Last 52 Weeks",[Last52weeks_Ecom_Total_Sales TY],
+			SELECTEDVALUE(LastNWeek[Category]) = "YTD",[YTDCompYr Ecom Sales TY])
+			// CALCULATE(SUM('FactSuncare'[POS Sales]),'WMT Weeks'[Fiscal Year]=2022)
+			
+			
+			```
+		formatString: \$#,0;(\$#,0);\$#,0
+		displayFolder: ECOM
+		lineageTag: a401f44f-e30b-41ff-8bec-ab7da3c0ba8c
+
+	measure 'Last1weeksSales Ecom Sales LY' =
+			
+			CALCULATE ([ECOM Sales],All('Date Slicer Table'),DATESINPERIOD ( 'Date Slicer Table'[Date], [LastYear_LastDate_new], -7, DAY ))
+		displayFolder: ECOM\POS $
+		lineageTag: b8786084-5a88-4a70-8153-d1023648fdf0
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Last4weeksSales Ecom Sales' = ```
+			
+			var a=[ThisYear]
+			Var week=max('Date Slicer Table'[WeekNum])
+			
+			var Startdate=CALCULATE(MIN('Date Slicer Table'[Date]), All('Date Slicer Table'),'Date Slicer Table'[WeekNum]=week,'Date Slicer Table'[Year]=a)
+			var enddate=CALCULATE(MAX('Date Slicer Table'[Date]), All('Date Slicer Table'),'Date Slicer Table'[WeekNum]=week,'Date Slicer Table'[Year]=a)
+			return  
+			CALCULATE ([ECOM Sales],ALL('Date Slicer Table'),'Date Slicer Table'[Date]>=StartDate-21,'Date Slicer Table'[Date]<=enddate)
+			```
+		displayFolder: ECOM
+		lineageTag: c83d466e-42ef-4b75-9643-5b34df602fd5
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Last13weeksSales ECOM SALES LY' =
+			
+			CALCULATE (
+			    [ECOM Sales],All('Date Slicer Table'),
+			    DATESINPERIOD ( 'Date Slicer Table'[Date], [LastYear_LastDate_new], -91, DAY ))
+		displayFolder: ECOM
+		lineageTag: e08cb300-6891-46ec-913d-0f57a867b086
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Last52weeksSales Ecom Sales LY' =
+			
+			CALCULATE (
+			    [ECOM Sales],All('Date Slicer Table'),
+			    DATESINPERIOD ( 'Date Slicer Table'[Date],[LastYear_LastDate_new], -364, DAY ))
+		displayFolder: ECOM
+		lineageTag: 0d4cec94-6689-491e-877b-7d091e39463c
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'YTD Ecom Sales' = ```
+			
+			var a=[ThisYear]-1 
+			Var weekno=max('Date Slicer Table'[WeekNum])
+			var Startdate=CALCULATE(MIN('Date Slicer Table'[Date]), FILTER(All('Date Slicer Table'),'Date Slicer Table'[WeekNum]=1 &&'Date Slicer Table'[Year]=a )) 
+			var enddate= CALCULATE(MAX('Date Slicer Table'[Date]), FILTER(All('Date Slicer Table'),'Date Slicer Table'[WeekNum]=weekno &&'Date Slicer Table'[Year]=a )) 
+			
+			
+			VAR v=  CALCULATE ([ECOM Sales],ALL('Date Slicer Table'),'Date Slicer Table'[Date]>=Startdate,'Date Slicer Table'[Date]<=enddate)
+			RETURN v
+			
+			//CALCULATE ([Total sales],All('Date Slicer Table'),DATESYTD(  'Date Slicer Table'[Date]))
+			```
+		displayFolder: ECOM
+		lineageTag: a523c7ef-b8c0-423d-8bea-0d266ae8475d
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Pos LY Ecom Sales' =
+			
+			SWITCH(TRUE(),SELECTEDVALUE('LastNWeek'[Category])="Last Week",[Last1weeksSales Ecom Sales LY]
+			                        ,SELECTEDVALUE('LastNWeek'[Category])="Last 4 Weeks",[Last4weeksSales Ecom LY]
+			                        ,SELECTEDVALUE('LastNWeek'[Category])="Last 13 Weeks",[Last13weeksSales ECOM SALES LY]
+			                        ,SELECTEDVALUE('LastNWeek'[Category])="Last 52 Weeks",[Last52weeksSales Ecom Sales LY],
+			                        SELECTEDVALUE('LastNWeek'[Category])="YTD",[YTD Ecom Sales LY])
+			//CALCULATE(SUM('FactSuncare'[POS Sales]),'WMT Weeks'[Fiscal Year]=2022)
+		formatString: \$#,0;(\$#,0);\$#,0
+		displayFolder: ECOM
+		lineageTag: b07cc1b7-13c3-4401-b60f-5d452436e9c8
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'CHG POS $ Ecom Sales' = '_Key Measures'[POS TY Ecom Sales]-'_Key Measures'[Pos LY Ecom Sales]
+		formatString: \$#,0;(\$#,0);\$#,0
+		displayFolder: ECOM
+		lineageTag: f571246c-7abc-4535-b0be-a355a4f019c0
+
+	measure 'CHG POS $L1W Ecom Sales' = [Last1weeks_ECOM_TOtal_Sales] - [Last1weeksSales Ecom Sales LY]
+		formatString: \$#,0;(\$#,0);\$#,0
+		displayFolder: ECOM
+		lineageTag: 6c3db1fa-b9e1-496b-82cf-af385b001c5c
+
+	measure '% CHG POS $last1wk Ecom Sales' = DIVIDE([CHG POS $L1W Ecom Sales],ABS([Last1weeksSales Ecom Sales LY]))
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: ECOM\POS $
+		lineageTag: e4555e66-18e2-4fd7-8260-c8593b211b51
+
+	measure 'CHG POS $L4W Ecom Sales' = [Last4weeksSales Ecom Sales] - [Last4weeksSales Ecom LY]
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		displayFolder: ECOM
+		lineageTag: 4a7e01e4-fcdb-4455-a535-de14d281d988
+
+	measure 'Last4weeksSales Ecom LY' = ```
+			
+			CALCULATE (
+			    [ECOM Sales],All('Date Slicer Table'),
+			    DATESINPERIOD ( 'Date Slicer Table'[Date], [LastYear_LastDate_new], -28, DAY ))
+			
+			
+			```
+		displayFolder: ECOM
+		lineageTag: dd40b844-717e-4fe5-b392-8e9455dd6f4f
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure '% CHG POS $last4wk Ecom Sales' = DIVIDE([CHG POS $L4W Ecom Sales],ABS([Last4weeksSales Ecom LY]))
+		formatString: #,0.0%;-#,0.0%;#,0.0%
+		displayFolder: ECOM
+		lineageTag: 3006bbf8-d20e-4c68-9590-15d6e5c82392
+
+	measure 'CHG POS $L13W Ecom Sales' = [Last13weeks_Ecom_Total_Sales TY] - [Last13weeksSales ECOM SALES LY]
+		formatString: \$#,0;(\$#,0);\$#,0
+		displayFolder: ECOM
+		lineageTag: 53920417-c59e-4939-8fb0-f57deefe9e68
+
+	measure 'CHG POS $L52W Ecom Sales' = [Last52weeks_Ecom_Total_Sales TY] - [Last52weeksSales Ecom Sales LY]
+		formatString: \$#,0;(\$#,0);\$#,0
+		displayFolder: ECOM
+		lineageTag: b73e671d-9284-48d6-8e1c-b7d1406173eb
+
+	measure '% CHG POS $last13wk Ecom Sales' = DIVIDE([CHG POS $L13W Ecom Sales],ABS([Last13weeksSales ECOM SALES LY]))
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: ECOM
+		lineageTag: f2d9a54f-0ba9-4f9d-b0f1-4cc8e26cdff8
+
+	measure '% CHG POS $last52wk Ecom Sales' = DIVIDE([CHG POS $L52W Ecom Sales],ABS([Last52weeksSales Ecom Sales LY]))
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: ECOM
+		lineageTag: a81a8e24-8082-4291-9d9b-b6165b3381c7
+
+	measure 'CHG POS $YTD Ecom Sales' = [YTDCompYr Ecom Sales TY]-[YTD Ecom Sales]
+		formatString: \$#,0;(\$#,0);\$#,0
+		displayFolder: ECOM
+		lineageTag: 42fae51e-a03c-49c7-8509-205155c1db72
+
+	measure '% CHG POS $YTD Ecom Sales' = DIVIDE([CHG POS $YTD Ecom Sales],ABS([YTD Ecom Sales LY]))
+		displayFolder: ECOM
+		lineageTag: 9bdefe0d-f626-4de2-95ce-deffb8a4c3fe
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure '% CHG POS $ Ecom Sales' = ```
+			
+			VAR a= SWITCH(TRUE(),SELECTEDVALUE('LastNWeek'[Category])="Last Week",[% CHG POS $last1wk Ecom Sales]
+			                        ,SELECTEDVALUE('LastNWeek'[Category])="Last 4 Weeks",[% CHG POS $last4wk Ecom Sales]
+			                        ,SELECTEDVALUE('LastNWeek'[Category])="Last 13 Weeks",[% CHG POS $last13wk Ecom Sales]
+			                        ,SELECTEDVALUE('LastNWeek'[Category])="Last 52 Weeks",[% CHG POS $last52wk Ecom Sales],
+			                        SELECTEDVALUE('LastNWeek'[Category])="YTD",[% CHG POS $YTD Ecom Sales],[% CHG POS $YTD Ecom Sales])
+			//var a= [CHG POS $]/[POS 2022]
+			return if(a=-1,BLANK(),a)
+			
+			```
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: ECOM
+		lineageTag: 41358879-4d7c-494e-b29a-a11016fbbfa3
+
+	measure 'ECOM QTY' = ```
+			
+			VAR x = SELECTEDVALUE(CustomEcomSupport[Sub-Group])
+			
+			VAR ghd= CALCULATE (
+			                SUM ( factsuncare_canada_Ecom[Net Shipped Units GM Home Delivery] ),
+			               
+			                    // ALL ( CustomEcomSupport ),
+			                    CustomEcomSupport[Sub-Group] = "Net Shipped GM Home Delivery"
+			                
+			            )
+			
+			VAR gsitetostore=  CALCULATE (
+			                SUM ( factsuncare_canada_Ecom[Net Shipped Units GM Site to Store] ),
+			               
+			                    // ALL ( CustomEcomSupport ),
+			                    CustomEcomSupport[Sub-Group] = "Net Shipped GM Site to Store"
+			                
+			            )
+			
+			VAR gpickfromstore= CALCULATE (
+			                SUM ( factsuncare_canada_Ecom[Net Shipped Units GM Pick From Store] ),
+			               
+			                    // ALL ( CustomEcomSupport ),
+			                    CustomEcomSupport[Sub-Group] = "Net Shipped GM Pick From Store"
+			                
+			            )
+			
+			VAR gshipfromstore=CALCULATE (
+			                SUM ( factsuncare_canada_Ecom[Net Shipped Units GM Ship From Store] ),
+			               
+			                    // ALL ( CustomEcomSupport ),
+			                    CustomEcomSupport[Sub-Group] = "Net Shipped GM Ship From Store"
+			                
+			            )
+			
+			VAR ostorepick= CALCULATE (
+			                SUM ( factsuncare_canada_Ecom[Net Shipped Units OG Store Pickup] ),
+			               
+			                    // ALL ( CustomEcomSupport ),
+			                    CustomEcomSupport[Sub-Group] = "Net Shipped OG Store Pickup"
+			                
+			            )
+			
+			VAR ohomedelivery = CALCULATE (
+			                SUM ( factsuncare_canada_Ecom[Net Shipped Units OG Home Delivery] ),
+			               
+			                    // ALL ( CustomEcomSupport ),
+			                    CustomEcomSupport[Sub-Group] = "Net Shipped OG Home Delivery"
+			                
+			            )
+			
+			VAR totalecom=ghd+ gsitetostore+gpickfromstore +gshipfromstore+  ostorepick+ohomedelivery
+			
+			VAR qty=SUM ( FactSuncare[Pos qty] )
+			RETURN
+			    SWITCH (
+			        TRUE (),
+			        x = "Net Shipped GM Home Delivery",ghd
+			           ,
+			        x = "Net Shipped GM Site to Store",gsitetostore
+			          ,
+			        x = "Total 1P & 2P",
+			           ghd+ gsitetostore,
+			        x = "Net Shipped GM Pick From Store",gpickfromstore
+			           ,
+			        x = "Net Shipped GM Ship From Store",gshipfromstore
+			            ,
+			        x = "Total PFS & SFS",gpickfromstore +gshipfromstore
+			          ,
+			        x = "Total GM", ghd+ gsitetostore+gpickfromstore +gshipfromstore
+			         ,
+			        x = "Net Shipped OG Store Pickup",ostorepick
+			           ,
+			        x = "Net Shipped OG Home Delivery",ohomedelivery
+			           ,
+			        x = "Total OG",
+			           ostorepick+ohomedelivery
+			               ,
+			        x = "Total Ecom",
+			            totalecom,
+			        x = "Total B&M",
+			            qty
+			            - totalecom
+			            ,
+			        x = "Grand Total",
+			           qty
+			    )
+			
+			```
+		displayFolder: ECOM
+		lineageTag: aa023297-43e1-4f71-b5f8-fa57a8902877
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'POS QTY TY Ecom' =
+			
+			SWITCH(TRUE(),SELECTEDVALUE('LastNWeek'[Category])="Last Week",[Last1weeksQTYCompYr Ecom QTY TY]
+			                        ,SELECTEDVALUE('LastNWeek'[Category])="Last 4 Weeks",[Last4weeksQTYCompYr Ecom Qty TY]
+			                        ,SELECTEDVALUE('LastNWeek'[Category])="Last 13 Weeks",[Last13weeksQTYCompYr Ecom Qty TY]
+			                        ,SELECTEDVALUE('LastNWeek'[Category])="Last 52 Weeks",[Last52weeksQTYCompYr Ecom Qty TY],
+			SELECTEDVALUE('LastNWeek'[Category])="YTD",[YTDCompYr QTY Ecom Qty])
+		formatString: #,0
+		displayFolder: ECOM
+		lineageTag: 1e892109-74d1-426a-b72e-8ed25643fda6
+
+	measure 'POS QTY LY Ecom' = ```
+			
+			 SWITCH(TRUE(),SELECTEDVALUE('LastNWeek'[Category])="Last Week",[Last1weeksQTY Ecom Qty LY]
+			                        ,SELECTEDVALUE('LastNWeek'[Category])="Last 4 Weeks",[Last4weeksQTY Ecom Qty LY]
+			                        ,SELECTEDVALUE('LastNWeek'[Category])="Last 13 Weeks",[Last13weeksQTY Ecom Qty LY]
+			                        ,SELECTEDVALUE('LastNWeek'[Category])="Last 52 Weeks",[Last52weeksQTY Ecom Qty LY],
+			                        SELECTEDVALUE('LastNWeek'[Category])="YTD",[YTD QTY Ecom Qty TY])
+			//CALCULATE(SUM('FactSuncare'[POS Qty]),'WMT Weeks'[Fiscal Year]=2022)
+			```
+		formatString: #,0
+		displayFolder: ECOM
+		lineageTag: ca273d16-c6d4-4cfe-9e56-5ae04aff12b4
+
+	measure 'CHG POS Ecom QTY' = [POS QTY TY Ecom]-[POS QTY LY Ecom]
+		formatString: #,0
+		displayFolder: ECOM
+		lineageTag: 95c26e7d-d39d-4d0a-9c7f-d31793627ed6
+
+	measure '% CHG POS QTY Ecom' =
+			
+			SWITCH(TRUE(),SELECTEDVALUE('LastNWeek'[Category])="Last Week",[% CHG QTY $last1wk Ecom Table]
+			                        ,SELECTEDVALUE('LastNWeek'[Category])="Last 4 Weeks",[% CHG QTY $last4wk Ecom Table]
+			                        ,SELECTEDVALUE('LastNWeek'[Category])="Last 13 Weeks",[% CHG QTY $last13wk Ecom Table]
+			                        ,SELECTEDVALUE('LastNWeek'[Category])="Last 52 Weeks",[% CHG QTY $last52wk Ecom Table],
+			                        SELECTEDVALUE('LastNWeek'[Category])="YTD",[% CHG QTY $YTD Ecom Table])
+			//[CHG POS QTY]/[POS QTY 2022]))
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: ECOM
+		lineageTag: 8607933b-22ed-4421-84ef-9f9c073027c9
+
+	measure 'AVG PRICE TY Ecom Table' = DIVIDE([POS TY Ecom Sales],[POS QTY TY Ecom])
+		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+		displayFolder: ECOM\AVG PRICE
+		lineageTag: 517cfe4d-91fb-4a7d-9f60-517e76a743e6
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'AVG PRICE LY Ecom Table' = DIVIDE([Pos LY Ecom Sales],[POS QTY LY Ecom])
+		formatString: \$#,0;(\$#,0);\$#,0
+		displayFolder: ECOM\AVG PRICE
+		lineageTag: 4afb4943-a8f6-4024-9db9-e59f0b4678dd
+
+	measure 'Avg Price Chg Ecom Table' = [AVG PRICE TY Ecom Table] - [AVG PRICE LY Ecom Table]
+		formatString: 0
+		displayFolder: ECOM\AVG PRICE
+		lineageTag: b163abf4-a1c8-4a28-9591-0177f940a914
+
+		annotation PBI_FormatHint = {"isDecimal":true}
+
+	measure 'CHG AVG PRICE ECOM TABLE' = [AVG PRICE TY Ecom Table]-'_Key Measures'[AVG PRICE LY Ecom Table]
+		formatString: \$#,0;(\$#,0);\$#,0
+		displayFolder: ECOM\AVG PRICE
+		lineageTag: 60d44d1d-d3ad-478f-8afc-98e495e1ed09
+
+	measure '% CHG AVG PRICE ECOM TABLE' = DIVIDE([CHG AVG PRICE ECOM TABLE],[AVG PRICE LY Ecom Table])
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: ECOM\AVG PRICE
+		lineageTag: d9753420-d329-41dd-81f5-be95602c1159
+
+	measure 'Calculation_based_on_LastNWeek Ecom Sales' = ```
+			
+			
+			 
+			
+			VAR x= SELECTEDVALUE('CustomCalculation_based_on_LastNWeek/Selected Week'[Metrics])
+			
+			 
+			RETURN SWITCH(TRUE(),
+			
+			x="TY $'s", FORMAT([POS TY Ecom Sales],"$#,###;-$#,###;$0"),
+			
+			x="LY $'s",  FORMAT([Pos LY Ecom Sales],"$#,###;-$#,###;$0"),
+			
+			x="TY $ Chg", FORMAT([CHG POS $ Ecom Sales],"$#,###;-$#,###;$0"),
+			
+			x="TY $ % Chg", FORMAT([% CHG POS $ Ecom Sales],"0.0%"),
+			
+			x="TY U’s", FORMAT( [POS QTY TY Ecom],"#,###;-#,###;0"),
+			
+			x="LY U’s",  FORMAT([POS QTY LY Ecom],"#,###;-#,###;0"),
+			
+			x="TY U Chg", FORMAT([CHG POS Ecom QTY],"#,###;-#,###;0"),
+			
+			x="TY U % Chg", FORMAT([% CHG POS QTY Ecom],"0.0%"),
+			
+			x="ARP TY",  FORMAT([AVG PRICE TY Ecom Table],"$#,###.00;-$#,###.00;$0.00"),
+			
+			x="ARP LY",  FORMAT([AVG PRICE LY Ecom Table],"$#,###.00;-$#,###.00;$0.00"),
+			
+			x="ARP Chg",  FORMAT([Avg Price Chg Ecom Table],"$0.00;-$0.00"),
+			
+			x="ARP % Chg", FORMAT( [% CHG AVG PRICE ECOM TABLE],"0.0%")
+			
+			)
+			```
+		displayFolder: ECOM
+		lineageTag: cf855bbb-932b-4714-acb1-c289bfac1ffc
+
+	measure 'Calculation_based_on_Selected_Weeks(Custom Slicer) Ecom Table' = ```
+			
+			
+			VAR _year=[Comparison Year]
+			VAR _lastyear=_year-1
+			VAR x= SELECTEDVALUE('CustomCalculation_based_on_LastNWeek/Selected Week'[Metrics])
+			
+			// Dollar Calculate
+			
+			VAR TY_Dollar = CALCULATE(
+			    [ECOM Sales],
+			    'Date Slicer Table'[Year] = _year
+			)
+			
+			// VAR LY_Dollar = CALCULATE(
+			//     [ECOM Sales],
+			//     'Date Slicer Table'[Year] = _year - 1,'WMT Weeks'[WMT WK Number] in VALUES('WMT Weeks'[WMT WK Number]))
+			
+			 VAR LY_Dollar = [Last_year_ECOM_sales_combined]
+			
+			VAR CHG_POS_Dollar = TY_Dollar-LY_Dollar
+			
+			VAR CHG_POS_Dollar_per = DIVIDE(CHG_POS_Dollar, ABS(LY_Dollar))
+			
+			 
+			
+			//QTY Calculate
+			
+			VAR TY_QTY= CALCULATE([ECOM QTY],'Date Slicer Table', 'Date Slicer Table'[Year] = _year)
+			
+			// VAR LY_QTY= CALCULATE([ECOM QTY], 'Date Slicer Table'[Year] = _lastyear,'WMT Weeks'[WMT WK Number] in VALUES('WMT Weeks'[WMT WK Number]))
+			
+			VAR LY_QTY= [Last_year_ECOM_QTY_combined]
+			
+			VAR CHG_POS_QTY = TY_QTY-LY_QTY
+			
+			VAR CHG_POS_QTY_per = DIVIDE(CHG_POS_QTY, ABS(LY_QTY))
+			
+			 
+			
+			// AVG
+			
+			VAR TY_AVG= DIVIDE(TY_Dollar,TY_QTY)
+			
+			VAR LY_AVG=  DIVIDE(LY_Dollar,LY_QTY)
+			
+			VAR CHG_POS_AVG = TY_AVG-LY_AVG
+			
+			VAR CHG_POS_AVG_per = DIVIDE(CHG_POS_AVG, LY_AVG)
+			
+			
+			RETURN SWITCH(TRUE(),
+			x="TY $'s", FORMAT(TY_Dollar,"$#,###;-$#,###;$0"),
+			
+			x="LY $'s", FORMAT( LY_Dollar,"$#,###;-$#,###;$0"),
+			
+			x="TY $ Chg", FORMAT( CHG_POS_Dollar,"$#,###;-$#,###;$0"),
+			
+			x="TY $ % Chg",FORMAT(CHG_POS_Dollar_per,"0.0%"),
+			
+			x="TY U’s", FORMAT(TY_QTY,"#,###;-#,###;0"),
+			
+			x="LY U’s",FORMAT( LY_QTY,"#,###;-#,###;0"),
+			
+			x="TY U Chg",FORMAT( CHG_POS_QTY,"#,###;-#,###;0"),
+			
+			x="TY U % Chg",FORMAT(CHG_POS_QTY_per,"0.0%"),
+			
+			 
+			
+			x="ARP TY", FORMAT(TY_AVG,"$#,###.00;-$#,###.00;$0.00"),
+			
+			x="ARP LY", FORMAT( LY_AVG,"$#,###.00;-$#,###.00;$0.00"),
+			
+			x="ARP Chg", FORMAT( CHG_POS_AVG,"$0.00;-$0.00"),
+			
+			x="ARP % Chg", FORMAT(CHG_POS_AVG_per,"0.0%")
+			
+			)
+			```
+		displayFolder: ECOM
+		lineageTag: afbd9408-7952-4f1c-b4a9-6d9ff143f9e6
+
+	measure 'Sales by Segment Title' =
+			Var a = CONCATENATEX(VALUES('Dynamic Slicer'[Metrics]),'Dynamic Slicer'[Metrics],", ")
+			return  "Sales Segment Summary  "  &  If (NOT(ISBLANK(a)), "by : " & a) & " and " & [Sort by Metrics/Order Title]
+		displayFolder: General
+		lineageTag: 6d1b9be2-672a-448d-9ea6-05e28d425083
+
+	measure 'Unicode POS Unit' = ```
+			
+			    VAR X= If(MAX('CustomCalculation_based_on_LastNWeek/Selected Week'[Metrics])="TY U % Chg"  && CONTAINSSTRING(MAX('Calculationby?'[Calculationby?]),"Last"),'CustomCalculation_based_on_LastNWeek/Selected Week'[Calculation_based_on_LastNWeek],'CustomCalculation_based_on_LastNWeek/Selected Week'[Calculation_based_on_Selected_Weeks(Custom Slicer)]) 
+			
+			    VAR per= If( LEFT(x,1)="-",-1,1)
+			    VAR Down = UNICHAR(11167)
+			    VAR Up = UNICHAR(11165)
+			
+			    VAR f=
+			   SWITCH(True(),
+			           per < 0,Down,
+			          
+			         per> 0 ,Up,
+			           
+			            per= BLANK(),UNICHAR(8722)
+			           
+			       )
+			
+			       RETURN f
+			
+			```
+		displayFolder: General
+		lineageTag: c3feb36c-32e6-4a47-b08b-519290de0cb1
+
+	measure 'Unicode POS Avg Price New' = ```
+			
+			    VAR X= If(MAX('CustomCalculation_based_on_LastNWeek/Selected Week'[Metrics])="ARP % Chg"  && CONTAINSSTRING(MAX('Calculationby?'[Calculationby?]),"Last"),'CustomCalculation_based_on_LastNWeek/Selected Week'[Calculation_based_on_LastNWeek],'CustomCalculation_based_on_LastNWeek/Selected Week'[Calculation_based_on_Selected_Weeks(Custom Slicer)]) 
+			
+			    VAR per= If( LEFT(x,1)="-",-1,1)
+			    VAR Down = UNICHAR(11167)
+			    VAR Up = UNICHAR(11165)
+			
+			    VAR f=
+			   SWITCH(True(),
+			           per < 0,Down,
+			          
+			         per> 0 ,Up,
+			           
+			            per= BLANK(),UNICHAR(8722)
+			           
+			       )
+			
+			       RETURN f
+			```
+		displayFolder: General
+		lineageTag: 9fa734d3-e868-459a-bf01-ac28723c763b
+
+	measure 'Arrow  FactSuncare Custom Week Selection' = ```
+			
+			VAR X =
+			    IF (
+			        CONTAINSSTRING ( MAX ( 'Calculationby?'[Calculationby?] ), "Last" ),
+			        'CustomCalculation_based_on_LastNWeek/Selected Week'[Calculation_based_on_LastNWeek],
+			        'CustomCalculation_based_on_LastNWeek/Selected Week'[Calculation_based_on_Selected_Weeks(Custom Slicer)]
+			    )
+			VAR _arrow =
+			    IF (
+			        CONTAINSSTRING (
+			            MAX( 'CustomCalculation_based_on_LastNWeek/Selected Week'[Metrics] ),
+			            "% Chg"
+			        ) && LEN(x)>=1,
+			        IF ( LEFT ( x, 1 ) = "-", "down", "up" )
+			    )
+			RETURN
+			  //arrow 
+			SWITCH( TRUE(),
+			      CONTAINSSTRING (
+			            MAX( 'CustomCalculation_based_on_LastNWeek/Selected Week'[Metrics] ),
+			            "% Chg"
+			        )  &&  LEFT ( x, 1 ) = "-", 1,
+			       CONTAINSSTRING (
+			            MAX( 'CustomCalculation_based_on_LastNWeek/Selected Week'[Metrics] ),
+			            "% Chg"
+			        )  &&  LEFT ( x, 1 ) = "+",0,5 )
+			```
+		formatString: 0
+		displayFolder: General
+		lineageTag: dfc58087-c0f1-4202-93f4-8e964ac93ddb
+
+	measure 'FactSuncare Custom Week Selection Chg Dollar for Geography (map)' = ```
+			
+			VAR _year=[Comparison Year]
+			VAR y= MAX('Calculationby?'[Calculationby?])
+			
+			VAR x= SELECTEDVALUE('CustomCalculation_based_on_LastNWeek/Selected Week'[Metrics])
+			// Dollar Calculate
+			VAR TY_Dollar= CALCULATE([Total Sales], 'Date Slicer Table'[Year] = _year)
+			VAR LY_Dollar= CALCULATE([Total Sales], 'Date Slicer Table'[Year] = _year-1,'WMT Weeks'[WMT WK Number] in VALUES('WMT Weeks'[WMT WK Number]))
+			VAR CHG_POS_Dollar = TY_Dollar-LY_Dollar
+			VAR CHG_POS_Dollar_per = DIVIDE(CHG_POS_Dollar, LY_Dollar)
+			
+			
+			
+			
+			VAR final= SWITCH(TRUE(),
+			
+			x="TY $ Chg" && CONTAINSSTRING(y,"Last") ,  CALCULATE([CHG POS $],'WMT Weeks'[WMT WK Number] in VALUES('WMT Weeks'[WMT WK Number])),
+			x="TY $ Chg" && CONTAINSSTRING(y,"Selected"),CHG_POS_Dollar
+			
+			)
+			
+			RETURN final
+			
+			
+			```
+		formatString: \$#,0;(\$#,0);\$#,0
+		displayFolder: General
+		lineageTag: c4926944-934a-4a2e-b9b9-d5d1fb64e405
+
+	measure 'FactSuncare Custom Week Selection Chg Dollar for Geography (map)(ABS)' = ```
+			
+			
+			ABS([FactSuncare Custom Week Selection Chg Dollar for Geography (map)])
+			
+			```
+		formatString: \$#,0;(\$#,0);\$#,0
+		displayFolder: General
+		lineageTag: cbdbfdfd-d694-4e5d-94ab-350a5186e152
+
+	measure 'CHG POS $ For Sales By Week' = ```
+			
+			VAR FilteredWeeks = 
+			    FILTER(
+			        VALUES('WMT Weeks'[FactSuncareMaxWeekOffset]),
+			        'WMT Weeks'[FactSuncareMaxWeekOffset] <= 0
+			    )
+			
+			VAR y = 
+			    CALCULATE(
+			        [POS TY_] - [POS LY_],
+			        FilteredWeeks
+			    )
+			
+			VAR B = FORMAT(y, "$#,### ; -$#,###")
+			
+			RETURN 
+			    IF(
+			        NOT(ISBLANK([POS TY_])), 
+			        y, 
+			        BLANK()
+			    )
+			```
+		formatString: $#,###  ; -$#,###
+		displayFolder: POS $
+		lineageTag: aa341722-6450-4595-8363-6bca301ad070
+
+		annotation PBI_FormatHint = {"isCustom":true}
+
+	measure 'CHG POS QTY for Sales By Week' = ```
+			
+			VAR FilteredWeeks = 
+			    FILTER(
+			        VALUES('WMT Weeks'[FactSuncareMaxWeekOffset]),
+			        'WMT Weeks'[FactSuncareMaxWeekOffset] <= 0
+			    )
+			
+			VAR y = 
+			    CALCULATE(
+			        [POS QTY TY_] - [POS QTY LY_],
+			        FilteredWeeks
+			    )
+			
+			RETURN 
+			    IF(
+			        NOT(ISBLANK([POS QTY TY_])), 
+			        y, 
+			        BLANK()
+			    )
+			```
+		formatString: #,0
+		displayFolder: POS Qty
+		lineageTag: c03174d4-5841-40cd-9439-9533b9acacd1
+
+	measure '% CHG POS Qty_' =
+			
+			VAR c=[POS QTY TY_]-[POS QTY LY_]
+			var a=c/[POS QTY LY_]
+			return if(a=-1,BLANK(),a)
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: POS Qty
+		lineageTag: ad6ab9aa-8f3a-4a86-9c8b-85ca54ef842d
+
+	measure 'Avg Price Chg for Sales By week' =
+			
+			VAR y= CALCULATE( [AVG PRICE TY_] - [AVG PRICE LY_Sales by Week],'WMT Weeks'[FactSuncareMaxWeekOffset] <=0)
+			 var X=[AVG PRICE TY_] - [AVG PRICE LY_Sales by Week]
+			 return If( [POS TY_]<> BLANK(), y)
+		formatString: $0.00;-$0.00
+		displayFolder: WEEKLY\AVG PRICE
+		lineageTag: a4759eb7-bc10-4c6c-8dfb-0171f6ca494d
+
+		annotation PBI_FormatHint = {"isCustom":true}
+
+	measure '% CHG AVG PRICE for Sales By Week' =
+			
+			VAR y= CALCULATE( DIVIDE([Avg Price Chg for Sales By week],[AVG PRICE LY_Sales by Week]),'WMT Weeks'[FactSuncareMaxWeekOffset] <=0)
+			 var a=DIVIDE([Avg Price Chg for Sales By week],[AVG PRICE LY_Sales by Week])
+			 return If( [POS TY_]<> BLANK(), y)
+		formatString: 0.0%;-0.0%
+		displayFolder: WEEKLY\AVG PRICE
+		lineageTag: 899807a8-da6e-4d81-a6b2-0df98357f1f6
+
+		annotation PBI_FormatHint = {"isCustom":true}
+
+	measure 'ECOM Sales' = ```
+			
+			VAR x = SELECTEDVALUE(CustomEcomSupport[Sub-Group])
+			
+			VAR  ghd=  CALCULATE (
+			                SUM ( factsuncare_canada_Ecom[Net Shipped Sales GM Home Delivery] ),
+			               
+			                    // ALL ( CustomEcomSupport ),
+			                    CustomEcomSupport[Sub-Group] = "Net Shipped GM Home Delivery"
+			                
+			            )
+			
+			VAR gss= CALCULATE (
+			                SUM ( factsuncare_canada_Ecom[Net Shipped Sales GM Site to Store] ),
+			               
+			                    // ALL ( CustomEcomSupport ),
+			                    CustomEcomSupport[Sub-Group] = "Net Shipped GM Site to Store"
+			                
+			            )
+			
+			VAR gps= CALCULATE (
+			                SUM ( factsuncare_canada_Ecom[Net Shipped Sales GM Pick From Store] ),
+			               
+			                    // ALL ( CustomEcomSupport ),
+			                    CustomEcomSupport[Sub-Group] = "Net Shipped GM Pick From Store"
+			                
+			            )
+			
+			VAR shipfromstore=   CALCULATE (
+			                SUM ( factsuncare_canada_Ecom[Net Shipped Sales GM Ship From Store] ),
+			               
+			                    // ALL ( CustomEcomSupport ),
+			                    CustomEcomSupport[Sub-Group] = "Net Shipped GM Ship From Store"
+			                
+			            )
+			
+			
+			VAR ogstorepickup=CALCULATE (
+			                SUM ( factsuncare_canada_Ecom[Net Shipped Sales OG Store Pickup] ),
+			               
+			                    // ALL ( CustomEcomSupport ),
+			                    CustomEcomSupport[Sub-Group] = "Net Shipped OG Store Pickup"
+			                
+			            )
+			
+			VAR  oghomedeliv=   CALCULATE (
+			                SUM ( factsuncare_canada_Ecom[Net Shipped Sales OG Home Delivery] ),
+			               
+			                    // ALL ( CustomEcomSupport ),
+			                    CustomEcomSupport[Sub-Group] = "Net Shipped OG Home Delivery"
+			                
+			            )
+			
+			VAR totalecom= ogstorepickup + oghomedeliv +gps+shipfromstore + ghd+gss
+			VAR POS=SUM ( FactSuncare[Pos Sales] )
+			RETURN
+			    SWITCH (
+			        TRUE (),
+			        x = "Net Shipped GM Home Delivery",
+			            ghd,
+			        x = "Net Shipped Gm Site to Store",
+			           gss,
+			        x = "Total 1P & 2P",
+			           ghd+gss,
+			        x = "Net Shipped GM Pick From Store",gps
+			           ,
+			        x = "Net Shipped GM Ship From Store",shipfromstore
+			         ,
+			        x = "Total PFS & SFS",
+			         gps+shipfromstore,
+			        x = "Total GM",
+			           ghd+gss+gps+shipfromstore,
+			        x = "Net Shipped OG Store Pickup",ogstorepickup
+			            ,
+			        x = "Net Shipped OG Home Delivery",oghomedeliv
+			        ,
+			        x = "Total OG",
+			            ogstorepickup + oghomedeliv,
+			        x = "Total Ecom",   totalecom
+			           ,
+			        x = "Total B&M",
+			            POS
+			            -  totalecom,
+			        x = "Grand Total",
+			        POS
+			            )
+			
+			
+			```
+		displayFolder: ECOM
+		lineageTag: a52d4bc5-bde7-4aa5-aea4-c86dc6c19bf6
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure LastYear_LastDate = ```
+			
+			VAR _year = [Comparison Year] - 1
+			Var _year_1 = [Comparison Year]
+			-- Get the last date of the previous year considering normal conditions
+			VAR _lastdate1 = CALCULATE(
+			    LASTDATE('Date Slicer Table'[Date]),
+			    'Date Slicer Table'[Year] = _year,
+			    'WMT Weeks'[FactSuncare MaxWeek] <= 0
+			)
+			
+			-- Alternative condition for retrieving the last date
+			VAR _lastdate2 = CALCULATE(
+			    LASTDATE('Date Slicer Table'[Date]),
+			    'Date Slicer Table'[Year] = _year,
+			    'WMT Weeks'[FactSuncareMaxWeekOffset] <= 0
+			)
+			
+			-- Check if the year is a leap year
+			VAR lycond = MAX('WMT Weeks'[Is Leap Year])
+			
+			-- Get the last date for the selected weeks in the previous year
+			VAR ly1 = CALCULATE(
+			   LASTDATE('Date Slicer Table'[Date]),
+			    'Date Slicer Table'[Year] = _year,
+			    'WMT Weeks'[WMT WK Number] IN VALUES('WMT Weeks'[WMT WK Number])
+			)
+			
+			-- If it's a leap year and has 53 weeks, get the first week's date of the current year
+			VAR _ly2m = CALCULATE(
+			    LASTDATE('Date Slicer Table'[Date]),  
+			    'Date Slicer Table'[Year] = _year_1,
+			    'Date Slicer Table'[WeekNum] = 1,
+			    ALL('Date Slicer Table')
+			)
+			
+			-- Determine the final date in case of a 53-week leap year scenario
+			VAR ly2 = IF(
+			    lycond = "Yes" && MAX('WMT Weeks'[WMT WK Number]) = 53,
+			    _ly2m
+			)
+			
+			-- Final condition to check for leap year 53rd week scenario
+			VAR final_last_date = IF(
+			    MAX('WMT Weeks'[WMT WK Number]) = 53, 
+			    ly2, 
+			    ly1 + ly2
+			)
+			
+			-- Return the final last date based on whether it's the current year or a previous one
+			RETURN IF(
+			    [Comparison Year] = YEAR(TODAY()),
+			    _lastdate2,
+			    final_last_date
+			)
+			
+			// VAR _year= [Comparison Year]-1
+			// VAR _lastdate1= CALCULATE(LASTDATE('Date Slicer Table'[Date] ),'Date Slicer Table'[Year]=_year, 'WMT Weeks'[FactSuncare MaxWeek]<=0)
+			
+			// VAR _lastdate2= CALCULATE(LASTDATE('Date Slicer Table'[Date] ),'Date Slicer Table'[Year]=_year, 'WMT Weeks'[FactSuncareMaxWeekOffset] <=0)
+			
+			// RETURN  If([Comparison Year]=Year(TODAY()),_lastdate2,_lastdate1)
+			```
+		formatString: General Date
+		displayFolder: General
+		lineageTag: 706ecc48-b8a0-4c7d-8889-f0bddb988d08
+
+	measure ThisYear =
+			
+			
+			[Comparison Year]
+		formatString: 0
+		displayFolder: General
+		lineageTag: 35ea6516-f295-4d4d-b159-d363398b897c
+
+	measure 'ECOMSales-(POS $, U, Avg) Color FactSuncare Custom Week Selection Change' = ```
+			
+			VAR x1 =MAX(Parameter_ecom[Parameter_ecom Order])
+			    
+			VAR v1 = [Calculation_based_on_LastNWeek Ecom Sales(Normal Value)]
+			VAR v2 = [Calculation_based_on_Selected_Weeks(Custom Slicer) Ecom Table (Normal Value)]
+			VAR X =
+			    IF ( x1=0, v1, v2 )
+			
+			VAR metrics= 
+			            MAX( 'CustomCalculation_based_on_LastNWeek/Selected Week'[SortMetrics] )
+			RETURN iF( (  metrics=4 ||   metrics=8 || metrics=12 ),
+			  SWITCH(TRUE(),
+			
+			  x<0,2,
+			 NOT(ISBLANK(X)),3,
+			 4),
+			  SWITCH(TRUE(),
+			 (  metrics=3 ||  metrics=4 ||  metrics=7 ||  metrics=8 ||  metrics=11 ||  metrics=12 ) && x<0,1,
+			 (  metrics=3 ||  metrics=4 ||  metrics=7 ||  metrics=8 ||  metrics=11 ||  metrics=12 ) ,0,
+			
+			 4))
+			 
+			
+			```
+		formatString: 0
+		displayFolder: ECOM
+		lineageTag: 62977da1-0be9-402a-8d21-c4ec251c89c1
+
+	measure 'ECOMSales-Arrow  FactSuncare Custom Week Selection' =
+			
+			VAR x1=  CONTAINSSTRING ( MAX (Parameter_ecom[Parameter_ecom] ), "Last" )
+			VAR v1=  [Calculation_based_on_LastNWeek Ecom Sales]
+			VAR v2=  [Calculation_based_on_Selected_Weeks(Custom Slicer) Ecom Table]
+			VAR X =
+			    IF (x1,
+			      v1, v2
+			
+			    )
+			
+			VAR xx= CONTAINSSTRING (
+			            MAX( 'CustomCalculation_based_on_LastNWeek/Selected Week'[Metrics] ),
+			            "% Chg"
+			        )
+			VAR _arrow =
+			    IF ( xx
+			        && LEN(x)>=1,
+			        IF ( LEFT ( x, 1 ) = "-", "down", "up" )
+			    )
+			RETURN
+			  SWITCH( TRUE(),
+			      xx  &&  LEFT ( x, 1 ) = "-", 1,
+			      xx ,0,5 )
+		formatString: 0
+		displayFolder: ECOM
+		lineageTag: 51c27041-dac1-420c-9f7d-ab693a2b08a0
+
+	measure 'Sort (Weekly Sales)' =
+			
+			IF (MAX('Calculationby?'[Calculationby?]) = "Last N Weeks", [Sort (Sales by Segment) (Last N Weeks)], [Sort (Sales by Segment)(Selected Weeks)])
+		formatString: 0
+		displayFolder: General
+		lineageTag: 615140db-c93a-42db-9148-d922b3d87211
+
+	measure 'Sort (Sales by Segment) (Last N Weeks)' =
+			
+			VAR _order= SELECTEDVALUE(CustomSortOrder[Order])
+			
+			VAR vn_a= RANKX(ALLSELECTED(FactSuncare[Vendor Name]),
+			
+			[Calculation_based_on_LastNWeek (Normal Value)],,ASC,Dense
+			
+			)
+			
+			
+			VAR fd_a= RANKX(ALLSELECTED(FactSuncare[Fineline Description]),
+			
+			[Calculation_based_on_LastNWeek (Normal Value)],,ASC,Dense
+			
+			)
+			
+			VAR bd_a= RANKX(ALLSELECTED(FactSuncare[Brand Desc]),
+			
+			[Calculation_based_on_LastNWeek (Normal Value)],,ASC,Dense
+			
+			)
+			
+			VAR i_a= RANKX(ALLSELECTED(FactSuncare[items with hierarchy]),
+			
+			[Calculation_based_on_LastNWeek (Normal Value)],,ASC,Dense
+			
+			)
+			
+			VAR vn_d= RANKX(ALLSELECTED(FactSuncare[Vendor Name]),
+			
+			[Calculation_based_on_LastNWeek (Normal Value)],,DESC,Dense
+			
+			)
+			
+			
+			VAR fd_d= RANKX(ALLSELECTED(FactSuncare[Fineline Description]),
+			
+			[Calculation_based_on_LastNWeek (Normal Value)],,DESC,Dense
+			
+			)
+			
+			VAR bd_d= RANKX(ALLSELECTED(FactSuncare[Brand Desc]),
+			
+			[Calculation_based_on_LastNWeek (Normal Value)],,DESC,Dense
+			
+			)
+			
+			VAR i_d= RANKX(ALLSELECTED(FactSuncare[items with hierarchy]),
+			
+			[Calculation_based_on_LastNWeek (Normal Value)],,DESC,Dense
+			
+			)
+			
+			VAR _asc = SWITCH(TRUE(),
+			ISINSCOPE(FactSuncare[items with hierarchy]), i_a,
+			ISINSCOPE(FactSuncare[Brand Desc]), bd_a,
+			ISINSCOPE(FactSuncare[Vendor Name]), vn_a,
+			ISINSCOPE(FactSuncare[Fineline Description]), fd_a
+			
+			)
+			
+			
+			VAR _desc = SWITCH(TRUE(),
+			ISINSCOPE(FactSuncare[items with hierarchy]), i_d,
+			ISINSCOPE(FactSuncare[Brand Desc]), bd_d,
+			ISINSCOPE(FactSuncare[Vendor Name]), vn_d,
+			ISINSCOPE(FactSuncare[Fineline Description]), fd_d
+			
+			)
+			
+			RETURN IF(_order="ASC",_asc,_desc)
+		formatString: 0
+		displayFolder: General
+		lineageTag: fdca9a1d-77cc-4321-9444-da91efa5eeba
+
+	measure 'Sort (Sales by Segment)(Selected Weeks)' =
+			
+			VAR _order= SELECTEDVALUE(CustomSortOrder[Order])
+			
+			VAR vn_a= RANKX(ALLSELECTED(FactSuncare[Vendor Name]),
+			
+			[Calculation_based_on_Selected_Weeks(Custom Slicer)(Normal Value)],,ASC,Dense
+			
+			)
+			
+			
+			VAR fd_a= RANKX(ALLSELECTED(FactSuncare[Fineline Description]),
+			
+			[Calculation_based_on_Selected_Weeks(Custom Slicer)(Normal Value)],,ASC,Dense
+			
+			)
+			
+			VAR bd_a= RANKX(ALLSELECTED(FactSuncare[Brand Desc]),
+			
+			[Calculation_based_on_Selected_Weeks(Custom Slicer)(Normal Value)],,ASC,Dense
+			
+			)
+			
+			VAR i_a= RANKX(ALLSELECTED(FactSuncare[items with hierarchy]),
+			
+			[Calculation_based_on_Selected_Weeks(Custom Slicer)(Normal Value)],,ASC,Dense
+			
+			)
+			
+			VAR vn_d= RANKX(ALLSELECTED(FactSuncare[Vendor Name]),
+			
+			[Calculation_based_on_Selected_Weeks(Custom Slicer)(Normal Value)],,DESC,Dense
+			
+			)
+			
+			
+			VAR fd_d= RANKX(ALLSELECTED(FactSuncare[Fineline Description]),
+			
+			[Calculation_based_on_Selected_Weeks(Custom Slicer)(Normal Value)],,DESC,Dense
+			
+			)
+			
+			VAR bd_d= RANKX(ALLSELECTED(FactSuncare[Brand Desc]),
+			
+			[Calculation_based_on_Selected_Weeks(Custom Slicer)(Normal Value)],,DESC,Dense
+			
+			)
+			
+			VAR i_d= RANKX(ALLSELECTED(FactSuncare[items with hierarchy]),
+			
+			[Calculation_based_on_Selected_Weeks(Custom Slicer)(Normal Value)],,DESC,Dense
+			
+			)
+			
+			
+			VAR _asc = SWITCH(TRUE(),
+			ISINSCOPE(FactSuncare[items with hierarchy]), i_a,
+			ISINSCOPE(FactSuncare[Brand Desc]), bd_a,
+			ISINSCOPE(FactSuncare[Vendor Name]), vn_a,
+			ISINSCOPE(FactSuncare[Fineline Description]), fd_a
+			
+			)
+			
+			
+			VAR _desc = SWITCH(TRUE(),
+			ISINSCOPE(FactSuncare[items with hierarchy]), i_d,
+			ISINSCOPE(FactSuncare[Brand Desc]), bd_d,
+			ISINSCOPE(FactSuncare[Vendor Name]), vn_d,
+			ISINSCOPE(FactSuncare[Fineline Description]), fd_d
+			
+			)
+			
+			
+			RETURN IF(_order="ASC",_asc,_desc)
+		formatString: 0
+		displayFolder: General
+		lineageTag: 27995ee7-64a8-4455-9805-f210e8c07544
+
+	measure 'CHG POS $_' = [POS TY_]-[POS LY_]
+		displayFolder: POS $
+		lineageTag: caafbb70-6bd9-49a2-a627-a17fbf185095
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'CHG POS $_(Abs)' = ABS([CHG POS $_])
+		formatString: \$#,0;(\$#,0);\$#,0
+		displayFolder: POS $
+		lineageTag: 3a9e513a-411a-4fb0-a349-7b2e7cc685fa
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'CHG POS Qty_(ABS)' =
+			
+			VAR c=[POS QTY TY_]-[POS QTY LY_]
+			
+			RETURN ABS(C)
+		formatString: #,0
+		displayFolder: POS Qty
+		lineageTag: ca843a49-3e2b-4612-9227-f4f7d55e3cde
+
+	measure 'CHG Net Ship Qty(ABS)' =
+			
+			VAR x=[Net Ship Qty TY] - [Net Ship Qty LY]
+			RETURN ABS(X)
+		formatString: #,0
+		displayFolder: Net Ship Qty
+		lineageTag: 591c03af-6a2d-45bc-81df-1b11cd7aac66
+
+	measure '% CHG Net Ship Qty' =
+			
+			VAR x=[Net Ship Qty TY] - [Net Ship Qty LY]
+			RETURN DIVIDE(x, [Net Ship Qty LY])
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Net Ship Qty
+		lineageTag: e78b15f8-4ba4-496f-8a88-b6ae89f2de4f
+
+	measure 'Chg Hist-on-hand (Abs)' =
+			
+			VAR x= [Hist-on-hand TY]- [Hist-on-hand LY]
+			RETURN ABS(x)
+		formatString: #,0
+		displayFolder: Hist-On-Hand
+		lineageTag: 59b19b37-64d8-490a-b4e1-ba5d081f55d9
+
+	measure '% Chg Hist-on-hand' =
+			
+			VAR x= [Hist-on-hand TY]- [Hist-on-hand LY]
+			RETURN  DIVIDE(x,  [Hist-on-hand LY])
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Hist-On-Hand
+		lineageTag: d0e6fad9-fd19-4b5c-abd9-552b402b3574
+
+	measure 'Sort (Sales by Geography) (Last N Weeks)' =
+			
+			VAR _order= SELECTEDVALUE(CustomSortOrder[Order])
+			
+			VAR _store_a= RANKX(ALLSELECTED(Store[Store]),
+			
+			[Calculation_based_on_LastNWeek (Normal Value)],,ASC,Dense
+			
+			)
+			
+			VAR _province_a= RANKX(ALLSELECTED(Store[Province]),
+			
+			[Calculation_based_on_LastNWeek (Normal Value)],,ASC,Dense
+			
+			)
+			VAR _region_a= RANKX(ALLSELECTED(Store[Region]),
+			
+			[Calculation_based_on_LastNWeek (Normal Value)],,ASC,Dense
+			
+			)
+			VAR _subregion_a= RANKX(ALLSELECTED(Store[Subregion]),
+			
+			[Calculation_based_on_LastNWeek (Normal Value)],,ASC,Dense
+			
+			)
+			
+			VAR _pc_a= RANKX(ALLSELECTED(Store[Population Center]),
+			
+			[Calculation_based_on_LastNWeek (Normal Value)],,ASC,Dense
+			
+			)
+			
+			VAR _resort_a= RANKX(ALLSELECTED(Store[Water_Cottages_and_Resorts_Description]),
+			
+			[Calculation_based_on_LastNWeek (Normal Value)],,ASC,Dense
+			
+			)
+			
+			VAR cottage_store_a= RANKX(ALLSELECTED(Store[Cottage Store]),
+			
+			[Calculation_based_on_LastNWeek (Normal Value)],,ASC,Dense
+			
+			)
+			
+			VAR fd_a= RANKX(ALLSELECTED(FactSuncare[Fineline Description]),
+			
+			[Calculation_based_on_LastNWeek (Normal Value)],,ASC,Dense
+			
+			)
+			
+			VAR bd_a= RANKX(ALLSELECTED(FactSuncare[Brand Desc]),
+			
+			[Calculation_based_on_LastNWeek (Normal Value)],,ASC,Dense
+			
+			)
+			
+			VAR i_a= RANKX(ALLSELECTED(FactSuncare[items with hierarchy]),
+			
+			[Calculation_based_on_LastNWeek (Normal Value)],,ASC,Dense
+			
+			)
+			
+			
+			VAR _store_d= RANKX(ALLSELECTED(Store[Store]),
+			
+			[Calculation_based_on_LastNWeek (Normal Value)],,DESC,Dense
+			
+			)
+			
+			VAR _province_d= RANKX(ALLSELECTED(Store[Province]),
+			
+			[Calculation_based_on_LastNWeek (Normal Value)],,DESC,Dense
+			
+			)
+			VAR _region_d= RANKX(ALLSELECTED(Store[Region]),
+			
+			[Calculation_based_on_LastNWeek (Normal Value)],,DESC,Dense
+			
+			)
+			VAR _subregion_d= RANKX(ALLSELECTED(Store[Subregion]),
+			
+			[Calculation_based_on_LastNWeek (Normal Value)],,DESC,Dense
+			
+			)
+			
+			VAR _pc_d= RANKX(ALLSELECTED(Store[Population Center]),
+			
+			[Calculation_based_on_LastNWeek (Normal Value)],,DESC,Dense
+			
+			)
+			
+			VAR _resort_d= RANKX(ALLSELECTED(Store[Water_Cottages_and_Resorts_Description]),
+			
+			[Calculation_based_on_LastNWeek (Normal Value)],,DESC,Dense
+			
+			)
+			
+			VAR cottage_store_d= RANKX(ALLSELECTED(Store[Cottage Store]),
+			
+			[Calculation_based_on_LastNWeek (Normal Value)],,DESC,Dense
+			
+			)
+			VAR fd_d= RANKX(ALLSELECTED(FactSuncare[Fineline Description]),
+			
+			[Calculation_based_on_LastNWeek (Normal Value)],,DESC,Dense
+			
+			)
+			
+			VAR bd_d= RANKX(ALLSELECTED(FactSuncare[Brand Desc]),
+			
+			[Calculation_based_on_LastNWeek (Normal Value)],,DESC,Dense
+			
+			)
+			
+			VAR i_d= RANKX(ALLSELECTED(FactSuncare[items with hierarchy]),
+			
+			[Calculation_based_on_LastNWeek (Normal Value)],,DESC,Dense
+			
+			)
+			
+			
+			VAR _asc = SWITCH(TRUE(),
+			ISINSCOPE(FactSuncare[items with hierarchy]), i_a,
+			ISINSCOPE(FactSuncare[Brand Desc]), bd_a,
+			ISINSCOPE(FactSuncare[Fineline Description]), fd_a,
+			ISINSCOPE(Store[Cottage Store]), cottage_store_a,
+			ISINSCOPE(Store[Water_Cottages_and_Resorts_Description]), _resort_a,
+			ISINSCOPE(Store[Population Center]), _pc_a,
+			ISINSCOPE(Store[Subregion]), _subregion_a,
+			ISINSCOPE(Store[Region]), _region_a,
+			ISINSCOPE(Store[Store]), _store_a,
+			ISINSCOPE(Store[Province]), _province_a,
+			
+			ISINSCOPE(Store[Store]), _store_a)
+			
+			
+			VAR _desc = SWITCH(TRUE(),
+			ISINSCOPE(FactSuncare[items with hierarchy]), i_d,
+			ISINSCOPE(FactSuncare[Brand Desc]), bd_d,
+			ISINSCOPE(FactSuncare[Fineline Description]), fd_d,
+			ISINSCOPE(Store[Cottage Store]), cottage_store_d,
+			ISINSCOPE(Store[Water_Cottages_and_Resorts_Description]), _resort_d,
+			ISINSCOPE(Store[Population Center]), _pc_d,
+			ISINSCOPE(Store[Subregion]), _subregion_d,
+			ISINSCOPE(Store[Region]), _region_d,
+			ISINSCOPE(Store[Store]), _store_d,
+			ISINSCOPE(Store[Province]), _province_d,
+			
+			ISINSCOPE(Store[Store]), _store_d)
+			
+			
+			
+			RETURN IF(_order="ASC",_asc,_desc)
+		formatString: 0
+		displayFolder: General
+		lineageTag: 6f8e93d0-4d4a-491f-8794-6588f0d73a5f
+
+	measure 'Sort (Sales by Geography)(Selected Weeks)' =
+			
+			VAR _order= SELECTEDVALUE(CustomSortOrder[Order])
+			
+			
+			VAR _store_a= RANKX(ALLSELECTED(Store[Store]),
+			
+			[Calculation_based_on_Selected_Weeks(Custom Slicer)(Normal Value)],,ASC,Dense
+			
+			)
+			
+			VAR _province_a= RANKX(ALLSELECTED(Store[Province]),
+			
+			[Calculation_based_on_Selected_Weeks(Custom Slicer)(Normal Value)],,ASC,Dense
+			
+			)
+			VAR _region_a= RANKX(ALLSELECTED(Store[Region]),
+			
+			[Calculation_based_on_Selected_Weeks(Custom Slicer)(Normal Value)],,ASC,Dense
+			
+			)
+			VAR _subregion_a= RANKX(ALLSELECTED(Store[Subregion]),
+			
+			[Calculation_based_on_Selected_Weeks(Custom Slicer)(Normal Value)],,ASC,Dense
+			
+			)
+			
+			VAR _pc_a= RANKX(ALLSELECTED(Store[Population Center]),
+			
+			[Calculation_based_on_Selected_Weeks(Custom Slicer)(Normal Value)],,ASC,Dense
+			
+			)
+			
+			VAR _resort_a= RANKX(ALLSELECTED(Store[Water_Cottages_and_Resorts_Description]),
+			
+			[Calculation_based_on_Selected_Weeks(Custom Slicer)(Normal Value)],,ASC,Dense
+			
+			)
+			
+			VAR fd_a= RANKX(ALLSELECTED(FactSuncare[Fineline Description]),
+			
+			[Calculation_based_on_Selected_Weeks(Custom Slicer)(Normal Value)],,ASC,Dense
+			
+			)
+			
+			VAR bd_a= RANKX(ALLSELECTED(FactSuncare[Brand Desc]),
+			
+			[Calculation_based_on_Selected_Weeks(Custom Slicer)(Normal Value)],,ASC,Dense
+			
+			)
+			
+			VAR i_a= RANKX(ALLSELECTED(FactSuncare[items with hierarchy]),
+			
+			[Calculation_based_on_Selected_Weeks(Custom Slicer)(Normal Value)],,ASC,Dense
+			
+			)
+			
+			VAR cottage_store_a= RANKX(ALLSELECTED(Store[Cottage Store]),
+			
+			[Calculation_based_on_LastNWeek (Normal Value)],,ASC,Dense
+			
+			)
+			VAR _store_d= RANKX(ALLSELECTED(Store[Store]),
+			
+			[Calculation_based_on_Selected_Weeks(Custom Slicer)(Normal Value)],,DESC,Dense
+			
+			)
+			
+			VAR _province_d= RANKX(ALLSELECTED(Store[Province]),
+			
+			[Calculation_based_on_Selected_Weeks(Custom Slicer)(Normal Value)],,DESC,Dense
+			
+			)
+			VAR _region_d= RANKX(ALLSELECTED(Store[Region]),
+			
+			[Calculation_based_on_Selected_Weeks(Custom Slicer)(Normal Value)],,DESC,Dense
+			
+			)
+			VAR _subregion_d= RANKX(ALLSELECTED(Store[Subregion]),
+			
+			[Calculation_based_on_Selected_Weeks(Custom Slicer)(Normal Value)],,DESC,Dense
+			
+			)
+			
+			VAR _pc_d= RANKX(ALLSELECTED(Store[Population Center]),
+			
+			[Calculation_based_on_Selected_Weeks(Custom Slicer)(Normal Value)],,DESC,Dense
+			
+			)
+			
+			VAR _resort_d= RANKX(ALLSELECTED(Store[Water_Cottages_and_Resorts_Description]),
+			
+			[Calculation_based_on_Selected_Weeks(Custom Slicer)(Normal Value)],,DESC,Dense
+			
+			)
+			
+			
+			VAR fd_d= RANKX(ALLSELECTED(FactSuncare[Fineline Description]),
+			
+			[Calculation_based_on_Selected_Weeks(Custom Slicer)(Normal Value)],,DESC,Dense
+			
+			)
+			
+			VAR bd_d= RANKX(ALLSELECTED(FactSuncare[Brand Desc]),
+			
+			[Calculation_based_on_Selected_Weeks(Custom Slicer)(Normal Value)],,DESC,Dense
+			
+			)
+			
+			VAR i_d= RANKX(ALLSELECTED(FactSuncare[items with hierarchy]),
+			
+			[Calculation_based_on_Selected_Weeks(Custom Slicer)(Normal Value)],,DESC,Dense
+			
+			)
+			
+			
+			VAR cottage_store_d= RANKX(ALLSELECTED(Store[Cottage Store]),
+			
+			[Calculation_based_on_LastNWeek (Normal Value)],,DESC,Dense
+			
+			)
+			
+			
+			VAR _asc = SWITCH(TRUE(),
+			ISINSCOPE(FactSuncare[items with hierarchy]), i_a,
+			ISINSCOPE(FactSuncare[Brand Desc]), bd_a,
+			ISINSCOPE(FactSuncare[Fineline Description]), fd_a,
+			ISINSCOPE(Store[Cottage Store]), cottage_store_a,
+			ISINSCOPE(Store[Water_Cottages_and_Resorts_Description]), _resort_a,
+			ISINSCOPE(Store[Population Center]), _pc_a,
+			ISINSCOPE(Store[Subregion]), _subregion_a,
+			ISINSCOPE(Store[Region]), _region_a,
+			ISINSCOPE(Store[Store]), _store_a,
+			ISINSCOPE(Store[Province]), _province_a,
+			
+			ISINSCOPE(Store[Store]), _store_a)
+			
+			
+			VAR _desc = SWITCH(TRUE(),
+			ISINSCOPE(FactSuncare[items with hierarchy]), i_d,
+			ISINSCOPE(FactSuncare[Brand Desc]), bd_d,
+			ISINSCOPE(FactSuncare[Fineline Description]), fd_d,
+			ISINSCOPE(Store[Cottage Store]), cottage_store_d,
+			ISINSCOPE(Store[Water_Cottages_and_Resorts_Description]), _resort_d,
+			ISINSCOPE(Store[Population Center]), _pc_d,
+			ISINSCOPE(Store[Subregion]), _subregion_d,
+			ISINSCOPE(Store[Region]), _region_d,
+			ISINSCOPE(Store[Store]), _store_d,
+			ISINSCOPE(Store[Province]), _province_d,
+			
+			ISINSCOPE(Store[Store]), _store_d)
+			
+			
+			
+			RETURN IF(_order="ASC",_asc,_desc)
+		formatString: 0
+		displayFolder: General
+		lineageTag: 8ed8a256-9b73-44fc-8320-b9dc439410fc
+
+	measure 'Sort (Geography Table)' =
+			
+			IF (MAX('Calculationby?'[Calculationby?]) = "Last N Weeks", [Sort (Sales by Geography) (Last N Weeks)], [Sort (Sales by Geography)(Selected Weeks)])
+		formatString: 0
+		displayFolder: General
+		lineageTag: 4de14991-b98d-4bb6-92c2-3478e400dca4
+
+	measure 'Formatting colour Quarter (Sales by Week)' =
+			IF(ISINSCOPE(CanadaReportMonthWeekOrder[Month]),"#F1E1B1")
+			//IF(ISINSCOPE(CanadaReportMonthWeekOrder[Month]),IF([POS TY_]>=0,"#E3E58A","#E3E58A"))
+		displayFolder: General
+		lineageTag: 48723cc1-fd85-4eb4-91a2-a6e86d9d8365
+
+	measure '% CHG QTY $last13wk Ecom Table' = DIVIDE([CHG QTY $L13W Ecom Table],ABS([Last13weeksQTY Ecom Qty LY]))
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: ECOM
+		lineageTag: 1fa40183-c96b-454d-88c9-536f023ba677
+
+	measure '% CHG QTY $last1wk Ecom Table' = DIVIDE([CHG QTY $L1W Ecom Table],ABS([Last1weeksQTY Ecom Qty LY]))
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: ECOM\QTY
+		lineageTag: 005f2684-ec40-486c-b98c-b3680cadf450
+
+	measure '% CHG QTY $last4wk Ecom Table' = DIVIDE([CHG QTY $L4W Ecom Table],ABS([Last4weeksQTY Ecom Qty LY]))
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: ECOM
+		lineageTag: d09260f2-2fc4-4b34-9acd-8bec978a1d31
+
+	measure '% CHG QTY $last52wk Ecom Table' = DIVIDE( [CHG QTY $L52W Ecom Table],ABS([Last52weeksQTY Ecom Qty LY]))
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: ECOM
+		lineageTag: 7e909846-0069-49e8-975e-25625f5e8cf2
+
+	measure '% CHG QTY $YTD Ecom Table' = DIVIDE([CHG QTY $YTD Ecom Table],ABS([YTD QTY Ecom Table LY]))
+		displayFolder: ECOM
+		lineageTag: 68d8ef8f-5213-4274-9d78-74045f19b588
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'CHG QTY $L13W Ecom Table' = [Last13weeksQTYCompYr Ecom Qty TY]-[Last13weeksQTY Ecom Qty LY]
+		displayFolder: ECOM
+		lineageTag: 7e57ccb6-1b87-4139-8196-a7a54d5a776c
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'CHG QTY $L1W Ecom Table' = [Last1weeksQTYCompYr Ecom QTY TY]-[Last1weeksQTY Ecom Qty LY]//'Key Measures'[Last1weeksSales2021]-'Key Measures'[Last1weeksSales2020]
+		formatString: #,0
+		displayFolder: ECOM
+		lineageTag: d5475917-4262-4bc1-84a8-5e2f733de137
+
+		annotation PBI_FormatHint = {"isDecimal":true}
+
+	measure 'CHG QTY $L4W Ecom Table' = [Last4weeksQTYCompYr Ecom Qty TY]-[Last4weeksQTY Ecom Qty LY]
+		displayFolder: ECOM
+		lineageTag: 76760484-89ce-4ca9-8be5-fab48f6c2665
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'CHG QTY $L52W Ecom Table' = [Last52weeksQTYCompYr Ecom Qty TY]-[Last52weeksQTY Ecom Qty LY]
+		displayFolder: ECOM
+		lineageTag: 87cb05d6-642c-439c-a2d9-b4714b480a7c
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'CHG QTY $YTD Ecom Table' = [YTDCompYr QTY Ecom Qty]-[YTD QTY Ecom Table LY]
+		displayFolder: ECOM
+		lineageTag: e1df3b29-09af-4946-900f-4656f25e187b
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Last N Week Selected Ecom' = ```
+			
+			VAR _lastNweeks = SELECTEDVALUE(LastNWeek[Category])  & " ending Week " & MAX('WMT Weeks'[WMT WK Number]) 
+			VAR _Count=DISTINCTCOUNT('WMT Weeks'[WMT WK Number])
+			VAR _SelectedWeeks =If(_Count  <= 10 ,CONCATENATEX( VALUES('WMT Weeks'[WMT WK Number] ), 'WMT Weeks'[WMT WK Number],", "), "Multiple")
+			
+			RETURN IF(CONTAINSSTRING(MAX('Parameter_ecom'[Parameter_ecom]),"Last"), _lastNweeks,MAX('Parameter_ecom'[Parameter_ecom]) & ": "  &   If(MAX('WMT Weeks'[WMT WK Number]) ==  _Count  ,"All",_SelectedWeeks))
+			```
+		displayFolder: ECOM
+		lineageTag: 3af7a9cb-c588-4751-b59d-3b1a2c482f23
+
+	measure 'Last13weeksQTY Ecom Qty LY' =
+			
+			CALCULATE (
+			    [ECOM QTY],All('Date Slicer Table'),
+			    DATESINPERIOD ( 'Date Slicer Table'[Date], [LastYear_LastDate_new], -91, DAY ))
+		displayFolder: ECOM
+		lineageTag: 85cd17d0-e289-4344-87fb-e9b9b26a423f
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Last13weeksQTYCompYr Ecom Qty TY' = ```
+			
+			var a=[ThisYear]
+			Var week=max('Date Slicer Table'[WeekNum])
+			
+			var Startdate=CALCULATE(MIN('Date Slicer Table'[Date]), All('Date Slicer Table'),'Date Slicer Table'[WeekNum]=week,'Date Slicer Table'[Year]=a)
+			var enddate=CALCULATE(MAX('Date Slicer Table'[Date]), All('Date Slicer Table'),'Date Slicer Table'[WeekNum]=week,'Date Slicer Table'[Year]=a)
+			return  
+			CALCULATE ([ECOM QTY],ALL('Date Slicer Table'),'Date Slicer Table'[Date]>=StartDate-84,'Date Slicer Table'[Date]<=enddate)
+			```
+		displayFolder: ECOM
+		lineageTag: 488bac11-0c5a-44d9-b0e7-2aebc5809821
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Last1weeksQTYCompYr Ecom QTY TY' = ```
+			var a=[ThisYear]
+			Var week=max('Date Slicer Table'[WeekNum])
+			
+			var Startdate=CALCULATE(MIN('Date Slicer Table'[Date]), All('Date Slicer Table'),'Date Slicer Table'[WeekNum]=week,'Date Slicer Table'[Year]=a)
+			var enddate=CALCULATE(MAX('Date Slicer Table'[Date]), All('Date Slicer Table'),'Date Slicer Table'[WeekNum]=week,'Date Slicer Table'[Year]=a)
+			return  
+			CALCULATE ([ECOM QTY],ALL('Date Slicer Table'),'Date Slicer Table'[Date]>=StartDate,'Date Slicer Table'[Date]<=enddate)
+			```
+		displayFolder: ECOM\QTY
+		lineageTag: f670cca9-7d8e-40a8-b804-4402063ab916
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Last1weeksQTY Ecom Qty LY' =
+			
+			CALCULATE ([ECOM QTY],All('Date Slicer Table'),DATESINPERIOD ( 'Date Slicer Table'[Date], [LastYear_LastDate_new], -7, DAY ))
+		displayFolder: ECOM\QTY
+		lineageTag: 3718f31c-0e8e-4ed4-9233-4f89f3958f58
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Last4weeksQTY Ecom Qty LY' =
+			
+			CALCULATE (
+			    [ECOM QTY],All('Date Slicer Table'),
+			    DATESINPERIOD ( 'Date Slicer Table'[Date], [LastYear_LastDate_new], -28, DAY )
+			)
+		displayFolder: ECOM
+		lineageTag: 24fe399b-1a25-410f-b101-762186196d00
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Last4weeksQTYCompYr Ecom Qty TY' = ```
+			
+			var a=[ThisYear]
+			Var week=max('Date Slicer Table'[WeekNum])
+			
+			var Startdate=CALCULATE(MIN('Date Slicer Table'[Date]), All('Date Slicer Table'),'Date Slicer Table'[WeekNum]=week,'Date Slicer Table'[Year]=a)
+			var enddate=CALCULATE(MAX('Date Slicer Table'[Date]), All('Date Slicer Table'),'Date Slicer Table'[WeekNum]=week,'Date Slicer Table'[Year]=a)
+			return  
+			CALCULATE ([ECOM QTY],ALL('Date Slicer Table'),'Date Slicer Table'[Date]>=StartDate-21,'Date Slicer Table'[Date]<=enddate)
+			```
+		displayFolder: ECOM
+		lineageTag: 514e878c-d862-4c24-a41e-634ffed4036b
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Last52weeksQTY Ecom Qty LY' =
+			
+			CALCULATE (
+			    [ECOM QTY],All('Date Slicer Table'),
+			    DATESINPERIOD ( 'Date Slicer Table'[Date], [LastYear_LastDate_new], -364, DAY ))
+		displayFolder: ECOM
+		lineageTag: 2b9994a5-0f45-44af-9776-c25f4de09f27
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Last52weeksQTYCompYr Ecom Qty TY' = ```
+			
+			var a=[ThisYear]
+			Var week=max('Date Slicer Table'[WeekNum])
+			
+			var Startdate=CALCULATE(MIN('Date Slicer Table'[Date]), All('Date Slicer Table'),'Date Slicer Table'[WeekNum]=week,'Date Slicer Table'[Year]=a)
+			var enddate=CALCULATE(MAX('Date Slicer Table'[Date]), All('Date Slicer Table'),'Date Slicer Table'[WeekNum]=week,'Date Slicer Table'[Year]=a)
+			return  
+			CALCULATE ([ECOM QTY],ALL('Date Slicer Table'),'Date Slicer Table'[Date]>=StartDate-357,'Date Slicer Table'[Date]<=enddate)
+			```
+		displayFolder: ECOM
+		lineageTag: fd397cb4-2675-4771-b3db-249936404d20
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'YTD Ecom Sales LY' = ```
+			
+			VAR a = [ThisYear] - 1 
+			VAR b = [ThisYear]
+			VAR weekno = MAX('Date Slicer Table'[WeekNum])
+			
+			-- Check if this year is a leap year
+			VAR lycond = MAX('WMT Weeks'[Is Leap Year])
+			
+			-- Check if the previous year was a leap year
+			VAR prev_year_leap = 
+			    CALCULATE(
+			        MAX('WMT Weeks'[Is Leap Year]), 
+			        FILTER(ALL('Date Slicer Table'), 'Date Slicer Table'[Year] = a)
+			    )
+			
+			-- Determine the correct start date based on leap year conditions
+			VAR Startdate = 
+			    CALCULATE(
+			        MIN('Date Slicer Table'[Date]), 
+			        FILTER(
+			            ALL('Date Slicer Table'),
+			            'Date Slicer Table'[WeekNum] = 
+			                IF(prev_year_leap = "Yes", 2, 1) &&  -- If last year was leap and `weeknum+1` condition, start from week 2
+			            'Date Slicer Table'[Year] = a
+			        )
+			    )
+			
+			-- Get last date for selected weeks in the previous year
+			VAR enddate_base = 
+			    CALCULATE(
+			        MAX('Date Slicer Table'[Date]),
+			        'Date Slicer Table'[Year] = a,
+			        'Date Slicer Table'[WeekNum] = weekno,
+			        ALL('Date Slicer Table')
+			    )
+			
+			-- Get the first week's date of the current year (for leap year handling)
+			VAR ly2m = 
+			    CALCULATE(
+			        MAX('Date Slicer Table'[Date]),  
+			        'Date Slicer Table'[Year] = b,
+			        'Date Slicer Table'[WeekNum] = 1,
+			        ALL('Date Slicer Table')
+			    )
+			
+			-- Get adjusted last date if last year was a leap year
+			VAR adjusted_enddate = 
+			    IF(
+			        prev_year_leap = "Yes",
+			        CALCULATE(
+			            MAX('Date Slicer Table'[Date]), 
+			            'Date Slicer Table'[Year] = a,
+			            'Date Slicer Table'[WeekNum] = weekno + 1,
+			            ALL('Date Slicer Table')
+			        ),
+			        enddate_base
+			    )
+			
+			-- Final end date logic for leap year scenarios
+			VAR final_enddate = 
+			    IF(
+			        lycond = "Yes" && weekno = 53 && prev_year_leap = "No",
+			        ly2m,
+			        adjusted_enddate
+			    )
+			
+			VAR v =  
+			    CALCULATE(
+			        [ECOM Sales],
+			        ALL('Date Slicer Table'),
+			        'Date Slicer Table'[Date] >= Startdate,
+			        'Date Slicer Table'[Date] <= final_enddate
+			    )
+			
+			RETURN v
+			
+			```
+		displayFolder: ECOM
+		lineageTag: e8c04a8e-7853-4ef9-877b-7f6f8d1d1d71
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'YTD QTY Ecom Qty TY' = ```
+			
+			VAR a = [ThisYear] - 1 
+			VAR b = [ThisYear]
+			VAR weekno = MAX('Date Slicer Table'[WeekNum])
+			
+			-- Check if this year is a leap year
+			VAR lycond = MAX('WMT Weeks'[Is Leap Year])
+			
+			-- Check if the previous year was a leap year
+			VAR prev_year_leap = 
+			    CALCULATE(
+			        MAX('WMT Weeks'[Is Leap Year]), 
+			        FILTER(ALL('Date Slicer Table'), 'Date Slicer Table'[Year] = a)
+			    )
+			
+			-- Determine the correct start date based on leap year conditions
+			VAR Startdate = 
+			    CALCULATE(
+			        MIN('Date Slicer Table'[Date]), 
+			        FILTER(
+			            ALL('Date Slicer Table'),
+			            'Date Slicer Table'[WeekNum] = 
+			                IF(prev_year_leap = "Yes", 2, 1) &&  -- If last year was leap and `weeknum+1` condition, start from week 2
+			            'Date Slicer Table'[Year] = a
+			        )
+			    )
+			
+			-- Get last date for selected weeks in the previous year
+			VAR enddate_base = 
+			    CALCULATE(
+			        MAX('Date Slicer Table'[Date]),
+			        'Date Slicer Table'[Year] = a,
+			        'Date Slicer Table'[WeekNum] = weekno,
+			        ALL('Date Slicer Table')
+			    )
+			
+			-- Get the first week's date of the current year (for leap year handling)
+			VAR ly2m = 
+			    CALCULATE(
+			        MAX('Date Slicer Table'[Date]),  
+			        'Date Slicer Table'[Year] = b,
+			        'Date Slicer Table'[WeekNum] = 1,
+			        ALL('Date Slicer Table')
+			    )
+			
+			-- Get adjusted last date if last year was a leap year
+			VAR adjusted_enddate = 
+			    IF(
+			        prev_year_leap = "Yes",
+			        CALCULATE(
+			            MAX('Date Slicer Table'[Date]), 
+			            'Date Slicer Table'[Year] = a,
+			            'Date Slicer Table'[WeekNum] = weekno + 1,
+			            ALL('Date Slicer Table')
+			        ),
+			        enddate_base
+			    )
+			
+			-- Final end date logic for leap year scenarios
+			VAR final_enddate = 
+			    IF(
+			        lycond = "Yes" && weekno = 53 && prev_year_leap = "No",
+			        ly2m,
+			        adjusted_enddate
+			    )
+			
+			VAR v =  
+			    CALCULATE(
+			        [ECOM QTY],
+			        ALL('Date Slicer Table'),
+			        'Date Slicer Table'[Date] >= Startdate,
+			        'Date Slicer Table'[Date] <= final_enddate
+			    )
+			
+			RETURN v
+			
+			//CALCULATE ([Total Quantity],All('Date Slicer Table'),DATESYTD(  'Date Slicer Table'[Date]))
+			```
+		formatString: \$#,0;(\$#,0);\$#,0
+		displayFolder: ECOM
+		lineageTag: fd10bb60-d32c-45eb-9fbc-e674ceb23b3f
+
+	measure 'YTD QTY Ecom Table LY' = ```
+			
+			var a=[ThisYear]-1 
+			Var weekno=max('Date Slicer Table'[WeekNum])
+			var Startdate=CALCULATE(MIN('Date Slicer Table'[Date]), FILTER(All('Date Slicer Table'),'Date Slicer Table'[WeekNum]=1 &&'Date Slicer Table'[Year]=a )) 
+			var enddate= CALCULATE(MAX('Date Slicer Table'[Date]), FILTER(All('Date Slicer Table'),'Date Slicer Table'[WeekNum]=weekno &&'Date Slicer Table'[Year]=a )) 
+			
+			
+			VAR v=  CALCULATE ([ECOM QTY],ALL('Date Slicer Table'),'Date Slicer Table'[Date]>=Startdate,'Date Slicer Table'[Date]<=enddate)
+			RETURN v
+			//CALCULATE ([Total Quantity],All('Date Slicer Table'),DATESYTD(  'Date Slicer Table'[Date]))
+			```
+		displayFolder: ECOM
+		lineageTag: f003b13c-74e5-457e-8593-531e4fad3305
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'YTDCompYr QTY Ecom Qty' = ```
+			
+			var a=[ThisYear]
+			Var weekno=max('Date Slicer Table'[WeekNum])
+			var Startdate=CALCULATE(MIN('Date Slicer Table'[Date]), FILTER(All('Date Slicer Table'),'Date Slicer Table'[WeekNum]=1 &&'Date Slicer Table'[Year]=a )) 
+			var enddate= CALCULATE(MAX('Date Slicer Table'[Date]), FILTER(All('Date Slicer Table'),'Date Slicer Table'[WeekNum]=weekno &&'Date Slicer Table'[Year]=a )) 
+			
+			
+			VAR v=  CALCULATE ([ECOM QTY],ALL('Date Slicer Table'),'Date Slicer Table'[Date]>=Startdate,'Date Slicer Table'[Date]<=enddate)
+			RETURN v
+			```
+		displayFolder: ECOM
+		lineageTag: aa722a54-38cd-46c7-941c-64320d876005
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Factsuncare Custom W Select Change (POS $, U, Avg) Color ADD- Delete' =
+			
+			
+			VAR X =
+			    IF (
+			        CONTAINSSTRING ( MAX ('Add_delete Parameter'[Add_delete Para] ), "Last" ),
+			        'CustomCalculation_based_on_LastNWeek/Selected Week FOR ADD- DELETE'[Calculation_based_on_LastNWeek for Add- Deletes],
+			         'CustomCalculation_based_on_LastNWeek/Selected Week FOR ADD- DELETE'[Calculation_based_on_Selected_Weeks(Custom Slicer) for Add- delete])
+			VAR _color =
+			    IF (
+			        CONTAINSSTRING (
+			            SELECTEDVALUE ( 'CustomCalculation_based_on_LastNWeek/Selected Week FOR ADD- DELETE'[Metrics]),
+			            "Chg"
+			        ) && LEN(x)>=1,
+			        IF ( LEFT ( x, 1 ) = "-", "#D64550","#30A128")
+			    )
+			RETURN
+			    _color
+		displayFolder: General
+		lineageTag: fde919b0-3dd8-4f37-b141-1c8874e53f6e
+
+	measure 'FactSuncare Custom Week Selection Arrow Add- Delete' =
+			
+			VAR X =
+			    IF (
+			        CONTAINSSTRING ( MAX ( 'Add_delete Parameter'[Add_delete Para]), "Last" ),
+			        'CustomCalculation_based_on_LastNWeek/Selected Week FOR ADD- DELETE'[Calculation_based_on_LastNWeek for Add- Deletes],
+			        'CustomCalculation_based_on_LastNWeek/Selected Week FOR ADD- DELETE'[Calculation_based_on_Selected_Weeks(Custom Slicer) for Add- delete]
+			    )
+			VAR _arrow =
+			    IF (
+			        CONTAINSSTRING (
+			            SELECTEDVALUE ( 'CustomCalculation_based_on_LastNWeek/Selected Week FOR ADD- DELETE'[Metrics]),
+			            "% Chg"
+			        ) && LEN(x)>=1,
+			        IF ( LEFT ( x, 1 ) = "-", "down", "up" )
+			    )
+			RETURN
+			    _arrow
+		displayFolder: General
+		lineageTag: 41980e44-7eaa-4a91-92f5-ed124ba31905
+
+	measure 'POS LY Delete Qty' = CALCULATE([POS QTY LY],FILTER(Store_Items_Attributes,Store_Items_Attributes[Placement] = "Delete"))
+		formatString: #,0.00
+		displayFolder: General
+		lineageTag: f2c556e0-d77f-40f2-9f8d-8abf97782443
+
+	measure 'POS LY Delete' = CALCULATE([POS LY],FILTER(Store_Items_Attributes,Store_Items_Attributes[Placement] = "Delete"))
+		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+		displayFolder: General
+		lineageTag: 53527569-b6ef-4717-b1a2-5987b5cb933d
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'Sort (Add-Delete)' =
+			
+			IF (MAX('Add_delete Parameter'[Add_delete Para])= "Last N Weeks", [Sort (Add-Delete) (Last N Weeks)], [Sort (Add-Delete)(Selected Weeks)])
+		formatString: 0
+		displayFolder: General
+		lineageTag: 164680fc-ae88-4911-ac94-0bf346e1cab2
+
+	measure 'Sort (Add-Delete) (Last N Weeks)' =
+			
+			VAR _order= SELECTEDVALUE(CustomSortOrder[Order])
+			
+			VAR vn_a= RANKX(ALLSELECTED(Store_Items_Attributes[Vendor]),
+			
+			[Calculation_based_on_LastNWeek for Add- Deletes(Normal Value)],,ASC,Dense
+			
+			)
+			
+			
+			VAR ad_a= RANKX(ALLSELECTED(Store_Items_Attributes[Add/Delete]),
+			
+			[Calculation_based_on_LastNWeek for Add- Deletes(Normal Value)],,ASC,Dense
+			
+			)
+			
+			VAR bd_a= RANKX(ALLSELECTED(Store_Items_Attributes[Brand]),
+			
+			[Calculation_based_on_LastNWeek for Add- Deletes(Normal Value)],,ASC,Dense
+			
+			)
+			
+			VAR i_a= RANKX(ALLSELECTED(Store_Items_Attributes[Item # and Desc]),
+			
+			[Calculation_based_on_LastNWeek for Add- Deletes(Normal Value)],,ASC,Dense
+			
+			)
+			
+			VAR vn_d= RANKX(ALLSELECTED(Store_Items_Attributes[Vendor]),
+			
+			[Calculation_based_on_LastNWeek for Add- Deletes(Normal Value)],,DESC,Dense
+			
+			)
+			
+			
+			VAR ad_d= RANKX(ALLSELECTED(Store_Items_Attributes[Add/Delete]),
+			
+			[Calculation_based_on_LastNWeek for Add- Deletes(Normal Value)],,DESC,Dense
+			
+			)
+			
+			VAR bd_d= RANKX(ALLSELECTED(Store_Items_Attributes[Brand]),
+			
+			[Calculation_based_on_LastNWeek for Add- Deletes(Normal Value)],,DESC,Dense
+			
+			)
+			
+			VAR i_d= RANKX(ALLSELECTED(Store_Items_Attributes[Item # and Desc]),
+			
+			[Calculation_based_on_LastNWeek for Add- Deletes(Normal Value)],,DESC,Dense
+			
+			)
+			
+			
+			VAR _asc = SWITCH(TRUE(),
+			ISINSCOPE(Store_Items_Attributes[Item # and Desc]), i_a,
+			ISINSCOPE(Store_Items_Attributes[Brand]), bd_a,
+			ISINSCOPE(Store_Items_Attributes[Vendor]), vn_a,
+			ISINSCOPE(Store_Items_Attributes[Add/Delete]), ad_a)
+			
+			
+			VAR _desc = SWITCH(TRUE(),
+			ISINSCOPE(Store_Items_Attributes[Item # and Desc]), i_d,
+			ISINSCOPE(Store_Items_Attributes[Brand]), bd_d,
+			ISINSCOPE(Store_Items_Attributes[Vendor]), vn_d,
+			ISINSCOPE(Store_Items_Attributes[Add/Delete]), ad_d)
+			
+			
+			RETURN IF(_order="ASC",_asc,_desc)
+		formatString: 0
+		displayFolder: General
+		lineageTag: baf94d4f-2c9e-4f58-baae-eacb4042768c
+
+	measure 'Sort (Add-Delete)(Selected Weeks)' =
+			
+			VAR _order= SELECTEDVALUE(CustomSortOrder[Order])
+			
+			
+			VAR vn_a= RANKX(ALLSELECTED(Store_Items_Attributes[Vendor]),
+			
+			[Calculation_based_on_Selected_Weeks(Custom Slicer) for Add- delete (Normal Value)],,ASC,Dense
+			
+			)
+			
+			
+			VAR ad_a= RANKX(ALLSELECTED(Store_Items_Attributes[Add/Delete]),
+			
+			[Calculation_based_on_Selected_Weeks(Custom Slicer) for Add- delete (Normal Value)],,ASC,Dense
+			
+			)
+			
+			VAR bd_a= RANKX(ALLSELECTED(Store_Items_Attributes[Brand]),
+			
+			[Calculation_based_on_Selected_Weeks(Custom Slicer) for Add- delete (Normal Value)],,ASC,Dense
+			
+			)
+			
+			VAR i_a= RANKX(ALLSELECTED(Store_Items_Attributes[Item # and Desc]),
+			
+			[Calculation_based_on_Selected_Weeks(Custom Slicer) for Add- delete (Normal Value)],,ASC,Dense
+			
+			)
+			
+			VAR vn_d= RANKX(ALLSELECTED(Store_Items_Attributes[Vendor]),
+			
+			[Calculation_based_on_Selected_Weeks(Custom Slicer) for Add- delete (Normal Value)],,DESC,Dense
+			
+			)
+			
+			
+			VAR ad_d= RANKX(ALLSELECTED(Store_Items_Attributes[Add/Delete]),
+			
+			[Calculation_based_on_Selected_Weeks(Custom Slicer) for Add- delete (Normal Value)],,DESC,Dense
+			
+			)
+			
+			VAR bd_d= RANKX(ALLSELECTED(Store_Items_Attributes[Brand]),
+			
+			[Calculation_based_on_Selected_Weeks(Custom Slicer) for Add- delete (Normal Value)],,DESC,Dense
+			
+			)
+			
+			VAR i_d= RANKX(ALLSELECTED(Store_Items_Attributes[Item # and Desc]),
+			
+			[Calculation_based_on_Selected_Weeks(Custom Slicer) for Add- delete (Normal Value)],,DESC,Dense
+			
+			)
+			
+			
+			VAR _asc = SWITCH(TRUE(),
+			ISINSCOPE(Store_Items_Attributes[Item # and Desc]), i_a,
+			ISINSCOPE(Store_Items_Attributes[Brand]), bd_a,
+			ISINSCOPE(Store_Items_Attributes[Vendor]), vn_a,
+			ISINSCOPE(Store_Items_Attributes[Add/Delete]), ad_a)
+			
+			
+			VAR _desc = SWITCH(TRUE(),
+			ISINSCOPE(Store_Items_Attributes[Item # and Desc]), i_d,
+			ISINSCOPE(Store_Items_Attributes[Brand]), bd_d,
+			ISINSCOPE(Store_Items_Attributes[Vendor]), vn_d,
+			ISINSCOPE(Store_Items_Attributes[Add/Delete]), ad_d)
+			RETURN IF(_order="ASC",_asc,_desc)
+		formatString: 0
+		displayFolder: General
+		lineageTag: c3e368ce-9aad-4417-b8b5-61a43f4463c3
+
+	measure 'Background On/Off Last N Week Add- del' =
+			
+			VAR x= If(CONTAINSSTRING(MAX('Add_delete Parameter'[Add_delete Para]),"Selected Weeks"),"#E6E6E6", "#1184C7")
+			RETURN x
+		displayFolder: General
+		lineageTag: 77c9333f-b479-4625-b804-ef804139ed74
+
+	measure 'Text Color On/Off Last N Week add-del' =
+			
+			VAR x= If(CONTAINSSTRING(MAX('Add_delete Parameter'[Add_delete Para]),"Selected Weeks"),"Black","white")
+			RETURN x
+		displayFolder: General
+		lineageTag: 80ed2cf7-9357-4384-b47b-c4d60c1e8bd5
+
+	measure 'Text On/Off Last N Week add- delete' =
+			
+			VAR x= If(CONTAINSSTRING(MAX('Add_delete Parameter'[Add_delete Para]),"Selected Weeks"),"Filter is in Off State","Last N Weeks")
+			RETURN x
+		displayFolder: General
+		lineageTag: 85e02e3e-dc91-4fea-9441-abab05b015ad
+
+	measure 'Add-Delete Title' = ```
+			
+			VAR s="Sort by : " & MAX('Add-Delete-CustomSortByMeasure'[Metrics]) & " , " & MAX(CustomSortOrder[Order]) & " order"
+			
+			RETURN "Adds & Deletes Summary, "  & s 
+			```
+		displayFolder: General
+		lineageTag: d92e5b80-4631-45f7-acd0-e845e0880fb2
+
+	measure Test09 =
+			
+			VAR _year=[Comparison Year]-1
+			RETURN CALCULATE(MAX(FactSuncare[WM Week]),INT(LEFT(FactSuncare[WM Week],4))=_year)
+			 //CALCULATE(SUM('FactSuncare'[POS Sales]),INT(LEFT(FactSuncare[WM Week],4))=_year)
+		formatString: 0
+		lineageTag: 672109be-9cd9-4bda-96a2-0857f59478ce
+
+	measure Test1101 = ```
+			
+			VAR _year = [Comparison Year]
+			VAR x = SELECTEDVALUE('CustomCalculation_based_on_LastNWeek/Selected Week'[Metrics])
+			
+			// Dollar and QTY Calculate for TY and LY
+			VAR TY_Dollar_QTY = CALCULATETABLE(
+			    SUMMARIZE('Date Slicer Table', 'Date Slicer Table'[Year]),
+			    'Date Slicer Table'[Year] = _year || 'Date Slicer Table'[Year] = _year - 1
+			)
+			
+			VAR TY_Dollar = CALCULATE([ECOM Sales], TY_Dollar_QTY)
+			VAR TY_QTY = CALCULATE([ECOM QTY], TY_Dollar_QTY)
+			
+			VAR LY_Dollar = CALCULATE([ECOM Sales], 'Date Slicer Table'[Year] = _year - 1)
+			VAR LY_QTY = CALCULATE([ECOM QTY], 'Date Slicer Table'[Year] = _year - 1)
+			
+			// Change and Percentage Calculations
+			VAR CHG_POS_Dollar = TY_Dollar - LY_Dollar
+			VAR CHG_POS_Dollar_per = DIVIDE(CHG_POS_Dollar, LY_Dollar)
+			
+			VAR CHG_POS_QTY = TY_QTY - LY_QTY
+			VAR CHG_POS_QTY_per = DIVIDE(CHG_POS_QTY, LY_QTY)
+			
+			// AVG Calculations
+			VAR TY_AVG = DIVIDE(TY_Dollar, TY_QTY)
+			VAR LY_AVG = DIVIDE(LY_Dollar, LY_QTY)
+			
+			VAR CHG_POS_AVG = TY_AVG - LY_AVG
+			VAR CHG_POS_AVG_per = DIVIDE(CHG_POS_AVG, LY_AVG)
+			
+			RETURN
+			    SWITCH(TRUE(),
+			        x = "TY $'s", FORMAT(TY_Dollar, "$#,###;-$#,###;$0"),
+			        x = "LY $'s", FORMAT(LY_Dollar, "$#,###;-$#,###;$0"),
+			        x = "TY $ Chg", FORMAT(CHG_POS_Dollar, "$#,###;-$#,###;$0"),
+			        x = "TY $ % Chg", FORMAT(CHG_POS_Dollar_per, "0.0%"),
+			        x = "TY U’s", FORMAT(TY_QTY, "#,###;-#,###;0"),
+			        x = "LY U’s", FORMAT(LY_QTY, "#,###;-#,###;0"),
+			        x = "TY U Chg", FORMAT(CHG_POS_QTY, "#,###;-#,###;0"),
+			        x = "TY U % Chg", FORMAT(CHG_POS_QTY_per, "0.0%"),
+			        x = "ARP TY", FORMAT(TY_AVG, "$#,###.00;-$#,###.00;$0.00"),
+			        x = "ARP LY", FORMAT(LY_AVG, "$#,###.00;-$#,###.00;$0.00"),
+			        x = "ARP Chg", FORMAT(CHG_POS_AVG, "$0.00;-$0.00"),
+			        x = "ARP % Chg", FORMAT(CHG_POS_AVG_per, "0.0%")
+			    )
+			
+			```
+		lineageTag: bdbb0e5e-20da-4b54-8669-f6ed0aa2fbe8
+
+	measure 'Text Info LastYearvsThis Year' = "Last Year: " &[Comparison Year]-1 & ", This Year: " & [Comparison Year]
+		lineageTag: 987cf4d4-957c-4b7c-84c9-2bbd64fe29b5
+
+	measure 'Sort (Sales by Add-Delete V2) (Last N Weeks)' =
+			
+			VAR _order= SELECTEDVALUE(CustomSortOrder[Order])
+			
+			VAR vn_a= RANKX(ALLSELECTED(Store_Items_Attributes[Vendor]),
+			
+			[Calculation_based_on_LastNWeek (Normal Value)],,ASC,Dense
+			
+			)
+			
+			
+			VAR ad_a= RANKX(ALLSELECTED(Store_Items_Attributes[Add/Delete/CarryForward]),
+			
+			[Calculation_based_on_LastNWeek (Normal Value)],,ASC,Dense
+			
+			)
+			
+			VAR bd_a= RANKX(ALLSELECTED(Store_Items_Attributes[Brand]),
+			
+			[Calculation_based_on_LastNWeek (Normal Value)],,ASC,Dense
+			
+			)
+			
+			VAR i_a= RANKX(ALLSELECTED(Store_Items_Attributes[Item # and Desc]),
+			
+			[Calculation_based_on_LastNWeek (Normal Value)],,ASC,Dense
+			
+			)
+			
+			VAR vn_d= RANKX(ALLSELECTED(Store_Items_Attributes[Vendor]),
+			
+			[Calculation_based_on_LastNWeek (Normal Value)],,DESC,Dense
+			
+			)
+			
+			
+			VAR ad_d= RANKX(ALLSELECTED(Store_Items_Attributes[Add/Delete/CarryForward]),
+			
+			[Calculation_based_on_LastNWeek (Normal Value)],,DESC,Dense
+			
+			)
+			
+			VAR bd_d= RANKX(ALLSELECTED(Store_Items_Attributes[Brand]),
+			
+			[Calculation_based_on_LastNWeek (Normal Value)],,DESC,Dense
+			
+			)
+			
+			VAR i_d= RANKX(ALLSELECTED(Store_Items_Attributes[Item # and Desc]),
+			
+			[Calculation_based_on_LastNWeek (Normal Value)],,DESC,Dense
+			
+			)
+			
+			VAR _asc = SWITCH(TRUE(),
+			ISINSCOPE(Store_Items_Attributes[Item # and Desc]), i_a,
+			ISINSCOPE(Store_Items_Attributes[Brand]), bd_a,
+			ISINSCOPE(Store_Items_Attributes[Vendor]), vn_a,
+			ISINSCOPE(Store_Items_Attributes[Add/Delete/CarryForward]), ad_a
+			
+			)
+			
+			
+			VAR _desc = SWITCH(TRUE(),
+			ISINSCOPE(Store_Items_Attributes[Item # and Desc]), i_d,
+			ISINSCOPE(Store_Items_Attributes[Brand]), bd_d,
+			ISINSCOPE(Store_Items_Attributes[Vendor]), vn_d,
+			ISINSCOPE(Store_Items_Attributes[Add/Delete/CarryForward]), ad_d
+			
+			)
+			
+			RETURN IF(_order="ASC",_asc,_desc)
+		formatString: 0
+		lineageTag: 0d6c6fe9-746f-4147-84a3-d5c697a65609
+
+	measure 'Sort (Sales by Add-Delete V2)(Selected Weeks)' =
+			
+			VAR _order= SELECTEDVALUE(CustomSortOrder[Order])
+			
+			
+			VAR vn_a= RANKX(ALLSELECTED(Store_Items_Attributes[Vendor]),
+			
+			[Calculation_based_on_Selected_Weeks(Custom Slicer)(Normal Value)],,ASC,Dense
+			
+			)
+			
+			
+			VAR ad_a= RANKX(ALLSELECTED(Store_Items_Attributes[Add/Delete/CarryForward]),
+			
+			[Calculation_based_on_Selected_Weeks(Custom Slicer)(Normal Value)],,ASC,Dense
+			
+			)
+			
+			VAR bd_a= RANKX(ALLSELECTED(Store_Items_Attributes[Brand]),
+			
+			[Calculation_based_on_Selected_Weeks(Custom Slicer)(Normal Value)],,ASC,Dense
+			
+			)
+			
+			VAR i_a= RANKX(ALLSELECTED(Store_Items_Attributes[Item # and Desc]),
+			
+			[Calculation_based_on_Selected_Weeks(Custom Slicer)(Normal Value)],,ASC,Dense
+			
+			)
+			
+			VAR vn_d= RANKX(ALLSELECTED(Store_Items_Attributes[Vendor]),
+			
+			[Calculation_based_on_Selected_Weeks(Custom Slicer)(Normal Value)],,DESC,Dense
+			
+			)
+			
+			
+			VAR ad_d= RANKX(ALLSELECTED(Store_Items_Attributes[Add/Delete/CarryForward]),
+			
+			[Calculation_based_on_Selected_Weeks(Custom Slicer)(Normal Value)],,DESC,Dense
+			
+			)
+			
+			VAR bd_d= RANKX(ALLSELECTED(Store_Items_Attributes[Brand]),
+			
+			[Calculation_based_on_Selected_Weeks(Custom Slicer)(Normal Value)],,DESC,Dense
+			
+			)
+			
+			VAR i_d= RANKX(ALLSELECTED(Store_Items_Attributes[Item # and Desc]),
+			
+			[Calculation_based_on_Selected_Weeks(Custom Slicer)(Normal Value)],,DESC,Dense
+			
+			)
+			
+			VAR _asc = SWITCH(TRUE(),
+			ISINSCOPE(Store_Items_Attributes[Item # and Desc]), i_a,
+			ISINSCOPE(Store_Items_Attributes[Brand]), bd_a,
+			ISINSCOPE(Store_Items_Attributes[Vendor]), vn_a,
+			ISINSCOPE(Store_Items_Attributes[Add/Delete/CarryForward]), ad_a
+			
+			)
+			
+			
+			VAR _desc = SWITCH(TRUE(),
+			ISINSCOPE(Store_Items_Attributes[Item # and Desc]), i_d,
+			ISINSCOPE(Store_Items_Attributes[Brand]), bd_d,
+			ISINSCOPE(Store_Items_Attributes[Vendor]), vn_d,
+			ISINSCOPE(Store_Items_Attributes[Add/Delete/CarryForward]), ad_d
+			
+			)
+			
+			RETURN IF(_order="ASC",_asc,_desc)
+		formatString: 0
+		lineageTag: df3c0763-cc92-4118-ac60-38e9cba3478e
+
+	measure 'Sort (Add-Delete V2)' =
+			
+			IF (MAX('Calculationby?'[Calculationby?]) = "Last N Weeks", [Sort (Sales by Add-Delete V2) (Last N Weeks)], [Sort (Sales by Add-Delete V2)(Selected Weeks)])
+		formatString: 0
+		lineageTag: f54f5228-97c1-49ba-9847-694205c52e0e
+
+	measure 'Add-Delete-Carryforward Title' = ```
+			
+			VAR s="Sort by : " & MAX('Add-Delete-CustomSortByMeasure'[Metrics]) & " , " & MAX(CustomSortOrder[Order]) & " order"
+			
+			RETURN "Summary, "  & s 
+			```
+		lineageTag: 94054e93-acce-460b-afd2-9471c713a674
+
+	measure 'POS LY_Sales by Week' = ```
+			
+			VAR FilteredWeeks = 
+			    FILTER(
+			        VALUES('WMT Weeks'[FactSuncareMaxWeekOffset]),
+			        'WMT Weeks'[FactSuncareMaxWeekOffset] <= 0
+			    )
+			
+			RETURN
+			SUMX(
+			    FilteredWeeks,
+			    IF(
+			        NOT(ISBLANK([POS TY_])), 
+			        [POS LY_], 
+			        0
+			    )
+			)
+			
+			```
+		formatString: \$#,0;(\$#,0);\$#,0
+		lineageTag: 93e563cb-aa82-4a1a-8523-7380e1318399
+
+	measure 'POS QTY LY_Sales by Week' = ```
+			
+			VAR FilteredWeeks = 
+			    FILTER(
+			        VALUES('WMT Weeks'[FactSuncareMaxWeekOffset]), 
+			        'WMT Weeks'[FactSuncareMaxWeekOffset] <= 0
+			    )
+			
+			RETURN
+			SUMX(
+			    FilteredWeeks, 
+			    [POS QTY LY_]
+			)
+			
+			```
+		formatString: #,0
+		lineageTag: 6e0a7f2e-0a26-4355-9dbb-af5148e971c4
+
+	measure 'AVG PRICE LY_Sales by Week' = ```
+			
+			VAR y = 
+			    CALCULATE(
+			        AVERAGEX( 
+			            VALUES('WMT Weeks'[FactSuncareMaxWeekOffset]), 
+			            DIVIDE([POS LY_Sales by Week],[POS QTY LY_Sales by Week])
+			        ),
+			        'WMT Weeks'[FactSuncareMaxWeekOffset] <= 0
+			    )
+			RETURN 
+			    IF( [AVG PRICE TY_] <> BLANK(), y )
+			
+			```
+		formatString: $#,###.00;-$#,###.00;$0.00
+		lineageTag: 5cccc4e5-a439-4837-aa44-34098f9cef76
+
+		annotation PBI_FormatHint = {"isCustom":true}
+
+	measure 'Total % CHG POS $_ Sales by Week' = ```
+			
+			VAR TotalChange = 
+			    SUMX(
+			        VALUES('WMT Weeks'[FactSuncareMaxWeekOffset]),
+			        [CHG POS $ For Sales By Week]
+			    )
+			
+			VAR TotalPreviousSales = 
+			    SUMX(
+			        VALUES('WMT Weeks'[FactSuncareMaxWeekOffset]),
+			        [POS LY_Sales by Week]
+			    )
+			
+			VAR TotalPercentageChange = 
+			    IF(
+			        TotalPreviousSales = 0 || ISBLANK(TotalPreviousSales),  -- Handle division by zero or blank
+			        BLANK(),
+			        TotalChange / TotalPreviousSales
+			    )
+			
+			RETURN
+			    IF(
+			        TotalPercentageChange = -1,  -- Handle edge case where result is -1
+			        BLANK(),
+			        TotalPercentageChange
+			    )
+			```
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: 4af637af-dd7d-4f29-b140-f6920d7b5da8
+
+	measure '% CHG POS QTY_ Sales by Week' = ```
+			
+			VAR CurrentChange = [CHG POS QTY for Sales By Week]  -- Measure for change in quantity
+			VAR PreviousSales = [POS QTY LY_Sales by Week]      -- Measure for previous year's quantity
+			
+			VAR PercentageChange = 
+			    IF(
+			        PreviousSales = 0 || ISBLANK(PreviousSales),  -- Handle division by zero or blank
+			        BLANK(),
+			        CurrentChange / PreviousSales
+			    )
+			
+			RETURN
+			    IF(
+			        PercentageChange = -1,  -- Handle edge case where result is -1
+			        BLANK(),
+			        PercentageChange
+			    )
+			```
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: 351e60b2-7b96-4b51-91f3-3c9bafe35a2f
+
+	measure 'Formatting colour Add+Delete and Carry Forward' =
+			IF(ISINSCOPE(Store_Items_Attributes[Add+Delete or CarryForward]),"#F1E1B1")
+			//IF(ISINSCOPE(CanadaReportMonthWeekOrder[Month]),IF([POS TY_]>=0,"#E3E58A","#E3E58A"))
+		lineageTag: 1c47a317-bb97-401c-bb10-f748dd41e1a3
+
+	measure 'Calculation_based_on_LastNWeek Ecom Sales(Normal Value)' = ```
+			
+			
+			 
+			
+			VAR x= SELECTEDVALUE('CustomCalculation_based_on_LastNWeek/Selected Week'[Metrics])
+			
+			 
+			RETURN SWITCH(TRUE(),
+			
+			
+			x="TY $ Chg", [CHG POS $ Ecom Sales],
+			
+			x="TY $ % Chg", [% CHG POS $ Ecom Sales],
+			
+			
+			
+			x="TY U Chg", [CHG POS Ecom QTY],
+			
+			x="TY U % Chg", [% CHG POS QTY Ecom],
+			
+			
+			x="ARP Chg",  [Avg Price Chg Ecom Table],
+			
+			x="ARP % Chg",  [% CHG AVG PRICE ECOM TABLE]
+			
+			)
+			```
+		lineageTag: 74ffbf90-3b42-40a5-8a32-8b2f28e25b58
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Calculation_based_on_Selected_Weeks(Custom Slicer) Ecom Table (Normal Value)' = ```
+			
+			
+			VAR _year=[Comparison Year]
+			VAR _lastyear=_year-1
+			VAR x= SELECTEDVALUE('CustomCalculation_based_on_LastNWeek/Selected Week'[Metrics])
+			
+			// Dollar Calculate
+			
+			VAR TY_Dollar = CALCULATE(
+			    [ECOM Sales],
+			    'Date Slicer Table'[Year] = _year
+			)
+			
+			// VAR LY_Dollar = CALCULATE(
+			//     [ECOM Sales],
+			//     'Date Slicer Table'[Year] = _year - 1,'WMT Weeks'[WMT WK Number] in VALUES('WMT Weeks'[WMT WK Number]))
+			
+			VAR LY_Dollar= [Last_year_ECOM_sales_combined]
+			
+			VAR CHG_POS_Dollar = TY_Dollar-LY_Dollar
+			
+			VAR CHG_POS_Dollar_per = DIVIDE(CHG_POS_Dollar, ABS(LY_Dollar))
+			
+			 
+			
+			//QTY Calculate
+			
+			VAR TY_QTY= CALCULATE([ECOM QTY],'Date Slicer Table', 'Date Slicer Table'[Year] = _year)
+			
+			// VAR LY_QTY= CALCULATE([ECOM QTY], 'Date Slicer Table'[Year] = _lastyear,'WMT Weeks'[WMT WK Number] in VALUES('WMT Weeks'[WMT WK Number]))
+			VAR LY_QTY= [Last_year_ECOM_QTY_combined]
+			
+			VAR CHG_POS_QTY = TY_QTY-LY_QTY
+			
+			VAR CHG_POS_QTY_per = DIVIDE(CHG_POS_QTY, ABS(LY_QTY))
+			
+			 
+			
+			// AVG
+			
+			VAR TY_AVG= DIVIDE(TY_Dollar,TY_QTY)
+			
+			VAR LY_AVG=  DIVIDE(LY_Dollar,LY_QTY)
+			
+			VAR CHG_POS_AVG = TY_AVG-LY_AVG
+			
+			VAR CHG_POS_AVG_per = DIVIDE(CHG_POS_AVG, LY_AVG)
+			
+			
+			RETURN SWITCH(TRUE(),
+			
+			x="TY $ Chg",  CHG_POS_Dollar,
+			
+			x="TY $ % Chg",CHG_POS_Dollar_per,
+			
+			
+			x="TY U Chg", CHG_POS_QTY,
+			
+			x="TY U % Chg",CHG_POS_QTY_per,
+			
+			
+			
+			x="ARP Chg",  CHG_POS_AVG,
+			
+			x="ARP % Chg", CHG_POS_AVG_per
+			
+			)
+			```
+		lineageTag: 5bdcbb41-765b-48a7-8a82-e904cade4c74
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'POS TY_test' =
+			SWITCH(TRUE(),SELECTEDVALUE('LastNWeek'[Category])="Last Week",[Last1weeksSalesCompYr]
+			                        ,SELECTEDVALUE('LastNWeek'[Category])="Last 4 Weeks",[Last4weeksSalesCompYr]
+			                        ,SELECTEDVALUE('LastNWeek'[Category])="Last 13 Weeks",[Last13weeksSalesCompYr]
+			                        ,SELECTEDVALUE('LastNWeek'[Category])="Last 52 Weeks",[Last52weeksSalesCompYr],
+			SELECTEDVALUE('LastNWeek'[Category])="YTD",[YTDCompYr])
+			// CALCULATE(SUM('FactSuncare'[POS Sales]),'WMT Weeks'[Fiscal Year]=2022)
+		displayFolder: POS $
+		lineageTag: 10b25fda-2437-4d7a-8a04-ef4579de6be4
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'POS LY_test' =
+			
+			SWITCH(TRUE(),SELECTEDVALUE('LastNWeek'[Category])="Last Week",[Last1weeksSales]
+			                        ,SELECTEDVALUE('LastNWeek'[Category])="Last 4 Weeks",[Last4weeksSales]
+			                        ,SELECTEDVALUE('LastNWeek'[Category])="Last 13 Weeks",[Last13weeksSales]
+			                        ,SELECTEDVALUE('LastNWeek'[Category])="Last 52 Weeks",[Last52weeksSales],
+			                        SELECTEDVALUE('LastNWeek'[Category])="YTD",[YTD])
+			//CALCULATE(SUM('FactSuncare'[POS Sales]),'WMT Weeks'[Fiscal Year]=2022)
+		displayFolder: General
+		lineageTag: 41fb7a28-d1a3-48f2-8da1-bc899c9ae0b3
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure LastYear_LastDate_11_2 = ```
+			
+			
+			VAR _year = [Comparison Year] - 1
+			Var _year_1 = [Comparison Year]
+			-- Get the last date of the previous year considering normal conditions
+			VAR _lastdate1 = CALCULATE(
+			    LASTDATE('Date Slicer Table'[Date]),
+			    'Date Slicer Table'[Year] = _year,
+			    'WMT Weeks'[FactSuncare MaxWeek] <= 0
+			)
+			
+			-- Alternative condition for retrieving the last date
+			VAR _lastdate2 = CALCULATE(
+			    LASTDATE('Date Slicer Table'[Date]),
+			    'Date Slicer Table'[Year] = _year,
+			    'WMT Weeks'[FactSuncareMaxWeekOffset] <= 0
+			)
+			
+			-- Check if the year is a leap year
+			VAR lycond = MAX('WMT Weeks'[Is Leap Year])
+			
+			-- Get the last date for the selected weeks in the previous year
+			VAR ly1 = CALCULATE(
+			   LASTDATE('Date Slicer Table'[Date]),
+			    'Date Slicer Table'[Year] = _year,
+			    'WMT Weeks'[WMT WK Number] IN VALUES('WMT Weeks'[WMT WK Number])
+			)
+			
+			-- If it's a leap year and has 53 weeks, get the first week's date of the current year
+			VAR _ly2m = CALCULATE(
+			    LASTDATE('Date Slicer Table'[Date]),  
+			    'Date Slicer Table'[Year] = _year_1,
+			    'Date Slicer Table'[WeekNum] = 1,
+			    ALL('Date Slicer Table')
+			)
+			
+			-- Determine the final date in case of a 53-week leap year scenario
+			VAR ly2 = IF(
+			    lycond = "Yes" && MAX('WMT Weeks'[WMT WK Number]) = 53,
+			    _ly2m
+			)
+			
+			-- Final condition to check for leap year 53rd week scenario
+			VAR final_last_date = IF(
+			    MAX('WMT Weeks'[WMT WK Number]) = 53, 
+			    ly2, 
+			    ly1 + ly2
+			)
+			
+			-- Return the final last date based on whether it's the current year or a previous one
+			RETURN IF(
+			    [Comparison Year] = YEAR(TODAY()),
+			    _lastdate2,
+			    final_last_date
+			)
+			
+			```
+		formatString: General Date
+		displayFolder: General
+		lineageTag: 565f10d6-9c87-49e5-a831-2725832eba1c
+
+	measure LastYear_LastDate_new = ```
+			
+			VAR _year = [Comparison Year]
+			
+			// Get if the current year is a leap year
+			VAR lycond = MAX('WMT Weeks'[Is Leap Year])
+			
+			// Check if the previous year was a leap year
+			VAR prev_year_leap = 
+			    CALCULATE(
+			        MAX('WMT Weeks'[Is Leap Year]), 
+			        FILTER(ALL('Date Slicer Table'), 'Date Slicer Table'[Year] = _year - 1)
+			    )
+			
+			// Determine the max week number in the current year
+			VAR max_week = MAX('Date Slicer Table'[WeekNum]) + 1
+			
+			// Calculate the adjusted last year's sales if previous year was a leap year
+			VAR adjusted_ly2m = 
+			    IF(
+			        prev_year_leap = "Yes",
+			        CALCULATE(
+			            LASTDATE('Date Slicer Table'[Date]), 
+			            FILTER(
+			                ALL('Date Slicer Table'),
+			                'Date Slicer Table'[Year] = _year - 1 &&
+			                'Date Slicer Table'[WeekNum] = max_week
+			            )
+			        ),
+			        0
+			    )
+			
+			// Standard last year sales calculation
+			VAR ly1 = 
+			    CALCULATE(
+			        LASTDATE('Date Slicer Table'[Date]), 
+			        'Date Slicer Table'[Year] = _year - 1, 
+			        'WMT Weeks'[WMT WK Number] IN VALUES('WMT Weeks'[WMT WK Number])
+			    )
+			
+			// Special case: Handling when week is 53
+			VAR _ly2m = 
+			    CALCULATE(
+			        LASTDATE('Date Slicer Table'[Date]), 
+			        'Date Slicer Table'[Year] = _year, 
+			        'Date Slicer Table'[WeekNum] = 1, 
+			        ALL('Date Slicer Table')
+			    )
+			
+			VAR ly2 = 
+			    IF(
+			        lycond = "Yes", 
+			        adjusted_ly2m,
+			        ly1
+			    )
+			
+			// Determine if the week number is 53
+			VAR week_53_condition = MAX('WMT Weeks'[WMT WK Number]) = 53
+			
+			// Final sales calculation based on conditions
+			VAR final_last_date = 
+			    IF(
+			        week_53_condition, 
+			        _ly2m,  // Case when the week is 53
+			        IF(
+			            prev_year_leap = "Yes", 
+			            adjusted_ly2m,  // Case when the previous year was a leap year
+			            ly1
+			        )
+			    )
+			
+			RETURN final_last_date
+			
+			
+			```
+		displayFolder: General
+		lineageTag: fc5252d2-7412-4cd8-814c-b42186b00c17
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure Test = ```
+			
+			VAR _year_1=[Comparison Year]-1
+			VAR _year=[Comparison Year]
+			VAR ly1=CALCULATE(SUM(FactSuncare[Hist On Hand Qty]), 'Date Slicer Table'[Year] = _year-1,'WMT Weeks'[WMT WK Number] in VALUES('WMT Weeks'[WMT WK Number]))
+			VAr lycond=Max('WMT Weeks'[Is Leap Year])
+			
+			// Check if the previous year was a leap year
+			VAR prev_year_leap = 
+			    CALCULATE(
+			        MAX('WMT Weeks'[Is Leap Year]), 
+			        FILTER(ALL('Date Slicer Table'), 'Date Slicer Table'[Year] = _year - 1)
+			    )
+			
+			// Determine the max week number in the current year
+			VAR max_week = MAX('Date Slicer Table'[WeekNum]) + 1
+			
+			// Calculate the adjusted last year's sales if previous year was a leap year
+			VAR adjusted_ly2m = 
+			    IF(
+			        prev_year_leap = "Yes",
+			        CALCULATE
+			            (SUM(FactSuncare[Hist On Hand Qty]), 
+			            FILTER(
+			                ALL('Date Slicer Table'),
+			                'Date Slicer Table'[Year] = _year - 1 &&
+			                'Date Slicer Table'[WeekNum] = max_week
+			            )
+			        ),
+			        BLANK()
+			    )
+			VAr _ly2m=     CALCULATE(
+			         SUM(FactSuncare[Hist On Hand Qty]), 
+			            'Date Slicer Table'[Year] = _year,
+			        'Date Slicer Table'[WeekNum] = 1, All('Date Slicer Table'))
+			
+			VAR ly2 = 
+			    IF(
+			        lycond == "Yes" , adjusted_ly2m,
+			        ly1
+			    )
+			// Determine if the week number is 53
+			VAR week_53_condition = MAX('WMT Weeks'[WMT WK Number]) = 53
+			
+			// Final sales calculation based on conditions
+			VAR final_sales = 
+			    IF(
+			        week_53_condition, 
+			        _ly2m,  // Case when the week is 53
+			        IF(
+			            prev_year_leap = "Yes", 
+			            adjusted_ly2m,  // Case when the previous year was a leap year
+			            ly1 + ly2  // Default case
+			        )
+			    )
+			
+			RETURN final_sales
+			
+			
+			
+			// VAR ly2 = 
+			//     IF(
+			//         lycond == "Yes" && MAx('WMT Weeks'[WMT WK Number])=53,_ly2m
+			   
+			//     )
+			
+			// RETURN 
+			// If( MAx('WMT Weeks'[WMT WK Number])=53, ly2,ly1+ly2)
+			
+			// VAR _year=[Comparison Year]-1
+			// RETURN CALCULATE(SUM('FactSuncare'[Hist On Hand Qty]),'Date Slicer Table'[Year]=_year)
+			```
+		formatString: 0
+		displayFolder: Hist-On-Hand
+		lineageTag: 0256f062-933a-4874-9799-52bac6be42bd
+
+	measure Last_year_ECOM_sales_combined = ```
+			
+			VAR _year = [Comparison Year]
+			
+			// Get if the current year is a leap year
+			VAR lycond = MAX('WMT Weeks'[Is Leap Year])
+			
+			// Check if the previous year was a leap year
+			VAR prev_year_leap = 
+			    CALCULATE(
+			        MAX('WMT Weeks'[Is Leap Year]), 
+			        FILTER(ALL('Date Slicer Table'), 'Date Slicer Table'[Year] = _year - 1)
+			    )
+			
+			// Determine the max week number in the current year
+			VAR max_week = MAX('Date Slicer Table'[WeekNum]) + 1
+			
+			// Calculate the adjusted last year's sales if previous year was a leap year
+			VAR adjusted_ly2m = 
+			    IF(
+			        prev_year_leap = "Yes",
+			        CALCULATE(
+			            [ECOM Sales], 
+			            FILTER(
+			                ALL('Date Slicer Table'),
+			                'Date Slicer Table'[Year] = _year - 1 &&
+			                'Date Slicer Table'[WeekNum] = max_week
+			            )
+			        ),
+			        0
+			    )
+			
+			// Standard last year sales calculation for selected weeks + 1
+			VAR ly1 = 
+			    CALCULATE(
+			        [ECOM Sales],
+			        FILTER(
+			            ALL('Date Slicer Table'),
+			            'Date Slicer Table'[Year] = _year - 1 &&
+			            'Date Slicer Table'[WeekNum] IN 
+			                SELECTCOLUMNS(
+			                    VALUES('Date Slicer Table'[WeekNum]),
+			                    "Week", 
+			                    IF(
+			                        prev_year_leap = "Yes",
+			                        'Date Slicer Table'[WeekNum] + 1,  // Adjust +1 if leap year
+			                        'Date Slicer Table'[WeekNum]       // Else keep same week
+			                    )
+			                )
+			        )
+			    )
+			
+			
+			// Special case: Handling when week is 53
+			VAR _ly2m = 
+			    CALCULATE(
+			        [ECOM Sales], 
+			        FILTER(
+			            ALL('Date Slicer Table'),
+			            'Date Slicer Table'[Year] = _year &&  // Corrected to last year
+			            'Date Slicer Table'[WeekNum] = 1
+			        )
+			    )
+			
+			VAR ly2 = 
+			    IF(
+			        lycond = "Yes", 
+			        adjusted_ly2m,
+			        ly1
+			    )
+			
+			// Determine if the week number is 53
+			VAR week_53_condition = MAX('WMT Weeks'[WMT WK Number]) = 53
+			
+			// Aggregate sales for multiple weeks in the last year + 1
+			VAR last_year_sales = 
+			    CALCULATE(
+			        [ECOM Sales], 
+			        FILTER(
+			            ALL('Date Slicer Table'),
+			            'Date Slicer Table'[Year] = _year - 1 &&  // Corrected to last year
+			            'Date Slicer Table'[WeekNum] IN 
+			                SELECTCOLUMNS(
+			                    VALUES('Date Slicer Table'[WeekNum]),
+			                    "Week", 'Date Slicer Table'[WeekNum] + 1
+			                )
+			        )
+			    )
+			
+			// Final sales calculation based on conditions
+			VAR final_sales = 
+			    IF(
+			        week_53_condition, 
+			        _ly2m,  // Case when the week is 53
+			        IF(
+			            prev_year_leap = "Yes", 
+			            adjusted_ly2m,  // Case when the previous year was a leap year
+			            ly1   // Default case
+			        )
+			    )
+			
+			// Return the aggregated sales for last year when multiple weeks are selected
+			RETURN 
+			    IF(
+			        COUNTROWS(VALUES('Date Slicer Table'[WeekNum])) > 1,
+			        last_year_sales,  // Return last year's aggregated sales for multiple weeks + 1
+			        final_sales       // Return the final sales calculation for a single week
+			    )
+			```
+		displayFolder: ECOM
+		lineageTag: 37837158-c834-4926-92e3-3c03b7673bf6
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure Last_year_ECOM_QTY_combined = ```
+			
+			VAR _year = [Comparison Year]
+			
+			// Get if the current year is a leap year
+			VAR lycond = MAX('WMT Weeks'[Is Leap Year])
+			
+			// Check if the previous year was a leap year
+			VAR prev_year_leap = 
+			    CALCULATE(
+			        MAX('WMT Weeks'[Is Leap Year]), 
+			        FILTER(ALL('Date Slicer Table'), 'Date Slicer Table'[Year] = _year - 1)
+			    )
+			
+			// Determine the max week number in the current year
+			VAR max_week = MAX('Date Slicer Table'[WeekNum]) + 1
+			
+			// Calculate the adjusted last year's sales if previous year was a leap year
+			VAR adjusted_ly2m = 
+			    IF(
+			        prev_year_leap = "Yes",
+			        CALCULATE(
+			            [ECOM QTY], 
+			            FILTER(
+			                ALL('Date Slicer Table'),
+			                'Date Slicer Table'[Year] = _year - 1 &&
+			                'Date Slicer Table'[WeekNum] = max_week
+			            )
+			        ),
+			        0
+			    )
+			
+			// Standard last year sales calculation for selected weeks + 1
+			VAR ly1 = 
+			    CALCULATE(
+			        [ECOM QTY],
+			        FILTER(
+			            ALL('Date Slicer Table'),
+			            'Date Slicer Table'[Year] = _year - 1 &&
+			            'Date Slicer Table'[WeekNum] IN 
+			                SELECTCOLUMNS(
+			                    VALUES('Date Slicer Table'[WeekNum]),
+			                    "Week", 
+			                    IF(
+			                        prev_year_leap = "Yes",
+			                        'Date Slicer Table'[WeekNum] + 1,  // Adjust +1 if leap year
+			                        'Date Slicer Table'[WeekNum]       // Else keep same week
+			                    )
+			                )
+			        )
+			    )
+			
+			
+			// Special case: Handling when week is 53
+			VAR _ly2m = 
+			    CALCULATE(
+			        [ECOM QTY], 
+			        FILTER(
+			            ALL('Date Slicer Table'),
+			            'Date Slicer Table'[Year] = _year &&  // Corrected to last year
+			            'Date Slicer Table'[WeekNum] = 1
+			        )
+			    )
+			
+			VAR ly2 = 
+			    IF(
+			        lycond = "Yes", 
+			        adjusted_ly2m,
+			        ly1
+			    )
+			
+			// Determine if the week number is 53
+			VAR week_53_condition = MAX('WMT Weeks'[WMT WK Number]) = 53
+			
+			// Aggregate sales for multiple weeks in the last year + 1
+			VAR last_year_sales = 
+			    CALCULATE(
+			        [ECOM QTY], 
+			        FILTER(
+			            ALL('Date Slicer Table'),
+			            'Date Slicer Table'[Year] = _year - 1 &&  // Corrected to last year
+			            'Date Slicer Table'[WeekNum] IN 
+			                SELECTCOLUMNS(
+			                    VALUES('Date Slicer Table'[WeekNum]),
+			                    "Week", 'Date Slicer Table'[WeekNum] + 1
+			                )
+			        )
+			    )
+			
+			// Final sales calculation based on conditions
+			VAR final_sales = 
+			    IF(
+			        week_53_condition, 
+			        _ly2m,  // Case when the week is 53
+			        IF(
+			            prev_year_leap = "Yes", 
+			            adjusted_ly2m,  // Case when the previous year was a leap year
+			            ly1   // Default case
+			        )
+			    )
+			
+			// Return the aggregated sales for last year when multiple weeks are selected
+			RETURN 
+			    IF(
+			        COUNTROWS(VALUES('Date Slicer Table'[WeekNum])) > 1,
+			        last_year_sales,  // Return last year's aggregated sales for multiple weeks + 1
+			        final_sales       // Return the final sales calculation for a single week
+			    )
+			```
+		displayFolder: ECOM
+		lineageTag: 2328ba80-d469-4727-bbe1-7c3fe087933c
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Total CHG POS $ For Sales By Week' =
+			
+			SUMX(
+			    VALUES('WMT Weeks'[FactSuncareMaxWeekOffset]),
+			    [CHG POS $ For Sales By Week]
+			)
+		formatString: $#,###  ; -$#,###
+		displayFolder: POS $
+		lineageTag: cdba4cb2-a592-4cc3-a7c8-dd8cf67213e6
+
+		annotation PBI_FormatHint = {"isCustom":true}
+
+	measure 'Total CHG POS QTY for Sales By Week' =
+			
+			SUMX(
+			    VALUES('WMT Weeks'[FactSuncareMaxWeekOffset]),
+			    VAR CurrentChange = [CHG POS QTY for Sales By Week]
+			    RETURN
+			       CurrentChange
+			)
+		formatString: #,0
+		displayFolder: POS Qty
+		lineageTag: 6f6cd1a9-a550-4483-8aec-4a9115856ed4
+
+	measure 'Total % CHG POS QTY_ Sales by Week' = ```
+			
+			VAR TotalChange = 
+			    SUMX(
+			        VALUES('WMT Weeks'[FactSuncareMaxWeekOffset]),
+			        [CHG POS QTY for Sales By Week]
+			    )
+			
+			VAR TotalPreviousSales = 
+			    SUMX(
+			        VALUES('WMT Weeks'[FactSuncareMaxWeekOffset]),
+			        [POS QTY LY_Sales by Week]
+			    )
+			
+			VAR TotalPercentageChange = 
+			    IF(
+			        TotalPreviousSales = 0 || ISBLANK(TotalPreviousSales),  -- Handle division by zero or blank
+			        BLANK(),
+			        TotalChange / TotalPreviousSales
+			    )
+			
+			RETURN
+			    IF(
+			        TotalPercentageChange = -1,  -- Handle edge case where result is -1
+			        BLANK(),
+			        TotalPercentageChange
+			    )
+			```
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: 99e3ff5e-a710-4d23-8cb7-faaf7a4fa58d
+
+	partition '_Key Measures-7a55caad-a044-4519-bd4c-96a868c55148' = m
+		mode: import
+		queryGroup: Dimensions
+		source =
+				let
+				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i44FAA==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Column1 = _t]),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Column1", type text}}),
+				    #"Removed Columns" = Table.RemoveColumns(#"Changed Type",{"Column1"})
+				in
+				    #"Removed Columns"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

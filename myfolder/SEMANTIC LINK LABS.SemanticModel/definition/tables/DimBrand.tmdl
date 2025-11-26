@@ -1,0 +1,30 @@
+table DimBrand
+	lineageTag: c1ed3315-ad1d-4b49-a9eb-25c10be54608
+
+	column 'Brand ID'
+		formatString: 0
+		lineageTag: 3618f619-1d85-4420-a78d-340433a7be73
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: FactSuncare[Brand ID]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Brand Desc'
+		lineageTag: 50cde854-6e97-4433-9513-f74cd2ad998e
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: FactSuncare[Brand Desc]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition DimBrand = calculated
+		mode: import
+		source =
+				
+				SUMMARIZE(FILTER(FactSuncare,FactSuncare[Brand ID] <> BLANK()),
+				FactSuncare[Brand ID],
+				FactSuncare[Brand Desc])
+
+	annotation PBI_Id = d755d8e98f8e4ca5bd95a9beaedcea48
+

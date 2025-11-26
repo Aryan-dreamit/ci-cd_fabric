@@ -1,0 +1,60 @@
+table digital_transformation
+	lineageTag: a173e20e-f009-4a31-8756-5c3b9711dee4
+	sourceLineageTag: d795a2ac-a3c5-4493-b16e-e1ba38b8c39c
+
+	column unnamed_0
+		dataType: double
+		lineageTag: 8f352be4-39a5-4b5c-b70b-4ec5866c9f50
+		sourceLineageTag: 950c0499-6ccd-4293-9f45-ed29dfc4b3a5
+		dataCategory: Uncategorized
+		summarizeBy: sum
+		sourceColumn: unnamed_0
+
+		annotation SummarizationSetBy = User
+
+	column investigations
+		dataType: string
+		lineageTag: e208ceb9-1a0a-4032-bbd9-9bab311b302d
+		sourceLineageTag: 7386678e-a388-48c4-86fc-317f8ccda04b
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: investigations
+
+		annotation SummarizationSetBy = User
+
+	column unnamed_2
+		dataType: double
+		lineageTag: d1a39e7d-c46a-4934-88f3-1b345b07fb78
+		sourceLineageTag: e73abc75-104e-45c4-856d-c8dcd500ff78
+		dataCategory: Uncategorized
+		summarizeBy: sum
+		sourceColumn: unnamed_2
+
+		annotation SummarizationSetBy = User
+
+	column unnamed_3
+		dataType: double
+		lineageTag: 7e9f59e0-cd1c-44cf-8277-ef03c08db665
+		sourceLineageTag: beb2ff07-d6e2-4656-a4d7-6ffbb9097a7e
+		dataCategory: Uncategorized
+		summarizeBy: sum
+		sourceColumn: unnamed_3
+
+		annotation SummarizationSetBy = User
+
+	column unnamed_4
+		dataType: string
+		lineageTag: c6b23860-d16b-4fa6-92e3-531a7fa0b1fd
+		sourceLineageTag: 9bbd343c-0c62-4d57-9195-066625f04301
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: unnamed_4
+
+		annotation SummarizationSetBy = User
+
+	partition digital_transformation = entity
+		mode: directQuery
+		source
+			entityName: digital_transformation
+			expressionSource: 'DirectQuery to AS - gold_semantic'
+

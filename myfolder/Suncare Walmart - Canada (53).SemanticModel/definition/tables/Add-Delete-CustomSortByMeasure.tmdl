@@ -1,0 +1,38 @@
+table Add-Delete-CustomSortByMeasure
+	lineageTag: bb7a16a7-61fa-4c6f-a714-dd3e6020b70d
+
+	measure whoislogin = USERPRINCIPALNAME()
+		lineageTag: 55ca568c-bd51-4667-8d62-5feca739e4e2
+
+	column Order
+		dataType: int64
+		formatString: 0
+		lineageTag: 8ea8dbd4-e0ff-4557-ac34-45df018d37ce
+		summarizeBy: sum
+		sourceColumn: Order
+
+		annotation SummarizationSetBy = Automatic
+
+	column Metrics
+		dataType: string
+		lineageTag: 53334f70-085a-4b40-8c6b-32168de2f250
+		summarizeBy: none
+		sourceColumn: Metrics
+		sortByColumn: Order
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Add-Delete-CustomSortByMeasure = m
+		mode: import
+		source =
+				let
+				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i45WMlTSUQqJVAjwD1ZQUYrViVYyAgr4IAsYAwVUFJwz0sE8EyBPFc4zRegOBQuYIXRDBMyBAqFw9RZgHkK/AZDvmVdckp+craCqFBsLAA==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Order = _t, Attribute = _t]),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Order", Int64.Type}}),
+				    #"Renamed Columns" = Table.RenameColumns(#"Changed Type",{{"Attribute", "Metrics"}})
+				in
+				    #"Renamed Columns"
+
+	annotation PBI_ResultType = Table
+

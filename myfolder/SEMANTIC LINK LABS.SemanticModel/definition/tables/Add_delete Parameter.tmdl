@@ -1,0 +1,57 @@
+table 'Add_delete Parameter'
+	lineageTag: c6f64227-8cc8-4e0a-b70f-ecf061b6a6eb
+
+	column 'Add_delete Para'
+		lineageTag: 95cdca80-9ebd-41f8-9fe2-cb89cb860073
+		summarizeBy: none
+		sourceColumn: [Value1]
+		sortByColumn: 'Add_delete Para Order'
+
+		relatedColumnDetails
+			groupByColumn: 'Add_delete Para Fields'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Add_delete Para Fields'
+		isHidden
+		lineageTag: c27f8e51-c242-4751-98d5-0c9e6102eb87
+		summarizeBy: none
+		sourceColumn: [Value2]
+		sortByColumn: 'Add_delete Para Order'
+
+		extendedProperty ParameterMetadata =
+				{
+				  "kind": 2,
+				  "version": 3
+				}
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Add_delete Para Order'
+		isHidden
+		formatString: 0
+		lineageTag: d4d7287d-f8bb-4932-9752-faa137a5a975
+		summarizeBy: sum
+		sourceColumn: [Value3]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Used for title' = ```
+			IF('Add_delete Parameter'[Add_delete Para] = "Last N Weeks","Last N Weeks","Selected Weeks")
+			
+			```
+		lineageTag: 0b392336-7ed2-4e60-bf0a-4a7b5c146b91
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Add_delete Parameter-67419575-5501-405c-9cad-819d5fb4d48e' = calculated
+		mode: import
+		source =
+				{
+				    ("Last N Weeks", NAMEOF('CustomCalculation_based_on_LastNWeek/Selected Week FOR ADD- DELETE'[Calculation_based_on_LastNWeek for Add- Deletes]), 0),
+				    ("Selected Weeks", NAMEOF('CustomCalculation_based_on_LastNWeek/Selected Week FOR ADD- DELETE'[Calculation_based_on_Selected_Weeks(Custom Slicer) for Add- delete]), 1)
+				}
+
+	annotation PBI_Id = 32b8a09396834d2a93c1a8c22abe1646
+

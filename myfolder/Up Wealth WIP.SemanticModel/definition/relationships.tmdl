@@ -1,0 +1,25 @@
+relationship 4ccc9677-a018-4002-8bbf-c790aa3da946
+	joinOnDateBehavior: datePartOnly
+	fromColumn: table.Meeting
+	toColumn: LocalDateTable_23324602-591b-4146-b07b-e95bb84184b4.Date
+
+relationship b5ad9e9b-0c29-4586-af7e-e82e44d7b184
+	joinOnDateBehavior: datePartOnly
+	fromColumn: table.Requested
+	toColumn: LocalDateTable_1a74a9f3-3c0c-4bc4-a95e-d8fe4474eb5f.Date
+
+relationship 6100ac03-3a17-4a35-ba9e-44ca9609edb9
+	joinOnDateBehavior: datePartOnly
+	fromColumn: table.'Due Date'
+	toColumn: LocalDateTable_92162e5f-a1ae-4378-8ea9-e56be33d97d8.Date
+
+relationship c8e96d52-0601-4094-ba1f-a7355b05e3ad
+	joinOnDateBehavior: datePartOnly
+	fromColumn: table.'Date Completed'
+	toColumn: LocalDateTable_c338d219-8c2b-4c23-9b51-23ec09d12ad3.Date
+
+relationship 20247390-2f17-4ea3-a6cc-a619d9acf138
+	joinOnDateBehavior: datePartOnly
+	fromColumn: table.'Completion Date'
+	toColumn: LocalDateTable_119e8e70-0a92-427a-9284-ebcc05533ff7.Date
+

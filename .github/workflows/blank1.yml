@@ -24,12 +24,7 @@ jobs:
         run: |
           git config user.name "GitHub Actions"
           git config user.email "actions@github.com"
-      # - name: Force Merge Unrelated Histories
-      #   run: |
-      #     git pull origin cloneprojectbranch --allow-unrelated-histories
-         
-      #     # git merge origin/cloneprojectbranch --allow-unrelated-histories
-      #     git push origin main 
+     
       - name: Merge source into target
         run: |
         
@@ -38,5 +33,3 @@ jobs:
           git pull origin cloneprojectbranch 
           # Push the combined changes back to the target branch
           git push origin test
-p
-

@@ -1,0 +1,37 @@
+name: Sync Source to Target Branch
+ 
+on:
+  push:
+    branches:
+      - cloneprojectbranch
+ 
+jobs:
+  sync-branches:
+    runs-on: ubuntu-latest
+ 
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+ 
+      - name: Configure Git
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          git config pull.rebase false
+          git config pull.ff false
+ 
+      - name: Merge source into target
+        run: |
+          # Checkout target branch
+          git checkout test
+ 
+          # Pull latest changes from both branches using merge strategy
+          git pull origin test
+          git pull origin cloneprojectbranch
+ 
+          # Push merged result
+          git push origin test
+ 

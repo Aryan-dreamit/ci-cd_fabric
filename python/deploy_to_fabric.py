@@ -31,5 +31,5 @@ payload = {
 }
 
 response = requests.post(url, headers=headers, json=payload)
-print(response.status_code, response.text)
+print("Upload response", response.status_code, response.text)
 

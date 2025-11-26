@@ -33,10 +33,10 @@ payload = {
 response = requests.post(url, headers=headers, json=payload)
 print(response.status_code, response.text)
 
-# If upload successful, trigger refresh
-if response.status_code == 201:
-    item_id = response.json().get("id")
-    refresh_url = f"https://api.fabric.microsoft.com/v1/workspaces/{workspace_id}/items/{item_id}/refreshes"
-    refresh_response = requests.post(refresh_url, headers=headers)
-    print("Refresh triggered:", refresh_response.status_code, refresh_response.text)
+# # If upload successful, trigger refresh
+# if response.status_code == 201:
+#     item_id = response.json().get("id")
+#     refresh_url = f"https://api.fabric.microsoft.com/v1/workspaces/{workspace_id}/items/{item_id}/refreshes"
+#     refresh_response = requests.post(refresh_url, headers=headers)
+#     print("Refresh triggered:", refresh_response.status_code, refresh_response.text)
 

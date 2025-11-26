@@ -21,6 +21,9 @@ access_token = token["access_token"]
 headers = {"Authorization": f"Bearer {access_token}", "Content-Type": "application/json"}
 url = f"https://api.fabric.microsoft.com/v1/workspaces/{workspace_id}/items"
 
+with open("myfolder/ci/cd_workflow_test.Notebook/notebook-content.ipynb", "r") as f:
+    notebook_content = f.read()
+
 payload = {
     "displayName": "My Notebook",
     "type": "notebook",
@@ -31,4 +34,13 @@ payload = {
 }
 
 response = requests.post(url, headers=headers, json=payload)
-print(response.status_code, response.text)
+
+print("Upload response:", response.status_code, response.text)
+
+# If upload successful, trigger refresh
+if response.status_code == 201:
+    item_id = response.json().get("id")
+    refresh_url = f"https://api.fabric.microsoft.com/v1/workspaces/{workspace_id}/items/{item_id}/refreshes"
+    refresh_response = requests.post(refresh_url, headers=headers)
+    print("Refresh triggered:", refresh_response.status_code, refresh_response.text)
+
